@@ -1,10 +1,11 @@
 import "../globals.css";
-
 import { t } from '@lingui/macro'
 import linguiConfig from '../../../lingui.config'
 import { getI18nInstance, PageLangParam } from '@/i18n'
 import { LayoutProps } from "@/types/app";
 import ProviderRegistry from "@/providers";
+import {ReactNode} from "react";
+import {Footer} from "@/components/organisms";
 
 export async function generateStaticParams() {
     return linguiConfig.locales.map((lang) => ({ lang }))
@@ -18,17 +19,26 @@ export async function generateMetadata(props: PageLangParam) {
     }
 }
 
+type Props = LayoutProps & { modal: ReactNode}
+
 export default async function RootLayout({
   children,
+  modal,
   params,
-}: Readonly<LayoutProps>) {
+}: Readonly<Props>) {
+  const lang = (await params).lang
+
   return (
-    <html lang={(await params).lang} suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body className={'bg-background text-foreground'}>
-        <ProviderRegistry params={params}>
-            {children}
-        </ProviderRegistry>
+      <ProviderRegistry params={params}>
+        <Footer lang={lang}/>
+        <main className="relative min-h-screen flex flex-col">
+          {children}
+        </main>
+        {modal}
+      </ProviderRegistry>
       </body>
     </html>
-  );
+);
 }

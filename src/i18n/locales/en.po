@@ -13,6 +13,19 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/app/[lang]/layout.tsx:17
+#: src/app/[lang]/layout.tsx:48
+#: src/app/[lang]/@modal/(.)contact/page.tsx:23
+msgid "Contact"
+msgstr "Contact"
+
+#: src/app/[lang]/layout.tsx:34
+msgid "Home"
+msgstr "Home"
+
+#: src/app/[lang]/layout.tsx:20
 msgid "Lương Vĩ Phú"
 msgstr "Lương Vĩ Phú"
+
+#: src/app/[lang]/layout.tsx:41
+msgid "Projects"
+msgstr "Projects"

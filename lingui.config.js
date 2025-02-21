@@ -2,9 +2,9 @@
 module.exports = {
     locales: ['vn', 'en', 'pseudo'],
     pseudoLocale: 'pseudo',
-    sourceLocale: 'vn',
+    sourceLocale: 'en',
     fallbackLocales: {
-        default: 'vn'
+        default: 'en'
     },
     catalogs: [
         {
