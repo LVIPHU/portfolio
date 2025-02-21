@@ -13,19 +13,23 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/app/[lang]/layout.tsx:48
+#: src/components/organisms/footer.tsx:44
 #: src/app/[lang]/@modal/(.)contact/page.tsx:23
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
-#: src/app/[lang]/layout.tsx:34
+#: src/components/organisms/footer.tsx:23
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
-#: src/app/[lang]/layout.tsx:20
+#: src/app/[lang]/layout.tsx:18
 msgid "Lương Vĩ Phú"
 msgstr "Lương Vĩ Phú"
 
-#: src/app/[lang]/layout.tsx:41
+#: src/components/organisms/footer.tsx:37
+msgid "Photos"
+msgstr "Photos"
+
+#: src/components/organisms/footer.tsx:30
 msgid "Projects"
-msgstr ""
+msgstr "Projects"

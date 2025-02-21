@@ -33,7 +33,7 @@ export default async function RootLayout({
       <body className={'bg-background text-foreground'}>
       <ProviderRegistry params={params}>
         <Footer lang={lang}/>
-        <main className="relative min-h-screen flex flex-col">
+        <main className="relative min-h-screen flex flex-col my-0 mx-auto overflow-hidden box-border">
           {children}
         </main>
         {modal}

@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
                 }
             }
         }
+    },
+    webpack: (config) => {
+        // Add a rule to handle .po files using @lingui/loader
+        config.module.rules.push({
+            test: /\.po$/,
+            use: '@lingui/loader'
+        });
+        return config;
     }
 };
 

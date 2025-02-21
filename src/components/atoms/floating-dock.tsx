@@ -9,32 +9,36 @@ import {
   useTransform,
 } from "framer-motion";
 import Link from "next/link";
-import {useRef, useState} from "react";
-import {PanelBottomClose, PanelBottomOpen} from "lucide-react";
+import { useRef, useState} from "react";
+import { PanelBottomClose, PanelBottomOpen } from "lucide-react";
 
 export const FloatingDock = ({
   items,
+  selected,
   desktopClassName,
   mobileClassName,
 }: {
   items: { title: string | React.ReactNode; icon: React.ReactNode; href: string }[];
   desktopClassName?: string;
   mobileClassName?: string;
+  selected?: string;
 }) => {
   return (
     <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
+      <FloatingDockDesktop items={items} selected={selected} className={desktopClassName} />
+      <FloatingDockMobile items={items} selected={selected} className={mobileClassName} />
     </>
   );
 };
 
 const FloatingDockMobile = ({
   items,
+  selected,
   className,
 }: {
   items: { title: string | React.ReactNode; icon: React.ReactNode; href: string }[];
   className?: string;
+  selected?: string;
 }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -48,7 +52,7 @@ const FloatingDockMobile = ({
             {items.map((item, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{opacity: 0, y: 10}}
                 animate={{
                   opacity: 1,
                   y: 0,
@@ -60,7 +64,8 @@ const FloatingDockMobile = ({
                     delay: idx * 0.05,
                   },
                 }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
+                transition={{delay: (items.length - 1 - idx) * 0.05}}
+                className={'relative'}
               >
                 <Link
                   href={item.href}
@@ -69,18 +74,24 @@ const FloatingDockMobile = ({
                 >
                   <div className="h-4 w-4">{item.icon}</div>
                 </Link>
+                { selected === item.href && (
+                  <div
+                    style={{ width: 6, height: 6 }}
+                    className="absolute -right-2 top-1/2 translate-y-[-50%] bg-gray-200 dark:bg-neutral-800 rounded-full"
+                  />
+                )}
               </motion.div>
             ))}
           </motion.div>
         )}
       </AnimatePresence>
       <button
-        onClick={() => setOpen(!open)}
-        className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center"
+          onClick={() => setOpen(!open)}
+          className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center"
       >
         { open
-            ? <PanelBottomClose className="h-5 w-5 text-neutral-500 dark:text-neutral-400"/>
-            : <PanelBottomOpen className="h-5 w-5 text-neutral-500 dark:text-neutral-400"/>
+          ? <PanelBottomClose className="h-5 w-5 text-neutral-500 dark:text-neutral-400"/>
+          : <PanelBottomOpen className="h-5 w-5 text-neutral-500 dark:text-neutral-400"/>
         }
       </button>
     </div>
@@ -88,15 +99,17 @@ const FloatingDockMobile = ({
 };
 
 const FloatingDockDesktop = ({
-  items,
-  className,
-}: {
+                               items,
+                               selected,
+                               className,
+                             }: {
   items: { title: string | React.ReactNode; icon: React.ReactNode; href: string }[];
   className?: string;
+  selected?: string;
 }) => {
   const mouseX = useMotionValue(Infinity);
   return (
-    <motion.div
+      <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
@@ -105,13 +118,14 @@ const FloatingDockDesktop = ({
       )}
     >
       {items.map((item, idx) => (
-        <IconContainer mouseX={mouseX} key={idx} {...item} />
+        <IconContainer mouseX={mouseX} selected={selected} key={idx} {...item} />
       ))}
     </motion.div>
   );
 };
 
 function IconContainer({
+  selected,
   mouseX,
   title,
   icon,
@@ -120,6 +134,7 @@ function IconContainer({
   mouseX: MotionValue;
   title: string | React.ReactNode;
   icon: React.ReactNode;
+  selected?: string;
   href: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -169,6 +184,7 @@ function IconContainer({
       <motion.div
         ref={ref}
         style={{ width, height }}
+        whileTap={{ scale: 0.9 }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center relative"
@@ -191,6 +207,12 @@ function IconContainer({
         >
           {icon}
         </motion.div>
+        { selected === href && (
+          <div
+            style={{ width: 6, height: 6 }}
+            className="absolute -bottom-2 bg-gray-200 dark:bg-neutral-800 rounded-full"
+          />
+        )}
       </motion.div>
     </Link>
   );
