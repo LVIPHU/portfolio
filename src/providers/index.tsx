@@ -14,9 +14,7 @@ export default async function ProviderRegistry({ children, params }: LayoutProps
                 enableSystem
                 disableTransitionOnChange
             >
-                <main className="min-h-screen flex flex-col">
-                    {children}
-                </main>
+                {children}
             </ThemeProvider>
         </LocaleProvider>
     )

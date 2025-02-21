@@ -22,7 +22,7 @@ export function middleware(request: NextRequest) {
     const locale = getRequestLocale(request.headers)
     request.nextUrl.pathname = `/${locale}${pathname}`
     // e.g. incoming request is /products
-    // The new URL is now /vn/products
+    // The new URL is now /en/products
     return NextResponse.redirect(request.nextUrl)
 }
 
@@ -32,7 +32,7 @@ function getRequestLocale(requestHeaders: Headers): string {
         headers: { 'accept-language': langHeader }
     }).languages(locales.slice())
 
-    const activeLocale = languages[0] || locales[0] || 'vn'
+    const activeLocale = languages[0] || locales[0] || 'en'
 
     return activeLocale
 }
