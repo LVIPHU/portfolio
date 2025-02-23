@@ -85,8 +85,8 @@ const FloatingDockMobile = ({
                     className='relative'
                   >
                     <Link
-                      target={item.href.startsWith('http') ? '_blank' : '_self'}
                       href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : '_self'}
                       className='h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center'
                     >
                       <div className='h-4 w-4'>{item.icon}</div>
@@ -235,7 +235,7 @@ function LinkIconContainer({
   }
 
   return (
-    <Link href={href}>
+    <Link href={href} target={href.startsWith('http') ? '_blank' : '_self'}>
       <motion.div
         ref={ref}
         style={{ width, height }}
