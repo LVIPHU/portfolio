@@ -5,7 +5,7 @@ import { getI18nInstance, PageLangParam } from '@/i18n'
 import { LayoutProps } from '@/types/app'
 import ProviderRegistry from '@/providers'
 import { ReactNode, Suspense } from 'react'
-import { Footer } from '@/components/organisms'
+import { Navbar } from '@/components/organisms'
 import Loading from './loading'
 
 export async function generateStaticParams() {
@@ -29,7 +29,7 @@ export default async function RootLayout({ children, modal, params }: Readonly<P
     <html lang={lang} suppressHydrationWarning>
       <body className={'bg-background text-foreground'}>
         <ProviderRegistry params={params}>
-          <Footer lang={lang} />
+          <Navbar lang={lang} />
           <Suspense fallback={<Loading />}>
             <main className='relative min-h-screen flex flex-col my-0 mx-auto overflow-hidden box-border'>
               {children}
