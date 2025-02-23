@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Trans } from '@lingui/react/macro'
 import { FloatingDock, Item } from '@/components/atoms'
-import { Facebook, Github, House, Image, Lightbulb, MonitorCog, Paperclip, User } from 'lucide-react'
+import {Facebook, Github, House, ImageIcon, Lightbulb, MonitorCog, Paperclip, User} from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
 import { Setting } from '@/components/molecules'
@@ -39,7 +39,7 @@ export const Navbar = (props: Props) => {
       {
         type: 'link',
         title: <Trans>Photos</Trans>,
-        icon: <Image className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <ImageIcon className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/photos`
       },
       null,
