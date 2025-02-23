@@ -164,7 +164,7 @@ const FloatingDockDesktop = ({
         if (item.type === 'link') {
           return <LinkIconContainer mouseX={mouseX} selected={selected} key={idx} {...item} />
         } else if (item.type === 'popover') {
-          return <PopoverIconContainer mouseX={mouseX} selected={selected} key={idx} {...item} />
+          return <PopoverIconContainer mouseX={mouseX} key={idx} {...item} />
         }
       })}
     </motion.div>
@@ -273,7 +273,6 @@ function LinkIconContainer({
 }
 
 function PopoverIconContainer({
-  selected,
   mouseX,
   title,
   icon,
@@ -282,7 +281,6 @@ function PopoverIconContainer({
   mouseX: MotionValue
   title: string | React.ReactNode
   icon: React.ReactNode
-  selected?: string
   content: React.ReactNode
 }) {
   const ref = useRef<HTMLDivElement>(null)
