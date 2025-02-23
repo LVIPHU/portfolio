@@ -1,6 +1,6 @@
-import {ReactNode} from 'react'
+import { ReactNode } from 'react'
 
 export type LayoutProps = {
-    children: ReactNode
-    params: Promise<{ lang: string }>
+  children: ReactNode
+  params: Promise<{ lang: string }>
 }
