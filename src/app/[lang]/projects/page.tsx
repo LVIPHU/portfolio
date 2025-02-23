@@ -1,7 +1,5 @@
-import { ProjectsTemplate } from "@/components/templates";
+import { ProjectsTemplate } from '@/components/templates'
 
 export default function Projects() {
-    return (
-        <ProjectsTemplate />
-    )
+  return <ProjectsTemplate />
 }

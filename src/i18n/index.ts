@@ -1,2 +1,2 @@
-export * from "./i18n"
-export * from "./initLingui"
+export * from './i18n'
+export * from './initLingui'

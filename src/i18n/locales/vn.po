@@ -13,23 +13,56 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/organisms/footer.tsx:44
+#: src/components/organisms/navbar.tsx:29
+msgid "About"
+msgstr "Giới thiệu"
+
+#: src/components/organisms/navbar.tsx:60
 #: src/app/[lang]/@modal/(.)contact/page.tsx:23
 msgid "Contact"
 msgstr "Liên hệ"
 
-#: src/components/organisms/footer.tsx:23
+#: src/components/molecules/locale-switch.tsx:13
+msgid "English"
+msgstr "Tiếng Anh"
+
+#: src/components/organisms/navbar.tsx:48
+msgid "Facebook"
+msgstr "Facebook"
+
+#: src/components/organisms/navbar.tsx:54
+msgid "Github"
+msgstr "Github"
+
+#: src/components/organisms/navbar.tsx:22
 msgid "Home"
 msgstr "Trang chủ"
 
-#: src/app/[lang]/layout.tsx:18
+#: src/components/molecules/setting.tsx:15
+msgid "Language"
+msgstr "Ngôn ngữ"
+
+#: src/app/[lang]/layout.tsx:19
 msgid "Lương Vĩ Phú"
 msgstr "Lương Vĩ Phú"
 
-#: src/components/organisms/footer.tsx:37
+#: src/components/organisms/navbar.tsx:41
 msgid "Photos"
 msgstr "Hình ảnh"
 
-#: src/components/organisms/footer.tsx:30
+#: src/components/organisms/navbar.tsx:35
 msgid "Projects"
 msgstr "Dự án"
+
+#: src/components/organisms/navbar.tsx:67
+#: src/components/molecules/setting.tsx:10
+msgid "Setting"
+msgstr "Cài đặt"
+
+#: src/components/molecules/setting.tsx:21
+msgid "Theme"
+msgstr "Chủ đề"
+
+#: src/components/molecules/locale-switch.tsx:14
+msgid "Tiếng Việt"
+msgstr "Tiếng Việt"
