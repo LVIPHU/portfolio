@@ -13,11 +13,13 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/organisms/navbar.tsx:29
+#: src/components/organisms/navbar.tsx:28
+#: src/app/[lang]/about/page.tsx:10
 msgid "About"
 msgstr "Giới thiệu"
 
-#: src/components/organisms/navbar.tsx:60
+#: src/components/organisms/navbar.tsx:59
+#: src/app/[lang]/contact/page.tsx:9
 #: src/app/[lang]/@modal/(.)contact/page.tsx:23
 msgid "Contact"
 msgstr "Liên hệ"
@@ -26,15 +28,15 @@ msgstr "Liên hệ"
 msgid "English"
 msgstr "Tiếng Anh"
 
-#: src/components/organisms/navbar.tsx:48
+#: src/components/organisms/navbar.tsx:47
 msgid "Facebook"
 msgstr "Facebook"
 
-#: src/components/organisms/navbar.tsx:54
+#: src/components/organisms/navbar.tsx:53
 msgid "Github"
 msgstr "Github"
 
-#: src/components/organisms/navbar.tsx:22
+#: src/components/organisms/navbar.tsx:21
 msgid "Home"
 msgstr "Trang chủ"
 
@@ -42,19 +44,22 @@ msgstr "Trang chủ"
 msgid "Language"
 msgstr "Ngôn ngữ"
 
-#: src/app/[lang]/layout.tsx:19
-msgid "Lương Vĩ Phú"
-msgstr "Lương Vĩ Phú"
+#: src/app/[lang]/layout.tsx:20
+#: src/app/[lang]/layout.tsx:25
+msgid "My name is Lương Vĩ Phú, i'm a web developer. If you have any questions, please contact me. Thank you for visiting my website."
+msgstr "Tên tôi là Lương Vĩ Phú, tôi là một lập trình viên web. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi."
 
-#: src/components/organisms/navbar.tsx:41
+#: src/components/organisms/navbar.tsx:40
+#: src/app/[lang]/photos/page.tsx:9
 msgid "Photos"
 msgstr "Hình ảnh"
 
-#: src/components/organisms/navbar.tsx:35
+#: src/components/organisms/navbar.tsx:34
+#: src/app/[lang]/projects/page.tsx:9
 msgid "Projects"
 msgstr "Dự án"
 
-#: src/components/organisms/navbar.tsx:67
+#: src/components/organisms/navbar.tsx:66
 #: src/components/molecules/setting.tsx:10
 msgid "Setting"
 msgstr "Cài đặt"

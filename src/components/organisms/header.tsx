@@ -1,15 +1,19 @@
 import { cn } from '@/libs/utils'
+import { Separator } from '@/components/atoms'
 
 type Props = {
   title: string
+  description?: string
   className?: string
 }
 
 export const Header = (props: Props) => {
-  const { title, className } = props
+  const { title, description, className } = props
   return (
     <header>
-      <h1 className={cn('', className)}>{title}</h1>
+      <h1 className={cn('font-medium text-5xl', className)}>{title}</h1>
+      {description && <p>{description}</p>}
+      <Separator className={'my-8'} />
     </header>
   )
 }
