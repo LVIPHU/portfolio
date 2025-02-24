@@ -1,4 +1,4 @@
-import '../globals.css'
+import '@/styles/main.css'
 import { t } from '@lingui/macro'
 import linguiConfig from '../../../lingui.config'
 import { getI18nInstance, PageLangParam } from '@/i18n'
@@ -16,7 +16,16 @@ export async function generateMetadata(props: PageLangParam) {
   const i18n = getI18nInstance((await props.params).lang)
 
   return {
-    title: t(i18n)`Lương Vĩ Phú`
+    title: t(i18n)`Lương Vĩ Phú`,
+    description: t(
+      i18n
+    )`My name is Lương Vĩ Phú, i'm a web developer. If you have any questions, please contact me. Thank you for visiting my website.`,
+    openGraph: {
+      title: t(i18n)`Lương Vĩ Phú`,
+      description: t(
+        i18n
+      )`My name is Lương Vĩ Phú, i'm a web developer. If you have any questions, please contact me. Thank you for visiting my website.`
+    }
   }
 }
 

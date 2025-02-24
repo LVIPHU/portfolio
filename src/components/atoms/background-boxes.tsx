@@ -1,19 +1,12 @@
 'use client'
-import { memo, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { memo, useState } from 'react'
 import { cn } from '@/libs/utils'
+import { useIsomorphicLayoutEffect } from '@/hooks'
 
-const colors = [
-  '--sky-600',
-  '--pink-600',
-  '--green-600',
-  '--yellow-600',
-  '--red-600',
-  '--purple-600',
-  '--blue-600',
-  '--indigo-600',
-  '--violet-600'
-]
+const totalCols = 70
+const totalRows = 70
+
+const colors = ['green', 'yellow', 'blue']
 
 const getRandomColor = () => {
   return colors[Math.floor(Math.random() * colors.length)]
@@ -25,23 +18,25 @@ type BoxCellProps = {
 }
 
 const BoxCell = memo(function BoxCell({ i, j }: BoxCellProps) {
-  const randomColor = useCallback(() => getRandomColor(), [])
+  const [color, setColor] = useState('')
+  const [isHovered, setIsHovered] = useState(false)
+
+  useIsomorphicLayoutEffect(() => {
+    setColor(getRandomColor())
+  }, [])
 
   return (
-    <motion.div
-      whileHover={{
-        backgroundColor: `var(${randomColor()})`,
-        transition: { duration: 0 }
-      }}
-      whileTap={{
-        backgroundColor: `var(${randomColor()})`,
-        transition: { duration: 0 }
-      }}
-      animate={{
-        transition: { duration: 2 }
-      }}
-      style={{ width: 70, height: 35 }}
-      className='border-r border-t border-slate-300 relative'
+    <div
+      className='border-r border-t border-slate-300 relative w-[70px] h-[35px]'
+      style={
+        {
+          '--transition': isHovered ? `background 0s ease` : `background 2s ease`,
+          backgroundColor: isHovered ? `var(--${color}-500)` : 'transparent',
+          transition: 'opacity 250ms ease-out, var(--transition)'
+        } as React.CSSProperties & { '--transition': string }
+      }
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {j % 2 === 0 && i % 2 === 0 && (
         <svg
@@ -55,7 +50,7 @@ const BoxCell = memo(function BoxCell({ i, j }: BoxCellProps) {
           <path strokeLinecap='round' strokeLinejoin='round' d='M12 4v16M0 12h24' />
         </svg>
       )}
-    </motion.div>
+    </div>
   )
 })
 
@@ -66,17 +61,17 @@ type BoxRowProps = {
 
 const BoxRow = memo(function BoxRow({ i, cols }: BoxRowProps) {
   return (
-    <motion.div style={{ width: 70, height: 35 }} className='border-l border-slate-300 relative'>
+    <div className='border-l border-slate-300 relative w-[70px] h-[35px]'>
       {cols.map((_, j) => (
         <BoxCell key={`col-${j}`} i={i} j={j} />
       ))}
-    </motion.div>
+    </div>
   )
 })
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
-  const rows = Array.from({ length: 150 }, (_, i) => i)
-  const cols = Array.from({ length: 100 }, (_, i) => i)
+  const rows = Array.from({ length: totalRows }, (_, i) => i)
+  const cols = Array.from({ length: totalCols }, (_, i) => i)
 
   return (
     <div

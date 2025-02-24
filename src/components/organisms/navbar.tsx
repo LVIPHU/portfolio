@@ -1,9 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Trans } from '@lingui/react/macro'
 import { FloatingDock, Item } from '@/components/atoms'
-import {Facebook, Github, House, ImageIcon, Lightbulb, MonitorCog, Paperclip, User} from 'lucide-react'
+import { Facebook, Github, House, ImageIcon, Lightbulb, MonitorCog, Paperclip, User } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
 import { Setting } from '@/components/molecules'
@@ -73,17 +72,9 @@ export const Navbar = (props: Props) => {
 
   return (
     <nav className={'fixed bottom-5 z-20 left-3 md:left-1/2 md:-translate-x-1/2'}>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.8,
-          delay: 0.5,
-          ease: [0, 0.71, 0.2, 1.01]
-        }}
-      >
+      <div className={'animate-fade-in-scale'}>
         <FloatingDock items={links} selected={pathname} />
-      </motion.div>
+      </div>
     </nav>
   )
 }
