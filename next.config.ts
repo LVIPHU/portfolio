@@ -1,3 +1,4 @@
+import { version, author } from './package.json'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
@@ -11,6 +12,19 @@ const nextConfig: NextConfig = {
         }
       }
     }
+  },
+  env: {
+    version: version,
+    owner: author.name,
+    email: author.email
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'api.microlink.io'
+      }
+    ]
   },
   webpack: (config) => {
     // Add a rule to handle .po files using @lingui/loader

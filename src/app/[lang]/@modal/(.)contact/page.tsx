@@ -20,7 +20,7 @@ export default function Contact() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              <Trans>Contact</Trans>
+              <Trans>Liên hệ</Trans>
             </DialogTitle>
           </DialogHeader>
           <ContactTemplate />

@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
   const locale = getRequestLocale(request.headers)
   request.nextUrl.pathname = `/${locale}${pathname}`
   // e.g. incoming request is /products
-  // The new URL is now /en/products/
+  // The new URL is now /vi-VN/products/
 
   return NextResponse.redirect(request.nextUrl)
 }
@@ -31,7 +31,7 @@ function getRequestLocale(requestHeaders: Headers): string {
     headers: { 'accept-language': langHeader }
   }).languages(locales.slice())
 
-  return languages[0] || locales[0] || 'en'
+  return languages[0] || locales[0] || 'vi-VN'
 }
 
 export const config = {

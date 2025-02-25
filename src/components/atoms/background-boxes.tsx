@@ -6,7 +6,7 @@ import { useIsomorphicLayoutEffect } from '@/hooks'
 const totalCols = 70
 const totalRows = 70
 
-const colors = ['green', 'yellow', 'blue']
+const colors = ['lime', 'amber', 'sky']
 
 const getRandomColor = () => {
   return colors[Math.floor(Math.random() * colors.length)]

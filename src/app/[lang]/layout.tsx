@@ -14,17 +14,16 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: PageLangParam) {
   const i18n = getI18nInstance((await props.params).lang)
-
   return {
-    title: t(i18n)`Lương Vĩ Phú`,
+    title: process.env.owner,
     description: t(
       i18n
-    )`My name is Lương Vĩ Phú, i'm a web developer. If you have any questions, please contact me. Thank you for visiting my website.`,
+    )`Tôi là Lương Vĩ Phú, một lập trình viên web. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi.`,
     openGraph: {
-      title: t(i18n)`Lương Vĩ Phú`,
+      title: process.env.owner,
       description: t(
         i18n
-      )`My name is Lương Vĩ Phú, i'm a web developer. If you have any questions, please contact me. Thank you for visiting my website.`
+      )`Tôi là Lương Vĩ Phú, một lập trình viên web. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi.`
     }
   }
 }
@@ -40,9 +39,7 @@ export default async function RootLayout({ children, modal, params }: Readonly<P
         <ProviderRegistry params={params}>
           <Navbar lang={lang} />
           <Suspense fallback={<Loading />}>
-            <main className='relative min-h-screen flex flex-col my-0 mx-auto overflow-hidden box-border'>
-              {children}
-            </main>
+            <main className='relative min-h-screen flex flex-col my-0 mx-auto overflow-hidden'>{children}</main>
             {modal}
           </Suspense>
         </ProviderRegistry>

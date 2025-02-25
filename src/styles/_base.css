@@ -1,8 +1,12 @@
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border box-border outline-ring/50;
   }
   body {
     font-family: Arial, Helvetica, sans-serif;
+    @apply bg-background text-foreground;
+    ::selection {
+      @apply bg-amber-500 text-primary-foreground;
+    }
   }
 }
