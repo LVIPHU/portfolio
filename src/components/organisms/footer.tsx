@@ -5,7 +5,7 @@ type Props = {
 export const Footer = (props: Props) => {
   const { description } = props
   return (
-    <footer>
+    <footer className={'text-sm'}>
       <p>
         <i>{description}</i>
       </p>

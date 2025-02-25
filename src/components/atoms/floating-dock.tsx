@@ -113,7 +113,9 @@ const FloatingDockMobile = ({
                         }}
                         transition={{ delay: (items.length - 1 - idx) * 0.05 }}
                       >
-                        <div className='h-4 w-4'>{item.icon}</div>
+                        <div className='h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center'>
+                          <div className='h-4 w-4'>{item.icon}</div>
+                        </div>
                       </motion.div>
                     </PopoverTrigger>
                     <PopoverContent>{item.content}</PopoverContent>

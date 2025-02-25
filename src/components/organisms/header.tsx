@@ -12,7 +12,11 @@ export const Header = (props: Props) => {
   return (
     <header>
       <h1 className={cn('font-medium text-5xl', className)}>{title}</h1>
-      {description && <p>{description}</p>}
+      {description && (
+        <p>
+          <i className={'text-sm'}>{description}</i>
+        </p>
+      )}
       <Separator className={'my-8'} />
     </header>
   )

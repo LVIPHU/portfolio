@@ -7,11 +7,11 @@ import { useLingui } from '@lingui/react'
 import { usePathname, useRouter } from 'next/navigation'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/atoms'
 
-type LOCALES = 'en' | 'vn' | 'pseudo'
+type LOCALES = 'vi-VN' | 'en-US'
 
 const languages = {
-  en: msg`English`,
-  vn: msg`Tiếng Việt`
+  'en-US': msg`English`,
+  'vi-VN': msg`Tiếng Việt`
 } as const
 
 export function LocaleSwitch() {
@@ -20,11 +20,6 @@ export function LocaleSwitch() {
   const pathname = usePathname()
 
   const [locale, setLocale] = useState<LOCALES>(pathname?.split('/')[1] as LOCALES)
-
-  // disabled for DEMO - so we can demonstrate the 'pseudo' locale functionality
-  // if (process.env.NEXT_PUBLIC_NODE_ENV !== 'production') {
-  //   languages['pseudo'] = t`Pseudo`
-  // }
 
   function handleChange(value: string) {
     const locale = value as LOCALES

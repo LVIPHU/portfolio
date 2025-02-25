@@ -18,26 +18,26 @@ export const Navbar = (props: Props) => {
     return [
       {
         type: 'link',
-        title: <Trans>Home</Trans>,
+        title: <Trans>Trang chủ</Trans>,
         icon: <House className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}`
       },
       null,
       {
         type: 'link',
-        title: <Trans>About</Trans>,
+        title: <Trans>Giới thiệu</Trans>,
         icon: <User className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/about`
       },
       {
         type: 'link',
-        title: <Trans>Projects</Trans>,
+        title: <Trans>Dự án</Trans>,
         icon: <Lightbulb className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/projects`
       },
       {
         type: 'link',
-        title: <Trans>Photos</Trans>,
+        title: <Trans>Hình ảnh</Trans>,
         icon: <ImageIcon className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/photos`
       },
@@ -56,14 +56,14 @@ export const Navbar = (props: Props) => {
       },
       {
         type: 'link',
-        title: <Trans>Contact</Trans>,
+        title: <Trans>Liên hệ</Trans>,
         icon: <Paperclip className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/contact`
       },
       null,
       {
         type: 'popover',
-        title: <Trans>Setting</Trans>,
+        title: <Trans>Cài đặt</Trans>,
         icon: <MonitorCog className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         content: <Setting />
       }

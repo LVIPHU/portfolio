@@ -14,17 +14,16 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: PageLangParam) {
   const i18n = getI18nInstance((await props.params).lang)
-
   return {
     title: process.env.owner,
     description: t(
       i18n
-    )`My name is Lương Vĩ Phú, i'm a web developer. If you have any questions, please contact me. Thank you for visiting my website.`,
+    )`Tôi là Lương Vĩ Phú, một lập trình viên web. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi.`,
     openGraph: {
       title: process.env.owner,
       description: t(
         i18n
-      )`My name is Lương Vĩ Phú, i'm a web developer. If you have any questions, please contact me. Thank you for visiting my website.`
+      )`Tôi là Lương Vĩ Phú, một lập trình viên web. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi.`
     }
   }
 }

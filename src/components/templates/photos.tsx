@@ -1,3 +1,3 @@
 export const PhotosTemplate = () => {
-  return <div>photos</div>
+  return <article>photos</article>
 }
