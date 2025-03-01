@@ -1,5 +1,5 @@
 'use client'
-import { memo, useState } from 'react'
+import { CSSProperties, memo, useState } from 'react'
 import { cn } from '@/libs/utils'
 import { useIsomorphicLayoutEffect } from '@/hooks'
 
@@ -23,18 +23,18 @@ const BoxCell = memo(function BoxCell({ i, j }: BoxCellProps) {
 
   useIsomorphicLayoutEffect(() => {
     setColor(getRandomColor())
-  }, [])
+  }, [isHovered])
+
+  const styles: CSSProperties & { '--transition': string } = {
+    '--transition': isHovered ? `background 0s ease` : `background 2s ease`,
+    backgroundColor: isHovered ? `var(--${color}-500)` : 'transparent',
+    transition: 'opacity 250ms ease-out, var(--transition)'
+  }
 
   return (
     <div
+      style={styles}
       className='border-r border-t border-slate-300 relative w-[70px] h-[35px]'
-      style={
-        {
-          '--transition': isHovered ? `background 0s ease` : `background 2s ease`,
-          backgroundColor: isHovered ? `var(--${color}-500)` : 'transparent',
-          transition: 'opacity 250ms ease-out, var(--transition)'
-        } as React.CSSProperties & { '--transition': string }
-      }
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

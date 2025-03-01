@@ -10,6 +10,6 @@ export async function generateMetadata(props: PageLangParam) {
   }
 }
 
-export default function Projects() {
+export default function ProjectsPage() {
   return <ProjectsTemplate />
 }

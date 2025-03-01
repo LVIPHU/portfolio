@@ -1,11 +1,14 @@
+import { cn } from '@/libs/utils'
+
 type Props = {
   description: string
+  className?: string
 }
 
 export const Footer = (props: Props) => {
-  const { description } = props
+  const { className, description } = props
   return (
-    <footer className={'text-sm'}>
+    <footer className={cn('text-sm', className)}>
       <p>
         <i>{description}</i>
       </p>
