@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useMediaQuery } from '@/hooks'
 import { Trans } from '@lingui/react/macro'
 
-export default function Contact() {
+export default function ContactModal() {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
   const router = useRouter()
   function onDismiss(open: boolean) {

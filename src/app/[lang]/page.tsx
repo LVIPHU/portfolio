@@ -1,9 +1,5 @@
 import { HomeTemplate } from '@/components/templates'
 
-export default function Home() {
-  return (
-    <div>
-      <HomeTemplate />
-    </div>
-  )
+export default function HomePage() {
+  return <HomeTemplate />
 }

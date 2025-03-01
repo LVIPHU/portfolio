@@ -10,6 +10,6 @@ export async function generateMetadata(props: PageLangParam) {
   }
 }
 
-export default function Contact() {
+export default function ContactPage() {
   return <ContactTemplate />
 }

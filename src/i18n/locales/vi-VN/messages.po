@@ -18,6 +18,10 @@ msgstr ""
 msgid "Cài đặt"
 msgstr "Cài đặt"
 
+#: src/components/templates/photos.tsx:20
+msgid "Chuyến đi tuổi trẻ."
+msgstr "Chuyến đi tuổi trẻ."
+
 #: src/components/organisms/navbar.tsx:34
 #: src/app/[lang]/projects/page.tsx:9
 msgid "Dự án"
@@ -27,7 +31,7 @@ msgstr "Dự án"
 msgid "English"
 msgstr "English"
 
-#: src/components/templates/about.tsx:19
+#: src/components/templates/about.tsx:23
 #: src/components/organisms/navbar.tsx:47
 msgid "Facebook"
 msgstr "Facebook"
@@ -36,21 +40,26 @@ msgstr "Facebook"
 msgid "Giao diện"
 msgstr "Giao diện"
 
+#: src/components/templates/about.tsx:36
 #: src/components/organisms/navbar.tsx:28
-#: src/app/[lang]/about/page.tsx:10
-#: src/app/[lang]/about/page.tsx:22
+#: src/app/[lang]/about/page.tsx:9
 msgid "Giới thiệu"
 msgstr "Giới thiệu"
 
-#: src/components/templates/about.tsx:24
+#: src/components/templates/about.tsx:28
 #: src/components/organisms/navbar.tsx:53
 msgid "Github"
 msgstr "Github"
 
+#: src/components/templates/photos.tsx:12
 #: src/components/organisms/navbar.tsx:40
 #: src/app/[lang]/photos/page.tsx:9
 msgid "Hình ảnh"
 msgstr "Hình ảnh"
+
+#: src/components/templates/photos.tsx:13
+msgid "Hình ảnh."
+msgstr "Hình ảnh."
 
 #: src/components/organisms/navbar.tsx:59
 #: src/app/[lang]/contact/page.tsx:9
@@ -58,7 +67,7 @@ msgstr "Hình ảnh"
 msgid "Liên hệ"
 msgstr "Liên hệ"
 
-#: src/app/[lang]/about/page.tsx:23
+#: src/components/templates/about.tsx:37
 msgid "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng."
 msgstr "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng."
 
@@ -70,7 +79,7 @@ msgstr "Ngôn ngữ"
 msgid "Quay lại"
 msgstr "Quay lại"
 
-#: src/components/templates/about.tsx:41
+#: src/components/templates/about.tsx:52
 msgid "Resume"
 msgstr "Resume"
 
@@ -87,6 +96,6 @@ msgstr "Tôi là Lương Vĩ Phú, một lập trình viên web. Nếu bạn có
 msgid "Trang chủ"
 msgstr "Trang chủ"
 
-#: src/app/[lang]/about/page.tsx:28
+#: src/components/templates/about.tsx:74
 msgid "Vài dòng chia sẻ về bản thân."
 msgstr "Vài dòng chia sẻ về bản thân."
