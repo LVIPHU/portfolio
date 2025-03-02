@@ -7,6 +7,15 @@ import ProviderRegistry from '@/providers'
 import { ReactNode, Suspense } from 'react'
 import { Navbar } from '@/components/organisms'
 import Loading from './loading'
+import { Montserrat } from 'next/font/google'
+import { cn } from '@/libs/utils'
+
+const font = Montserrat({
+  weight: ['300','400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin', 'vietnamese'],
+  display: 'swap',
+})
 
 export async function generateStaticParams() {
   return linguiConfig.locales.map((lang) => ({ lang }))
@@ -35,7 +44,7 @@ export default async function RootLayout({ children, modal, params }: Readonly<P
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <body className={'bg-background text-foreground'}>
+      <body className={cn('bg-background text-foreground', font.className)}>
         <ProviderRegistry params={params}>
           <Navbar lang={lang} />
           <Suspense fallback={<Loading />}>

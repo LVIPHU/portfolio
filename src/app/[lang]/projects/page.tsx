@@ -1,5 +1,5 @@
 import { ProjectsTemplate } from '@/components/templates'
-import { getI18nInstance, PageLangParam } from '@/i18n'
+import { getI18nInstance, initLingui, PageLangParam } from '@/i18n'
 import { t } from '@lingui/macro'
 
 export async function generateMetadata(props: PageLangParam) {
@@ -10,6 +10,8 @@ export async function generateMetadata(props: PageLangParam) {
   }
 }
 
-export default function ProjectsPage() {
+export default async function ProjectsPage(props: PageLangParam) {
+  const lang = (await props.params).lang
+  initLingui(lang)
   return <ProjectsTemplate />
 }

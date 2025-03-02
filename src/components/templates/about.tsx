@@ -102,10 +102,10 @@ export const AboutTemplate = () => {
             <LinkPreview url='https://wutheringwaves.kurogames.com' className='font-semibold'>
               Wuthering Waves
             </LinkPreview>
-            . Những sở thích này giúp tôi duy trì sự sáng tạo và giữ cho tâm trí luôn tươi mới.
+            . Những sở thích này giúp tôi duy trì sự sáng tạo và giải tỏa những căng thẳng.
           </span>
-          <span></span>
         </div>
+        <div></div>
       </article>
       <Footer description={t(i18n)`Vài dòng chia sẻ về bản thân.`} />
     </Layout>
