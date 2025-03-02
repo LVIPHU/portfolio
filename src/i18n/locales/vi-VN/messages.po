@@ -18,7 +18,7 @@ msgstr ""
 msgid "Cài đặt"
 msgstr "Cài đặt"
 
-#: src/components/templates/photos.tsx:20
+#: src/components/templates/photos.tsx:238
 msgid "Chuyến đi tuổi trẻ."
 msgstr "Chuyến đi tuổi trẻ."
 
@@ -31,7 +31,7 @@ msgstr "Dự án"
 msgid "English"
 msgstr "English"
 
-#: src/components/templates/about.tsx:23
+#: src/components/templates/about.tsx:24
 #: src/components/organisms/navbar.tsx:47
 msgid "Facebook"
 msgstr "Facebook"
@@ -40,24 +40,24 @@ msgstr "Facebook"
 msgid "Giao diện"
 msgstr "Giao diện"
 
-#: src/components/templates/about.tsx:36
+#: src/components/templates/about.tsx:38
 #: src/components/organisms/navbar.tsx:28
 #: src/app/[lang]/about/page.tsx:9
 msgid "Giới thiệu"
 msgstr "Giới thiệu"
 
-#: src/components/templates/about.tsx:28
+#: src/components/templates/about.tsx:29
 #: src/components/organisms/navbar.tsx:53
 msgid "Github"
 msgstr "Github"
 
-#: src/components/templates/photos.tsx:12
+#: src/components/templates/photos.tsx:234
 #: src/components/organisms/navbar.tsx:40
 #: src/app/[lang]/photos/page.tsx:9
 msgid "Hình ảnh"
 msgstr "Hình ảnh"
 
-#: src/components/templates/photos.tsx:13
+#: src/components/templates/photos.tsx:234
 msgid "Hình ảnh."
 msgstr "Hình ảnh."
 
@@ -67,7 +67,7 @@ msgstr "Hình ảnh."
 msgid "Liên hệ"
 msgstr "Liên hệ"
 
-#: src/components/templates/about.tsx:37
+#: src/components/templates/about.tsx:39
 msgid "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng."
 msgstr "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng."
 
@@ -79,7 +79,7 @@ msgstr "Ngôn ngữ"
 msgid "Quay lại"
 msgstr "Quay lại"
 
-#: src/components/templates/about.tsx:52
+#: src/components/templates/about.tsx:55
 msgid "Resume"
 msgstr "Resume"
 
@@ -96,6 +96,6 @@ msgstr "Tôi là Lương Vĩ Phú, một lập trình viên web. Nếu bạn có
 msgid "Trang chủ"
 msgstr "Trang chủ"
 
-#: src/components/templates/about.tsx:74
+#: src/components/templates/about.tsx:110
 msgid "Vài dòng chia sẻ về bản thân."
 msgstr "Vài dòng chia sẻ về bản thân."

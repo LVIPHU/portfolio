@@ -18,7 +18,7 @@ msgstr ""
 msgid "Cài đặt"
 msgstr "Setting"
 
-#: src/components/templates/photos.tsx:20
+#: src/components/templates/photos.tsx:238
 msgid "Chuyến đi tuổi trẻ."
 msgstr ""
 
@@ -31,7 +31,7 @@ msgstr "Projects"
 msgid "English"
 msgstr "English"
 
-#: src/components/templates/about.tsx:23
+#: src/components/templates/about.tsx:24
 #: src/components/organisms/navbar.tsx:47
 msgid "Facebook"
 msgstr "Facebook"
@@ -40,24 +40,24 @@ msgstr "Facebook"
 msgid "Giao diện"
 msgstr "Theme"
 
-#: src/components/templates/about.tsx:36
+#: src/components/templates/about.tsx:38
 #: src/components/organisms/navbar.tsx:28
 #: src/app/[lang]/about/page.tsx:9
 msgid "Giới thiệu"
 msgstr "About"
 
-#: src/components/templates/about.tsx:28
+#: src/components/templates/about.tsx:29
 #: src/components/organisms/navbar.tsx:53
 msgid "Github"
 msgstr "Github"
 
-#: src/components/templates/photos.tsx:12
+#: src/components/templates/photos.tsx:234
 #: src/components/organisms/navbar.tsx:40
 #: src/app/[lang]/photos/page.tsx:9
 msgid "Hình ảnh"
 msgstr "Photos"
 
-#: src/components/templates/photos.tsx:13
+#: src/components/templates/photos.tsx:234
 msgid "Hình ảnh."
 msgstr ""
 
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Liên hệ"
 msgstr "Contact"
 
-#: src/components/templates/about.tsx:37
+#: src/components/templates/about.tsx:39
 msgid "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng."
 msgstr "Some interesting things about myself and the habit of coding while making things harder for myself after 6 months."
 
@@ -79,7 +79,7 @@ msgstr "Language"
 msgid "Quay lại"
 msgstr "Go back"
 
-#: src/components/templates/about.tsx:52
+#: src/components/templates/about.tsx:55
 msgid "Resume"
 msgstr "Resume"
 
@@ -96,6 +96,6 @@ msgstr "I am Lương Vĩ Phú, a web developer. If you have any questions, pleas
 msgid "Trang chủ"
 msgstr "Home"
 
-#: src/components/templates/about.tsx:74
+#: src/components/templates/about.tsx:110
 msgid "Vài dòng chia sẻ về bản thân."
 msgstr "A few lines to share about myself."
