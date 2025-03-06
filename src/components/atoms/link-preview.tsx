@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { encode } from 'qss'
 import React from 'react'
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
-import Link from 'next/link'
 import { cn } from '@/libs/utils'
+import { NavigationLink } from '@/components/atoms/navigation-link'
 
 type LinkPreviewProps = {
   children: React.ReactNode
@@ -123,9 +123,8 @@ export const LinkPreview = ({
                   x: translateX
                 }}
               >
-                <Link
+                <NavigationLink
                   href={url}
-                  target={'_blank'}
                   style={{ fontSize: 0 }}
                   className='block p-1 bg-white border-2 border-transparent shadow rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800'
                 >
@@ -139,7 +138,7 @@ export const LinkPreview = ({
                     className='rounded-lg'
                     alt='preview image'
                   />
-                </Link>
+                </NavigationLink>
               </motion.div>
             )}
           </AnimatePresence>

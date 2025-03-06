@@ -9,10 +9,9 @@ import {
   useTransform,
   useAnimation
 } from 'framer-motion'
-import Link from 'next/link'
 import { useRef, useState } from 'react'
 import { PanelBottomClose, PanelBottomOpen } from 'lucide-react'
-import { Popover, PopoverContent, PopoverTrigger, Separator } from '@/components/atoms'
+import { NavigationLink, Popover, PopoverContent, PopoverTrigger, Separator } from '@/components/atoms'
 
 type LinkItem = {
   type: 'link'
@@ -84,13 +83,12 @@ const FloatingDockMobile = ({
                     transition={{ delay: (items.length - 1 - idx) * 0.05 }}
                     className='relative'
                   >
-                    <Link
+                    <NavigationLink
                       href={item.href}
-                      target={item.href.startsWith('http') ? '_blank' : '_self'}
                       className='h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center'
                     >
                       <div className='h-4 w-4'>{item.icon}</div>
-                    </Link>
+                    </NavigationLink>
                     {selected === item.href && (
                       <div
                         style={{ width: 6, height: 6 }}
@@ -237,7 +235,7 @@ function LinkIconContainer({
   }
 
   return (
-    <Link href={href} target={href.startsWith('http') ? '_blank' : '_self'}>
+    <NavigationLink href={href}>
       <motion.div
         ref={ref}
         style={{ width, height }}
@@ -270,7 +268,7 @@ function LinkIconContainer({
           />
         )}
       </motion.div>
-    </Link>
+    </NavigationLink>
   )
 }
 

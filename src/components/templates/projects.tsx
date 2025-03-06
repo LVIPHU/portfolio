@@ -7,7 +7,7 @@ export const ProjectsTemplate = () => {
   return (
     <Layout>
       <Header title={t(i18n)`Dự án`} description={t(i18n)`Một số thứ tôi đã làm`} />
-      <article></article>
+      <section></section>
       <Footer description={t(i18n)`Dự án.`} />
     </Layout>
   )

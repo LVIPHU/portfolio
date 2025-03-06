@@ -1,3 +1,3 @@
 export const ContactTemplate = () => {
-  return <article>Contact</article>
+  return <section>Contact</section>
 }

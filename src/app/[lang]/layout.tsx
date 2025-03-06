@@ -10,10 +10,10 @@ import Loading from './loading'
 import { Montserrat } from 'next/font/google'
 
 const font = Montserrat({
-  weight: ['300','400', '500', '600', '700', '800'],
+  weight: ['300', '400', '500', '600', '700', '800'],
   style: ['normal', 'italic'],
   subsets: ['latin', 'vietnamese'],
-  display: 'swap',
+  display: 'swap'
 })
 
 export async function generateStaticParams() {

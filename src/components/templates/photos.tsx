@@ -232,9 +232,9 @@ export const PhotosTemplate = () => {
   return (
     <Layout>
       <Header title={t(i18n)`Hình ảnh`} description={t(i18n)`Hình ảnh.`} />
-      <article className={'items-start'}>
+      <section className={'items-start'}>
         <ParallaxScroll images={imageList}></ParallaxScroll>
-      </article>
+      </section>
       <Footer className={'mt-8'} description={t(i18n)`Chuyến đi tuổi trẻ.`} />
     </Layout>
   )

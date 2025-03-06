@@ -1,72 +1,69 @@
 import { cn } from '@/libs/utils'
-import { Separator } from '@/components/atoms'
-import { Dot, GitFork } from 'lucide-react'
-import Link from 'next/link'
+import { Separator, SocialIcons, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/atoms'
+import { Dot } from 'lucide-react'
+import { skillsData } from '@data/main'
+import { useMemo } from 'react'
+import type { Skill } from '@data/main'
+
+const techs = ['typescript', 'nextjs', 'react', 'tailwindcss', 'shadcn']
+
+const TooltipLink = ({ item }: { item: Skill }) => (
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <SocialIcons kind={item.id} size={5} href={item.href} />
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{item.name}</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+)
 
 type Props = {
   description: string
   className?: string
 }
 
-export const Footer = (props: Props) => {
-  const itemsLeft = [
-    {
-      content: <>&copy; {new Date().getFullYear()}</>,
-      href: null
-    },
-    null,
-    {
-      content: process.env.owner,
-      href: '/'
-    },
-    null,
-    {
-      content: <GitFork size={14} />,
-      href: 'https://github.com/LVIPHU/portfolio'
-    }
-  ]
+export const Footer = ({ className, description }: Props) => {
+  const techsUsed = useMemo(() => {
+    return techs.map((item) => {
+      const skill = skillsData.find((skill) => skill.id === item)
+      if (skill) {
+        return (
+          <li key={item}>
+            <TooltipLink item={skill} />
+          </li>
+        )
+      }
+    })
+  }, [])
 
-  const itemsRight = [
-    {
-      content: 'Powered by',
-      src: null,
-      href: null
-    },
-    null,
-    {
-      content: 'tailwindcss',
-      href: 'https://tailwindcss.com/'
-    }
-  ]
-
-  const { className, description } = props
   return (
     <footer className={cn('text-sm mt-8 flex flex-col gap-y-5', className)}>
       <Separator />
-      <p>
-        <i>{description}</i>
-      </p>
-      <div className={'flex justify-between items-center text-sm'}>
-        <ul className={'flex justify-center items-center gap-x-2'}>
-          {itemsLeft.map((item, idx) =>
-            item ? (
-              <li key={idx}>
-                {item.href ? (
-                  <Link href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'}>
-                    {item.content}
-                  </Link>
-                ) : (
-                  item.content
-                )}
-              </li>
-            ) : (
-              <li key={idx}>
-                <Dot size={14} />
-              </li>
-            )
-          )}
+      <p className='text-muted-foreground italic'>{description}</p>
+      <div className='flex flex-col md:flex-row justify-center md:justify-between items-center gap-4'>
+        <ul className='flex items-center gap-x-1 flex-wrap justify-center'>
+          <li>&copy; {new Date().getFullYear()}</li>
+          <li>
+            <Dot size={14} />
+          </li>
+          <li>{process.env.owner}</li>
+          <li>
+            <Dot size={14} />
+          </li>
+          <li>
+            <SocialIcons kind={'gitfork'} size={5} href={'https://github.com/LVIPHU/portfolio'} />
+          </li>
         </ul>
-        <ul className={'flex justify-center items-center gap-x-2'}></ul>
+        <ul className='flex items-center gap-x-2 flex-wrap justify-center'>
+          <li>Powered by</li>
+          <li>
+            <Dot size={14} />
+          </li>
+          {techsUsed}
+        </ul>
       </div>
     </footer>
   )
