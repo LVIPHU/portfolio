@@ -54,7 +54,7 @@ export const HomeTemplate = () => {
   //   };
   // }, [isDragging]);
   return (
-    <article
+    <section
       // onMouseDown={handleMouseDown}
       // style={{cursor: isDragging ? 'grabbing' : 'grab'}}
       className='relative min-h-screen w-screen overflow-hidden bg-background flex flex-col items-center justify-center'
@@ -64,6 +64,6 @@ export const HomeTemplate = () => {
       // rotate={rotate}
       // isDragging={isDragging}
       />
-    </article>
+    </section>
   )
 }

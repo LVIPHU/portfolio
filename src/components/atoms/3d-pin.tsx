@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '@/libs/utils'
-import Link from 'next/link'
+import { NavigationLink } from '@/components/atoms/navigation-link'
 
 export const PinContainer = ({
   children,
@@ -27,7 +27,7 @@ export const PinContainer = ({
   }
 
   return (
-    <Link
+    <NavigationLink
       className={cn('relative group/pin z-50  cursor-pointer', containerClassName)}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -50,7 +50,7 @@ export const PinContainer = ({
         </div>
       </div>
       <PinPerspective title={title} href={href} />
-    </Link>
+    </NavigationLink>
   )
 }
 

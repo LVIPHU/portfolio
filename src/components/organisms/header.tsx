@@ -10,14 +10,20 @@ type Props = {
 export const Header = (props: Props) => {
   const { title, description, className } = props
   return (
-    <header className={cn('mb-8', className)}>
-      <h1 className={'font-medium text-5xl'}>{title}</h1>
+    <header className={cn('mb-8 flex flex-col gap-y-5', className)}>
+      <h1
+        className={
+          'text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14'
+        }
+      >
+        {title}
+      </h1>
       {description && (
         <p>
-          <i className={'text-sm'}>{description}</i>
+          <i className={'text-base text-gray-500 dark:text-gray-400 md:text-lg md:leading-7'}>{description}</i>
         </p>
       )}
-      <Separator className={'mt-8'} />
+      <Separator />
     </header>
   )
 }
