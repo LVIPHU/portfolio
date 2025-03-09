@@ -16,6 +16,7 @@ import { Facebook, Github } from 'lucide-react'
 import { Experience, Footer, Header, Layout, Technologies } from '@/components/organisms'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { GithubCal } from '@/components/molecules'
 
 export const AboutTemplate = () => {
   const { i18n } = useLingui()
@@ -113,6 +114,10 @@ export const AboutTemplate = () => {
       <section>
         <Separator />
         <Experience />
+      </section>
+      <section>
+        <Separator />
+        <GithubCal />
       </section>
       <Footer description={t(i18n)`A few words about myself.`} />
     </Layout>

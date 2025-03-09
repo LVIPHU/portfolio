@@ -6,16 +6,19 @@ import * as React from 'react'
 import Image, { ImageProps } from 'next/image'
 
 const ImageContainer = (props: ImageProps) => {
-  const { fill, className, alt, src, ...rest } = props
+  const { className, alt, src, width = 1080, height = 1439, ...rest } = props
   return (
-    <div className={'bg-neutral-200 dark:bg-neutral-800 h-80 w-full relative overflow-hidden rounded-lg'}>
+    <div className='bg-neutral-200 dark:bg-neutral-800 block relative overflow-hidden rounded-lg'>
       <Image
+        sizes='(min-width: 1540px) 483px, (min-width: 1280px) 398px, (min-width: 1040px) 312px, (min-width: 780px) 350px, (min-width: 680px) 592px, calc(94.44vw - 31px)'
+        decoding='async'
+        priority
         {...rest}
-        fill={fill || true}
-        src={imageDriveLoader({ id: src as string })}
+        width={width}
+        height={height}
         alt={alt || 'none'}
-        sizes='(min-width: 1280px) 301px, (min-width: 1040px) 312px, (min-width: 780px) 350px, (min-width: 680px) 592px, calc(94.44vw - 31px)'
         className={cn(className, 'object-cover')}
+        src={imageDriveLoader({ id: src as string })}
       />
     </div>
   )
@@ -34,60 +37,33 @@ const ParallaxScroll = React.forwardRef<HTMLDivElement, ParallaxScrollProps>((pr
   const translateFirst = useTransform(scrollYProgress, [0, 20], [0, -200])
   const translateSecond = useTransform(scrollYProgress, [0, 20], [0, 200])
   const translateThird = useTransform(scrollYProgress, [0, 20], [0, -200])
-  const translateFourth = useTransform(scrollYProgress, [0, 20], [0, 200])
-  const translateFifth = useTransform(scrollYProgress, [0, 20], [0, -200])
 
-  const fifth = Math.ceil(images.length / 5)
+  const third = Math.ceil(images.length / 3)
 
-  const firstPart = images.slice(0, fifth)
-  const secondPart = images.slice(fifth, 2 * fifth)
-  const thirdPart = images.slice(2 * fifth, 3 * fifth)
-  const fourthPart = images.slice(3 * fifth, 4 * fifth)
-  const fifthPart = images.slice(4 * fifth)
+  const firstPart = images.slice(0, third)
+  const secondPart = images.slice(third, 2 * third)
+  const thirdPart = images.slice(2 * third)
 
   return (
-    <div
-      ref={ref}
-      className={cn(
-        'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 items-start gap-5',
-        className
-      )}
-    >
+    <div ref={ref} className={cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-5', className)}>
       <ul className='grid gap-5'>
         {firstPart.map(({ src, id }) => (
-          <motion.li
-            style={{ y: translateFirst }} // Apply the translateY motion value here
-            key={'grid-1' + id}
-          >
-            <ImageContainer src={src} className='gap-5 !m-0 !p-0' alt={'thumbnail-' + id} />
+          <motion.li style={{ y: translateFirst }} key={'grid-1' + id}>
+            <ImageContainer src={src} alt={'thumbnail-' + id} />
           </motion.li>
         ))}
       </ul>
       <ul className='grid gap-5'>
         {secondPart.map(({ src, id }) => (
           <motion.li style={{ y: translateSecond }} key={'grid-2' + id}>
-            <ImageContainer src={src} className='gap-5 !m-0 !p-0' alt={'thumbnail-' + id} />
+            <ImageContainer src={src} alt={'thumbnail-' + id} />
           </motion.li>
         ))}
       </ul>
       <ul className='grid gap-5'>
         {thirdPart.map(({ src, id }) => (
           <motion.li style={{ y: translateThird }} key={'grid-3' + id}>
-            <ImageContainer src={src} className='gap-5 !m-0 !p-0' alt={'thumbnail-' + id} />
-          </motion.li>
-        ))}
-      </ul>
-      <ul className='grid gap-5'>
-        {fourthPart.map(({ src, id }) => (
-          <motion.li style={{ y: translateFourth }} key={'grid-4' + id}>
-            <ImageContainer src={src} className='gap-5 !m-0 !p-0' alt={'thumbnail-' + id} />
-          </motion.li>
-        ))}
-      </ul>
-      <ul className='grid gap-5'>
-        {fifthPart.map(({ src, id }) => (
-          <motion.li style={{ y: translateFifth }} key={'grid-5' + id}>
-            <ImageContainer src={src} className='gap-5 !m-0 !p-0' alt={'thumbnail-' + id} />
+            <ImageContainer src={src} alt={'thumbnail-' + id} />
           </motion.li>
         ))}
       </ul>

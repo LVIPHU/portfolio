@@ -29,7 +29,8 @@ import {
   Expressjs,
   Umami,
   DataDog,
-  Github
+  Github,
+  AntDesign
 } from './icons'
 
 import { NavigationLink } from '@/components/atoms'
@@ -47,6 +48,7 @@ const components = {
   tailwindcss: Tailwind,
   bootstrap: BootStrap,
   shadcn: ShadCn,
+  antd: AntDesign,
   css: CSS,
   html: HTML,
   graphql: GraphQL,

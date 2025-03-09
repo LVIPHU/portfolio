@@ -5,8 +5,8 @@ export type PageLangParam = {
   params: Promise<{ lang: string }>
 }
 
-export function initLingui(lang: string) {
-  const i18n = getI18nInstance(lang)
+export async function initLingui(lang: string) {
+  const i18n = await getI18nInstance(lang)
   setI18n(i18n)
   return i18n
 }
