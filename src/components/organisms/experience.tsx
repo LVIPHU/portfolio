@@ -1,4 +1,4 @@
-import { type Experience, experienceData, type Skill } from '@data/main'
+import { type Experience, experienceData } from '@data/main'
 import {
   Avatar,
   AvatarFallback,
@@ -13,7 +13,6 @@ import {
   HoverCardTrigger,
   LinkPreview,
   Separator,
-  SocialIcons,
   Tabs,
   TabsContent,
   TabsList,
@@ -23,16 +22,16 @@ import {
 } from '@/components/atoms'
 import { Trans } from '@lingui/react/macro'
 
-function TechnologyIcons({ technologies }: { technologies: Skill[] }) {
-  return (
-    <div className='flex flex-wrap items-center space-x-2 pt-1 text-xs'>
-      <span className='mr-2'>Technologies used:</span>
-      {technologies.map((tech, index) => (
-        <SocialIcons key={index} kind={tech.name.toLowerCase()} size={4} iconType='link' href={tech.href} />
-      ))}
-    </div>
-  )
-}
+// function TechnologyIcons({ technologies }: { technologies: Skill[] }) {
+//   return (
+//     <div className='flex flex-wrap items-center space-x-2 pt-1 text-xs'>
+//       <span className='mr-2'>Technologies used:</span>
+//       {technologies.map((tech, index) => (
+//         <SocialIcons key={index} kind={tech.name.toLowerCase()} size={4} iconType='link' href={tech.href} />
+//       ))}
+//     </div>
+//   )
+// }
 
 function createTimelineItems(experiences: Experience[]) {
   return experiences.map((experience) => ({
