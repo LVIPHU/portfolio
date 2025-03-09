@@ -26,12 +26,12 @@ export async function generateMetadata(props: PageLangParam) {
     title: process.env.owner,
     description: t(
       i18n
-    )`Tôi là Lương Vĩ Phú, một lập trình viên web. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi.`,
+    )`I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.`,
     openGraph: {
       title: process.env.owner,
       description: t(
         i18n
-      )`Tôi là Lương Vĩ Phú, một lập trình viên web. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi.`
+      )`I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.`
     }
   }
 }

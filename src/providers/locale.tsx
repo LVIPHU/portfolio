@@ -1,5 +1,5 @@
 'use client'
-
+import '@/libs/dayjs'
 import { I18nProvider } from '@lingui/react'
 import { type Messages, setupI18n } from '@lingui/core'
 import { useState } from 'react'

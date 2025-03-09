@@ -6,9 +6,9 @@ export const ProjectsTemplate = () => {
   const { i18n } = useLingui()
   return (
     <Layout>
-      <Header title={t(i18n)`Dự án`} description={t(i18n)`Một số thứ tôi đã làm`} />
+      <Header title={t(i18n)`Projects`} description={t(i18n)`Some things I've done`} />
       <section></section>
-      <Footer description={t(i18n)`Dự án.`} />
+      <Footer description={t(i18n)`Projects`} />
     </Layout>
   )
 }

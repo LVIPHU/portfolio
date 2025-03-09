@@ -2,6 +2,9 @@ import 'server-only'
 
 import linguiConfig from '../../lingui.config'
 import { I18n, Messages, setupI18n } from '@lingui/core'
+import dayjs from 'dayjs'
+
+import { dayjsLocales } from '@/libs/dayjs'
 
 const { locales } = linguiConfig
 // optionally use a stricter union type
@@ -10,6 +13,9 @@ type SupportedLocales = string
 async function loadCatalog(locale: SupportedLocales): Promise<{
   [k: string]: Messages
 }> {
+  if (dayjsLocales[locale]) {
+    dayjs.locale(await dayjsLocales[locale]())
+  }
   const { messages } = await import(`./locales/${locale}/messages.po`)
   return {
     [locale]: messages

@@ -2,7 +2,7 @@
 module.exports = {
   format: 'po',
   locales: ['vi-VN', 'en-US'],
-  sourceLocale: 'vi-VN',
+  sourceLocale: 'en-US',
   fallbackLocales: {
     default: 'vi-VN'
   },

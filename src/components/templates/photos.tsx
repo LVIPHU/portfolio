@@ -231,11 +231,11 @@ export const PhotosTemplate = () => {
   ]
   return (
     <Layout>
-      <Header title={t(i18n)`Hình ảnh`} description={t(i18n)`Hình ảnh.`} />
+      <Header title={t(i18n)`Photos`} description={t(i18n)`Photos`} />
       <section className={'items-start'}>
         <ParallaxScroll images={imageList}></ParallaxScroll>
       </section>
-      <Footer className={'mt-8'} description={t(i18n)`Chuyến đi tuổi trẻ.`} />
+      <Footer className={'mt-8'} />
     </Layout>
   )
 }

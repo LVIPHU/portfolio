@@ -13,89 +13,108 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/organisms/navbar.tsx:66
-#: src/components/molecules/setting.tsx:10
-msgid "Cài đặt"
-msgstr "Setting"
+#: src/components/organisms/technologies.tsx:98
+msgid "{category}"
+msgstr "{category}"
 
-#: src/components/templates/photos.tsx:238
-msgid "Chuyến đi tuổi trẻ."
-msgstr ""
+#: src/components/templates/about.tsx:117
+msgid "A few words about myself."
+msgstr "A few words about myself."
 
-#: src/components/organisms/navbar.tsx:34
-#: src/app/[lang]/projects/page.tsx:9
-msgid "Dự án"
-msgstr "Projects"
+#: src/components/templates/about.tsx:38
+#: src/components/organisms/navbar.tsx:28
+#: src/app/[lang]/about/page.tsx:9
+msgid "About"
+msgstr "About"
+
+#: src/components/organisms/navbar.tsx:59
+#: src/app/[lang]/contact/page.tsx:9
+#: src/app/[lang]/@modal/(.)contact/page.tsx:23
+msgid "Contact"
+msgstr "Contact"
+
+#: src/components/organisms/technologies.tsx:130
+msgid "Currently Learning"
+msgstr "Currently Learning"
 
 #: src/components/molecules/locale-switch.tsx:13
 msgid "English"
 msgstr "English"
+
+#: src/components/organisms/experience.tsx:63
+msgid "Experience"
+msgstr "Experience"
 
 #: src/components/templates/about.tsx:24
 #: src/components/organisms/navbar.tsx:47
 msgid "Facebook"
 msgstr "Facebook"
 
-#: src/components/molecules/setting.tsx:21
-msgid "Giao diện"
-msgstr "Theme"
-
-#: src/components/templates/about.tsx:38
-#: src/components/organisms/navbar.tsx:28
-#: src/app/[lang]/about/page.tsx:9
-msgid "Giới thiệu"
-msgstr "About"
-
 #: src/components/templates/about.tsx:29
 #: src/components/organisms/navbar.tsx:53
 msgid "Github"
 msgstr "Github"
 
+#: src/components/molecules/previous-page.tsx:15
+msgid "Go back"
+msgstr "Go back"
+
+#: src/components/organisms/navbar.tsx:21
+msgid "Home"
+msgstr "Home"
+
+#: src/app/[lang]/layout.tsx:27
+#: src/app/[lang]/layout.tsx:32
+msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
+msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
+
+#: src/components/molecules/setting.tsx:15
+msgid "Language"
+msgstr "Language"
+
+#: src/components/templates/photos.tsx:234
 #: src/components/templates/photos.tsx:234
 #: src/components/organisms/navbar.tsx:40
 #: src/app/[lang]/photos/page.tsx:9
-msgid "Hình ảnh"
+msgid "Photos"
 msgstr "Photos"
 
-#: src/components/templates/photos.tsx:234
-msgid "Hình ảnh."
-msgstr ""
-
-#: src/components/organisms/navbar.tsx:59
-#: src/app/[lang]/contact/page.tsx:9
-#: src/app/[lang]/@modal/(.)contact/page.tsx:23
-msgid "Liên hệ"
-msgstr "Contact"
-
-#: src/components/templates/about.tsx:39
-msgid "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng."
-msgstr "Some interesting things about myself and the habit of coding while making things harder for myself after 6 months."
-
-#: src/components/molecules/setting.tsx:15
-msgid "Ngôn ngữ"
-msgstr "Language"
-
-#: src/components/molecules/previous-page.tsx:15
-msgid "Quay lại"
-msgstr "Go back"
+#: src/components/templates/projects.tsx:9
+#: src/components/templates/projects.tsx:11
+#: src/components/organisms/navbar.tsx:34
+#: src/app/[lang]/projects/page.tsx:9
+msgid "Projects"
+msgstr "Projects"
 
 #: src/components/templates/about.tsx:55
 msgid "Resume"
 msgstr "Resume"
 
+#: src/components/organisms/navbar.tsx:66
+#: src/components/molecules/setting.tsx:10
+msgid "Setting"
+msgstr "Setting"
+
+#: src/components/templates/about.tsx:39
+msgid "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
+msgstr "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
+
+#: src/components/templates/projects.tsx:9
+msgid "Some things I've done"
+msgstr "Some things I've done"
+
+#: src/components/organisms/technologies.tsx:76
+msgid "Technologies I've worked with"
+msgstr "Technologies I've worked with"
+
+#: src/components/molecules/setting.tsx:21
+msgid "Theme"
+msgstr "Theme"
+
+#: src/components/organisms/technologies.tsx:102
+msgid "These are my most used technologies."
+msgstr "These are my most used technologies."
+
 #: src/components/molecules/locale-switch.tsx:14
 msgid "Tiếng Việt"
 msgstr "Tiếng Việt"
-
-#: src/app/[lang]/layout.tsx:19
-#: src/app/[lang]/layout.tsx:24
-msgid "Tôi là Lương Vĩ Phú, một lập trình viên web. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi."
-msgstr "I am Lương Vĩ Phú, a web developer. If you have any questions, please contact me. Thank you for visiting my website."
-
-#: src/components/organisms/navbar.tsx:21
-msgid "Trang chủ"
-msgstr "Home"
-
-#: src/components/templates/about.tsx:110
-msgid "Vài dòng chia sẻ về bản thân."
-msgstr "A few lines to share about myself."
