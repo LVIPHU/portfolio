@@ -4,9 +4,8 @@ import linguiConfig from '../../../lingui.config'
 import { getI18nInstance, PageLangParam } from '@/i18n'
 import { LayoutProps } from '@/types/app'
 import ProviderRegistry from '@/providers'
-import { ReactNode, Suspense } from 'react'
+import { ReactNode } from 'react'
 import { Navbar } from '@/components/organisms'
-import Loading from './loading'
 import { Montserrat } from 'next/font/google'
 
 const font = Montserrat({
@@ -21,7 +20,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(props: PageLangParam) {
-  const i18n = getI18nInstance((await props.params).lang)
+  const i18n = await getI18nInstance((await props.params).lang)
   return {
     title: process.env.owner,
     description: t(
@@ -40,16 +39,13 @@ type Props = LayoutProps & { modal: ReactNode }
 
 export default async function RootLayout({ children, modal, params }: Readonly<Props>) {
   const lang = (await params).lang
-
   return (
     <html lang={lang} suppressHydrationWarning>
       <body className={font.className}>
         <ProviderRegistry params={params}>
           <Navbar lang={lang} />
-          <Suspense fallback={<Loading />}>
-            <main className='relative min-h-screen flex flex-col my-0 mx-auto overflow-hidden'>{children}</main>
-            {modal}
-          </Suspense>
+          <main className='relative min-h-screen flex flex-col my-0 mx-auto overflow-hidden'>{children}</main>
+          {modal}
         </ProviderRegistry>
       </body>
     </html>

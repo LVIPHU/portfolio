@@ -13,9 +13,6 @@ type SupportedLocales = string
 async function loadCatalog(locale: SupportedLocales): Promise<{
   [k: string]: Messages
 }> {
-  if (dayjsLocales[locale]) {
-    dayjs.locale(await dayjsLocales[locale]())
-  }
   const { messages } = await import(`./locales/${locale}/messages.po`)
   return {
     [locale]: messages
@@ -39,9 +36,12 @@ export const allI18nInstances: AllI18nInstances = locales.reduce((acc, locale) =
   return { ...acc, [locale]: i18n }
 }, {})
 
-export const getI18nInstance = (locale: SupportedLocales): I18n => {
+export const getI18nInstance = async (locale: SupportedLocales): Promise<I18n> => {
   if (!allI18nInstances[locale]) {
     console.warn(`No i18n instance found for locale "${locale}"`)
+  }
+  if (dayjsLocales[locale]) {
+    dayjs.locale(await dayjsLocales[locale]())
   }
   return allI18nInstances[locale]! || allI18nInstances['vi-VN']!
 }

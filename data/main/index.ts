@@ -122,6 +122,15 @@ export const skillsData: Skill[] = [
     href: 'https://ui.shadcn.com/'
   },
   {
+    name: 'Ant Design',
+    id: 'antd',
+    category: 'Web Dev',
+    field: 'Frontend',
+    subfield: 'Styling',
+    level: 'advanced',
+    href: 'https://ant.design/'
+  },
+  {
     name: 'CSS',
     id: 'css',
     category: 'Web Dev',
@@ -338,7 +347,7 @@ export const experienceData: Company[] = [
         startDate: '2024/02/04',
         description:
           'Implemented new features and fixed bugs, ensuring the continuous improvement and reliability of the software. Maintained server configurations, ensuring optimal performance and availability. Attended product meetings to ideate and discuss feature enhancements, contributing to the strategic growth and development of the software. Collaborated closely with cross-functional teams to ensure the alignment of development efforts with business goals and user needs. Developing prototypes for AI features to be integrated within the software.',
-        techStack: ['bootstrap', 'javascript', 'vuejs', 'datadog'],
+        techStack: ['bootstrap', 'vuejs', 'datadog'],
         active: true
       },
       {
@@ -348,7 +357,7 @@ export const experienceData: Company[] = [
         endDate: '2024/01/18',
         description:
           'Created, configured, tested, and deployed Agora API integration functionalities, ensuring seamless connectivity and optimal performance. Coordinated the implementation of third-party systems connections with active system monitoring, ensuring reliable and efficient integrations. Developed multiple automation tools to facilitate the search and investigation of issues, significantly improving the efficiency of the troubleshooting process.',
-        techStack: ['antd', 'react', 'javascript', 'vite', 'redux']
+        techStack: ['antd', 'react', 'vite']
       },
       {
         title: 'Frontend Developer - Mobi 8 - Admin',
@@ -357,7 +366,7 @@ export const experienceData: Company[] = [
         endDate: '2023/11/22',
         description:
           'Created, configured, tested, and deployed Agora API integration functionalities, ensuring seamless connectivity and optimal performance. Coordinated the implementation of third-party systems connections with active system monitoring, ensuring reliable and efficient integrations. Developed multiple automation tools to facilitate the search and investigation of issues, significantly improving the efficiency of the troubleshooting process.',
-        techStack: ['antd', 'react', 'javascript', 'tailwindcss', 'redux']
+        techStack: ['antd', 'react', 'redux']
       },
       {
         title: 'Frontend Developer - Mobi 8 - Client',
@@ -366,7 +375,7 @@ export const experienceData: Company[] = [
         endDate: '2024/03/27',
         description:
           'Created, configured, tested, and deployed Agora API integration functionalities, ensuring seamless connectivity and optimal performance. Coordinated the implementation of third-party systems connections with active system monitoring, ensuring reliable and efficient integrations. Developed multiple automation tools to facilitate the search and investigation of issues, significantly improving the efficiency of the troubleshooting process.',
-        techStack: ['mui', 'next', 'react', 'javascript', 'tailwindcss']
+        techStack: ['nextjs', 'react', 'tailwindcss']
       }
     ]
   }

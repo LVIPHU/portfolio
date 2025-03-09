@@ -17,11 +17,11 @@ msgstr ""
 msgid "{category}"
 msgstr "{category}"
 
-#: src/components/templates/about.tsx:117
+#: src/components/templates/about.tsx:122
 msgid "A few words about myself."
 msgstr "A few words about myself."
 
-#: src/components/templates/about.tsx:38
+#: src/components/templates/about.tsx:39
 #: src/components/organisms/navbar.tsx:28
 #: src/app/[lang]/about/page.tsx:9
 msgid "About"
@@ -41,16 +41,16 @@ msgstr "Currently Learning"
 msgid "English"
 msgstr "English"
 
-#: src/components/organisms/experience.tsx:63
+#: src/components/organisms/experience.tsx:66
 msgid "Experience"
 msgstr "Experience"
 
-#: src/components/templates/about.tsx:24
+#: src/components/templates/about.tsx:25
 #: src/components/organisms/navbar.tsx:47
 msgid "Facebook"
 msgstr "Facebook"
 
-#: src/components/templates/about.tsx:29
+#: src/components/templates/about.tsx:30
 #: src/components/organisms/navbar.tsx:53
 msgid "Github"
 msgstr "Github"
@@ -63,8 +63,8 @@ msgstr "Go back"
 msgid "Home"
 msgstr "Home"
 
-#: src/app/[lang]/layout.tsx:27
-#: src/app/[lang]/layout.tsx:32
+#: src/app/[lang]/layout.tsx:26
+#: src/app/[lang]/layout.tsx:31
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 
@@ -72,8 +72,8 @@ msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, pl
 msgid "Language"
 msgstr "Language"
 
-#: src/components/templates/photos.tsx:234
-#: src/components/templates/photos.tsx:234
+#: src/components/templates/photos.tsx:235
+#: src/components/templates/photos.tsx:235
 #: src/components/organisms/navbar.tsx:40
 #: src/app/[lang]/photos/page.tsx:9
 msgid "Photos"
@@ -86,7 +86,7 @@ msgstr "Photos"
 msgid "Projects"
 msgstr "Projects"
 
-#: src/components/templates/about.tsx:55
+#: src/components/templates/about.tsx:56
 msgid "Resume"
 msgstr "Resume"
 
@@ -95,7 +95,7 @@ msgstr "Resume"
 msgid "Setting"
 msgstr "Setting"
 
-#: src/components/templates/about.tsx:39
+#: src/components/templates/about.tsx:40
 msgid "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 msgstr "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 
@@ -106,6 +106,10 @@ msgstr "Some things I've done"
 #: src/components/organisms/technologies.tsx:76
 msgid "Technologies I've worked with"
 msgstr "Technologies I've worked with"
+
+#: src/components/organisms/experience.tsx:32
+msgid "Technologies used"
+msgstr "Technologies used"
 
 #: src/components/molecules/setting.tsx:21
 msgid "Theme"
@@ -118,3 +122,7 @@ msgstr "These are my most used technologies."
 #: src/components/molecules/locale-switch.tsx:14
 msgid "Tiếng Việt"
 msgstr "Tiếng Việt"
+
+#: src/components/molecules/github-cal.tsx:15
+msgid "Work Calendar"
+msgstr "Work Calendar"

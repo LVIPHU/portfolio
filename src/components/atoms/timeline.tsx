@@ -9,14 +9,6 @@ interface TimelineEntry {
   content: React.ReactNode
 }
 
-const TimelineDot = () => (
-  <div className='sticky flex items-center top-40 self-start z-10'>
-    <div className='h-10 -top-1 absolute w-10 rounded-full bg-white dark:bg-black flex items-center justify-center'>
-      <div className='h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 p-2' />
-    </div>
-  </div>
-)
-
 export const Timeline = ({ data, className }: { data: TimelineEntry[]; className?: string }) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -46,9 +38,9 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
       <div ref={wrapperRef} className='relative'>
         {data.map((item, index) => (
           <div key={index} className='flex justify-start pb-8'>
-            <TimelineDot />
+            <TimelineItemBullet />
             <div className='relative ml-5 pl-6 w-full'>
-              <h3 className='text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500'>{item.title}</h3>
+              <TimelineItemTitle>{item.title}</TimelineItemTitle>
               {item.content}
             </div>
           </div>
@@ -70,6 +62,19 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
     </div>
   )
 }
+
+const TimelineItemBullet = () => (
+  <div className='sticky flex items-center top-40 self-start z-10'>
+    <div className='h-10 -top-3.5 absolute w-10 rounded-full bg-white dark:bg-black flex items-center justify-center'>
+      <div className='h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 p-2' />
+    </div>
+  </div>
+)
+
+export const TimelineItemTitle = ({ children }: { children: React.ReactNode }) => {
+  return <div className='mb-1 text-base font-semibold leading-none'>{children}</div>
+}
+
 export const TimelineItemDescription = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return <p className={cn('text-sm text-muted-foreground', className)}>{children}</p>
 }

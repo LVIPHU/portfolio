@@ -4,6 +4,7 @@ import { ParallaxScroll, ParallaxScrollImage } from '@/components/atoms'
 import { t } from '@lingui/macro'
 import { Footer, Header, Layout } from '@/components/organisms'
 import { useLingui } from '@lingui/react'
+import { Blur } from '@/components/molecules'
 
 export const PhotosTemplate = () => {
   const { i18n } = useLingui()
@@ -236,6 +237,7 @@ export const PhotosTemplate = () => {
         <ParallaxScroll images={imageList}></ParallaxScroll>
       </section>
       <Footer className={'mt-8'} />
+      <Blur />
     </Layout>
   )
 }
