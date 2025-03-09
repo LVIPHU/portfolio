@@ -8,6 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  NavigationLink,
   Pagination,
   PaginationContent,
   PaginationItem,
@@ -66,17 +67,22 @@ export const Technologies = () => {
   }
 
   return (
-    <div className={'my-8'}>
+    <div className={'my-8 md:my-10'}>
       <h3
         className={
           'text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl md:leading-14'
         }
       >
-        <Trans>Các công nghệ mà tôi đã sử dụng</Trans>
+        <Trans>Technologies I&#39;ve worked with</Trans>
       </h3>
       <TooltipProvider>
-        <Tabs value={categories[tabIndex]} defaultValue={categories[0]} onValueChange={onTabChange} className={'mt-5'}>
-          <TabsList className='grid w-full grid-cols-4'>
+        <Tabs
+          value={categories[tabIndex]}
+          defaultValue={categories[0]}
+          onValueChange={onTabChange}
+          className={'mt-5 md:mt-7'}
+        >
+          <TabsList className='h-27 grid w-full grid-cols-2 gap-2 md:h-9 md:grid-cols-4 md:gap-1 xl:gap-2'>
             {categories.map((category) => (
               <TabsTrigger key={'trigger-' + category} value={category}>
                 {category}
@@ -93,7 +99,7 @@ export const Technologies = () => {
                     </CardTitle>
                     {category === 'Most Used' && (
                       <CardDescription>
-                        <Trans>Đây là những công nghệ tôi sử dụng nhiều nhất</Trans>
+                        <Trans>These are my most used technologies.</Trans>
                       </CardDescription>
                     )}
                   </CardHeader>
@@ -101,12 +107,14 @@ export const Technologies = () => {
                     {filteredSkillsData[category].map((skill) => (
                       <Tooltip key={`${category}-icon-${skill.name}`}>
                         <TooltipTrigger asChild>
-                          <Button
-                            variant={'outline'}
-                            className={`h-14 p-2 sm:p-2 ${skill.level === 'learning' ? 'border border-green-300' : ''}`}
-                          >
-                            <SocialIcons kind={skill.id} size={10} iconType={'icon'} />
-                          </Button>
+                          <NavigationLink className={'w-full'} href={skill.href}>
+                            <Button
+                              variant={'outline'}
+                              className={`h-14 w-full p-2 sm:p-2 ${skill.level === 'learning' ? 'border border-amber-500' : ''}`}
+                            >
+                              <SocialIcons kind={skill.id} size={10} iconType={'icon'} />
+                            </Button>
+                          </NavigationLink>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p>{skill.name}</p>
@@ -114,28 +122,30 @@ export const Technologies = () => {
                       </Tooltip>
                     ))}
                   </CardContent>
-                  <CardFooter className='flex flex-row justify-between items-center border-t bg-muted/50 px-6 py-3'>
-                    <div className='flex items-center text-xs text-muted-foreground'>
-                      <span className='mx-1 inline-block h-3 w-3 rounded-full bg-green-300'></span>
-                      <span>
-                        <Trans>Đang học</Trans>
-                      </span>
-                    </div>
-                    <Pagination className='ml-auto mr-0 w-auto'>
-                      <PaginationContent>
-                        <PaginationItem>
-                          <Button onClick={onPrevTab} size={'icon'} variant={'outline'}>
-                            <ChevronLeft />
-                          </Button>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <Button onClick={onNextTab} size={'icon'} variant={'outline'}>
-                            <ChevronRight />
-                          </Button>
-                        </PaginationItem>
-                      </PaginationContent>
-                    </Pagination>
-                  </CardFooter>
+                  {category !== 'Most Used' && (
+                    <CardFooter className='flex flex-row justify-between items-center border-t bg-muted/50 px-6 py-3'>
+                      <div className='flex items-center text-xs text-muted-foreground'>
+                        <span className='mx-1 inline-block h-3 w-3 rounded-full bg-amber-500'></span>
+                        <span>
+                          <Trans>Currently Learning</Trans>
+                        </span>
+                      </div>
+                      <Pagination className='ml-auto mr-0 w-auto'>
+                        <PaginationContent>
+                          <PaginationItem>
+                            <Button onClick={onPrevTab} size={'icon'} variant={'outline'}>
+                              <ChevronLeft />
+                            </Button>
+                          </PaginationItem>
+                          <PaginationItem>
+                            <Button onClick={onNextTab} size={'icon'} variant={'outline'}>
+                              <ChevronRight />
+                            </Button>
+                          </PaginationItem>
+                        </PaginationContent>
+                      </Pagination>
+                    </CardFooter>
+                  )}
                 </Card>
               </TabsContent>
             )

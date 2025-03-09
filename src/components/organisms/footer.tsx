@@ -21,7 +21,7 @@ const TooltipLink = ({ item }: { item: Skill }) => (
 )
 
 type Props = {
-  description: string
+  description?: string
   className?: string
 }
 
@@ -42,7 +42,7 @@ export const Footer = ({ className, description }: Props) => {
   return (
     <footer className={cn('text-sm mt-8 flex flex-col gap-y-5', className)}>
       <Separator />
-      <p className='text-muted-foreground italic'>{description}</p>
+      {description && <p className='text-muted-foreground italic'>{description}</p>}
       <div className='flex flex-col md:flex-row justify-center md:justify-between items-center gap-4'>
         <ul className='flex items-center gap-x-1 flex-wrap justify-center'>
           <li>&copy; {new Date().getFullYear()}</li>

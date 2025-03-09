@@ -12,7 +12,7 @@ export const PreviousPage = () => {
     <nav className={'w-full'}>
       <Separator className={'my-8'} />
       <Button onClick={() => router.back()} variant={'ghost'}>
-        <MoveLeft /> <Trans>Quay lại</Trans>
+        <MoveLeft /> <Trans>Go back</Trans>
       </Button>
     </nav>
   )

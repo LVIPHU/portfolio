@@ -13,7 +13,7 @@ import {
 } from '@/components/atoms'
 import { Trans } from '@lingui/react/macro'
 import { Facebook, Github } from 'lucide-react'
-import { Footer, Header, Layout, Technologies } from '@/components/organisms'
+import { Experience, Footer, Header, Layout, Technologies } from '@/components/organisms'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 
@@ -34,14 +34,14 @@ export const AboutTemplate = () => {
   return (
     <Layout>
       <Header
-        className={'mb-0'}
-        title={t(i18n)`Giới thiệu`}
+        className={'mb-0 md:mb-0'}
+        title={t(i18n)`About`}
         description={t(
           i18n
-        )`Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng.`}
+        )`Some interesting things about myself and my habit of coding then making things harder for myself after six months.`}
       />
-      <section className={'mb-8 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0'}>
-        <div className={'pt-8'}>
+      <section className={'mb-5 md:mb-10 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0'}>
+        <div className={'pt-8 md:pt-10 '}>
           <div className={'mb-7'}>
             <Avatar className='h-60 w-60 mx-auto mb-2'>
               <AvatarImage src='/images/avatars/main.jpg' alt='@shadcn' />
@@ -73,7 +73,7 @@ export const AboutTemplate = () => {
             ))}
           </nav>
         </div>
-        <div className={'py-8 xl:col-span-2 flex flex-col gap-y-3.5'}>
+        <div className={'py-8 md:py-10 xl:col-span-2 flex flex-col gap-y-3.5'}>
           <h2 className={'text-2xl font-bold'}>
             Xin chào! {String.fromCodePoint(0x1f44b)}, tôi là {process.env.owner}
           </h2>
@@ -110,7 +110,11 @@ export const AboutTemplate = () => {
         <Separator />
         <Technologies />
       </section>
-      <Footer description={t(i18n)`Vài dòng chia sẻ về bản thân.`} />
+      <section>
+        <Separator />
+        <Experience />
+      </section>
+      <Footer description={t(i18n)`A few words about myself.`} />
     </Layout>
   )
 }

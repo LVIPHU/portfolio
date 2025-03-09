@@ -1,4 +1,5 @@
 export * from './locale-switch'
 export * from './previous-page'
+export * from './project-card'
 export * from './setting'
 export * from './theme-switch'

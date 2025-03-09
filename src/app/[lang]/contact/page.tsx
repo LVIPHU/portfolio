@@ -6,7 +6,7 @@ export async function generateMetadata(props: PageLangParam) {
   const i18n = getI18nInstance((await props.params).lang)
 
   return {
-    title: `${t(i18n)`Liên hệ`} | ${process.env.owner}`
+    title: `${t(i18n)`Contact`} | ${process.env.owner}`
   }
 }
 

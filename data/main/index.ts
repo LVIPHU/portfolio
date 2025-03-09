@@ -315,12 +315,59 @@ export const skillsData: Skill[] = [
     id: 'datadog',
     category: 'DevOps & Tools',
     field: 'Analytics',
-    level: 'learning'
+    level: 'learning',
+    href: 'https://www.datadoghq.com/'
   }
 ]
 
 // export let projectsData: Project[] = []
-//
-// export let experienceData: Experience[] = []
-//
-// export let companiesData: Company[] = []
+
+export const experienceData: Company[] = [
+  {
+    name: 'PVS Solution',
+    location: '60 Đ. D1, Khu đô thị Him Lam, Quận 7, Hồ Chí Minh',
+    description:
+      'PVS là doanh nghiệp chuyên cung cấp các giải pháp và tập trung xây dựng và phát triển các ứng dụng phần mềm và các dịch vụ giá trị trong lĩnh vực Viễn Thông, Công Nghệ Thông tin và Y Tế, ...',
+    imgSrc: 'https://pvssolution.com/wp-content/uploads/2023/08/logo-pvs-1024x629.png',
+    url: 'https://pvssolution.com/',
+    active: true,
+    items: [
+      {
+        title: 'Frontend Developer - Pinance',
+        roleType: 'Fulltime',
+        startDate: '2024/02/04',
+        description:
+          'Implemented new features and fixed bugs, ensuring the continuous improvement and reliability of the software. Maintained server configurations, ensuring optimal performance and availability. Attended product meetings to ideate and discuss feature enhancements, contributing to the strategic growth and development of the software. Collaborated closely with cross-functional teams to ensure the alignment of development efforts with business goals and user needs. Developing prototypes for AI features to be integrated within the software.',
+        techStack: ['bootstrap', 'javascript', 'vuejs', 'datadog'],
+        active: true
+      },
+      {
+        title: 'Frontend Developer - Rainbow',
+        roleType: 'Fulltime',
+        startDate: '2023/12/04',
+        endDate: '2024/01/18',
+        description:
+          'Created, configured, tested, and deployed Agora API integration functionalities, ensuring seamless connectivity and optimal performance. Coordinated the implementation of third-party systems connections with active system monitoring, ensuring reliable and efficient integrations. Developed multiple automation tools to facilitate the search and investigation of issues, significantly improving the efficiency of the troubleshooting process.',
+        techStack: ['antd', 'react', 'javascript', 'vite', 'redux']
+      },
+      {
+        title: 'Frontend Developer - Mobi 8 - Admin',
+        roleType: 'Fulltime',
+        startDate: '2023/02/03',
+        endDate: '2023/11/22',
+        description:
+          'Created, configured, tested, and deployed Agora API integration functionalities, ensuring seamless connectivity and optimal performance. Coordinated the implementation of third-party systems connections with active system monitoring, ensuring reliable and efficient integrations. Developed multiple automation tools to facilitate the search and investigation of issues, significantly improving the efficiency of the troubleshooting process.',
+        techStack: ['antd', 'react', 'javascript', 'tailwindcss', 'redux']
+      },
+      {
+        title: 'Frontend Developer - Mobi 8 - Client',
+        roleType: 'Fulltime',
+        startDate: '2022/06/20',
+        endDate: '2024/03/27',
+        description:
+          'Created, configured, tested, and deployed Agora API integration functionalities, ensuring seamless connectivity and optimal performance. Coordinated the implementation of third-party systems connections with active system monitoring, ensuring reliable and efficient integrations. Developed multiple automation tools to facilitate the search and investigation of issues, significantly improving the efficiency of the troubleshooting process.',
+        techStack: ['mui', 'next', 'react', 'javascript', 'tailwindcss']
+      }
+    ]
+  }
+]

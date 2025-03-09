@@ -20,7 +20,7 @@ export default function ContactModal() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              <Trans>Liên hệ</Trans>
+              <Trans>Contact</Trans>
             </DialogTitle>
           </DialogHeader>
           <ContactTemplate />
