@@ -45,13 +45,13 @@ function createTimelineItems(experiences: Experience[]) {
     title: experience.title,
     content: (
       <>
-        <TimelineItemSmallText>{experience.roleType}</TimelineItemSmallText>
+        <TimelineItemSmallText>{experience.roleType} - {experience.type}</TimelineItemSmallText>
         <TimelineItemDateRange
           startDate={new Date(experience.startDate)}
           endDate={experience.endDate ? new Date(experience.endDate) : undefined}
         />
         <TimelineItemDescription>{experience.description}</TimelineItemDescription>
-        {experience.techStack && <TechnologyIcons technologies={experience.techStack} />}
+        {experience.technologies && <TechnologyIcons technologies={experience.technologies} />}
       </>
     ),
     isActive: experience.active,
@@ -87,7 +87,7 @@ export function Experience() {
                 <HoverCardContent className='w-96 mt-3'>
                   <div className='flex justify-between space-x-4'>
                     <Avatar>
-                      <AvatarImage src={company.imgSrc} />
+                      <AvatarImage src={company.image} />
                       <AvatarFallback>VC</AvatarFallback>
                     </Avatar>
                     <div className='space-y-1'>

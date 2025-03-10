@@ -1,17 +1,14 @@
 import Image from 'next/image'
 import { Badge, Button, NavigationLink } from '@/components/atoms'
 import { Github } from 'lucide-react'
+import { type Project } from '@data/main'
 
 interface ProjectCardProps {
-  title: string
-  description: string
-  image: string
-  technologies: string[]
-  liveUrl?: string
-  githubUrl?: string
+  project: Project
 }
 
-export const ProjectCard = ({ title, description, image, technologies, liveUrl, githubUrl }: ProjectCardProps) => {
+export const ProjectCard = ({ project }: ProjectCardProps) => {
+  const { title, description, image, technologies, url, repo } = project
   return (
     <div className='group relative flex flex-col overflow-hidden rounded-xl border border-accent transition-all hover:border-primary/50'>
       <div className='relative h-64 overflow-hidden bg-accent'>
@@ -39,17 +36,17 @@ export const ProjectCard = ({ title, description, image, technologies, liveUrl, 
 
         {/* Actions */}
         <div className='flex gap-3 mt-auto'>
-          {liveUrl && (
+          {url && (
             <Button variant='default' className='rounded-full' asChild>
-              <NavigationLink href={githubUrl}>
+              <NavigationLink href={url}>
                 <Github className='mr-1 h-4 w-4' />
                 liveUrl
               </NavigationLink>
             </Button>
           )}
-          {githubUrl && (
+          {repo && (
             <Button variant='outline' className='rounded-full shadow-none' asChild>
-              <NavigationLink href={githubUrl}>
+              <NavigationLink href={repo}>
                 <Github className='mr-1 h-4 w-4' />
                 View Code
               </NavigationLink>

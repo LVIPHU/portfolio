@@ -1,7 +1,7 @@
 'use client'
 
 import { Trans } from '@lingui/react/macro'
-import { FloatingDock, Item } from '@/components/atoms'
+import { FloatingDock, Item } from '@/components/molecules'
 import { Facebook, Github, House, ImageIcon, Lightbulb, MonitorCog, Paperclip, User } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'

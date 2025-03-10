@@ -116,7 +116,7 @@ const FloatingDockMobile = ({
                         </div>
                       </motion.div>
                     </PopoverTrigger>
-                    <PopoverContent>{item.content}</PopoverContent>
+                    <PopoverContent className={'w-80'}>{item.content}</PopoverContent>
                   </Popover>
                 )
               }
@@ -349,7 +349,7 @@ function PopoverIconContainer({
           </motion.div>
         </motion.div>
       </PopoverTrigger>
-      <PopoverContent>{content}</PopoverContent>
+      <PopoverContent className={'w-80'}>{content}</PopoverContent>
     </Popover>
   )
 }

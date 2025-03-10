@@ -1,10 +1,10 @@
 import 'server-only'
-
+import '@/libs/dayjs'
 import linguiConfig from '../../lingui.config'
 import { I18n, Messages, setupI18n } from '@lingui/core'
 import dayjs from 'dayjs'
 
-import { dayjsLocales } from '@/libs/dayjs'
+import { dayjsLocaleMap, dayjsLocales } from '@/libs/dayjs'
 
 const { locales } = linguiConfig
 // optionally use a stricter union type
@@ -40,8 +40,11 @@ export const getI18nInstance = async (locale: SupportedLocales): Promise<I18n> =
   if (!allI18nInstances[locale]) {
     console.warn(`No i18n instance found for locale "${locale}"`)
   }
+
   if (dayjsLocales[locale]) {
-    dayjs.locale(await dayjsLocales[locale]())
+    await dayjsLocales[locale]()
+    dayjs.locale(dayjsLocaleMap[locale])
   }
+
   return allI18nInstances[locale]! || allI18nInstances['vi-VN']!
 }

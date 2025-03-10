@@ -68,7 +68,7 @@ msgstr "Home"
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 
-#: src/components/molecules/setting.tsx:15
+#: src/components/molecules/setting.tsx:16
 msgid "Language"
 msgstr "Language"
 
@@ -78,6 +78,10 @@ msgstr "Language"
 #: src/app/[lang]/photos/page.tsx:9
 msgid "Photos"
 msgstr "Photos"
+
+#: src/components/atoms/timeline.tsx:98
+msgid "Present"
+msgstr "Present"
 
 #: src/components/templates/projects.tsx:9
 #: src/components/templates/projects.tsx:11
@@ -91,7 +95,7 @@ msgid "Resume"
 msgstr "Resume"
 
 #: src/components/organisms/navbar.tsx:66
-#: src/components/molecules/setting.tsx:10
+#: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Setting"
 
@@ -111,7 +115,7 @@ msgstr "Technologies I've worked with"
 msgid "Technologies used"
 msgstr "Technologies used"
 
-#: src/components/molecules/setting.tsx:21
+#: src/components/molecules/setting.tsx:22
 msgid "Theme"
 msgstr "Theme"
 

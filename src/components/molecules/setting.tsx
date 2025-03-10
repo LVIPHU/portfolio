@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/react/macro'
 import { ThemeSwitch } from './theme-switch'
 import { LocaleSwitch } from './locale-switch'
+import { Label } from '@/components/atoms'
 
 export const Setting = () => {
   return (
@@ -12,13 +13,13 @@ export const Setting = () => {
       </div>
       <div className='grid gap-2'>
         <div className='grid grid-cols-3 items-center gap-4'>
-          <Trans>Language</Trans>
+          <Label><Trans>Language</Trans></Label>
           <div className='col-span-2'>
             <LocaleSwitch />
           </div>
         </div>
         <div className='grid grid-cols-3 items-center gap-4'>
-          <Trans>Theme</Trans>
+          <Label><Trans>Theme</Trans></Label>
           <div className='col-span-2 flex justify-center'>
             <ThemeSwitch />
           </div>

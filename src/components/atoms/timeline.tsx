@@ -1,8 +1,12 @@
 'use client'
+import '@/libs/dayjs'
 import { useScroll, useTransform, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 import { cn } from '@/libs/utils'
 import dayjs from 'dayjs'
+import { useLingui } from '@lingui/react'
+import { dayjsLocaleMap, dayjsLocales } from '@/libs/dayjs'
+import { t } from '@lingui/macro'
 
 interface TimelineEntry {
   title: string
@@ -84,8 +88,14 @@ export const TimelineItemSmallText = ({ children }: { children: React.ReactNode 
 }
 
 export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date; endDate?: Date }) => {
+  const {i18n} = useLingui()
+  if (dayjsLocales[i18n.locale]) {
+    void dayjsLocales[i18n.locale]()
+    dayjs.locale(dayjsLocaleMap[i18n.locale])
+  }
+
   const formattedStartDate = dayjs(startDate).format('MMM YYYY')
-  const formattedEndDate = endDate ? dayjs(endDate).format('MMM YYYY') : 'Present'
+  const formattedEndDate = endDate ? dayjs(endDate).format('MMM YYYY') : t(i18n)`Present`
   const monthDiff = endDate
     ? dayjs.duration(dayjs(endDate).diff(dayjs(startDate)))
     : dayjs.duration(dayjs(new Date()).diff(dayjs(startDate)))
@@ -93,10 +103,15 @@ export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date;
   const years = monthDiff.years()
   const months = monthDiff.months()
 
-  const duration =
+  const durationEng =
     years > 0
       ? `${years} yr${years > 1 ? 's' : ''} ${months} mo${months > 1 ? 's' : ''}`
       : `${months} mo${months > 1 ? 's' : ''}`
 
-  return <div className='pt-1 text-xs'>{`${formattedStartDate} - ${formattedEndDate} · ${duration}`}</div>
+  const durationVie =
+    years > 0
+      ? `${years} năm ${months} tháng`
+      : `${months} tháng`
+
+  return <div className='pt-1 text-xs'>{`${formattedStartDate} - ${formattedEndDate} · ${i18n.locale === 'en-US' ? durationEng : durationVie}`}</div>
 }

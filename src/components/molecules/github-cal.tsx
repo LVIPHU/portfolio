@@ -1,5 +1,4 @@
 'use client'
-
 import GitHubCalendar from 'react-github-calendar'
 import { useTheme } from 'next-themes'
 import { Trans } from '@lingui/react/macro'

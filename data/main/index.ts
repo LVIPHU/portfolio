@@ -5,7 +5,6 @@ export interface Skill {
   field?: string
   subfield?: string
   description?: string
-  imgSrc?: string
   level: 'beginner' | 'learning' | 'familiar' | 'proficient' | 'advanced' | 'expert'
   hidden?: boolean
   href?: string
@@ -16,28 +15,29 @@ export interface Project {
   type: 'work' | 'self'
   title: string
   description?: string
-  imgSrc: string
+  image: string
   url?: string
   repo?: string
-  builtWith: Skill['id'][]
+  technologies: Skill['id'][]
   hidden?: boolean
 }
 
 export interface Experience {
   title: string
   roleType: 'Fulltime' | 'Part-time' | 'Consultant' | 'Freelance'
+  type: 'Product' | 'Outsource'
   startDate: string
   endDate?: string
   description: string
   active?: boolean
-  techStack?: Skill['id'][]
+  technologies?: Skill['id'][]
   hidden?: boolean
 }
 
 export interface Company {
   name: string
   location?: string
-  imgSrc?: string
+  image?: string
   startDate?: string
   endDate?: string
   url?: string
@@ -205,6 +205,15 @@ export const skillsData: Skill[] = [
     href: 'https://github.com/'
   },
   {
+    name: 'Socket.io',
+    id: 'socketio',
+    category: 'Web Dev',
+    field: 'Backend',
+    subfield: 'Real-time',
+    level: 'familiar',
+    href: 'https://socket.io/'
+  },
+  {
     name: 'SQL',
     id: 'sql',
     category: 'Web Dev',
@@ -323,13 +332,45 @@ export const skillsData: Skill[] = [
     name: 'Datadog',
     id: 'datadog',
     category: 'DevOps & Tools',
-    field: 'Analytics',
+    field: 'Monitoring & Analytics',
     level: 'learning',
     href: 'https://www.datadoghq.com/'
   }
 ]
 
-// export let projectsData: Project[] = []
+export let projectsData: Project[] = [
+  {
+    type: 'work',
+    title: 'Bạc Hà',
+    image: '/images/projects/1.jpg',
+    description: '',
+    technologies: [],
+  },
+  {
+    type: 'work',
+    title: 'Automata',
+    image: '/images/projects/2.jpg',
+    description: '',
+    technologies: [],
+  },
+  {
+    type: 'self',
+    title: 'AppChat',
+    image: '/images/projects/3.jpg',
+    description: '',
+    repo: 'AppChat-v2.0.0',
+    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'antd', 'socket.io'],
+  },
+  {
+    type: 'self',
+    title: 'Shopology',
+    image: '/images/projects/4.jpg',
+    description: '',
+    repo: 'MERN_SHOP',
+    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'bootstrap'],
+  }
+
+];
 
 export const experienceData: Company[] = [
   {
@@ -337,45 +378,45 @@ export const experienceData: Company[] = [
     location: '60 Đ. D1, Khu đô thị Him Lam, Quận 7, Hồ Chí Minh',
     description:
       'PVS là doanh nghiệp chuyên cung cấp các giải pháp và tập trung xây dựng và phát triển các ứng dụng phần mềm và các dịch vụ giá trị trong lĩnh vực Viễn Thông, Công Nghệ Thông tin và Y Tế, ...',
-    imgSrc: 'https://pvssolution.com/wp-content/uploads/2023/08/logo-pvs-1024x629.png',
+    image: 'https://pvssolution.com/wp-content/uploads/2023/08/logo-pvs-1024x629.png',
     url: 'https://pvssolution.com/',
     active: true,
     items: [
       {
         title: 'Frontend Developer - Pinance',
+        type: 'Product',
         roleType: 'Fulltime',
         startDate: '2024/02/04',
-        description:
-          'Implemented new features and fixed bugs, ensuring the continuous improvement and reliability of the software. Maintained server configurations, ensuring optimal performance and availability. Attended product meetings to ideate and discuss feature enhancements, contributing to the strategic growth and development of the software. Collaborated closely with cross-functional teams to ensure the alignment of development efforts with business goals and user needs. Developing prototypes for AI features to be integrated within the software.',
-        techStack: ['bootstrap', 'vuejs', 'datadog'],
+        description: '',
+        technologies: ['bootstrap', 'vuejs', 'datadog', 'socketio'],
         active: true
       },
       {
         title: 'Frontend Developer - Rainbow',
+        type: 'Outsource',
         roleType: 'Fulltime',
-        startDate: '2023/12/04',
-        endDate: '2024/01/18',
-        description:
-          'Created, configured, tested, and deployed Agora API integration functionalities, ensuring seamless connectivity and optimal performance. Coordinated the implementation of third-party systems connections with active system monitoring, ensuring reliable and efficient integrations. Developed multiple automation tools to facilitate the search and investigation of issues, significantly improving the efficiency of the troubleshooting process.',
-        techStack: ['antd', 'react', 'vite']
+        startDate: '2023/11/04',
+        endDate: '2024/02/18',
+        description: '',
+        technologies: ['antd', 'react', 'vite']
       },
       {
         title: 'Frontend Developer - Mobi 8 - Admin',
+        type: 'Outsource',
         roleType: 'Fulltime',
         startDate: '2023/02/03',
         endDate: '2023/11/22',
-        description:
-          'Created, configured, tested, and deployed Agora API integration functionalities, ensuring seamless connectivity and optimal performance. Coordinated the implementation of third-party systems connections with active system monitoring, ensuring reliable and efficient integrations. Developed multiple automation tools to facilitate the search and investigation of issues, significantly improving the efficiency of the troubleshooting process.',
-        techStack: ['antd', 'react', 'redux']
+        description: '',
+        technologies: ['antd', 'react', 'redux']
       },
       {
         title: 'Frontend Developer - Mobi 8 - Client',
+        type: 'Outsource',
         roleType: 'Fulltime',
         startDate: '2022/06/20',
         endDate: '2024/03/27',
-        description:
-          'Created, configured, tested, and deployed Agora API integration functionalities, ensuring seamless connectivity and optimal performance. Coordinated the implementation of third-party systems connections with active system monitoring, ensuring reliable and efficient integrations. Developed multiple automation tools to facilitate the search and investigation of issues, significantly improving the efficiency of the troubleshooting process.',
-        techStack: ['nextjs', 'react', 'tailwindcss']
+        description: '',
+        technologies: ['nextjs', 'react', 'tailwindcss']
       }
     ]
   }
