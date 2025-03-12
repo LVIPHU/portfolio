@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from 'tailwindcss-animate'
-const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette') as any
+import { fontFamily } from 'tailwindcss/defaultTheme'
+import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette'
 
 export default {
   darkMode: ['class'],
@@ -13,6 +14,11 @@ export default {
   prefix: '',
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-nunito)', ...fontFamily.sans],
+        greeting: ['var(--font-playpen-sans)'],
+        mono: ['var(--font-jetbrains-mono)', ...fontFamily.mono]
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

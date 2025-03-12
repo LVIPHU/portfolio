@@ -1,5 +1,13 @@
 import { cn } from '@/libs/utils'
-import { Separator, SocialIcons, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/atoms'
+import {
+  Container,
+  Separator,
+  SocialIcons,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/atoms'
 import { Dot } from 'lucide-react'
 import { skillsData } from '@data/main'
 import { useMemo } from 'react'
@@ -40,7 +48,7 @@ export const Footer = ({ className, description }: Props) => {
   }, [])
 
   return (
-    <footer className={cn('text-sm mt-8 flex flex-col gap-y-5', className)}>
+    <Container as={'footer'} className={cn('text-sm mb-4 mt-8 md:mt-16 md:mb-32 flex flex-col gap-y-5', className)}>
       <Separator />
       {description && <p className='text-muted-foreground italic'>{description}</p>}
       <div className='flex flex-col md:flex-row justify-center md:justify-between items-center gap-4'>
@@ -65,6 +73,6 @@ export const Footer = ({ className, description }: Props) => {
           {techsUsed}
         </ul>
       </div>
-    </footer>
+    </Container>
   )
 }

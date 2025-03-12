@@ -20,7 +20,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@data/*": ["./data/*"]
+      "@data/*": ["./data/*"],
+      "@public/*": ["./public/*"],
+      "@env": ["./env.mjs"]
     },
     "typeRoots": ["./src/types", "./node_modules/@types"]
   },

@@ -30,7 +30,8 @@ import {
   Umami,
   DataDog,
   Github,
-  AntDesign
+  AntDesign,
+  SocketIO
 } from './icons'
 
 import { NavigationLink } from '@/components/atoms'
@@ -71,7 +72,8 @@ const components = {
   yarn: Yarn, // Hidden nhưng có thể giữ lại nếu muốn
   jira: Jira, // Hidden nhưng nếu cần, có thể giữ lại
   umami: Umami,
-  datadog: DataDog
+  datadog: DataDog,
+  socketio: SocketIO
 }
 
 type IconsBundleProps = {

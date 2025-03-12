@@ -17,19 +17,15 @@ msgstr ""
 msgid "{category}"
 msgstr "{category}"
 
-#: src/components/templates/about.tsx:122
-msgid "A few words about myself."
-msgstr "A few words about myself."
-
-#: src/components/templates/about.tsx:39
+#: src/components/templates/about.tsx:38
 #: src/components/organisms/navbar.tsx:28
-#: src/app/[lang]/about/page.tsx:9
+#: src/app/[lang]/(page)/about/page.tsx:9
 msgid "About"
 msgstr "About"
 
 #: src/components/organisms/navbar.tsx:59
-#: src/app/[lang]/contact/page.tsx:9
 #: src/app/[lang]/@modal/(.)contact/page.tsx:23
+#: src/app/[lang]/(page)/contact/page.tsx:9
 msgid "Contact"
 msgstr "Contact"
 
@@ -45,12 +41,12 @@ msgstr "English"
 msgid "Experience"
 msgstr "Experience"
 
-#: src/components/templates/about.tsx:25
+#: src/components/templates/about.tsx:24
 #: src/components/organisms/navbar.tsx:47
 msgid "Facebook"
 msgstr "Facebook"
 
-#: src/components/templates/about.tsx:30
+#: src/components/templates/about.tsx:29
 #: src/components/organisms/navbar.tsx:53
 msgid "Github"
 msgstr "Github"
@@ -63,43 +59,46 @@ msgstr "Go back"
 msgid "Home"
 msgstr "Home"
 
-#: src/app/[lang]/layout.tsx:26
-#: src/app/[lang]/layout.tsx:31
+#: src/app/[lang]/layout.tsx:43
+#: src/app/[lang]/layout.tsx:48
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 
-#: src/components/molecules/setting.tsx:15
+#: src/components/molecules/setting.tsx:16
 msgid "Language"
 msgstr "Language"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
 #: src/components/organisms/navbar.tsx:40
-#: src/app/[lang]/photos/page.tsx:9
+#: src/app/[lang]/(page)/photos/page.tsx:9
 msgid "Photos"
 msgstr "Photos"
 
-#: src/components/templates/projects.tsx:9
-#: src/components/templates/projects.tsx:11
+#: src/components/atoms/timeline.tsx:98
+msgid "Present"
+msgstr "Present"
+
+#: src/components/templates/projects.tsx:12
 #: src/components/organisms/navbar.tsx:34
-#: src/app/[lang]/projects/page.tsx:9
+#: src/app/[lang]/(page)/projects/page.tsx:9
 msgid "Projects"
 msgstr "Projects"
 
-#: src/components/templates/about.tsx:56
+#: src/components/templates/about.tsx:55
 msgid "Resume"
 msgstr "Resume"
 
 #: src/components/organisms/navbar.tsx:66
-#: src/components/molecules/setting.tsx:10
+#: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Setting"
 
-#: src/components/templates/about.tsx:40
+#: src/components/templates/about.tsx:39
 msgid "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 msgstr "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 
-#: src/components/templates/projects.tsx:9
+#: src/components/templates/projects.tsx:12
 msgid "Some things I've done"
 msgstr "Some things I've done"
 
@@ -111,7 +110,7 @@ msgstr "Technologies I've worked with"
 msgid "Technologies used"
 msgstr "Technologies used"
 
-#: src/components/molecules/setting.tsx:21
+#: src/components/molecules/setting.tsx:22
 msgid "Theme"
 msgstr "Theme"
 
@@ -123,6 +122,6 @@ msgstr "These are my most used technologies."
 msgid "Tiếng Việt"
 msgstr "Tiếng Việt"
 
-#: src/components/molecules/github-cal.tsx:15
+#: src/components/organisms/github-cal.tsx:15
 msgid "Work Calendar"
 msgstr "Work Calendar"

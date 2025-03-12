@@ -116,7 +116,7 @@ const FloatingDockMobile = ({
                         </div>
                       </motion.div>
                     </PopoverTrigger>
-                    <PopoverContent>{item.content}</PopoverContent>
+                    <PopoverContent className={'w-80'}>{item.content}</PopoverContent>
                   </Popover>
                 )
               }
@@ -153,7 +153,7 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        'mx-auto hidden md:flex h-16 gap-4 items-end rounded-full bg-gray-50 dark:bg-neutral-900 px-4 pb-3',
+        'mx-auto hidden md:flex h-16 gap-4 items-end rounded-full backdrop-blur bg-gray-50/70 dark:bg-neutral-900/75 px-4 pb-3',
         className
       )}
     >
@@ -349,7 +349,7 @@ function PopoverIconContainer({
           </motion.div>
         </motion.div>
       </PopoverTrigger>
-      <PopoverContent>{content}</PopoverContent>
+      <PopoverContent className={'w-80'}>{content}</PopoverContent>
     </Popover>
   )
 }

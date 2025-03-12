@@ -3,6 +3,7 @@ import {
   AvatarFallback,
   AvatarImage,
   Button,
+  Container,
   LinkPreview,
   NavigationLink,
   Separator,
@@ -13,10 +14,9 @@ import {
 } from '@/components/atoms'
 import { Trans } from '@lingui/react/macro'
 import { Facebook, Github } from 'lucide-react'
-import { Experience, Footer, Header, Layout, Technologies } from '@/components/organisms'
+import { Experience, GithubCal, Header, Technologies } from '@/components/organisms'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { GithubCal } from '@/components/molecules'
 
 export const AboutTemplate = () => {
   const { i18n } = useLingui()
@@ -33,7 +33,7 @@ export const AboutTemplate = () => {
     }
   ]
   return (
-    <Layout>
+    <Container as={'div'}>
       <Header
         className={'mb-0 md:mb-0'}
         title={t(i18n)`About`}
@@ -42,7 +42,7 @@ export const AboutTemplate = () => {
         )`Some interesting things about myself and my habit of coding then making things harder for myself after six months.`}
       />
       <section className={'mb-5 md:mb-10 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0'}>
-        <div className={'pt-8 md:pt-10 '}>
+        <div className={'pt-5 md:pt-10 '}>
           <div className={'mb-7'}>
             <Avatar className='h-60 w-60 mx-auto mb-2'>
               <AvatarImage src='/images/avatars/main.jpg' alt='@shadcn' />
@@ -74,15 +74,14 @@ export const AboutTemplate = () => {
             ))}
           </nav>
         </div>
-        <div className={'py-8 md:py-10 xl:col-span-2 flex flex-col gap-y-3.5'}>
-          <h2 className={'text-2xl font-bold'}>
-            Xin chào! {String.fromCodePoint(0x1f44b)}, tôi là {process.env.owner}
-          </h2>
+        <div className={'py-5 md:py-10 xl:col-span-2 flex flex-col gap-y-6 text-lg'}>
+          <h2 className={'text-3xl font-bold mb-2'}>Xin chào! {String.fromCodePoint(0x1f44b)}</h2>
           <span>
-            Tôi là một Kỹ sư Phần mềm {String.fromCodePoint(0x1f4bb)} đến từ Việt Nam, với niềm đam mê về lập trình và
-            phát triển web, tôi thích tạo ra những giải pháp sáng tạo giúp nâng cao hiệu suất và hiệu quả. Hành trình
-            công nghệ của tôi bao gồm việc xây dựng các trang web thương mại, quản lý dữ liệu và các giải pháp
-            full-stack tiên tiến. Về học vấn, tôi có bằng Kỹ sư {String.fromCodePoint(0x1f393)} Công nghệ Thông tin.
+            Tôi là {process.env.owner}, một Kỹ sư Phần mềm {String.fromCodePoint(0x1f4bb)} đến từ Việt Nam, với niềm đam
+            mê về lập trình và phát triển web, tôi thích tạo ra những giải pháp sáng tạo giúp nâng cao hiệu suất và hiệu
+            quả. Hành trình công nghệ của tôi bao gồm việc xây dựng các trang web thương mại, quản lý dữ liệu và các
+            giải pháp full-stack tiên tiến. Về học vấn, tôi có bằng Kỹ sư {String.fromCodePoint(0x1f393)} Công nghệ
+            Thông tin.
           </span>
           <span>
             Hiện giờ tôi đang làm việc cho công ty{' '}
@@ -107,19 +106,12 @@ export const AboutTemplate = () => {
           </span>
         </div>
       </section>
-      <section>
-        <Separator />
-        <Technologies />
-      </section>
-      <section>
-        <Separator />
-        <Experience />
-      </section>
-      <section>
-        <Separator />
-        <GithubCal />
-      </section>
-      <Footer description={t(i18n)`A few words about myself.`} />
-    </Layout>
+      <Separator className={'mt-6 md:mt-10'} />
+      <Technologies />
+      <Separator className={'mt-6 md:mt-10'} />
+      <Experience />
+      <Separator className={'mt-6 md:mt-10'} />
+      <GithubCal />
+    </Container>
   )
 }

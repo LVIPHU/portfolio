@@ -1,6 +1,6 @@
 export * from './experience'
 export * from './footer'
+export * from './github-cal'
 export * from './header'
-export * from './layout'
 export * from './navbar'
 export * from './technologies'

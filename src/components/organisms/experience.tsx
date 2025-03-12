@@ -8,6 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  Container,
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
@@ -45,13 +46,15 @@ function createTimelineItems(experiences: Experience[]) {
     title: experience.title,
     content: (
       <>
-        <TimelineItemSmallText>{experience.roleType}</TimelineItemSmallText>
+        <TimelineItemSmallText>
+          {experience.roleType} - {experience.type}
+        </TimelineItemSmallText>
         <TimelineItemDateRange
           startDate={new Date(experience.startDate)}
           endDate={experience.endDate ? new Date(experience.endDate) : undefined}
         />
         <TimelineItemDescription>{experience.description}</TimelineItemDescription>
-        {experience.techStack && <TechnologyIcons technologies={experience.techStack} />}
+        {experience.technologies && <TechnologyIcons technologies={experience.technologies} />}
       </>
     ),
     isActive: experience.active,
@@ -61,7 +64,7 @@ function createTimelineItems(experiences: Experience[]) {
 
 export function Experience() {
   return (
-    <div className='my-10 w-full'>
+    <Container className='my-5 md:my-10 w-full'>
       <h3 className='text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl md:leading-14'>
         <Trans>Experience</Trans>
       </h3>
@@ -87,7 +90,7 @@ export function Experience() {
                 <HoverCardContent className='w-96 mt-3'>
                   <div className='flex justify-between space-x-4'>
                     <Avatar>
-                      <AvatarImage src={company.imgSrc} />
+                      <AvatarImage src={company.image} />
                       <AvatarFallback>VC</AvatarFallback>
                     </Avatar>
                     <div className='space-y-1'>
@@ -123,6 +126,6 @@ export function Experience() {
           ))}
         </Tabs>
       </div>
-    </div>
+    </Container>
   )
 }
