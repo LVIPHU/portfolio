@@ -8,6 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Container,
   NavigationLink,
   Pagination,
   PaginationContent,
@@ -67,7 +68,7 @@ export const Technologies = () => {
   }
 
   return (
-    <div className={'my-8 md:my-10'}>
+    <Container className={'my-5 md:my-10'}>
       <h3
         className={
           'text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl md:leading-14'
@@ -112,7 +113,7 @@ export const Technologies = () => {
                               variant={'outline'}
                               className={`h-14 w-full p-2 sm:p-2 ${skill.level === 'learning' ? 'border border-amber-500' : ''}`}
                             >
-                              <SocialIcons kind={skill.id} size={10} iconType={'icon'} />
+                              <SocialIcons className={'size-8 md:size-10'} kind={skill.id} iconType={'icon'} />
                             </Button>
                           </NavigationLink>
                         </TooltipTrigger>
@@ -152,6 +153,6 @@ export const Technologies = () => {
           })}
         </Tabs>
       </TooltipProvider>
-    </div>
+    </Container>
   )
 }

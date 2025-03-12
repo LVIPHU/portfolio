@@ -8,6 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  Container,
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
@@ -45,7 +46,9 @@ function createTimelineItems(experiences: Experience[]) {
     title: experience.title,
     content: (
       <>
-        <TimelineItemSmallText>{experience.roleType} - {experience.type}</TimelineItemSmallText>
+        <TimelineItemSmallText>
+          {experience.roleType} - {experience.type}
+        </TimelineItemSmallText>
         <TimelineItemDateRange
           startDate={new Date(experience.startDate)}
           endDate={experience.endDate ? new Date(experience.endDate) : undefined}
@@ -61,7 +64,7 @@ function createTimelineItems(experiences: Experience[]) {
 
 export function Experience() {
   return (
-    <div className='my-10 w-full'>
+    <Container className='my-5 md:my-10 w-full'>
       <h3 className='text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl md:leading-14'>
         <Trans>Experience</Trans>
       </h3>
@@ -123,6 +126,6 @@ export function Experience() {
           ))}
         </Tabs>
       </div>
-    </div>
+    </Container>
   )
 }

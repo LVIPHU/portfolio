@@ -6,13 +6,30 @@ import { LayoutProps } from '@/types/app'
 import ProviderRegistry from '@/providers'
 import { ReactNode } from 'react'
 import { Navbar } from '@/components/organisms'
-import { Montserrat } from 'next/font/google'
+import { JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
+import { cn } from '@/libs/utils'
 
-const font = Montserrat({
-  weight: ['300', '400', '500', '600', '700', '800'],
-  style: ['normal', 'italic'],
+const FONT_PLAYPEN_SANS = Playpen_Sans({
   subsets: ['latin', 'vietnamese'],
-  display: 'swap'
+  display: 'swap',
+  weight: ['800'],
+  variable: '--font-playpen-sans'
+})
+
+const FONT_NUNITO = Nunito({
+  subsets: ['latin', 'vietnamese'],
+  display: 'swap',
+  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-nunito'
+})
+
+const FONT_JETBRAINS_MONO = JetBrains_Mono({
+  weight: ['400', '500', '600'],
+  subsets: ['latin', 'vietnamese'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono'
 })
 
 export async function generateStaticParams() {
@@ -40,11 +57,15 @@ type Props = LayoutProps & { modal: ReactNode }
 export default async function RootLayout({ children, modal, params }: Readonly<Props>) {
   const lang = (await params).lang
   return (
-    <html lang={lang} suppressHydrationWarning>
-      <body className={font.className}>
+    <html
+      lang={lang}
+      className={cn('scroll-smooth', FONT_NUNITO.variable, FONT_JETBRAINS_MONO.variable, FONT_PLAYPEN_SANS.variable)}
+      suppressHydrationWarning
+    >
+      <body>
         <ProviderRegistry params={params}>
           <Navbar lang={lang} />
-          <main className='relative min-h-screen flex flex-col my-0 mx-auto overflow-hidden'>{children}</main>
+          {children}
           {modal}
         </ProviderRegistry>
       </body>

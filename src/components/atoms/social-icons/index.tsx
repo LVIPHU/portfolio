@@ -73,7 +73,7 @@ const components = {
   jira: Jira, // Hidden nhưng nếu cần, có thể giữ lại
   umami: Umami,
   datadog: DataDog,
-  socketio: SocketIO,
+  socketio: SocketIO
 }
 
 type IconsBundleProps = {

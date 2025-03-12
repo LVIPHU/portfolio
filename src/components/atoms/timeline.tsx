@@ -88,7 +88,7 @@ export const TimelineItemSmallText = ({ children }: { children: React.ReactNode 
 }
 
 export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date; endDate?: Date }) => {
-  const {i18n} = useLingui()
+  const { i18n } = useLingui()
   if (dayjsLocales[i18n.locale]) {
     void dayjsLocales[i18n.locale]()
     dayjs.locale(dayjsLocaleMap[i18n.locale])
@@ -108,10 +108,9 @@ export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date;
       ? `${years} yr${years > 1 ? 's' : ''} ${months} mo${months > 1 ? 's' : ''}`
       : `${months} mo${months > 1 ? 's' : ''}`
 
-  const durationVie =
-    years > 0
-      ? `${years} năm ${months} tháng`
-      : `${months} tháng`
+  const durationVie = years > 0 ? `${years} năm ${months} tháng` : `${months} tháng`
 
-  return <div className='pt-1 text-xs'>{`${formattedStartDate} - ${formattedEndDate} · ${i18n.locale === 'en-US' ? durationEng : durationVie}`}</div>
+  return (
+    <div className='pt-1 text-xs'>{`${formattedStartDate} - ${formattedEndDate} · ${i18n.locale === 'en-US' ? durationEng : durationVie}`}</div>
+  )
 }

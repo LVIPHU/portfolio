@@ -343,34 +343,37 @@ export let projectsData: Project[] = [
     type: 'work',
     title: 'Bạc Hà',
     image: '/images/projects/1.jpg',
-    description: '',
-    technologies: [],
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    technologies: []
   },
   {
     type: 'work',
     title: 'Automata',
     image: '/images/projects/2.jpg',
-    description: '',
-    technologies: [],
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    technologies: []
   },
   {
     type: 'self',
     title: 'AppChat',
     image: '/images/projects/3.jpg',
-    description: '',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     repo: 'AppChat-v2.0.0',
-    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'antd', 'socket.io'],
+    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'antd', 'socket.io']
   },
   {
     type: 'self',
     title: 'Shopology',
     image: '/images/projects/4.jpg',
-    description: '',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     repo: 'MERN_SHOP',
-    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'bootstrap'],
+    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'bootstrap']
   }
-
-];
+]
 
 export const experienceData: Company[] = [
   {
@@ -387,7 +390,8 @@ export const experienceData: Company[] = [
         type: 'Product',
         roleType: 'Fulltime',
         startDate: '2024/02/04',
-        description: '',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         technologies: ['bootstrap', 'vuejs', 'datadog', 'socketio'],
         active: true
       },
@@ -397,7 +401,8 @@ export const experienceData: Company[] = [
         roleType: 'Fulltime',
         startDate: '2023/11/04',
         endDate: '2024/02/18',
-        description: '',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         technologies: ['antd', 'react', 'vite']
       },
       {
@@ -406,7 +411,8 @@ export const experienceData: Company[] = [
         roleType: 'Fulltime',
         startDate: '2023/02/03',
         endDate: '2023/11/22',
-        description: '',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         technologies: ['antd', 'react', 'redux']
       },
       {
@@ -415,7 +421,8 @@ export const experienceData: Company[] = [
         roleType: 'Fulltime',
         startDate: '2022/06/20',
         endDate: '2024/03/27',
-        description: '',
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         technologies: ['nextjs', 'react', 'tailwindcss']
       }
     ]

@@ -2,8 +2,9 @@
 
 import { Blur, ParallaxScroll, ParallaxScrollImage } from '@/components/molecules'
 import { t } from '@lingui/macro'
-import { Footer, Header, Layout } from '@/components/organisms'
+import { Header } from '@/components/organisms'
 import { useLingui } from '@lingui/react'
+import { Container } from '@/components/atoms'
 
 export const PhotosTemplate = () => {
   const { i18n } = useLingui()
@@ -230,13 +231,12 @@ export const PhotosTemplate = () => {
     }
   ]
   return (
-    <Layout>
+    <Container>
       <Header title={t(i18n)`Photos`} description={t(i18n)`Photos`} />
       <section className={'items-start'}>
         <ParallaxScroll images={imageList}></ParallaxScroll>
       </section>
-      <Footer className={'mt-8'} />
       <Blur />
-    </Layout>
+    </Container>
   )
 }

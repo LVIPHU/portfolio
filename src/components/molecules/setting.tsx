@@ -13,13 +13,17 @@ export const Setting = () => {
       </div>
       <div className='grid gap-2'>
         <div className='grid grid-cols-3 items-center gap-4'>
-          <Label><Trans>Language</Trans></Label>
+          <Label>
+            <Trans>Language</Trans>
+          </Label>
           <div className='col-span-2'>
             <LocaleSwitch />
           </div>
         </div>
         <div className='grid grid-cols-3 items-center gap-4'>
-          <Label><Trans>Theme</Trans></Label>
+          <Label>
+            <Trans>Theme</Trans>
+          </Label>
           <div className='col-span-2 flex justify-center'>
             <ThemeSwitch />
           </div>
