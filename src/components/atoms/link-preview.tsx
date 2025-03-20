@@ -26,7 +26,7 @@ export const LinkPreview = ({
   quality = 50,
   layout = 'fixed',
   isStatic = false,
-  imageSrc = ''
+  imageSrc = '',
 }: LinkPreviewProps) => {
   let src
   if (!isStatic) {
@@ -39,7 +39,7 @@ export const LinkPreview = ({
       'viewport.isMobile': true,
       'viewport.deviceScaleFactor': 1,
       'viewport.width': width * 3,
-      'viewport.height': height * 3
+      'viewport.height': height * 3,
     })
     src = `https://api.microlink.io/?${params}`
   } else {
@@ -114,19 +114,19 @@ export const LinkPreview = ({
                   transition: {
                     type: 'spring',
                     stiffness: 260,
-                    damping: 20
-                  }
+                    damping: 20,
+                  },
                 }}
                 exit={{ opacity: 0, y: 20, scale: 0.6 }}
-                className='shadow-xl rounded-xl'
+                className='rounded-xl shadow-xl'
                 style={{
-                  x: translateX
+                  x: translateX,
                 }}
               >
                 <NavigationLink
                   href={url}
                   style={{ fontSize: 0 }}
-                  className='block p-1 bg-white border-2 border-transparent shadow rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800'
+                  className='block rounded-xl border-2 border-transparent bg-white p-1 shadow hover:border-neutral-200 dark:hover:border-neutral-800'
                 >
                   <Image
                     src={isStatic ? imageSrc : src}

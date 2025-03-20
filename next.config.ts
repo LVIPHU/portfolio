@@ -4,50 +4,50 @@ import type { NextConfig } from 'next'
 const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is;
-  style-src 'self' 'unsafe-inline';
+  style-src 'self' 'unsafe-inline' fonts.googleapis.com;
   img-src * blob: data:;
-  media-src *.s3.amazonaws.com;
+  media-src 'self' http://localhost:3000 blob: data:;
   connect-src *;
-  font-src 'self';
-  frame-src giscus.app
+  font-src 'self' fonts.gstatic.com;
+  frame-src giscus.app;
 `
 
 const securityHeaders = [
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
   {
     key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.replace(/\n/g, '')
+    value: ContentSecurityPolicy.replace(/\n/g, ''),
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
   {
     key: 'Referrer-Policy',
-    value: 'strict-origin-when-cross-origin'
+    value: 'strict-origin-when-cross-origin',
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
   {
     key: 'X-Frame-Options',
-    value: 'DENY'
+    value: 'DENY',
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
   {
     key: 'X-Content-Type-Options',
-    value: 'nosniff'
+    value: 'nosniff',
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control
   {
     key: 'X-DNS-Prefetch-Control',
-    value: 'on'
+    value: 'on',
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
   {
     key: 'Strict-Transport-Security',
-    value: 'max-age=31536000; includeSubDomains'
+    value: 'max-age=31536000; includeSubDomains',
   },
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
   {
     key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=()'
-  }
+    value: 'camera=(), microphone=(), geolocation=()',
+  },
 ]
 
 const nextConfig: NextConfig = {
@@ -57,47 +57,47 @@ const nextConfig: NextConfig = {
       rules: {
         '*.po': {
           loaders: ['@lingui/loader'],
-          as: '*.js'
-        }
-      }
-    }
+          as: '*.js',
+        },
+      },
+    },
   },
   env: {
     version: version,
     owner: author.name,
-    email: author.email
+    email: author.email,
   },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'api.microlink.io'
+        hostname: 'api.microlink.io',
       },
       {
         protocol: 'https',
-        hostname: 'drive.google.com'
-      }
-    ]
+        hostname: 'drive.google.com',
+      },
+    ],
   },
   async headers() {
     return [
       {
         source: '/(.*)',
-        headers: securityHeaders
-      }
+        headers: securityHeaders,
+      },
     ]
   },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.po$/,
-      use: '@lingui/loader'
+      use: '@lingui/loader',
     })
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack']
+      use: ['@svgr/webpack'],
     })
     return config
-  }
+  },
 }
 
 export default nextConfig

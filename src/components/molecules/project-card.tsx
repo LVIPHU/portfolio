@@ -16,7 +16,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
   const href = repository?.url
   const lang = repository?.languages?.[0]
   return (
-    <div className='h-full relative flex flex-col overflow-hidden rounded-xl border border-primary/50 group-hover/container:border-transparent group-hover/effect:!border-accent transition-all z-20'>
+    <div className='relative z-10 flex h-full flex-col overflow-hidden rounded-xl border border-primary/50 transition-all group-hover/container:border-transparent group-hover/effect:!border-accent'>
       <div className='relative h-64 overflow-hidden bg-accent'>
         <Image
           src={image}
@@ -27,12 +27,12 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       </div>
 
       {/* Content */}
-      <div className='flex-1 flex flex-col p-6'>
-        <h3 className='text-xl font-semibold tracking-wide mb-2'>{title}</h3>
-        <p className='text-muted-foreground tracking-wide mb-4'>{description}</p>
+      <div className='flex flex-1 flex-col p-6'>
+        <h3 className='mb-2 text-xl font-semibold tracking-wide'>{title}</h3>
+        <p className='mb-4 tracking-wide text-muted-foreground'>{description}</p>
 
         {/* Technologies */}
-        <div className='flex flex-wrap gap-2 mb-6'>
+        <div className='mb-6 flex flex-wrap gap-2'>
           {technologies.map((tech) => (
             <Badge key={tech} variant='secondary' className='rounded-full'>
               {tech}
@@ -40,7 +40,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           ))}
         </div>
         {/* Actions */}
-        <div className='flex gap-3 mt-auto'>
+        <div className='mt-auto flex gap-3'>
           {url && (
             <Button variant='default' className='rounded-full' asChild>
               <NavigationLink href={url}>

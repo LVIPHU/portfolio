@@ -14,7 +14,7 @@ export function NavigationLink({ children, className, href, ...rest }: Component
       target={isExternal ? '_blank' : '_self'}
       aria-current={isExternal ? undefined : 'page'}
       rel={isExternal ? 'noopener noreferrer' : undefined}
-      className={cn('no-underline whitespace-nowrap', className)}
+      className={cn('whitespace-nowrap no-underline', className)}
       {...rest}
     >
       {children}

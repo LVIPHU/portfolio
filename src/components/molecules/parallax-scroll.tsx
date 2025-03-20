@@ -8,7 +8,7 @@ import Image, { ImageProps } from 'next/image'
 const ImageContainer = (props: ImageProps) => {
   const { className, alt, src, width = 1080, height = 1439, ...rest } = props
   return (
-    <div className='bg-neutral-200 dark:bg-neutral-800 block relative overflow-hidden rounded-lg'>
+    <div className='relative block overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-800'>
       <Image
         sizes='(min-width: 1540px) 483px, (min-width: 1280px) 398px, (min-width: 1040px) 312px, (min-width: 780px) 350px, (min-width: 680px) 592px, calc(94.44vw - 31px)'
         decoding='async'
@@ -45,22 +45,22 @@ const ParallaxScroll = React.forwardRef<HTMLDivElement, ParallaxScrollProps>((pr
   const thirdPart = images.slice(2 * third)
 
   return (
-    <div ref={ref} className={cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-5', className)}>
-      <ul className='grid gap-5'>
+    <div ref={ref} className={cn('grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3', className)}>
+      <ul className='grid gap-6'>
         {firstPart.map(({ src, id }) => (
           <motion.li style={{ y: translateFirst }} key={'grid-1' + id}>
             <ImageContainer src={src} alt={'thumbnail-' + id} />
           </motion.li>
         ))}
       </ul>
-      <ul className='grid gap-5'>
+      <ul className='grid gap-6'>
         {secondPart.map(({ src, id }) => (
           <motion.li style={{ y: translateSecond }} key={'grid-2' + id}>
             <ImageContainer src={src} alt={'thumbnail-' + id} />
           </motion.li>
         ))}
       </ul>
-      <ul className='grid gap-5'>
+      <ul className='grid gap-6'>
         {thirdPart.map(({ src, id }) => (
           <motion.li style={{ y: translateThird }} key={'grid-3' + id}>
             <ImageContainer src={src} alt={'thumbnail-' + id} />

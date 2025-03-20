@@ -55,7 +55,7 @@ export const skillsData: Skill[] = [
     category: 'Languages',
     level: 'advanced',
     href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
-    mostUsed: true
+    mostUsed: true,
   },
   {
     name: 'Typescript',
@@ -63,7 +63,7 @@ export const skillsData: Skill[] = [
     category: 'Languages',
     level: 'advanced',
     href: 'https://www.typescriptlang.org/',
-    mostUsed: true
+    mostUsed: true,
   },
   {
     name: 'React',
@@ -72,7 +72,7 @@ export const skillsData: Skill[] = [
     field: 'Frontend',
     level: 'advanced',
     href: 'https://react.dev/',
-    mostUsed: true
+    mostUsed: true,
   },
   {
     name: 'Vue.js',
@@ -81,7 +81,7 @@ export const skillsData: Skill[] = [
     field: 'Frontend',
     level: 'advanced',
     href: 'https://vuejs.org/',
-    mostUsed: true
+    mostUsed: true,
   },
   {
     name: 'Next.js',
@@ -91,7 +91,7 @@ export const skillsData: Skill[] = [
     subfield: 'Frameworks',
     level: 'advanced',
     href: 'https://nextjs.org/',
-    mostUsed: true
+    mostUsed: true,
   },
   {
     name: 'Tailwindcss',
@@ -101,7 +101,7 @@ export const skillsData: Skill[] = [
     subfield: 'Styling',
     level: 'advanced',
     href: 'https://tailwindcss.com/',
-    mostUsed: true
+    mostUsed: true,
   },
   {
     name: 'Bootstrap',
@@ -110,7 +110,7 @@ export const skillsData: Skill[] = [
     field: 'Frontend',
     subfield: 'Styling',
     level: 'advanced',
-    href: 'https://getbootstrap.com/'
+    href: 'https://getbootstrap.com/',
   },
   {
     name: 'Shadcn/ui',
@@ -119,7 +119,7 @@ export const skillsData: Skill[] = [
     field: 'Frontend',
     subfield: 'Styling',
     level: 'advanced',
-    href: 'https://ui.shadcn.com/'
+    href: 'https://ui.shadcn.com/',
   },
   {
     name: 'Ant Design',
@@ -128,7 +128,7 @@ export const skillsData: Skill[] = [
     field: 'Frontend',
     subfield: 'Styling',
     level: 'advanced',
-    href: 'https://ant.design/'
+    href: 'https://ant.design/',
   },
   {
     name: 'CSS',
@@ -137,7 +137,7 @@ export const skillsData: Skill[] = [
     field: 'Frontend',
     subfield: 'Styling',
     level: 'advanced',
-    href: 'https://developer.mozilla.org/en-US/docs/Web/CSS'
+    href: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
   },
   {
     name: 'HTML',
@@ -145,7 +145,7 @@ export const skillsData: Skill[] = [
     category: 'Web Dev',
     field: 'Frontend',
     level: 'advanced',
-    href: 'https://developer.mozilla.org/en-US/docs/Web/HTML'
+    href: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
   },
   {
     name: 'Prisma',
@@ -154,14 +154,14 @@ export const skillsData: Skill[] = [
     field: 'Backend',
     subfield: 'ORM',
     level: 'familiar',
-    href: 'https://www.prisma.io/'
+    href: 'https://www.prisma.io/',
   },
   {
     name: 'Python',
     id: 'python',
     category: 'Languages',
     level: 'learning',
-    href: 'https://www.python.org/'
+    href: 'https://www.python.org/',
   },
   {
     name: 'Node.js',
@@ -169,7 +169,7 @@ export const skillsData: Skill[] = [
     category: 'Web Dev',
     field: 'Backend',
     level: 'proficient',
-    href: 'https://nodejs.org/en/'
+    href: 'https://nodejs.org/en/',
   },
   {
     name: 'Express.js',
@@ -177,7 +177,7 @@ export const skillsData: Skill[] = [
     category: 'Web Dev',
     field: 'Backend',
     level: 'proficient',
-    href: 'https://expressjs.com/'
+    href: 'https://expressjs.com/',
   },
   {
     name: 'NestJS',
@@ -186,7 +186,7 @@ export const skillsData: Skill[] = [
     field: 'Backend',
     level: 'proficient',
     mostUsed: true,
-    href: 'https://nestjs.com/'
+    href: 'https://nestjs.com/',
   },
   {
     name: 'Git',
@@ -194,7 +194,7 @@ export const skillsData: Skill[] = [
     category: 'DevOps & Tools',
     field: 'Source Control',
     level: 'advanced',
-    href: 'https://git-scm.com/'
+    href: 'https://git-scm.com/',
   },
   {
     name: 'Github',
@@ -202,7 +202,7 @@ export const skillsData: Skill[] = [
     category: 'DevOps & Tools',
     field: 'Source Control',
     level: 'advanced',
-    href: 'https://github.com/'
+    href: 'https://github.com/',
   },
   {
     name: 'Socket.io',
@@ -211,7 +211,7 @@ export const skillsData: Skill[] = [
     field: 'Backend',
     subfield: 'Real-time',
     level: 'familiar',
-    href: 'https://socket.io/'
+    href: 'https://socket.io/',
   },
   {
     name: 'SQL',
@@ -220,7 +220,7 @@ export const skillsData: Skill[] = [
     field: 'Backend',
     subfield: 'Databases',
     level: 'familiar',
-    hidden: true
+    hidden: true,
   },
   {
     name: 'NoSQL',
@@ -230,7 +230,7 @@ export const skillsData: Skill[] = [
     subfield: 'Databases',
     level: 'familiar',
     href: 'https://www.mongodb.com/',
-    hidden: true
+    hidden: true,
   },
   {
     name: 'MongoDB',
@@ -240,7 +240,7 @@ export const skillsData: Skill[] = [
     subfield: 'Databases',
     level: 'familiar',
     href: 'https://www.mongodb.com/',
-    mostUsed: true
+    mostUsed: true,
   },
   {
     name: 'PostgreSQL',
@@ -249,7 +249,7 @@ export const skillsData: Skill[] = [
     field: 'Backend',
     subfield: 'Databases',
     level: 'learning',
-    href: 'https://www.postgresql.org/'
+    href: 'https://www.postgresql.org/',
   },
   {
     name: 'MySQL',
@@ -258,7 +258,7 @@ export const skillsData: Skill[] = [
     field: 'Backend',
     subfield: 'Databases',
     level: 'learning',
-    href: 'https://www.mysql.com/'
+    href: 'https://www.mysql.com/',
   },
   {
     name: 'Postman',
@@ -266,7 +266,7 @@ export const skillsData: Skill[] = [
     category: 'DevOps & Tools',
     field: 'Tools',
     level: 'familiar',
-    href: 'https://www.postman.com/'
+    href: 'https://www.postman.com/',
   },
   {
     name: 'Vercel',
@@ -274,7 +274,7 @@ export const skillsData: Skill[] = [
     category: 'DevOps & Tools',
     field: 'Cloud Providers',
     level: 'familiar',
-    href: 'https://vercel.com/'
+    href: 'https://vercel.com/',
   },
   {
     name: 'Jira',
@@ -284,7 +284,7 @@ export const skillsData: Skill[] = [
     subfield: 'Fullstack',
     level: 'familiar',
     href: 'https://www.atlassian.com/software/jira',
-    hidden: true
+    hidden: true,
   },
   {
     name: 'Vite',
@@ -292,7 +292,7 @@ export const skillsData: Skill[] = [
     category: 'DevOps & Tools',
     field: 'DevOps & Tools',
     level: 'familiar',
-    href: 'https://vitejs.dev/'
+    href: 'https://vitejs.dev/',
   },
   {
     name: 'Yarn',
@@ -301,7 +301,7 @@ export const skillsData: Skill[] = [
     field: 'DevOps & Tools',
     level: 'familiar',
     href: 'https://yarnpkg.com/',
-    hidden: true
+    hidden: true,
   },
   {
     name: 'Three.js',
@@ -309,7 +309,7 @@ export const skillsData: Skill[] = [
     category: 'Web Dev',
     field: 'Frontend',
     level: 'learning',
-    href: 'https://threejs.org/'
+    href: 'https://threejs.org/',
   },
   {
     name: 'PNPM',
@@ -318,7 +318,7 @@ export const skillsData: Skill[] = [
     field: 'Tools',
     level: 'familiar',
     href: 'https://pnpm.io/',
-    hidden: true
+    hidden: true,
   },
   {
     name: 'Framer Motion',
@@ -326,7 +326,7 @@ export const skillsData: Skill[] = [
     category: 'Web Dev',
     field: 'Frontend',
     level: 'learning',
-    href: 'https://www.framer.com/motion/'
+    href: 'https://www.framer.com/motion/',
   },
   {
     name: 'Datadog',
@@ -334,45 +334,45 @@ export const skillsData: Skill[] = [
     category: 'DevOps & Tools',
     field: 'Monitoring & Analytics',
     level: 'learning',
-    href: 'https://www.datadoghq.com/'
-  }
+    href: 'https://www.datadoghq.com/',
+  },
 ]
 
 export let projectsData: Project[] = [
   {
     type: 'work',
     title: 'Bạc Hà',
-    image: '/images/projects/1.jpg',
+    image: '/static/images/projects/1.jpg',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    technologies: []
+    technologies: [],
   },
   {
     type: 'work',
     title: 'Automata',
-    image: '/images/projects/2.jpg',
+    image: '/static/images/projects/2.jpg',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    technologies: []
+    technologies: [],
   },
   {
     type: 'self',
     title: 'AppChat',
-    image: '/images/projects/3.jpg',
+    image: '/static/images/projects/3.jpg',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     repo: 'AppChat-v2.0.0',
-    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'antd', 'socket.io']
+    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'antd', 'socket.io'],
   },
   {
     type: 'self',
     title: 'Shopology',
-    image: '/images/projects/4.jpg',
+    image: '/static/images/projects/4.jpg',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     repo: 'MERN_SHOP',
-    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'bootstrap']
-  }
+    technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'bootstrap'],
+  },
 ]
 
 export const experienceData: Company[] = [
@@ -393,7 +393,7 @@ export const experienceData: Company[] = [
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         technologies: ['bootstrap', 'vuejs', 'datadog', 'socketio'],
-        active: true
+        active: true,
       },
       {
         title: 'Frontend Developer - Rainbow',
@@ -403,7 +403,7 @@ export const experienceData: Company[] = [
         endDate: '2024/02/18',
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        technologies: ['antd', 'react', 'vite']
+        technologies: ['antd', 'react', 'vite'],
       },
       {
         title: 'Frontend Developer - Mobi 8 - Admin',
@@ -413,7 +413,7 @@ export const experienceData: Company[] = [
         endDate: '2023/11/22',
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        technologies: ['antd', 'react', 'redux']
+        technologies: ['antd', 'react', 'redux'],
       },
       {
         title: 'Frontend Developer - Mobi 8 - Client',
@@ -423,8 +423,8 @@ export const experienceData: Company[] = [
         endDate: '2024/03/27',
         description:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        technologies: ['nextjs', 'react', 'tailwindcss']
-      }
-    ]
-  }
+        technologies: ['nextjs', 'react', 'tailwindcss'],
+      },
+    ],
+  },
 ]

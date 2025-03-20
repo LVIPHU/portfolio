@@ -28,7 +28,7 @@ export function middleware(request: NextRequest) {
 function getRequestLocale(requestHeaders: Headers): string {
   const langHeader = requestHeaders.get('accept-language') || undefined
   const languages = new Negotiator({
-    headers: { 'accept-language': langHeader }
+    headers: { 'accept-language': langHeader },
   }).languages(locales.slice())
 
   return languages[0] || locales[0] || 'vi-VN'
@@ -44,6 +44,6 @@ export const config = {
      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'
-  ]
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp3|mp4)$).*)',
+  ],
 }

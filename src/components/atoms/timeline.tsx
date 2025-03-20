@@ -31,7 +31,7 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start 10%', 'end 50%']
+    offset: ['start 10%', 'end 50%'],
   })
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height])
@@ -43,7 +43,7 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
         {data.map((item, index) => (
           <div key={index} className='flex justify-start pb-8'>
             <TimelineItemBullet />
-            <div className='relative ml-5 pl-6 w-full'>
+            <div className='relative ml-5 w-full pl-6'>
               <TimelineItemTitle>{item.title}</TimelineItemTitle>
               {item.content}
             </div>
@@ -52,12 +52,12 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
 
         <div
           style={{ height: `${height}px` }}
-          className='absolute left-5 top-0 w-[2px] z-0 bg-gradient-to-b from-transparent via-neutral-200 dark:via-neutral-700 to-transparent [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]'
+          className='absolute left-5 top-0 z-0 w-[2px] bg-gradient-to-b from-transparent via-neutral-200 to-transparent [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] dark:via-neutral-700'
         >
           <motion.div
             style={{
               height: heightTransform,
-              opacity: opacityTransform
+              opacity: opacityTransform,
             }}
             className='w-full bg-gradient-to-t from-amber-500 via-orange-600 to-transparent'
           />
@@ -68,9 +68,9 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
 }
 
 const TimelineItemBullet = () => (
-  <div className='sticky flex items-center top-40 self-start z-10'>
-    <div className='h-10 -top-3.5 absolute w-10 rounded-full bg-white dark:bg-black flex items-center justify-center'>
-      <div className='h-4 w-4 rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 p-2' />
+  <div className='sticky top-40 z-10 flex items-center self-start'>
+    <div className='absolute -top-3.5 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-black'>
+      <div className='h-4 w-4 rounded-full border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-700 dark:bg-neutral-800' />
     </div>
   </div>
 )

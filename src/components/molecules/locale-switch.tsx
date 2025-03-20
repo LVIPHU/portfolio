@@ -11,7 +11,7 @@ type LOCALES = 'vi-VN' | 'en-US'
 
 const languages = {
   'en-US': msg`English`,
-  'vi-VN': msg`Tiếng Việt`
+  'vi-VN': msg`Tiếng Việt`,
 } as const
 
 export function LocaleSwitch() {

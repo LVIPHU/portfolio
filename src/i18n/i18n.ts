@@ -15,7 +15,7 @@ async function loadCatalog(locale: SupportedLocales): Promise<{
 }> {
   const { messages } = await import(`./locales/${locale}/messages.po`)
   return {
-    [locale]: messages
+    [locale]: messages,
   }
 }
 const catalogs = await Promise.all(locales.map(loadCatalog))
@@ -31,7 +31,7 @@ export const allI18nInstances: AllI18nInstances = locales.reduce((acc, locale) =
   const messages = allMessages[locale] ?? {}
   const i18n = setupI18n({
     locale,
-    messages: { [locale]: messages }
+    messages: { [locale]: messages },
   })
   return { ...acc, [locale]: i18n }
 }, {})

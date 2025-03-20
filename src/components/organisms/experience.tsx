@@ -22,7 +22,7 @@ import {
   Timeline,
   TimelineItemDateRange,
   TimelineItemDescription,
-  TimelineItemSmallText
+  TimelineItemSmallText,
 } from '@/components/atoms'
 import { Trans } from '@lingui/react/macro'
 
@@ -58,14 +58,14 @@ function createTimelineItems(experiences: Experience[]) {
       </>
     ),
     isActive: experience.active,
-    isActiveBullet: experience.active
+    isActiveBullet: experience.active,
   }))
 }
 
 export function Experience() {
   return (
-    <Container className='my-5 md:my-10 w-full'>
-      <h3 className='text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl md:leading-14'>
+    <Container className='w-full py-5 md:py-10'>
+      <h3 className='md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'>
         <Trans>Experience</Trans>
       </h3>
       <div className='mt-5'>
@@ -74,7 +74,7 @@ export function Experience() {
           className='flex flex-col md:flex-row md:space-x-4'
           orientation='vertical'
         >
-          <TabsList className={`flex h-max w-full flex-col space-y-2  md:w-64`}>
+          <TabsList className={`flex h-max w-full flex-col space-y-2 md:w-64`}>
             {experienceData.map((company) => (
               <HoverCard key={`trigger-${company.name}`}>
                 <TabsTrigger className='flex w-full text-left' value={company.name}>
@@ -87,7 +87,7 @@ export function Experience() {
                     </div>
                   </HoverCardTrigger>
                 </TabsTrigger>
-                <HoverCardContent className='w-96 mt-3'>
+                <HoverCardContent className='mt-3 w-96'>
                   <div className='flex justify-between space-x-4'>
                     <Avatar>
                       <AvatarImage src={company.image} />

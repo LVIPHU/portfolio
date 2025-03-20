@@ -10,11 +10,11 @@ export function GithubCal() {
   const colorScheme = theme === 'dark' ? 'dark' : 'light'
 
   return (
-    <Container className='my-5 md:my-10 w-full'>
-      <h3 className='text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl md:leading-14'>
+    <Container className='w-full py-5 md:py-10'>
+      <h3 className='md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'>
         <Trans>Work Calendar</Trans>
       </h3>
-      <div className='mt-5 w-full flex items-center justify-center'>
+      <div className='mt-5 flex w-full items-center justify-center'>
         <GitHubCalendar colorScheme={colorScheme} username='LVIPHU' showWeekdayLabels={true} />
       </div>
     </Container>
