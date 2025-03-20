@@ -10,7 +10,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/atoms'
 import { Trans } from '@lingui/react/macro'
 import { Facebook, Github } from 'lucide-react'
@@ -24,13 +24,13 @@ export const AboutTemplate = () => {
     {
       title: <Trans>Facebook</Trans>,
       icon: <Facebook className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
-      href: `https://www.facebook.com/phuphu.phang.54`
+      href: `https://www.facebook.com/phuphu.phang.54`,
     },
     {
       title: <Trans>Github</Trans>,
       icon: <Github className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
-      href: `https://github.com/LVIPHU`
-    }
+      href: `https://github.com/LVIPHU`,
+    },
   ]
   return (
     <Container as={'div'}>
@@ -41,17 +41,17 @@ export const AboutTemplate = () => {
           i18n
         )`Some interesting things about myself and my habit of coding then making things harder for myself after six months.`}
       />
-      <section className={'mb-5 md:mb-10 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0'}>
-        <div className={'pt-5 md:pt-10 '}>
+      <section className={'pb-5 md:pb-10 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0'}>
+        <div className={'pt-5 md:pt-10'}>
           <div className={'mb-7'}>
-            <Avatar className='h-60 w-60 mx-auto mb-2'>
-              <AvatarImage src='/images/avatars/main.jpg' alt='@shadcn' />
+            <Avatar className='mx-auto mb-2 h-60 w-60'>
+              <AvatarImage src='/static/images/avatars/main.jpg' alt={process.env.owner} />
               <AvatarFallback>{process.env.owner}</AvatarFallback>
             </Avatar>
             <h3 className='w-full text-center text-4xl font-bold'>{process.env.owner}</h3>
             <p className='w-full text-center text-lg'>Software Engineer</p>
           </div>
-          <nav className={'flex gap-6 justify-center items-center'}>
+          <nav className={'flex items-center justify-center gap-6'}>
             <Button variant={'default'}>
               <Trans>Resume</Trans>
             </Button>
@@ -74,8 +74,8 @@ export const AboutTemplate = () => {
             ))}
           </nav>
         </div>
-        <div className={'py-5 md:py-10 xl:col-span-2 flex flex-col gap-y-6 text-lg'}>
-          <h2 className={'text-3xl font-bold mb-2'}>Xin chào! {String.fromCodePoint(0x1f44b)}</h2>
+        <div className={'flex flex-col gap-y-6 py-5 text-lg md:py-10 xl:col-span-2'}>
+          <h2 className={'mb-2 text-3xl font-bold'}>Xin chào! {String.fromCodePoint(0x1f44b)}</h2>
           <span>
             Tôi là {process.env.owner}, một Kỹ sư Phần mềm {String.fromCodePoint(0x1f4bb)} đến từ Việt Nam, với niềm đam
             mê về lập trình và phát triển web, tôi thích tạo ra những giải pháp sáng tạo giúp nâng cao hiệu suất và hiệu
@@ -106,11 +106,11 @@ export const AboutTemplate = () => {
           </span>
         </div>
       </section>
-      <Separator className={'mt-6 md:mt-10'} />
+      <Separator className={'mt-5 md:mt-10'} />
       <Technologies />
-      <Separator className={'mt-6 md:mt-10'} />
+      <Separator className={'mt-5 md:mt-10'} />
       <Experience />
-      <Separator className={'mt-6 md:mt-10'} />
+      <Separator className={'mt-5 md:mt-10'} />
       <GithubCal />
     </Container>
   )

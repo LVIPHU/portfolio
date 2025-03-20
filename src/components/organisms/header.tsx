@@ -10,10 +10,10 @@ type Props = {
 export const Header = (props: Props) => {
   const { title, description, className } = props
   return (
-    <div className={cn('mb-6 md:mb-10 flex flex-col', className)}>
+    <div className={cn('mb-5 flex flex-col md:mb-10', className)}>
       <h1
         className={
-          'text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14'
+          'md:leading-14 text-3xl font-extrabold leading-9 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl'
         }
       >
         {title}
@@ -23,7 +23,7 @@ export const Header = (props: Props) => {
           <i className={'text-base text-gray-500 dark:text-gray-400 md:text-lg md:leading-7'}>{description}</i>
         </p>
       )}
-      <Separator className={'mt-6 md:mt-10'} />
+      <Separator className={'mt-5 md:mt-10'} />
     </div>
   )
 }

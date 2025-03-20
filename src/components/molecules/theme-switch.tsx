@@ -19,7 +19,7 @@ export const ThemeSwitch = ({ size = 20, className }: Props) => {
     return {
       light: { x: 0 },
       system: { x: size * -1 },
-      dark: { x: size * -2 }
+      dark: { x: size * -2 },
     }
   }, [size])
 
@@ -27,7 +27,7 @@ export const ThemeSwitch = ({ size = 20, className }: Props) => {
   const toggleTheme = {
     light: 'dark',
     system: 'light',
-    dark: 'system'
+    dark: 'system',
   }
   const validThemes: Theme[] = ['light', 'dark', 'system']
   const currentTheme = validThemes.includes(theme as Theme) ? (theme as Theme) : 'light'

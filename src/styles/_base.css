@@ -1,9 +1,9 @@
 @layer base {
   * {
-    @apply border-border box-border outline-ring/50;
+    @apply box-border border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply min-h-screen bg-background font-sans text-foreground antialiased;
     ::selection {
       @apply bg-amber-500 text-primary-foreground;
     }

@@ -1,0 +1,44 @@
+@layer utilities {
+  .box-container {
+    --grid-cell-size: 80px;
+    --grid-width: 1px;
+    --grid-border: var(--grid-width) solid hsl(var(--border));
+    --crosshair-size: calc(var(--grid-cell-size) / 4);
+
+    @apply h-screen cursor-grab touch-none;
+  }
+  .box-content {
+    display: grid;
+    border-top: var(--grid-border);
+    border-right: var(--grid-border);
+    grid-template-columns: repeat(30, 1fr);
+    grid-template-rows: repeat(30, 1fr);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transition: opacity 300ms;
+    will-change: transform;
+  }
+  .box-grid {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    width: var(--grid-cell-size);
+    height: var(--grid-cell-size);
+    border: var(--grid-border);
+    border-top: 0;
+    border-right: 0;
+    position: relative;
+    user-select: none;
+  }
+  .box-cell-0 {
+    border-right: var(--grid-border);
+  }
+  .box-cell-2 {
+    border-top: var(--grid-border);
+    border-right: var(--grid-border);
+  }
+  .box-cell-3 {
+    border-top: var(--grid-border);
+  }
+}

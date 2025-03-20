@@ -13,7 +13,7 @@ const FONT_PLAYPEN_SANS = Playpen_Sans({
   subsets: ['latin', 'vietnamese'],
   display: 'swap',
   weight: ['800'],
-  variable: '--font-playpen-sans'
+  variable: '--font-playpen-sans',
 })
 
 const FONT_NUNITO = Nunito({
@@ -21,7 +21,7 @@ const FONT_NUNITO = Nunito({
   display: 'swap',
   style: ['normal', 'italic'],
   weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-nunito'
+  variable: '--font-nunito',
 })
 
 const FONT_JETBRAINS_MONO = JetBrains_Mono({
@@ -29,7 +29,7 @@ const FONT_JETBRAINS_MONO = JetBrains_Mono({
   subsets: ['latin', 'vietnamese'],
   style: ['normal', 'italic'],
   display: 'swap',
-  variable: '--font-jetbrains-mono'
+  variable: '--font-jetbrains-mono',
 })
 
 export async function generateStaticParams() {
@@ -47,8 +47,8 @@ export async function generateMetadata(props: PageLangParam) {
       title: process.env.owner,
       description: t(
         i18n
-      )`I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.`
-    }
+      )`I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.`,
+    },
   }
 }
 

@@ -21,7 +21,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/atoms'
 import { useState } from 'react'
 import { Skill, skillsData } from '@data/main'
@@ -68,10 +68,10 @@ export const Technologies = () => {
   }
 
   return (
-    <Container className={'my-5 md:my-10'}>
+    <Container className={'py-5 md:py-10'}>
       <h3
         className={
-          'text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl md:leading-14'
+          'md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'
         }
       >
         <Trans>Technologies I&#39;ve worked with</Trans>
@@ -81,7 +81,7 @@ export const Technologies = () => {
           value={categories[tabIndex]}
           defaultValue={categories[0]}
           onValueChange={onTabChange}
-          className={'mt-5 md:mt-7'}
+          className={'mt-5 md:mt-10'}
         >
           <TabsList className='h-27 grid w-full grid-cols-2 gap-2 md:h-9 md:grid-cols-4 md:gap-1 xl:gap-2'>
             {categories.map((category) => (
@@ -113,7 +113,7 @@ export const Technologies = () => {
                               variant={'outline'}
                               className={`h-14 w-full p-2 sm:p-2 ${skill.level === 'learning' ? 'border border-amber-500' : ''}`}
                             >
-                              <SocialIcons className={'size-8 md:size-10'} kind={skill.id} iconType={'icon'} />
+                              <SocialIcons className={'size-5 md:size-10'} kind={skill.id} iconType={'icon'} />
                             </Button>
                           </NavigationLink>
                         </TooltipTrigger>
@@ -124,7 +124,7 @@ export const Technologies = () => {
                     ))}
                   </CardContent>
                   {category !== 'Most Used' && (
-                    <CardFooter className='flex flex-row justify-between items-center border-t bg-muted/50 px-6 py-3'>
+                    <CardFooter className='flex flex-row items-center justify-between border-t bg-muted/50 px-6 py-3'>
                       <div className='flex items-center text-xs text-muted-foreground'>
                         <span className='mx-1 inline-block h-3 w-3 rounded-full bg-amber-500'></span>
                         <span>

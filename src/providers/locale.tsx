@@ -14,7 +14,7 @@ export function LocaleProvider({ children, initialLocale, initialMessages }: Pro
   const [i18n] = useState(() => {
     return setupI18n({
       locale: initialLocale,
-      messages: { [initialLocale]: initialMessages }
+      messages: { [initialLocale]: initialMessages },
     })
   })
   return <I18nProvider i18n={i18n}>{children}</I18nProvider>

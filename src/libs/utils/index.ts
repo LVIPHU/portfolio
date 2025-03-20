@@ -1,4 +1,5 @@
 export * from './github'
+export * from './icons'
 export * from './image'
 export * from './misc'
 export * from './style'

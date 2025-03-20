@@ -1,24 +1,23 @@
 export const SITE_METADATA = {
   title: ``,
-  author: 'Luong Vi Phu',
+  author: process.env.owner,
   headerTitle: ``,
   description: '',
   language: 'vi-VN',
   theme: 'system',
-  siteUrl: '',
-  siteRepo: '',
-  siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.jpg`,
-  socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.jpeg`,
-  email: 'kenlock.lvp@gmail.com',
+  siteUrl: 'https://luongviphu.vercel.app',
+  siteRepo: 'https://github.com/LVIPHU/portfolio',
+  siteLogo: `/static/images/logo.jpg`,
+  socialBanner: `/static/images/twitter-card.jpeg`,
+  email: process.env.owner,
   github: 'https://github.com/LVIPHU',
-  facebook: '',
+  facebook: 'https://www.facebook.com/phuphu.phang.54',
   linkedin: '',
   locale: 'vi-VN',
-  stickyNav: true,
   search: {
     kbarConfigs: {
       // path to load documents to search
-      searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`
-    }
-  }
+      searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`,
+    },
+  },
 }

@@ -80,7 +80,7 @@ export const Zoom = (props: ImageProps & ZoomProps) => {
     height: props.layout === 'fixed' ? 'max-content' : '100%',
     zIndex: clicked ? 50 : 0,
     overflow: 'hidden',
-    backgroundColor: clicked ? 'rgba(0,0,0,.3)' : 'transparent'
+    backgroundColor: clicked ? 'rgba(0,0,0,.3)' : 'transparent',
   }
 
   return (
@@ -95,7 +95,7 @@ export const Zoom = (props: ImageProps & ZoomProps) => {
             top: 0,
             left: 0,
             width: '100%',
-            height: '100%'
+            height: '100%',
           }}
           onClick={closeWrapper}
         />

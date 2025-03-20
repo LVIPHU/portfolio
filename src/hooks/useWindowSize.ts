@@ -32,12 +32,12 @@ export function useWindowSize(options: Partial<UseWindowSizeOptions<boolean>> = 
     if (initializeWithValue) {
       return {
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       }
     }
     return {
       width: undefined,
-      height: undefined
+      height: undefined,
     }
   })
 
@@ -48,7 +48,7 @@ export function useWindowSize(options: Partial<UseWindowSizeOptions<boolean>> = 
 
     setSize({
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
     })
   }
 

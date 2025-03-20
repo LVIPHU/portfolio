@@ -4,7 +4,7 @@ import { cn } from '@/libs/utils'
 export function Container({
   children,
   as: Component = 'section',
-  className
+  className,
 }: {
   children: ReactNode
   as?: React.ElementType

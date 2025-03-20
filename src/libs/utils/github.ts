@@ -30,7 +30,7 @@ const HISTORY_QUERY = `
 
 export async function fetchRepoData({
   repo = '',
-  includeLastCommit = false
+  includeLastCommit = false,
 }: {
   repo: string
   includeLastCommit?: boolean
@@ -86,8 +86,8 @@ export async function fetchRepoData({
         owner: owner,
         repo: repo,
         headers: {
-          authorization: `token ${env.GITHUB_API_TOKEN}`
-        }
+          authorization: `token ${env.GITHUB_API_TOKEN}`,
+        },
       }
     )
     if (includeLastCommit) {
@@ -97,7 +97,7 @@ export async function fetchRepoData({
     repository.languages = repository.languages.edges.map((edge: any) => {
       return {
         color: edge.node.color,
-        name: edge.node.name
+        name: edge.node.name,
       }
     })
     repository.repositoryTopics = repository.repositoryTopics.edges.map((edge: any) => edge.node.topic.name)

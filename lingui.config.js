@@ -4,12 +4,12 @@ module.exports = {
   locales: ['vi-VN', 'en-US'],
   sourceLocale: 'en-US',
   fallbackLocales: {
-    default: 'vi-VN'
+    default: 'vi-VN',
   },
   catalogs: [
     {
       path: 'src/i18n/locales/{locale}/messages',
-      include: ['src/']
-    }
-  ]
+      include: ['src/'],
+    },
+  ],
 }
