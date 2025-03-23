@@ -1,5 +1,5 @@
 'use client'
-import { CSSProperties, memo, useRef, useState } from 'react'
+import React, { CSSProperties, memo, useRef, useState } from 'react'
 import { cn } from '@/libs/utils'
 import { useIsomorphicLayoutEffect } from '@/hooks'
 
@@ -104,7 +104,7 @@ export const BoxesCore = ({ children }: BoxCoreProps) => {
   useIsomorphicLayoutEffect(() => {
     function updateScale() {
       const width = window.innerWidth
-      let scale = 0.2
+      let scale: number
       if (width <= 510) {
         scale = 0.2
       } else if (width >= 1530) {
@@ -133,6 +133,7 @@ export const BoxesCore = ({ children }: BoxCoreProps) => {
 
   return (
     <div className={'box-container'}>
+      <div className='pointer-events-none absolute inset-0 z-10 bg-background [mask-image:radial-gradient(transparent,white)]' />
       <div style={styles} className={'box-content'}>
         {children}
         {grids.map((idx) => (
