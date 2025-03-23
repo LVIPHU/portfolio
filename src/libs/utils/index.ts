@@ -1,3 +1,4 @@
+export * from './contentlayer'
 export * from './github'
 export * from './icons'
 export * from './image'

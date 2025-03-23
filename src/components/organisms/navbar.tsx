@@ -1,10 +1,9 @@
 'use client'
 
+import { useMemo } from 'react'
 import { Trans } from '@lingui/react/macro'
 import { FloatingDock, Item } from '@/components/molecules'
 import { Facebook, Github, House, ImageIcon, Lightbulb, MonitorCog, Paperclip, User } from 'lucide-react'
-import { usePathname } from 'next/navigation'
-import { useMemo } from 'react'
 import { Setting } from '@/components/molecules'
 
 type Props = {
@@ -13,7 +12,6 @@ type Props = {
 
 export const Navbar = (props: Props) => {
   const { lang } = props
-  const pathname = usePathname()
   const links: Item[] = useMemo(() => {
     return [
       {
@@ -73,7 +71,7 @@ export const Navbar = (props: Props) => {
   return (
     <nav className={'fixed bottom-5 left-3 z-20 md:left-1/2 md:-translate-x-1/2'}>
       <div className={'animate-fade-in-scale'}>
-        <FloatingDock items={links} selected={pathname} />
+        <FloatingDock items={links} />
       </div>
     </nav>
   )

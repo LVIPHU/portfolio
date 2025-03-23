@@ -12,6 +12,7 @@ import {
 import { useRef, useState } from 'react'
 import { PanelBottomClose, PanelBottomOpen } from 'lucide-react'
 import { NavigationLink, Popover, PopoverContent, PopoverTrigger, Separator } from '@/components/atoms'
+import { usePathname } from 'next/navigation'
 
 type LinkItem = {
   type: 'link'
@@ -31,7 +32,6 @@ export type Item = PopoverItem | LinkItem | null
 
 export const FloatingDock = ({
   items,
-  selected,
   desktopClassName,
   mobileClassName,
 }: {
@@ -42,21 +42,14 @@ export const FloatingDock = ({
 }) => {
   return (
     <>
-      <FloatingDockDesktop items={items} selected={selected} className={desktopClassName} />
-      <FloatingDockMobile items={items} selected={selected} className={mobileClassName} />
+      <FloatingDockDesktop items={items} className={desktopClassName} />
+      <FloatingDockMobile items={items} className={mobileClassName} />
     </>
   )
 }
 
-const FloatingDockMobile = ({
-  items,
-  selected,
-  className,
-}: {
-  items: Item[]
-  className?: string
-  selected?: string
-}) => {
+const FloatingDockMobile = ({ items, className }: { items: Item[]; className?: string }) => {
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
   return (
@@ -89,7 +82,7 @@ const FloatingDockMobile = ({
                     >
                       <div className='h-4 w-4'>{item.icon}</div>
                     </NavigationLink>
-                    {selected === item.href && (
+                    {pathname === item.href && (
                       <div
                         style={{ width: 6, height: 6 }}
                         className='absolute -right-2 top-1/2 translate-y-[-50%] rounded-full bg-gray-200 dark:bg-neutral-800'
@@ -138,15 +131,7 @@ const FloatingDockMobile = ({
   )
 }
 
-const FloatingDockDesktop = ({
-  items,
-  selected,
-  className,
-}: {
-  items: Item[]
-  className?: string
-  selected?: string
-}) => {
+const FloatingDockDesktop = ({ items, className }: { items: Item[]; className?: string }) => {
   const mouseX = useMotionValue(Infinity)
   return (
     <motion.div
@@ -162,7 +147,7 @@ const FloatingDockDesktop = ({
           return <Separator className={'h-10'} key={idx} orientation={'vertical'} />
         }
         if (item.type === 'link') {
-          return <LinkIconContainer mouseX={mouseX} selected={selected} key={idx} {...item} />
+          return <LinkIconContainer mouseX={mouseX} key={idx} {...item} />
         } else if (item.type === 'popover') {
           return <PopoverIconContainer mouseX={mouseX} key={idx} {...item} />
         }
@@ -172,7 +157,6 @@ const FloatingDockDesktop = ({
 }
 
 function LinkIconContainer({
-  selected,
   mouseX,
   title,
   icon,
@@ -181,9 +165,9 @@ function LinkIconContainer({
   mouseX: MotionValue
   title: string | React.ReactNode
   icon: React.ReactNode
-  selected?: string
   href: string
 }) {
+  const pathname = usePathname()
   const ref = useRef<HTMLDivElement>(null)
 
   const distance = useTransform(mouseX, (val) => {
@@ -261,7 +245,7 @@ function LinkIconContainer({
         <motion.div style={{ width: widthIcon, height: heightIcon }} className='flex items-center justify-center'>
           {icon}
         </motion.div>
-        {selected === href && (
+        {pathname === href && (
           <div
             style={{ width: 6, height: 6 }}
             className='absolute -bottom-2 rounded-full bg-gray-200 dark:bg-neutral-800'

@@ -41,7 +41,7 @@ import { Button } from '@/components/atoms'
 import { cn } from '@/libs/utils'
 import { GitFork } from 'lucide-react'
 
-const components = {
+const iconsMap = {
   logodark: LogoDark,
   logolight: LogoLight,
   gitfork: GitFork,
@@ -79,9 +79,10 @@ const components = {
   datadog: DataDog,
   socketio: SocketIO,
 }
+export type TypeOfIconsMap = keyof typeof iconsMap
 
 type IconsBundleProps = {
-  kind: keyof typeof components | string
+  kind: TypeOfIconsMap | string
   href?: string | undefined
   size?: number
   hover?: boolean
@@ -107,10 +108,10 @@ export const SocialIcons = ({
   text,
   strokeWidth,
 }: IconsBundleProps) => {
-  const SocialSvg = components[kind as keyof typeof components]
+  const SocialSvg = iconsMap[kind as TypeOfIconsMap]
 
   // check if kind already exists in the components object
-  if (!(kind in components)) {
+  if (!(kind in iconsMap)) {
     return null
   }
 
