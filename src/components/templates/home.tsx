@@ -6,31 +6,28 @@ const DISTANCE_MOUSE = 160
 const DISTANCE_SCREEN = 50
 
 export const HomeTemplate: React.FC = () => {
-  const videoRef1 = useRef<HTMLVideoElement | null>(null)
-  const videoRef2 = useRef<HTMLVideoElement | null>(null)
-  const videoRef3 = useRef<HTMLVideoElement | null>(null)
-
   const containerRef = useRef<HTMLDivElement | null>(null)
-
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
-  const [cursorY, setCursorY] = useState(0)
-  const isTouch = useRef(false)
-
-  const handlePointerEnter = (
-    e: React.PointerEvent<HTMLDivElement>,
-    videoRef: React.RefObject<HTMLVideoElement | null>
-  ) => {
-    if (e.pointerType === 'touch') {
-      isTouch.current = true
-    }
-    setIsHovered(true)
-    videoRef.current?.play()
+  const videoRefs: Record<string, React.RefObject<HTMLVideoElement | null>> = {
+    video_1: useRef<HTMLVideoElement | null>(null),
+    video_2: useRef<HTMLVideoElement | null>(null),
+    video_3: useRef<HTMLVideoElement | null>(null),
+    video_4: useRef<HTMLVideoElement | null>(null),
   }
 
-  const handlePointerLeave = (videoRef: React.RefObject<HTMLVideoElement | null>) => {
-    setIsHovered(false)
-    videoRef.current?.pause()
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [href, setHref] = useState('')
+  const [cursorY, setCursorY] = useState(0)
+
+  const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>, href: string, name: string) => {
+    if (e.pointerType !== 'touch') {
+      setHref(href)
+    }
+    videoRefs[name].current?.play()
+  }
+
+  const handlePointerLeave = (name: string) => {
+    setHref('')
+    videoRefs[name].current?.pause()
   }
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -50,31 +47,41 @@ export const HomeTemplate: React.FC = () => {
     <main ref={containerRef} className='relative flex min-h-screen w-full flex-col overflow-hidden bg-background'>
       <Boxes>
         <VideoCard
+          href='/about'
+          name='video_1'
           gridColumn='12 / 16'
           gridRow='10 / span 2'
-          videoSrc='/static/videos/1.mp4'
-          videoRef={videoRef1}
-          isHovered={isHovered}
+          videoRef={videoRefs.video_1}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerMove={handlePointerMove}
         />
         <VideoCard
+          href='/projects'
+          name='video_2'
           gridColumn='20 / span 4'
           gridRow='14 / span 3'
-          videoSrc='/static/videos/2.mp4'
-          videoRef={videoRef2}
-          isHovered={isHovered}
+          videoRef={videoRefs.video_2}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerMove={handlePointerMove}
         />
         <VideoCard
+          href='/blogs'
+          name='video_3'
           gridColumn='14 / 17'
           gridRow='19 / span 3'
-          videoSrc='/static/videos/3.mp4'
-          videoRef={videoRef3}
-          isHovered={isHovered}
+          videoRef={videoRefs.video_3}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
+          onPointerMove={handlePointerMove}
+        />
+        <VideoCard
+          href='/photos'
+          name='video_4'
+          gridColumn='14 / 9'
+          gridRow='14 / span 3'
+          videoRef={videoRefs.video_4}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerMove={handlePointerMove}
@@ -89,18 +96,18 @@ export const HomeTemplate: React.FC = () => {
           <SocialIcons kind='logolight' iconType='icon' size={96} />
         </div>
       </Boxes>
-      {isHovered && !isTouch.current && (
+      {href && (
         <div
-          className='pointer-events-none absolute z-30 cursor-pointer'
+          className='pointer-events-none absolute z-30 mix-blend-difference'
           style={{
             left: position.x,
             top: position.y,
             transform: 'translate(0, -110%)',
           }}
         >
-          <p className='whitespace-nowrap text-black'>Vị trí Label</p>
+          <p className='whitespace-nowrap text-white'>{href.replaceAll('/', '/ ')}</p>
           <div
-            className='bg-black transition-all duration-300'
+            className='bg-white transition-all duration-300'
             style={{
               height: distance,
               width: '1px',

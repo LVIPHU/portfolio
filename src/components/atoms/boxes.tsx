@@ -133,13 +133,13 @@ export const BoxesCore = ({ children }: BoxCoreProps) => {
 
   return (
     <div className={'box-container'}>
-      <div className='pointer-events-none absolute inset-0 z-10 bg-background [mask-image:radial-gradient(transparent,white)]' />
       <div style={styles} className={'box-content'}>
         {children}
         {grids.map((idx) => (
           <Grid key={idx} />
         ))}
       </div>
+      <div className='pointer-events-none absolute inset-0 select-none bg-background [mask-image:radial-gradient(transparent,black)]' />
     </div>
   )
 }
