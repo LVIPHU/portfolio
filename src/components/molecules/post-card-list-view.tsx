@@ -2,15 +2,7 @@ import type { Blog } from '@contentlayer/generated'
 import type { CoreContent } from '@/types/data'
 import { cn, formatDate } from '@/utils'
 import { SITE_METADATA } from '@data/site-metadata'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  GritBackground,
-  GrowingUnderline,
-  Image,
-  NavigationLink
-} from '@/components/atoms'
+import { Card, CardContent, CardHeader, GrowingUnderline, Image, NavigationLink } from '@/components/atoms'
 import { TagsList } from '@/components/molecules/tags'
 import { Calendar, ClockIcon } from 'lucide-react'
 
@@ -35,9 +27,7 @@ export function PostCardListView({ post, loading }: { post: CoreContent<Blog>; l
           <TagsList tags={tags} />
           <h3 className='pb-1 text-xl font-bold tracking-tight md:text-2xl'>
             <NavigationLink href={`/blog/${slug}`} className='text-gray-900 dark:text-gray-100'>
-              <GrowingUnderline>
-                {title}
-              </GrowingUnderline>
+              <GrowingUnderline>{title}</GrowingUnderline>
             </NavigationLink>
           </h3>
           <p className='mt-2 line-clamp-2 text-ellipsis text-muted-foreground md:line-clamp-3'>{summary}</p>

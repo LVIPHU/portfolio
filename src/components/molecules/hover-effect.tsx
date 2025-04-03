@@ -9,7 +9,9 @@ export const HoverEffect = ({ items, className }: { items: Project[]; className?
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <div className={cn('group/container bg-background grid grid-cols-1 my-10 md:grid-cols-2 lg:grid-cols-3', className)}>
+    <div
+      className={cn('group/container my-10 grid grid-cols-1 bg-background md:grid-cols-2 lg:grid-cols-3', className)}
+    >
       {items.map((item, idx) => (
         <div
           key={item.title}

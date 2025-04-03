@@ -8,6 +8,8 @@ import type { CoreContent } from '@/types/data'
 import { Container, NavigationLink, SearchArticles } from '@/components/atoms'
 import { PostCardGridView } from '@/components/molecules'
 import { Header } from '@/components/organisms'
+import { useLingui } from '@lingui/react'
+import { t } from '@lingui/macro'
 
 interface PaginationProps {
   totalPages: number
@@ -15,7 +17,6 @@ interface PaginationProps {
 }
 interface ListLayoutProps {
   posts: CoreContent<Blog>[]
-  title: string
   initialDisplayPosts?: CoreContent<Blog>[]
   pagination?: PaginationProps
 }
@@ -71,7 +72,8 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
   )
 }
 
-export function BlogTemplate({ posts, title, initialDisplayPosts = [], pagination }: ListLayoutProps) {
+export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: ListLayoutProps) {
+  const { i18n } = useLingui()
   const [searchValue, setSearchValue] = useState('')
   const filteredBlogPosts = posts.filter((post) => {
     const searchContent = post.title + post.summary + post.tags?.join(' ')
@@ -84,8 +86,8 @@ export function BlogTemplate({ posts, title, initialDisplayPosts = [], paginatio
   return (
     <Container className='pt-4 lg:pt-12'>
       <Header
-        title={title}
-        description="I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
+        title={t(i18n)`All posts`}
+        description={t(i18n)`I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title.`}
         className='border-b border-gray-200 dark:border-gray-700'
       >
         <SearchArticles label='Search articles' onChange={(e) => setSearchValue(e.target.value)} />

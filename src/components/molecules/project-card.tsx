@@ -34,9 +34,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         {/* Technologies */}
         <div className='mb-6 flex flex-wrap gap-2'>
           {technologies.map((tech) => (
-            <Badge key={tech}>
-              {tech}
-            </Badge>
+            <Badge key={tech}>{tech}</Badge>
           ))}
         </div>
         {/* Actions */}
