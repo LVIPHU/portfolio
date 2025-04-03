@@ -4,7 +4,7 @@ import { SITE_METADATA } from '@data/site-metadata'
 
 export const runtime = 'edge'
 
-const nunitoBold = fetch('/static/fonts/Inter-Bold.ttf').then((res) => res.arrayBuffer())
+const nunitoBold = fetch('../../../../../public/static/fonts/Inter-Bold.ttf').then((res) => res.arrayBuffer())
 
 export async function GET(req: NextRequest) {
   try {
