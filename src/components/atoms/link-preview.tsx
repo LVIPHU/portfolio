@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { encode } from 'qss'
 import React from 'react'
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
-import { cn } from '@/libs/utils'
+import { cn } from '@/utils'
 import { NavigationLink } from '@/components/atoms/navigation-link'
 
 type LinkPreviewProps = {

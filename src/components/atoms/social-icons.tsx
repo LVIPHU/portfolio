@@ -34,11 +34,10 @@ import {
   SocketIO,
   LogoDark,
   LogoLight,
-} from '@/libs/utils'
+} from '@/utils'
 
-import { NavigationLink } from '@/components/atoms'
-import { Button } from '@/components/atoms'
-import { cn } from '@/libs/utils'
+import { NavigationLink, Button } from '@/components/atoms'
+import { cn } from '@/utils'
 import { GitFork } from 'lucide-react'
 
 const iconsMap = {

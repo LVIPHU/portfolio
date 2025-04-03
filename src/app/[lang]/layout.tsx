@@ -1,4 +1,5 @@
 import '@/styles/main.css'
+import 'react-medium-image-zoom/dist/styles.css'
 import { t } from '@lingui/macro'
 import linguiConfig from '../../../lingui.config'
 import { getI18nInstance, PageLangParam } from '@/i18n'
@@ -7,7 +8,8 @@ import ProviderRegistry from '@/providers'
 import { ReactNode } from 'react'
 import { Navbar } from '@/components/organisms'
 import { JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
-import { cn } from '@/libs/utils'
+import { cn } from '@/utils'
+import { SITE_METADATA } from '@data/site-metadata'
 
 const FONT_PLAYPEN_SANS = Playpen_Sans({
   subsets: ['latin', 'vietnamese'],
@@ -39,6 +41,7 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: PageLangParam) {
   const i18n = await getI18nInstance((await props.params).lang)
   return {
+    metadataBase: new URL(SITE_METADATA.siteUrl),
     title: process.env.owner,
     description: t(
       i18n

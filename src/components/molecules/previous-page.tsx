@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { Button, Separator } from '@/components/atoms'
 import { MoveLeft } from 'lucide-react'
 import { Trans } from '@lingui/react/macro'
-import { cn } from '@/libs/utils'
+import { cn } from '@/utils'
 
 export const PreviousPage = ({ className }: { className?: string }) => {
   const router = useRouter()

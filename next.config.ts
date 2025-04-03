@@ -1,5 +1,10 @@
+import { withContentlayer } from 'next-contentlayer2'
 import { version, author } from './package.json'
 import type { NextConfig } from 'next'
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const ContentSecurityPolicy = `
   default-src 'self';
@@ -50,54 +55,59 @@ const securityHeaders = [
   },
 ]
 
-const nextConfig: NextConfig = {
-  experimental: {
-    swcPlugins: [['@lingui/swc-plugin', {}]],
-    turbo: {
-      rules: {
-        '*.po': {
-          loaders: ['@lingui/loader'],
-          as: '*.js',
+const nextConfig: NextConfig = () => {
+  const plugins = [withContentlayer, withBundleAnalyzer]
+  return plugins.reduce((acc, next) => next(acc), {
+    reactStrictMode: true,
+    pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+    experimental: {
+      swcPlugins: [['@lingui/swc-plugin', {}]],
+      turbo: {
+        rules: {
+          '*.po': {
+            loaders: ['@lingui/loader'],
+            as: '*.js',
+          },
         },
       },
     },
-  },
-  env: {
-    version: version,
-    owner: author.name,
-    email: author.email,
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'api.microlink.io',
-      },
-      {
-        protocol: 'https',
-        hostname: 'drive.google.com',
-      },
-    ],
-  },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: securityHeaders,
-      },
-    ]
-  },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.po$/,
-      use: '@lingui/loader',
-    })
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    })
-    return config
-  },
+    env: {
+      version: version,
+      owner: author.name,
+      email: author.email,
+    },
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'api.microlink.io',
+        },
+        {
+          protocol: 'https',
+          hostname: 'drive.google.com',
+        },
+      ],
+    },
+    async headers() {
+      return [
+        {
+          source: '/(.*)',
+          headers: securityHeaders,
+        },
+      ]
+    },
+    webpack: (config: any) => {
+      config.module.rules.push({
+        test: /\.po$/,
+        use: '@lingui/loader',
+      })
+      config.module.rules.push({
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      })
+      return config
+    },
+  })
 }
 
 export default nextConfig

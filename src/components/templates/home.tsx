@@ -67,7 +67,7 @@ export const HomeTemplate: React.FC = () => {
           onPointerMove={handlePointerMove}
         />
         <VideoCard
-          href='/blogs'
+          href='/blog'
           name='video_3'
           gridColumn='14 / 17'
           gridRow='19 / span 3'

@@ -1,14 +1,13 @@
 'use client'
-import React, { CSSProperties, memo, useRef, useState } from 'react'
-import { cn } from '@/libs/utils'
+import React, { CSSProperties, memo, useRef, useState, useMemo } from 'react'
+import { cn } from '@/utils'
 import { useIsomorphicLayoutEffect } from '@/hooks'
+import { BREAKPOINTS, COLORS, TOTAL_GRID } from '@/constants/boxes'
 
-const totalGrid = 900
+type Color = (typeof COLORS)[number]
 
-const colors = ['lime', 'amber', 'sky']
-
-const getRandomColor = () => {
-  return colors[Math.floor(Math.random() * colors.length)]
+const getRandomColor = (): Color => {
+  return COLORS[Math.floor(Math.random() * COLORS.length)]
 }
 
 type BoxCellProps = {
@@ -16,18 +15,21 @@ type BoxCellProps = {
 }
 
 const Cell = memo(function BoxCell({ id }: BoxCellProps) {
-  const [color, setColor] = useState('')
+  const [color, setColor] = useState<Color>('lime')
   const [isHovered, setIsHovered] = useState(false)
 
   useIsomorphicLayoutEffect(() => {
     setColor(getRandomColor())
   }, [isHovered])
 
-  const styles: CSSProperties & { '--transition': string } = {
-    '--transition': isHovered ? `background 0s ease` : `background 2s ease`,
-    backgroundColor: isHovered ? `var(--${color}-500)` : 'transparent',
-    transition: 'opacity 250ms ease-out, var(--transition)',
-  }
+  const styles = useMemo<CSSProperties & { '--transition': string }>(
+    () => ({
+      '--transition': isHovered ? `background 0s ease` : `background 2s ease`,
+      backgroundColor: isHovered ? `var(--${color}-300)` : 'transparent',
+      transition: 'opacity 250ms ease-out, var(--transition)',
+    }),
+    [isHovered, color]
+  )
 
   return (
     <div
@@ -39,40 +41,28 @@ const Cell = memo(function BoxCell({ id }: BoxCellProps) {
       style={styles}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-    ></div>
+    />
   )
 })
 
 const Grid = memo(function BoxRow() {
-  const cells = Array.from({ length: 4 }, (_, i) => i)
-  const ref = useRef(null)
+  const cells = useMemo(() => Array.from({ length: 4 }, (_, i) => i), [])
+  const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
   useIsomorphicLayoutEffect(() => {
     const element = ref.current
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting)
-      },
-      {
-        threshold: 0.1,
-      }
-    )
+    if (!element) return
 
-    if (element) {
-      observer.observe(element)
-    }
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { threshold: 0.1 })
 
-    return () => {
-      if (element) {
-        observer.unobserve(element)
-      }
-    }
+    observer.observe(element)
+    return () => observer.unobserve(element)
   }, [])
 
   return (
     <div ref={ref} className='box-grid'>
-      {isVisible ? (
+      {isVisible && (
         <>
           {cells.map((idx) => (
             <Cell id={`${idx}`} key={idx} />
@@ -88,7 +78,7 @@ const Grid = memo(function BoxRow() {
             <path strokeLinecap='round' strokeLinejoin='round' d='M12 4v16M0 12h24' />
           </svg>
         </>
-      ) : null}
+      )}
     </div>
   )
 })
@@ -98,42 +88,47 @@ type BoxCoreProps = {
 }
 
 export const BoxesCore = ({ children }: BoxCoreProps) => {
-  const grids = Array.from({ length: totalGrid }, (_, i) => i)
+  const grids = useMemo(() => Array.from({ length: TOTAL_GRID }, (_, i) => i), [])
   const [scaleValue, setScaleValue] = useState(0.6)
 
   useIsomorphicLayoutEffect(() => {
-    function updateScale() {
+    const updateScale = () => {
       const width = window.innerWidth
       let scale: number
-      if (width <= 510) {
-        scale = 0.2
-      } else if (width >= 1530) {
-        scale = 0.6
+
+      if (width <= BREAKPOINTS.mobile) {
+        scale = BREAKPOINTS.minScale
+      } else if (width >= BREAKPOINTS.desktop) {
+        scale = BREAKPOINTS.maxScale
       } else {
-        // Nội suy tuyến tính từ 0.2 đến 0.6 khi viewport tăng từ 510px tới 1530px
-        scale = 0.2 + ((width - 510) * 0.4) / 1020
+        scale =
+          BREAKPOINTS.minScale +
+          ((width - BREAKPOINTS.mobile) * (BREAKPOINTS.maxScale - BREAKPOINTS.minScale)) /
+            (BREAKPOINTS.desktop - BREAKPOINTS.mobile)
       }
+
       setScaleValue(scale)
     }
+
     updateScale()
     window.addEventListener('resize', updateScale)
     return () => window.removeEventListener('resize', updateScale)
   }, [])
 
-  const styles: CSSProperties & { '--rotate': string; '--x': string; '--y': string } = {
-    opacity: 1,
-    '--rotate': '0deg',
-    '--x': '0px',
-    '--y': '0px',
-    transform:
-      `translate(calc(-50% + var(--x)), calc(-50% + var(--y))) ` +
-      `skewX(-48deg) skewY(14deg) scaleX(2) scale(${scaleValue}) ` +
-      `rotate(var(--rotate)) translateZ(0)`,
-  }
+  const styles = useMemo<CSSProperties & { '--rotate': string; '--x': string; '--y': string }>(
+    () => ({
+      opacity: 1,
+      '--rotate': '0deg',
+      '--x': '0px',
+      '--y': '0px',
+      transform: `translate(calc(-50% + var(--x)), calc(-50% + var(--y))) skewX(-48deg) skewY(14deg) scaleX(2) scale(${scaleValue}) rotate(var(--rotate)) translateZ(0)`,
+    }),
+    [scaleValue]
+  )
 
   return (
-    <div className={'box-container'}>
-      <div style={styles} className={'box-content'}>
+    <div className='box-container'>
+      <div style={styles} className='box-content'>
         {children}
         {grids.map((idx) => (
           <Grid key={idx} />

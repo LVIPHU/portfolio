@@ -1,5 +1,5 @@
 import type { NextRequest } from 'next/server'
-import { fetchRepoData } from '@/libs/utils'
+import { fetchRepoData } from '@/utils'
 
 export async function GET(request: NextRequest) {
   const { searchParams: params } = new URL(request.url)

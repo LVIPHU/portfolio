@@ -1,7 +1,7 @@
 'use client'
 
 import { ComponentProps } from 'react'
-import { cn } from '@/libs/utils'
+import { cn } from '@/utils'
 import Link from 'next/link'
 
 const EXTERNAL_LINK_REGEX = /^(https?:)?\/\//i

@@ -4,7 +4,7 @@ import { Github } from 'lucide-react'
 import { type Project } from '@data/main'
 import useSWR from 'swr'
 import { GithubRepository } from '@/types/github'
-import { fetcher } from '@/libs/utils'
+import { fetcher } from '@/utils'
 
 interface ProjectCardProps {
   project: Project
@@ -16,7 +16,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
   const href = repository?.url
   const lang = repository?.languages?.[0]
   return (
-    <div className='relative z-10 flex h-full flex-col overflow-hidden rounded-xl border border-primary/50 transition-all group-hover/container:border-transparent group-hover/effect:!border-accent'>
+    <div className='relative z-10 flex h-full flex-col overflow-hidden rounded-xl border border-card transition-all group-hover/container:border-transparent group-hover/effect:!border-accent'>
       <div className='relative h-64 overflow-hidden bg-accent'>
         <Image
           src={image}
@@ -34,7 +34,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         {/* Technologies */}
         <div className='mb-6 flex flex-wrap gap-2'>
           {technologies.map((tech) => (
-            <Badge key={tech} variant='secondary' className='rounded-full'>
+            <Badge key={tech}>
               {tech}
             </Badge>
           ))}

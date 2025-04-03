@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from 'tailwindcss-animate'
+import tailwindcssTypography from '@tailwindcss/typography'
 import { fontFamily } from 'tailwindcss/defaultTheme'
 import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette'
 
@@ -74,7 +75,7 @@ export default {
       },
     },
   },
-  plugins: [tailwindcssAnimate, addVariablesForColors],
+  plugins: [tailwindcssAnimate, tailwindcssTypography, addVariablesForColors],
 } satisfies Config
 
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).

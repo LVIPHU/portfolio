@@ -14,10 +14,10 @@ import remarkGfm from 'remark-gfm'
 import { remarkAlert } from 'remark-github-blockquote-alert'
 import remarkMath from 'remark-math'
 import { SITE_METADATA } from '@data/site-metadata'
-import { allCoreContent, sortPosts } from '@/libs/utils'
 import rehypeKatex from 'rehype-katex'
 import rehypePrismPlus from 'rehype-prism-plus'
 import { extractTocHeadings, remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx } from '@/libs/remark'
+import { allCoreContent, sortPosts } from '@/utils'
 
 const root = process.cwd()
 const isProduction = process.env.NODE_ENV === 'production'

@@ -1,26 +1,24 @@
 'use client'
 import { useScroll, useTransform } from 'framer-motion'
 import { motion } from 'framer-motion'
-import { cn, imageDriveLoader } from '@/libs/utils'
+import { cn, imageDriveLoader } from '@/utils'
 import * as React from 'react'
-import Image, { ImageProps } from 'next/image'
+import { ImageProps } from 'next/image'
+import { Image, Zoom } from '@/components/atoms'
 
 const ImageContainer = (props: ImageProps) => {
-  const { className, alt, src, width = 1080, height = 1439, ...rest } = props
+  const { alt, src, width = 1080, height = 1439, ...rest } = props
   return (
-    <div className='relative block overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-800'>
+    <Zoom>
       <Image
         sizes='(min-width: 1540px) 483px, (min-width: 1280px) 398px, (min-width: 1040px) 312px, (min-width: 780px) 350px, (min-width: 680px) 592px, calc(94.44vw - 31px)'
-        decoding='async'
-        priority
-        {...rest}
         width={width}
         height={height}
         alt={alt || 'none'}
-        className={cn(className, 'object-cover')}
         src={imageDriveLoader({ id: src as string })}
+        {...rest}
       />
-    </div>
+    </Zoom>
   )
 }
 

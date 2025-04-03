@@ -1,13 +1,22 @@
 import Image from 'next/image'
 import { Footer, Header } from '@/components/organisms'
 import { PreviousPage } from '@/components/molecules'
-import { Container, GridBackground } from '@/components/atoms'
+import { AnimatedGridPattern, Container } from '@/components/atoms'
 import React from 'react'
+import { cn } from '@/utils'
 
 export default async function NotFound() {
   return (
     <React.Fragment>
-      <GridBackground className='inset-x-0 top-0 z-[-1] h-[50vh]' />
+      <AnimatedGridPattern
+        numSquares={30}
+        maxOpacity={0.1}
+        duration={3}
+        className={cn(
+          '[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]',
+          'inset-x-0z z-[-1] h-full skew-y-12'
+        )}
+      />
       <Container as={'main'} className={'mb-auto grow pt-14 md:pt-28'}>
         <Header title={'Oop!'} description={'Có vẻ như trang cậu tìm không có! Hãy quay trở lại!'} />
         <div className={'relative h-[50vh] w-full'}>
