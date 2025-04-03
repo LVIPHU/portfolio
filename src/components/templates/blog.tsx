@@ -87,7 +87,9 @@ export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: Li
     <Container className='pt-4 lg:pt-12'>
       <Header
         title={t(i18n)`All posts`}
-        description={t(i18n)`I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title.`}
+        description={t(
+          i18n
+        )`I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title.`}
         className='border-b border-gray-200 dark:border-gray-700'
       >
         <SearchArticles label='Search articles' onChange={(e) => setSearchValue(e.target.value)} />

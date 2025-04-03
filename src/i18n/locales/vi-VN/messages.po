@@ -25,11 +25,12 @@ msgstr "Giới thiệu"
 
 #: src/components/templates/blog.tsx:89
 msgid "All posts"
-msgstr ""
+msgstr "Tất cả bài viết"
 
 #: src/components/organisms/navbar.tsx:36
+#: src/app/[lang]/(page)/blog/page.tsx:12
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: src/components/organisms/navbar.tsx:73
 #: src/app/[lang]/@modal/(.)contact/page.tsx:23
@@ -67,18 +68,21 @@ msgstr "Quay lại"
 msgid "Home"
 msgstr "Trang chủ"
 
-#: src/app/[lang]/layout.tsx:46
-#: src/app/[lang]/layout.tsx:51
+#: src/app/[lang]/layout.tsx:45
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
-msgstr "Tôi là Lương Vĩ Phú, một kỹ sư phần mềm. Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi."
+msgstr "Tôi là Lương Vĩ Phú, một kỹ sư phần mềm. Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi."
 
 #: src/components/templates/blog.tsx:90
 msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
-msgstr ""
+msgstr "Tôi thích viết về những gì tôi quan tâm. Bạn sẽ tìm thấy sự kết hợp giữa các bài viết về phát triển web, tin tức công nghệ và những suy nghĩ ngẫu nhiên từ cuộc sống của tôi. Sử dụng thanh tìm kiếm bên dưới để lọc theo tiêu đề."
 
 #: src/components/molecules/setting.tsx:17
 msgid "Language"
 msgstr "Ngôn ngữ"
+
+#: src/app/[lang]/layout.tsx:44
+msgid "Lương Vĩ Phú's dev blog - portfolio"
+msgstr "Blog kỹ thuật & portfolio của Lương Vĩ Phú"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235

@@ -1,6 +1,6 @@
 import '@/styles/main.css'
 import 'react-medium-image-zoom/dist/styles.css'
-import { t } from '@lingui/macro'
+import { msg } from '@lingui/core/macro'
 import linguiConfig from '../../../lingui.config'
 import { getI18nInstance, PageLangParam } from '@/i18n'
 import { LayoutProps } from '@/types/app'
@@ -40,17 +40,49 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: PageLangParam) {
   const i18n = await getI18nInstance((await props.params).lang)
+
+  const title = i18n._(msg`Lương Vĩ Phú's dev blog - portfolio`)
+  const description = i18n._(
+    msg`I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.`
+  )
+
   return {
     metadataBase: new URL(SITE_METADATA.siteUrl),
-    title: process.env.owner,
-    description: t(
-      i18n
-    )`I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.`,
+    title: {
+      default: title,
+      template: `%s | ${title}`,
+    },
+    description: description,
     openGraph: {
-      title: process.env.owner,
-      description: t(
-        i18n
-      )`I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.`,
+      title: title,
+      description: description,
+      url: './',
+      siteName: title,
+      images: [SITE_METADATA.socialBanner],
+      locale: 'vi_VN',
+      type: 'website',
+    },
+    alternates: {
+      canonical: './',
+      types: {
+        'application/rss+xml': `${SITE_METADATA.siteUrl}/feed.xml`,
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    twitter: {
+      title: title,
+      card: 'summary_large_image',
+      images: [SITE_METADATA.socialBanner],
     },
   }
 }
