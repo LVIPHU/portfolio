@@ -28,6 +28,7 @@ msgid "All posts"
 msgstr "All posts"
 
 #: src/components/organisms/navbar.tsx:36
+#: src/app/[lang]/(page)/blog/page.tsx:12
 msgid "Blog"
 msgstr "Blog"
 
@@ -67,8 +68,7 @@ msgstr "Go back"
 msgid "Home"
 msgstr "Home"
 
-#: src/app/[lang]/layout.tsx:46
-#: src/app/[lang]/layout.tsx:51
+#: src/app/[lang]/layout.tsx:45
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 
@@ -79,6 +79,10 @@ msgstr "I like to write about stuff I'm into. You'll find a mix of web dev artic
 #: src/components/molecules/setting.tsx:17
 msgid "Language"
 msgstr "Language"
+
+#: src/app/[lang]/layout.tsx:44
+msgid "Lương Vĩ Phú's dev blog - portfolio"
+msgstr "Lương Vĩ Phú's dev blog - portfolio"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235

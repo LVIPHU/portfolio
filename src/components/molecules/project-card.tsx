@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { Badge, Button, NavigationLink } from '@/components/atoms'
 import { Github } from 'lucide-react'

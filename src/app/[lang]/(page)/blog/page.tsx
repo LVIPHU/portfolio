@@ -1,11 +1,17 @@
 import { allBlogs } from '@contentlayer/generated'
 import { allCoreContent, sortPosts } from '@/utils'
-import { genPageMetadata } from '@/app/seo'
 import { POSTS_PER_PAGE } from '@/constants/post'
 import { BlogTemplate } from '@/components/templates/blog'
-import { initLingui, PageLangParam } from '@/i18n'
+import { getI18nInstance, initLingui, PageLangParam } from '@/i18n'
+import { t } from '@lingui/macro'
 
-export const metadata = genPageMetadata({ title: 'Blog' })
+export async function generateMetadata(props: PageLangParam) {
+  const i18n = await getI18nInstance((await props.params).lang)
+
+  return {
+    title: t(i18n)`Blog`,
+  }
+}
 
 export default async function BlogPage(props: PageLangParam) {
   const lang = (await props.params).lang
@@ -18,7 +24,5 @@ export default async function BlogPage(props: PageLangParam) {
   }
   await initLingui(lang)
 
-  return (
-    <BlogTemplate posts={posts} initialDisplayPosts={initialDisplayPosts} pagination={pagination}/>
-  )
+  return <BlogTemplate posts={posts} initialDisplayPosts={initialDisplayPosts} pagination={pagination} />
 }

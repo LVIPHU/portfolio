@@ -131,6 +131,9 @@ export function AnimatedGridPattern({
 
   // Resize observer to update container dimensions
   useEffect(() => {
+    const currentRef = containerRef.current
+    if (!currentRef) return
+
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         setDimensions({
@@ -140,15 +143,8 @@ export function AnimatedGridPattern({
       }
     })
 
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current)
-    }
-
-    return () => {
-      if (containerRef.current) {
-        resizeObserver.unobserve(containerRef.current)
-      }
-    }
+    resizeObserver.observe(currentRef)
+    return () => resizeObserver.unobserve(currentRef)
   }, [containerRef])
 
   return (
