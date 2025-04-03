@@ -17,7 +17,7 @@ interface AnimatedGridPatternProps {
   repeatDelay?: number
 }
 
-export default function AnimatedGridPattern({
+export function AnimatedGridPattern({
   width = 40,
   height = 40,
   x = -1,
