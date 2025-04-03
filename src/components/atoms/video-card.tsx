@@ -40,11 +40,19 @@ export const VideoCard = (props: VideoCardProps) => {
         onPointerMove={handlePointerMove}
       >
         <div className='bg-white'>
-          <video ref={videoRef} poster={`/static/videos/poster/${name}.jpg`} width={300} height={300} muted loop playsInline>
+          <video
+            ref={videoRef}
+            poster={`/static/videos/poster/${name}.jpg`}
+            width={300}
+            height={300}
+            muted
+            loop
+            playsInline
+          >
             <source src={`/static/videos/${name}.mp4`} type='video/mp4' />
           </video>
         </div>
       </div>
     </NavigationLink>
   )
-};
+}

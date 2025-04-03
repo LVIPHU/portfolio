@@ -26,9 +26,7 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
           <TagsList tags={tags} />
           <h3 className='mt-4 text-[1.35rem] font-semibold tracking-tight'>
             <NavigationLink href={`/${path}`}>
-              <GrowingUnderline>
-                {title}
-              </GrowingUnderline>
+              <GrowingUnderline>{title}</GrowingUnderline>
             </NavigationLink>
           </h3>
           <div className='mt-6 flex items-center justify-between'>
