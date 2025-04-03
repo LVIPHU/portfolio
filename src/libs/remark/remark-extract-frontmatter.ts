@@ -1,4 +1,3 @@
-import 'server-only'
 import type { Parent } from 'unist'
 import { visit } from 'unist-util-visit'
 import yaml from 'js-yaml'

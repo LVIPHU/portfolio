@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
 
-import { cn } from '@/libs/utils'
+import { cn } from '@/utils'
 import { ButtonProps, buttonVariants } from '@/components/atoms/button'
 import { NavigationLink } from '@/components/atoms/navigation-link'
 

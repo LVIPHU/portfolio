@@ -1,4 +1,3 @@
-import 'server-only'
 import { slug } from 'github-slugger'
 import { toString } from 'mdast-util-to-string'
 import { remark } from 'remark'

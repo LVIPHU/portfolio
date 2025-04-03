@@ -1,2 +1,8 @@
 @layer utilities {
+  .image-container {
+    @apply mx-auto w-fit rounded-lg;
+    img {
+      @apply my-0;
+    }
+  }
 }

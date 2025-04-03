@@ -3,7 +3,17 @@
 import { useMemo } from 'react'
 import { Trans } from '@lingui/react/macro'
 import { FloatingDock, Item } from '@/components/molecules'
-import { Facebook, Github, House, ImageIcon, Lightbulb, MonitorCog, Paperclip, User } from 'lucide-react'
+import {
+  Facebook,
+  FolderGit,
+  GalleryHorizontal,
+  Github,
+  House,
+  MonitorCog,
+  Paperclip,
+  Rss,
+  Signature,
+} from 'lucide-react'
 import { Setting } from '@/components/molecules'
 
 type Props = {
@@ -23,20 +33,26 @@ export const Navbar = (props: Props) => {
       null,
       {
         type: 'link',
-        title: <Trans>About</Trans>,
-        icon: <User className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
-        href: `/${lang}/about`,
+        title: <Trans>Blog</Trans>,
+        icon: <Rss className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        href: `/${lang}/blog`,
       },
       {
         type: 'link',
         title: <Trans>Projects</Trans>,
-        icon: <Lightbulb className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <FolderGit className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/projects`,
       },
       {
         type: 'link',
+        title: <Trans>About</Trans>,
+        icon: <Signature className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        href: `/${lang}/about`,
+      },
+      {
+        type: 'link',
         title: <Trans>Photos</Trans>,
-        icon: <ImageIcon className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <GalleryHorizontal className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/photos`,
       },
       null,

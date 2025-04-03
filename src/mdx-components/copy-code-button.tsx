@@ -1,8 +1,8 @@
 'use client'
 
-import { clsx } from 'clsx'
 import { Check, Copy } from 'lucide-react'
 import { useState } from 'react'
+import { cn } from '@/utils'
 
 let timeoutId: ReturnType<typeof setTimeout> | undefined
 
@@ -29,7 +29,7 @@ export function CopyCodeButton({ className, parent }: { className?: string; pare
   return (
     <button
       aria-label='Copy code'
-      className={clsx(['copy-code', 'bg-solarized-light dark:bg-github-dark-dimmed p-2', className])}
+      className={cn(['copy-code', 'bg-solarized-light dark:bg-github-dark-dimmed p-2', className])}
       onClick={handleCopy}
     >
       {copied ? <Check className='h-4.5 w-4.5' /> : <Copy className='h-4.5 w-4.5' />}

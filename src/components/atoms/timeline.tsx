@@ -2,7 +2,7 @@
 import '@/libs/dayjs'
 import { useScroll, useTransform, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
-import { cn } from '@/libs/utils'
+import { cn } from '@/utils'
 import dayjs from 'dayjs'
 import { useLingui } from '@lingui/react'
 import { dayjsLocaleMap, dayjsLocales } from '@/libs/dayjs'

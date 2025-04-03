@@ -1,10 +1,10 @@
 'use client'
 
-import { Blur, ParallaxScroll, ParallaxScrollImage } from '@/components/molecules'
+import { ParallaxScroll, ParallaxScrollImage } from '@/components/molecules'
 import { t } from '@lingui/macro'
 import { Header } from '@/components/organisms'
 import { useLingui } from '@lingui/react'
-import { Container } from '@/components/atoms'
+import { Blur, Container } from '@/components/atoms'
 
 export const PhotosTemplate = () => {
   const { i18n } = useLingui()
