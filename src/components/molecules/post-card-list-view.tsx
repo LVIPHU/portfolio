@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  GritBackground,
   GrowingUnderline,
   Image,
   NavigationLink

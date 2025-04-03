@@ -36,9 +36,10 @@ import {
   LogoLight,
 } from '@/utils'
 
-import { NavigationLink, Button } from '@/components/atoms'
 import { cn } from '@/utils'
 import { GitFork } from 'lucide-react'
+import { Button } from '@/components/atoms/button'
+import { NavigationLink } from '@/components/atoms/navigation-link'
 
 const iconsMap = {
   logodark: LogoDark,

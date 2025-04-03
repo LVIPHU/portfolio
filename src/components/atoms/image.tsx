@@ -1,11 +1,11 @@
 'use client'
 
-import { clsx } from 'clsx'
 import type { ImageProps as NextImageProps } from 'next/image'
 import NextImage from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import ReactMediumImageZoom, { type UncontrolledProps } from 'react-medium-image-zoom'
+import { cn } from '@/utils'
 
 const loadedImages: string[] = []
 
@@ -33,14 +33,14 @@ export function Image(props: ImageProps) {
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'image-container relative overflow-hidden',
         !loaded && 'animate-pulse [animation-duration:4s]',
         className
       )}
     >
       <NextImage
-        className={clsx(
+        className={cn(
           'transition-all duration-500 [transition-timing-function:cubic-bezier(.4,0,.2,1)]',
           'h-full max-h-full w-full object-center',
           loaded ? 'blur-0' : 'blur-xl'
@@ -67,7 +67,7 @@ export function Zoom(props: ZoomProps) {
   return (
     <ReactMediumImageZoom
       zoomMargin={20}
-      classDialog={clsx([
+      classDialog={cn([
         '[&_[data-rmiz-modal-img]]:rounded-lg',
         '[&_[data-rmiz-btn-unzoom]]:hidden',
         '[&_[data-rmiz-modal-overlay="visible"]]:bg-black/80',

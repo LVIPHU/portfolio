@@ -1,4 +1,3 @@
-import { clsx } from 'clsx'
 import { slug } from 'github-slugger'
 import { Badge, NavigationLink } from '@/components/atoms'
 

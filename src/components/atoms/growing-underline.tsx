@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import React, { CSSProperties } from 'react'
 import { cn } from '@/utils'
 
 export function GrowingUnderline({
