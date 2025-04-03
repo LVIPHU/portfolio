@@ -1,4 +1,3 @@
-export * from './animated-grid-pattern'
 export * from './authors'
 export * from './avatar'
 export * from './badge'
