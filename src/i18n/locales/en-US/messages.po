@@ -18,12 +18,20 @@ msgid "{category}"
 msgstr "{category}"
 
 #: src/components/templates/about.tsx:39
-#: src/components/organisms/navbar.tsx:28
+#: src/components/organisms/navbar.tsx:48
 #: src/app/[lang]/(page)/about/page.tsx:9
 msgid "About"
 msgstr "About"
 
-#: src/components/organisms/navbar.tsx:59
+#: src/components/templates/blog.tsx:89
+msgid "All posts"
+msgstr "All posts"
+
+#: src/components/organisms/navbar.tsx:36
+msgid "Blog"
+msgstr "Blog"
+
+#: src/components/organisms/navbar.tsx:73
 #: src/app/[lang]/@modal/(.)contact/page.tsx:23
 #: src/app/[lang]/(page)/contact/page.tsx:9
 msgid "Contact"
@@ -42,12 +50,12 @@ msgid "Experience"
 msgstr "Experience"
 
 #: src/components/templates/about.tsx:25
-#: src/components/organisms/navbar.tsx:47
+#: src/components/organisms/navbar.tsx:61
 msgid "Facebook"
 msgstr "Facebook"
 
 #: src/components/templates/about.tsx:30
-#: src/components/organisms/navbar.tsx:53
+#: src/components/organisms/navbar.tsx:67
 msgid "Github"
 msgstr "Github"
 
@@ -55,14 +63,18 @@ msgstr "Github"
 msgid "Go back"
 msgstr "Go back"
 
-#: src/components/organisms/navbar.tsx:21
+#: src/components/organisms/navbar.tsx:29
 msgid "Home"
 msgstr "Home"
 
-#: src/app/[lang]/layout.tsx:43
-#: src/app/[lang]/layout.tsx:48
+#: src/app/[lang]/layout.tsx:46
+#: src/app/[lang]/layout.tsx:51
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
+
+#: src/components/templates/blog.tsx:90
+msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
+msgstr "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 
 #: src/components/molecules/setting.tsx:17
 msgid "Language"
@@ -70,7 +82,7 @@ msgstr "Language"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
-#: src/components/organisms/navbar.tsx:40
+#: src/components/organisms/navbar.tsx:54
 #: src/app/[lang]/(page)/photos/page.tsx:9
 msgid "Photos"
 msgstr "Photos"
@@ -80,7 +92,7 @@ msgid "Present"
 msgstr "Present"
 
 #: src/components/templates/projects.tsx:12
-#: src/components/organisms/navbar.tsx:34
+#: src/components/organisms/navbar.tsx:42
 #: src/app/[lang]/(page)/projects/page.tsx:9
 msgid "Projects"
 msgstr "Projects"
@@ -89,7 +101,7 @@ msgstr "Projects"
 msgid "Resume"
 msgstr "Resume"
 
-#: src/components/organisms/navbar.tsx:66
+#: src/components/organisms/navbar.tsx:80
 #: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Setting"
