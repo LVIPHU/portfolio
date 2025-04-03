@@ -1,8 +1,7 @@
 'use client'
 
 import { motion } from 'motion/react'
-import { useEffect, useId, useRef, useState, useMemo, useCallback, memo } from 'react'
-
+import { useEffect, useId, useRef, useState } from 'react'
 import { cn } from '@/utils'
 
 interface AnimatedGridPatternProps {
@@ -18,50 +17,7 @@ interface AnimatedGridPatternProps {
   repeatDelay?: number
 }
 
-const Square = memo(
-  ({
-    pos,
-    id,
-    width,
-    height,
-    maxOpacity,
-    duration,
-    index,
-    onAnimationComplete,
-  }: {
-    pos: [number, number]
-    id: number
-    width: number
-    height: number
-    maxOpacity: number
-    duration: number
-    index: number
-    onAnimationComplete: () => void
-  }) => (
-    <motion.rect
-      initial={{ opacity: 0 }}
-      animate={{ opacity: maxOpacity }}
-      transition={{
-        duration,
-        repeat: 1,
-        delay: index * 0.1,
-        repeatType: 'reverse',
-      }}
-      onAnimationComplete={onAnimationComplete}
-      key={`${pos[0]}-${pos[1]}-${index}`}
-      width={width - 1}
-      height={height - 1}
-      x={pos[0] * width + 1}
-      y={pos[1] * height + 1}
-      fill='currentColor'
-      strokeWidth='0'
-    />
-  )
-)
-
-Square.displayName = 'Square'
-
-export function AnimatedGridPattern({
+export default function AnimatedGridPattern({
   width = 40,
   height = 40,
   x = -1,
@@ -76,58 +32,43 @@ export function AnimatedGridPattern({
   const id = useId()
   const containerRef = useRef(null)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+  const [squares, setSquares] = useState(() => generateSquares(numSquares))
 
-  const getPos = useCallback(() => {
+  function getPos() {
     return [
       Math.floor((Math.random() * dimensions.width) / width),
       Math.floor((Math.random() * dimensions.height) / height),
-    ] as [number, number]
-  }, [dimensions.width, dimensions.height, width, height])
+    ]
+  }
 
-  const generateSquares = useCallback(
-    (count: number) => {
-      return Array.from({ length: count }, (_, i) => ({
-        id: i,
-        pos: getPos(),
-      }))
-    },
-    [getPos]
-  )
+  // Adjust the generateSquares function to return objects with an id, x, and y
+  function generateSquares(count: number) {
+    return Array.from({ length: count }, (_, i) => ({
+      id: i,
+      pos: getPos(),
+    }))
+  }
 
-  const [squares, setSquares] = useState(() => generateSquares(numSquares))
-
-  const updateSquarePosition = useCallback(
-    (id: number) => {
-      setSquares((currentSquares) =>
-        currentSquares.map((sq) =>
-          sq.id === id
-            ? {
-                ...sq,
-                pos: getPos(),
-              }
-            : sq
-        )
+  // Function to update a single square's position
+  const updateSquarePosition = (id: number) => {
+    setSquares((currentSquares) =>
+      currentSquares.map((sq) =>
+        sq.id === id
+          ? {
+              ...sq,
+              pos: getPos(),
+            }
+          : sq
       )
-    },
-    [getPos]
-  )
-
-  // Memoize the pattern definition
-  const patternDef = useMemo(
-    () => (
-      <pattern id={id} width={width} height={height} patternUnits='userSpaceOnUse' x={x} y={y}>
-        <path d={`M.5 ${height}V.5H${width}`} fill='none' strokeDasharray={strokeDasharray} />
-      </pattern>
-    ),
-    [id, width, height, x, y, strokeDasharray]
-  )
+    )
+  }
 
   // Update squares to animate in
   useEffect(() => {
     if (dimensions.width && dimensions.height) {
       setSquares(generateSquares(numSquares))
     }
-  }, [dimensions, numSquares, generateSquares])
+  }, [dimensions, numSquares])
 
   // Resize observer to update container dimensions
   useEffect(() => {
@@ -157,20 +98,31 @@ export function AnimatedGridPattern({
       )}
       {...props}
     >
-      <defs>{patternDef}</defs>
+      <defs>
+        <pattern id={id} width={width} height={height} patternUnits='userSpaceOnUse' x={x} y={y}>
+          <path d={`M.5 ${height}V.5H${width}`} fill='none' strokeDasharray={strokeDasharray} />
+        </pattern>
+      </defs>
       <rect width='100%' height='100%' fill={`url(#${id})`} />
       <svg x={x} y={y} className='overflow-visible'>
-        {squares.map(({ pos, id }, index) => (
-          <Square
-            key={`${pos[0]}-${pos[1]}-${index}`}
-            pos={pos}
-            id={id}
-            width={width}
-            height={height}
-            maxOpacity={maxOpacity}
-            duration={duration}
-            index={index}
+        {squares.map(({ pos: [x, y], id }, index) => (
+          <motion.rect
+            initial={{ opacity: 0 }}
+            animate={{ opacity: maxOpacity }}
+            transition={{
+              duration,
+              repeat: 1,
+              delay: index * 0.1,
+              repeatType: 'reverse',
+            }}
             onAnimationComplete={() => updateSquarePosition(id)}
+            key={`${x}-${y}-${index}`}
+            width={width - 1}
+            height={height - 1}
+            x={x * width + 1}
+            y={y * height + 1}
+            fill='currentColor'
+            strokeWidth='0'
           />
         ))}
       </svg>
