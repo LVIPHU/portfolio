@@ -1,3 +1,5 @@
+import { env } from '@env'
+
 export const SITE_METADATA = {
   title: `Lương Vĩ Phú's dev blog - portfolio`,
   author: process.env.owner,
@@ -6,7 +8,7 @@ export const SITE_METADATA = {
     'I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.',
   language: 'vi-VN',
   theme: 'system',
-  siteUrl: 'https://luongviphu.vercel.app',
+  siteUrl: env.NEXT_PUBLIC_APP_URL,
   siteRepo: 'https://github.com/LVIPHU/portfolio',
   siteLogo: `/static/images/logo.jpg`,
   socialBanner: `/static/images/twitter-card.jpeg`,
@@ -15,10 +17,24 @@ export const SITE_METADATA = {
   facebook: 'https://www.facebook.com/phuphu.phang.54',
   linkedin: '',
   locale: 'vi-VN',
+  comments: {
+    giscusConfigs: {
+      repo: env.NEXT_PUBLIC_GISCUS_REPO!,
+      repositoryId: env.NEXT_PUBLIC_GISCUS_REPOSITORY_ID!,
+      category: env.NEXT_PUBLIC_GISCUS_CATEGORY!,
+      categoryId: env.NEXT_PUBLIC_GISCUS_CATEGORY_ID!,
+      mapping: 'title',
+      reactions: '1',
+      metadata: '0',
+      theme: 'light',
+      darkTheme: 'transparent_dark',
+      themeURL: '',
+      lang: 'vi',
+    },
+  },
   search: {
     kbarConfigs: {
-      // path to load documents to search
-      searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`,
+      searchDocumentsPath: `search.json`,
     },
   },
 }

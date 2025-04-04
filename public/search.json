@@ -5,6 +5,7 @@
     "tags": ["next js", "guide"],
     "draft": false,
     "summary": "In this article we introduce adding images in the tailwind starter blog and the benefits and limitations of the next/image component.",
+    "images": ["/static/images/projects/1.jpg"],
     "authors": ["sparrowhawk\r"],
     "type": "Blog",
     "readingTime": { "text": "2 min read", "minutes": 1.95, "time": 117000, "words": 390 },
@@ -24,8 +25,8 @@
       "datePublished": "2020-11-11T00:00:00.000Z",
       "dateModified": "2020-11-11T00:00:00.000Z",
       "description": "In this article we introduce adding images in the tailwind starter blog and the benefits and limitations of the next/image component.",
-      "image": "/static/images/twitter-card.jpeg",
-      "url": "https://luongviphu.vercel.app/blog/guide-to-using-images-in-nextjs",
+      "image": "/static/images/projects/1.jpg",
+      "url": "http://localhost:3000/blog/guide-to-using-images-in-nextjs",
       "author": ["sparrowhawk\r"]
     }
   }

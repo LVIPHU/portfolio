@@ -21,8 +21,8 @@ export function GrowingUnderline({
       className={cn([
         'bg-gradient-to-r bg-left-bottom bg-no-repeat',
         'duration-[var(--duration,300ms)] transition-[background-size]',
-        'from-green-200 to-green-100',
-        'dark:from-emerald-800 dark:to-emerald-900',
+        'from-amber-200 to-amber-100',
+        'dark:from-amber-800 dark:to-amber-900',
         active ? 'bg-[length:100%_50%] hover:bg-[length:100%_100%]' : 'bg-[length:0px_50%] hover:bg-[length:100%_50%]',
         className,
       ])}
