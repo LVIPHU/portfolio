@@ -1,8 +1,9 @@
 import tagData from '@json/tag-data.json'
 import { getI18nInstance, PageLangParam } from '@/i18n'
 import { t } from '@lingui/macro'
-import { Container } from '@/components/atoms'
+import { Badge, Container, NavigationLink } from '@/components/atoms'
 import { Tag } from '@/components/molecules'
+import { slug } from 'github-slugger'
 
 export async function generateMetadata(props: PageLangParam) {
   const i18n = await getI18nInstance((await props.params).lang)
@@ -27,12 +28,20 @@ export default async function Page() {
         </div>
         <div className='my-8 flex flex-wrap gap-x-5 gap-y-2 py-8 md:my-0 md:py-8'>
           {tagKeys.length === 0 && 'No tags found.'}
-          {sortedTags.map((t) => {
+          {sortedTags.map((text) => {
+            const tagName = text.split(' ').join('-')
             return (
-              <div key={t} className='flex items-center gap-0.5'>
-                <Tag text={t} size='md' />
-                <span className='text-gray-600 dark:text-gray-300'>({tagCounts[t]})</span>
-              </div>
+              <NavigationLink key={text} href={`/tags/${slug(text)}`}>
+                <li
+                  data-umami-event={`tag-${tagName}`}
+                  className='flex items-center justify-between gap-2 rounded-md bg-black bg-muted p-3 text-white dark:bg-white dark:text-black'
+                >
+                  <span className='font-medium'>{tagName}</span>
+                  <Badge variant={'secondary'} className='rounded-full px-1.5'>
+                    {tagCounts[text]}
+                  </Badge>
+                </li>
+              </NavigationLink>
             )
           })}
         </div>

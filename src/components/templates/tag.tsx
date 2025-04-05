@@ -3,9 +3,12 @@
 import tagData from '@json/tag-data.json'
 import type { CoreContent } from '@/types/data'
 import type { Blog } from '@contentlayer/generated'
-import { Container } from '@/components/atoms'
-import { Header } from '@/components/organisms'
-import { PostCardGridView, Tag } from '@/components/molecules'
+import { Badge, Container, NavigationLink, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
+import { GridView, Header, ListView } from '@/components/organisms'
+import { Tag } from '@/components/molecules'
+import { AppContextInterface, useApp } from '@/providers/app'
+import { LayoutGrid, List } from 'lucide-react'
+import { slug } from 'github-slugger'
 
 interface ListLayoutProps {
   title: string
@@ -14,22 +17,43 @@ interface ListLayoutProps {
 }
 
 export function TagTemplate({ title, description, posts }: ListLayoutProps) {
+  const { postsView, setPostsView } = useApp()
+
   return (
     <Container className='pt-4 lg:pt-12'>
-      <Header title={title} description={description} className='border-b border-gray-200 dark:border-gray-700' />
-      <div className='flex gap-x-12'>
-        <TagsList />
-        <div className='py-5 md:py-10'>
-          <div className='mb-6 flex items-center gap-2 text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-100 md:mb-10 md:justify-end md:text-3xl'></div>
-          <ul className='grid grid-cols-1 gap-x-8 gap-y-12 lg:grid-cols-2'>
-            {posts.map((post) => (
-              <li key={post.path}>
-                <PostCardGridView post={post} />
-              </li>
-            ))}
-          </ul>
+      <Tabs
+        value={postsView}
+        onValueChange={(value) => {
+          setPostsView(value as AppContextInterface['postsView'])
+        }}
+      >
+        <Header title={title} className='border-b border-gray-200 dark:border-gray-700'>
+          <>
+            <i className={'text-base text-gray-500 dark:text-gray-400 md:text-lg md:leading-7'}>{description}</i>
+            <TabsList>
+              <TabsTrigger value='GRID'>
+                <LayoutGrid />
+                <span className='ml-2 hidden sm:block'>Grid</span>
+              </TabsTrigger>
+              <TabsTrigger value='LIST'>
+                <List />
+                <span className='ml-2 hidden sm:block'>List</span>
+              </TabsTrigger>
+            </TabsList>
+          </>
+        </Header>
+        <div className='relative flex flex-col items-start gap-12 lg:flex-row'>
+          <TagsList />
+          <div className='py-5 md:py-10'>
+            <TabsContent value='GRID'>
+              <GridView posts={posts} />
+            </TabsContent>
+            <TabsContent value='LIST'>
+              <ListView posts={posts} />
+            </TabsContent>
+          </div>
         </div>
-      </div>
+      </Tabs>
     </Container>
   )
 }
@@ -38,21 +62,27 @@ function TagsList() {
   const tagCounts = tagData as Record<string, number>
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
-
   return (
-    <div className='hidden max-h-screen w-[300px] shrink-0 py-5 md:flex md:py-10'>
-      <div className='h-full overflow-auto rounded bg-gray-50 dark:bg-gray-900/70 dark:shadow-gray-800/40'>
-        <ul className='flex flex-wrap items-center gap-x-5 gap-y-2 px-6 py-4'>
-          {sortedTags.map((t) => {
-            return (
-              <li key={t} className='flex items-center gap-0.5'>
-                <Tag text={t} size='md' />
-                <span className='text-gray-600 dark:text-gray-300'>({tagCounts[t]})</span>
+    <aside className='sticky top-8 order-last w-full shrink-0 lg:order-first lg:max-w-sm'>
+      <h3 className='text-3xl font-bold tracking-tight'>Tags</h3>
+      <ul className='mt-4 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1'>
+        {sortedTags.map((text) => {
+          const tagName = text.split(' ').join('-')
+          return (
+            <NavigationLink key={text} href={`/tags/${slug(text)}`}>
+              <li
+                data-umami-event={`tag-${tagName}`}
+                className='flex items-center justify-between gap-2 rounded-md bg-black bg-muted p-3 text-white dark:bg-white dark:text-black'
+              >
+                <span className='font-medium'>{tagName}</span>
+                <Badge variant={'secondary'} className='rounded-full px-1.5'>
+                  {tagCounts[text]}
+                </Badge>
               </li>
-            )
-          })}
-        </ul>
-      </div>
-    </div>
+            </NavigationLink>
+          )
+        })}
+      </ul>
+    </aside>
   )
 }

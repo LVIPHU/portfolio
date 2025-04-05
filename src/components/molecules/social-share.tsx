@@ -39,7 +39,7 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
       <DropdownMenuTrigger asChild>
         <Button
           aria-label='More links'
-          className={cn('flex items-center gap-1 px-3 py-1 font-medium text-gray-500 dark:text-gray-400', className)}
+          className={cn('flex items-center gap-2 px-3 py-1 font-medium', className)}
           data-umami-event='social-share'
         >
           <span>Share</span>
@@ -48,30 +48,33 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56'>
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={handleCopyLink}>
+          <DropdownMenuItem className={'flex items-center gap-2 px-3 py-1 font-medium'} onClick={handleCopyLink}>
             <Link strokeWidth={1.5} size={18} />
             <span>{copied ? 'Copied' : 'Copy link'}</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <TwitterShareButton url={postUrl} title={title}>
+            <TwitterShareButton className={'flex items-center gap-2 px-3 py-1 font-medium'} url={postUrl} title={title}>
               <XIcon strokeWidth={1.5} size={18} />
               <span>Share on X (Twitter)</span>
             </TwitterShareButton>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <LinkedinShareButton url={postUrl} title={title}>
+            <LinkedinShareButton
+              className={'flex items-center gap-2 px-3 py-1 font-medium'}
+              url={postUrl}
+              title={title}
+            >
               <Linkedin strokeWidth={1.5} size={18} />
               <span>Share on LinkedIn</span>
             </LinkedinShareButton>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <FacebookShareButton url={postUrl}>
+            <FacebookShareButton className={'flex items-center gap-2 px-3 py-1 font-medium'} url={postUrl}>
               <Facebook strokeWidth={1.5} size={18} />
               <span>Share on Facebook</span>
             </FacebookShareButton>
           </DropdownMenuItem>
-
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <DiscussOnX postUrl={postUrl} />

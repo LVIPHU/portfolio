@@ -80,8 +80,8 @@ export function PostLayoutTemplate({ content, next, prev, children }: LayoutProp
             </div>
           </div>
         </div>
-        <Separator />
-        <div className='space-y-4'>
+        <Separator className='mt-1' />
+        <div className='mt-6 space-y-4 lg:pt-10'>
           <PostNav next={next} nextLabel='Next post' prev={prev} prevLabel='Previous post' />
           <Comments configs={{ reactions: '0' }} />
         </div>

@@ -4,7 +4,7 @@ import { cn } from '@/utils'
 type Props = {
   title: string
   className?: string
-  description?: React.ReactNode
+  description?: string
   children?: React.ReactNode
 }
 
@@ -24,7 +24,7 @@ export const Header = (props: Props) => {
           <i className={'text-base text-gray-500 dark:text-gray-400 md:text-lg md:leading-7'}>{description}</i>
         </p>
       )}
-      {children && <div className={'mt-3 md:mt-5'}>{children}</div>}
+      {children && <div className={'mt-3 flex items-center justify-between md:mt-5'}>{children}</div>}
       <Separator className={'mt-5 md:mt-10'} />
     </div>
   )
