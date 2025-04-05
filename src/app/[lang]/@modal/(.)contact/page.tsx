@@ -1,6 +1,6 @@
 import { ContactForm, Modal } from '@/components/molecules'
 
-export default async function ContactModalPage() {
+export default async function ContactModal() {
   return (
     <Modal
       title={'Chat with me'}

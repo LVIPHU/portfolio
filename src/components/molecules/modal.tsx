@@ -14,7 +14,6 @@ import {
 } from '@/components/atoms'
 import { useRouter } from 'next/navigation'
 import { useMediaQuery } from '@/hooks'
-import { createPortal } from 'react-dom'
 
 export function Modal({
   children,
@@ -33,7 +32,7 @@ export function Modal({
     }
   }
   if (isDesktop) {
-    return createPortal(
+    return (
       <Dialog defaultOpen={true} onOpenChange={onDismiss}>
         <DialogContent>
           <DialogHeader>
@@ -42,11 +41,10 @@ export function Modal({
           </DialogHeader>
           {children}
         </DialogContent>
-      </Dialog>,
-      document.getElementById('modal-root')!
+      </Dialog>
     )
   } else {
-    return createPortal(
+    return (
       <Drawer open={true} onOpenChange={onDismiss}>
         <DrawerContent className={'p-8'}>
           <DrawerHeader className={'px-0'}>
@@ -55,8 +53,7 @@ export function Modal({
           </DrawerHeader>
           {children}
         </DrawerContent>
-      </Drawer>,
-      document.getElementById('modal-root')!
+      </Drawer>
     )
   }
 }

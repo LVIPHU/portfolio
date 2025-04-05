@@ -102,7 +102,6 @@ export default async function RootLayout({ children, modal, params }: Readonly<P
           <Navbar lang={lang} />
           {children}
           {modal}
-          <div id='modal-root' />
         </ProviderRegistry>
       </body>
     </html>
