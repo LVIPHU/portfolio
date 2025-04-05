@@ -1,6 +1,7 @@
 import type { Document, MDX } from 'contentlayer2/core'
+import { env } from '@env'
 
-const isProduction = process.env.NODE_ENV === 'production'
+const isProduction = env.NEXT_PUBLIC_NODE_ENV === 'production'
 
 export type MDXDocument = Document & { body: MDX }
 export type MDXDocumentDate = MDXDocument & {

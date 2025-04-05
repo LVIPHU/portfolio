@@ -1,9 +1,18 @@
 import { Search } from 'lucide-react'
 import type { ChangeEventHandler } from 'react'
+import { cn } from '@/utils'
 
-export function SearchArticles({ onChange, label }: { onChange: ChangeEventHandler<HTMLInputElement>; label: string }) {
+export function SearchArticles({
+  onChange,
+  label,
+  className,
+}: {
+  onChange: ChangeEventHandler<HTMLInputElement>
+  label: string
+  className?: string
+}) {
   return (
-    <div className='relative max-w-lg'>
+    <div className={cn('relative max-w-lg', className)}>
       <label>
         <span className='sr-only'>{label}</span>
         <input

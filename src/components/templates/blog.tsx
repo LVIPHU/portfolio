@@ -1,15 +1,15 @@
 'use client'
 
 import type { Blog } from '@contentlayer/generated'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, LayoutGrid, List } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import type { CoreContent } from '@/types/data'
-import { Container, NavigationLink, SearchArticles } from '@/components/atoms'
-import { PostCardGridView } from '@/components/molecules'
-import { Header } from '@/components/organisms'
+import { Container, NavigationLink, SearchArticles, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
+import { GridView, Header, ListView } from '@/components/organisms'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
+import { AppContextInterface, useApp } from '@/providers/app'
 
 interface PaginationProps {
   totalPages: number
@@ -74,35 +74,62 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
 
 export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: ListLayoutProps) {
   const { i18n } = useLingui()
+  const { postsView, setPostsView } = useApp()
   const [searchValue, setSearchValue] = useState('')
   const filteredBlogPosts = posts.filter((post) => {
     const searchContent = post.title + post.summary + post.tags?.join(' ')
     return searchContent.toLowerCase().includes(searchValue.toLowerCase())
   })
 
-  // If initialDisplayPosts exist, display it if no searchValue is specified
   const displayPosts = initialDisplayPosts.length > 0 && !searchValue ? initialDisplayPosts : filteredBlogPosts
 
   return (
     <Container className='pt-4 lg:pt-12'>
-      <Header
-        title={t(i18n)`All posts`}
-        description={t(
-          i18n
-        )`I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title.`}
-        className='border-b border-gray-200 dark:border-gray-700'
+      <Tabs
+        value={postsView}
+        onValueChange={(value) => {
+          setPostsView(value as AppContextInterface['postsView'])
+        }}
       >
-        <SearchArticles label='Search articles' onChange={(e) => setSearchValue(e.target.value)} />
-      </Header>
-      {!filteredBlogPosts.length ? (
-        <div className='py-10'>No posts found.</div>
-      ) : (
-        <div className='grid grid-cols-1 gap-x-8 gap-y-16 py-10 md:gap-y-16 lg:grid-cols-2 xl:grid-cols-3'>
-          {displayPosts.map((post) => (
-            <PostCardGridView key={post.path} post={post} />
-          ))}
-        </div>
-      )}
+        <Header
+          title={t(i18n)`All posts`}
+          description={t(
+            i18n
+          )`I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title.`}
+          className='border-b border-gray-200 dark:border-gray-700'
+        >
+          <>
+            <SearchArticles
+              className={'min-w-0 md:min-w-96'}
+              label='Search articles'
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+            <TabsList>
+              <TabsTrigger value='GRID'>
+                <LayoutGrid />
+                <span className='ml-2 hidden sm:block'>Grid</span>
+              </TabsTrigger>
+              <TabsTrigger value='LIST'>
+                <List />
+                <span className='ml-2 hidden sm:block'>List</span>
+              </TabsTrigger>
+            </TabsList>
+          </>
+        </Header>
+
+        {!filteredBlogPosts.length ? (
+          <div className='py-10'>No posts found.</div>
+        ) : (
+          <>
+            <TabsContent value='GRID'>
+              <GridView posts={displayPosts} />
+            </TabsContent>
+            <TabsContent value='LIST'>
+              <ListView posts={displayPosts} />
+            </TabsContent>
+          </>
+        )}
+      </Tabs>
       {pagination && pagination.totalPages > 1 && !searchValue && (
         <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
       )}

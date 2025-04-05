@@ -17,23 +17,22 @@ msgstr ""
 msgid "{category}"
 msgstr "{category}"
 
-#: src/components/templates/about.tsx:39
-#: src/components/organisms/navbar.tsx:48
+#: src/components/templates/about.tsx:40
+#: src/components/organisms/navbar.tsx:55
 #: src/app/[lang]/(page)/about/page.tsx:9
 msgid "About"
 msgstr "About"
 
-#: src/components/templates/blog.tsx:89
+#: src/components/templates/blog.tsx:103
 msgid "All posts"
 msgstr "All posts"
 
-#: src/components/organisms/navbar.tsx:36
-#: src/app/[lang]/(page)/blog/page.tsx:12
+#: src/components/organisms/navbar.tsx:37
+#: src/app/[lang]/(page)/blog/page.tsx:13
 msgid "Blog"
 msgstr "Blog"
 
-#: src/components/organisms/navbar.tsx:73
-#: src/app/[lang]/@modal/(.)contact/page.tsx:23
+#: src/components/organisms/navbar.tsx:80
 #: src/app/[lang]/(page)/contact/page.tsx:9
 msgid "Contact"
 msgstr "Contact"
@@ -50,13 +49,13 @@ msgstr "English"
 msgid "Experience"
 msgstr "Experience"
 
-#: src/components/templates/about.tsx:25
-#: src/components/organisms/navbar.tsx:61
+#: src/components/templates/about.tsx:26
+#: src/components/organisms/navbar.tsx:68
 msgid "Facebook"
 msgstr "Facebook"
 
-#: src/components/templates/about.tsx:30
-#: src/components/organisms/navbar.tsx:67
+#: src/components/templates/about.tsx:31
+#: src/components/organisms/navbar.tsx:74
 msgid "Github"
 msgstr "Github"
 
@@ -64,15 +63,15 @@ msgstr "Github"
 msgid "Go back"
 msgstr "Go back"
 
-#: src/components/organisms/navbar.tsx:29
+#: src/components/organisms/navbar.tsx:30
 msgid "Home"
 msgstr "Home"
 
-#: src/app/[lang]/layout.tsx:45
+#: src/app/[lang]/layout.tsx:46
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 
-#: src/components/templates/blog.tsx:90
+#: src/components/templates/blog.tsx:104
 msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 msgstr "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 
@@ -86,7 +85,7 @@ msgstr "Lương Vĩ Phú's dev blog - portfolio"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
-#: src/components/organisms/navbar.tsx:54
+#: src/components/organisms/navbar.tsx:61
 #: src/app/[lang]/(page)/photos/page.tsx:9
 msgid "Photos"
 msgstr "Photos"
@@ -96,27 +95,32 @@ msgid "Present"
 msgstr "Present"
 
 #: src/components/templates/projects.tsx:12
-#: src/components/organisms/navbar.tsx:42
+#: src/components/organisms/navbar.tsx:49
 #: src/app/[lang]/(page)/projects/page.tsx:9
 msgid "Projects"
 msgstr "Projects"
 
-#: src/components/templates/about.tsx:56
+#: src/components/templates/about.tsx:57
 msgid "Resume"
 msgstr "Resume"
 
-#: src/components/organisms/navbar.tsx:80
+#: src/components/organisms/navbar.tsx:87
 #: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Setting"
 
-#: src/components/templates/about.tsx:40
+#: src/components/templates/about.tsx:41
 msgid "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 msgstr "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 
 #: src/components/templates/projects.tsx:12
 msgid "Some things I've done"
 msgstr "Some things I've done"
+
+#: src/components/organisms/navbar.tsx:43
+#: src/app/[lang]/(page)/tags/page.tsx:12
+msgid "Tags"
+msgstr "Tags"
 
 #: src/components/organisms/technologies.tsx:77
 msgid "Technologies I've worked with"
@@ -133,6 +137,10 @@ msgstr "Theme"
 #: src/components/organisms/technologies.tsx:103
 msgid "These are my most used technologies."
 msgstr "These are my most used technologies."
+
+#: src/app/[lang]/(page)/tags/page.tsx:13
+msgid "Things I blog about"
+msgstr "Things I blog about"
 
 #: src/components/molecules/locale-switch.tsx:14
 msgid "Tiếng Việt"

@@ -1,6 +1,6 @@
-import { clsx } from 'clsx'
 import { SocialIcons, TypeOfIconsMap } from '@/components/atoms'
 import { CopyCodeButton } from './copy-code-button'
+import { cn } from '@/utils'
 
 const LANGS_MAP: Record<string, TypeOfIconsMap> = {
   js: 'javascript',
@@ -20,7 +20,7 @@ const FILE_NAME_MAP: Record<string, TypeOfIconsMap> = {
 export function CodeTitle({ lang, title }: { lang: string; title: string }) {
   return (
     <div
-      className={clsx([
+      className={cn([
         'remark-code-title',
         'flex items-center gap-2.5 truncate px-4 py-1 lg:py-2',
         'bg-gray-100 text-gray-600 dark:bg-slate-700 dark:text-gray-300',

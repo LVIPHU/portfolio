@@ -12,6 +12,7 @@ import { Dot } from 'lucide-react'
 import { skillsData } from '@data/main'
 import { useMemo } from 'react'
 import type { Skill } from '@data/main'
+import { SITE_METADATA } from '@data/site-metadata'
 
 const techs = ['typescript', 'nextjs', 'react', 'tailwindcss', 'shadcn']
 
@@ -57,7 +58,7 @@ export const Footer = ({ className, description }: Props) => {
           <li>
             <Dot size={14} />
           </li>
-          <li>{process.env.owner}</li>
+          <li>{SITE_METADATA.author}</li>
           <li>
             <Dot size={14} />
           </li>

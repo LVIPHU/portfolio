@@ -21,9 +21,10 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@data/*": ["./data/*"],
-      "@public/*": ["./public/*"],
       "@env": ["./env.mjs"],
+      "@data/*": ["./data/*"],
+      "@json/*": ["./json/*"],
+      "@public/*": ["./public/*"],
       "@contentlayer/generated": ["./.contentlayer/generated"]
     },
     "typeRoots": ["./src/types", "./node_modules/@types"]

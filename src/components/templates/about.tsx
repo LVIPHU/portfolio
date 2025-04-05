@@ -17,6 +17,7 @@ import { Facebook, Github } from 'lucide-react'
 import { Experience, GithubCal, Header, Technologies } from '@/components/organisms'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { SITE_METADATA } from '@data/site-metadata'
 
 export const AboutTemplate = () => {
   const { i18n } = useLingui()
@@ -45,10 +46,10 @@ export const AboutTemplate = () => {
         <div className={'pt-5 md:pt-10'}>
           <div className={'mb-7'}>
             <Avatar className='mx-auto mb-2 h-60 w-60'>
-              <AvatarImage src='/static/images/avatars/main.jpg' alt={process.env.owner} />
-              <AvatarFallback>{process.env.owner}</AvatarFallback>
+              <AvatarImage src='/static/images/avatars/main.jpg' alt={SITE_METADATA.author} />
+              <AvatarFallback>{SITE_METADATA.author}</AvatarFallback>
             </Avatar>
-            <h3 className='w-full text-center text-4xl font-bold'>{process.env.owner}</h3>
+            <h3 className='w-full text-center text-4xl font-bold'>{SITE_METADATA.author}</h3>
             <p className='w-full text-center text-lg'>Software Engineer</p>
           </div>
           <nav className={'flex items-center justify-center gap-6'}>
@@ -77,10 +78,10 @@ export const AboutTemplate = () => {
         <div className={'flex flex-col gap-y-6 py-5 text-lg md:py-10 xl:col-span-2'}>
           <h2 className={'mb-2 text-3xl font-bold'}>Xin chào! {String.fromCodePoint(0x1f44b)}</h2>
           <span>
-            Tôi là {process.env.owner}, một Kỹ sư Phần mềm {String.fromCodePoint(0x1f4bb)} đến từ Việt Nam, với niềm đam
-            mê về lập trình và phát triển web, tôi thích tạo ra những giải pháp sáng tạo giúp nâng cao hiệu suất và hiệu
-            quả. Hành trình công nghệ của tôi bao gồm việc xây dựng các trang web thương mại, quản lý dữ liệu và các
-            giải pháp full-stack tiên tiến. Về học vấn, tôi có bằng Kỹ sư {String.fromCodePoint(0x1f393)} Công nghệ
+            Tôi là {SITE_METADATA.author}, một Kỹ sư Phần mềm {String.fromCodePoint(0x1f4bb)} đến từ Việt Nam, với niềm
+            đam mê về lập trình và phát triển web, tôi thích tạo ra những giải pháp sáng tạo giúp nâng cao hiệu suất và
+            hiệu quả. Hành trình công nghệ của tôi bao gồm việc xây dựng các trang web thương mại, quản lý dữ liệu và
+            các giải pháp full-stack tiên tiến. Về học vấn, tôi có bằng Kỹ sư {String.fromCodePoint(0x1f393)} Công nghệ
             Thông tin.
           </span>
           <span>

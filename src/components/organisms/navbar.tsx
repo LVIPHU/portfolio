@@ -13,6 +13,7 @@ import {
   Paperclip,
   Rss,
   Signature,
+  Tags,
 } from 'lucide-react'
 import { Setting } from '@/components/molecules'
 
@@ -36,6 +37,12 @@ export const Navbar = (props: Props) => {
         title: <Trans>Blog</Trans>,
         icon: <Rss className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/blog`,
+      },
+      {
+        type: 'link',
+        title: <Trans>Tags</Trans>,
+        icon: <Tags className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        href: `/${lang}/tags`,
       },
       {
         type: 'link',
