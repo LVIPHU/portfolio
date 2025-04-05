@@ -2,7 +2,6 @@ import tagData from '@json/tag-data.json'
 import { getI18nInstance, PageLangParam } from '@/i18n'
 import { t } from '@lingui/macro'
 import { Badge, Container, NavigationLink } from '@/components/atoms'
-import { Tag } from '@/components/molecules'
 import { slug } from 'github-slugger'
 
 export async function generateMetadata(props: PageLangParam) {
@@ -34,7 +33,7 @@ export default async function Page() {
               <NavigationLink key={text} href={`/tags/${slug(text)}`}>
                 <li
                   data-umami-event={`tag-${tagName}`}
-                  className='flex items-center justify-between gap-2 rounded-md bg-black bg-muted p-3 text-white dark:bg-white dark:text-black'
+                  className='flex items-center justify-between gap-2 rounded-md bg-black p-3 text-white dark:bg-white dark:text-black'
                 >
                   <span className='font-medium'>{tagName}</span>
                   <Badge variant={'secondary'} className='rounded-full px-1.5'>

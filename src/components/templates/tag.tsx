@@ -5,7 +5,6 @@ import type { CoreContent } from '@/types/data'
 import type { Blog } from '@contentlayer/generated'
 import { Badge, Container, NavigationLink, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
-import { Tag } from '@/components/molecules'
 import { AppContextInterface, useApp } from '@/providers/app'
 import { LayoutGrid, List } from 'lucide-react'
 import { slug } from 'github-slugger'
@@ -72,7 +71,7 @@ function TagsList() {
             <NavigationLink key={text} href={`/tags/${slug(text)}`}>
               <li
                 data-umami-event={`tag-${tagName}`}
-                className='flex items-center justify-between gap-2 rounded-md bg-black bg-muted p-3 text-white dark:bg-white dark:text-black'
+                className='flex items-center justify-between gap-2 rounded-md bg-black p-3 text-white dark:bg-white dark:text-black'
               >
                 <span className='font-medium'>{tagName}</span>
                 <Badge variant={'secondary'} className='rounded-full px-1.5'>
