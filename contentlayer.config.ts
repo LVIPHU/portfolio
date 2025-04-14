@@ -136,29 +136,9 @@ export const Author = defineDocumentType(() => ({
   computedFields,
 }))
 
-export const Resume = defineDocumentType(() => ({
-  name: 'Resume',
-  filePathPattern: 'resume/**/*.mdx',
-  contentType: 'mdx',
-  fields: {
-    name: { type: 'string', required: true },
-    avatar: { type: 'string' },
-    occupation: { type: 'string' },
-    company: { type: 'string' },
-    email: { type: 'string' },
-    twitter: { type: 'string' },
-    instagram: { type: 'string' },
-    linkedin: { type: 'string' },
-    github: { type: 'string' },
-    spotify: { type: 'string' },
-    layout: { type: 'string' },
-  },
-  computedFields,
-}))
-
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Author, Resume],
+  documentTypes: [Blog, Author],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [remarkExtractFrontmatter, remarkGfm, remarkCodeTitles, remarkMath, remarkImgToJsx, remarkAlert],

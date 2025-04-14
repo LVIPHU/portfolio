@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: lastmod || date,
     }))
 
-  const routes = ['', 'blog', 'photos', 'projects', 'about', 'tags'].map((route) => ({
+  const routes = ['', 'about', 'blog', 'contact', 'photos', 'projects', 'tags'].map((route) => ({
     url: `${siteUrl}/${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }))

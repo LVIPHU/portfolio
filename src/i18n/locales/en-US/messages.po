@@ -18,21 +18,21 @@ msgid "{category}"
 msgstr "{category}"
 
 #: src/components/templates/about.tsx:40
-#: src/components/organisms/navbar.tsx:55
+#: src/components/organisms/navbar.tsx:63
 #: src/app/[lang]/(page)/about/page.tsx:9
 msgid "About"
 msgstr "About"
 
-#: src/components/templates/blog.tsx:103
+#: src/components/templates/blog.tsx:95
 msgid "All posts"
 msgstr "All posts"
 
-#: src/components/organisms/navbar.tsx:37
+#: src/components/organisms/navbar.tsx:39
 #: src/app/[lang]/(page)/blog/page.tsx:13
 msgid "Blog"
 msgstr "Blog"
 
-#: src/components/organisms/navbar.tsx:80
+#: src/components/organisms/navbar.tsx:88
 #: src/app/[lang]/(page)/contact/page.tsx:9
 msgid "Contact"
 msgstr "Contact"
@@ -50,12 +50,12 @@ msgid "Experience"
 msgstr "Experience"
 
 #: src/components/templates/about.tsx:26
-#: src/components/organisms/navbar.tsx:68
+#: src/components/organisms/navbar.tsx:76
 msgid "Facebook"
 msgstr "Facebook"
 
 #: src/components/templates/about.tsx:31
-#: src/components/organisms/navbar.tsx:74
+#: src/components/organisms/navbar.tsx:82
 msgid "Github"
 msgstr "Github"
 
@@ -63,7 +63,7 @@ msgstr "Github"
 msgid "Go back"
 msgstr "Go back"
 
-#: src/components/organisms/navbar.tsx:30
+#: src/components/organisms/navbar.tsx:32
 msgid "Home"
 msgstr "Home"
 
@@ -71,7 +71,7 @@ msgstr "Home"
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 
-#: src/components/templates/blog.tsx:104
+#: src/components/templates/blog.tsx:96
 msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 msgstr "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 
@@ -85,7 +85,7 @@ msgstr "Lương Vĩ Phú's dev blog - portfolio"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
-#: src/components/organisms/navbar.tsx:61
+#: src/components/organisms/navbar.tsx:57
 #: src/app/[lang]/(page)/photos/page.tsx:9
 msgid "Photos"
 msgstr "Photos"
@@ -95,16 +95,17 @@ msgid "Present"
 msgstr "Present"
 
 #: src/components/templates/projects.tsx:12
-#: src/components/organisms/navbar.tsx:49
+#: src/components/organisms/navbar.tsx:51
 #: src/app/[lang]/(page)/projects/page.tsx:9
 msgid "Projects"
 msgstr "Projects"
 
-#: src/components/templates/about.tsx:57
+#: src/components/templates/about.tsx:58
+#: src/components/organisms/navbar.tsx:69
 msgid "Resume"
 msgstr "Resume"
 
-#: src/components/organisms/navbar.tsx:87
+#: src/components/organisms/navbar.tsx:95
 #: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Setting"
@@ -117,8 +118,8 @@ msgstr "Some interesting things about myself and my habit of coding then making 
 msgid "Some things I've done"
 msgstr "Some things I've done"
 
-#: src/components/organisms/navbar.tsx:43
-#: src/app/[lang]/(page)/tags/page.tsx:12
+#: src/components/organisms/navbar.tsx:45
+#: src/app/[lang]/(page)/tags/page.tsx:11
 msgid "Tags"
 msgstr "Tags"
 
@@ -138,7 +139,7 @@ msgstr "Theme"
 msgid "These are my most used technologies."
 msgstr "These are my most used technologies."
 
-#: src/app/[lang]/(page)/tags/page.tsx:13
+#: src/app/[lang]/(page)/tags/page.tsx:12
 msgid "Things I blog about"
 msgstr "Things I blog about"
 

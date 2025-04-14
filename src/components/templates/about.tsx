@@ -53,9 +53,11 @@ export const AboutTemplate = () => {
             <p className='w-full text-center text-lg'>Software Engineer</p>
           </div>
           <nav className={'flex items-center justify-center gap-6'}>
-            <Button variant={'default'}>
-              <Trans>Resume</Trans>
-            </Button>
+            <NavigationLink href={SITE_METADATA.resume}>
+              <Button variant={'default'}>
+                <Trans>Resume</Trans>
+              </Button>
+            </NavigationLink>
             <Separator orientation={'vertical'} className={'h-6'} />
             {navItems.map((item, idx) => (
               <NavigationLink key={idx} href={item.href} target={'_blank'}>
