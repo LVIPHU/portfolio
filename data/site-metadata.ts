@@ -16,6 +16,7 @@ export const SITE_METADATA = {
   github: 'https://github.com/LVIPHU',
   facebook: 'https://www.facebook.com/phuphu.phang.54',
   linkedin: '',
+  resume: 'https://rxresu.me/kenlock.lvp/frontend-developer',
   locale: 'vi-VN',
   comments: {
     giscusConfigs: {

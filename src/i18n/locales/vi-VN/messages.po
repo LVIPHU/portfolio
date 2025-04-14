@@ -18,21 +18,21 @@ msgid "{category}"
 msgstr "{category}"
 
 #: src/components/templates/about.tsx:40
-#: src/components/organisms/navbar.tsx:55
+#: src/components/organisms/navbar.tsx:63
 #: src/app/[lang]/(page)/about/page.tsx:9
 msgid "About"
 msgstr "Giới thiệu"
 
-#: src/components/templates/blog.tsx:103
+#: src/components/templates/blog.tsx:95
 msgid "All posts"
 msgstr "Tất cả bài viết"
 
-#: src/components/organisms/navbar.tsx:37
+#: src/components/organisms/navbar.tsx:39
 #: src/app/[lang]/(page)/blog/page.tsx:13
 msgid "Blog"
 msgstr "Blog"
 
-#: src/components/organisms/navbar.tsx:80
+#: src/components/organisms/navbar.tsx:88
 #: src/app/[lang]/(page)/contact/page.tsx:9
 msgid "Contact"
 msgstr "Liên hệ"
@@ -50,12 +50,12 @@ msgid "Experience"
 msgstr "Kinh nghiệm"
 
 #: src/components/templates/about.tsx:26
-#: src/components/organisms/navbar.tsx:68
+#: src/components/organisms/navbar.tsx:76
 msgid "Facebook"
 msgstr "Facebook"
 
 #: src/components/templates/about.tsx:31
-#: src/components/organisms/navbar.tsx:74
+#: src/components/organisms/navbar.tsx:82
 msgid "Github"
 msgstr "Github"
 
@@ -63,7 +63,7 @@ msgstr "Github"
 msgid "Go back"
 msgstr "Quay lại"
 
-#: src/components/organisms/navbar.tsx:30
+#: src/components/organisms/navbar.tsx:32
 msgid "Home"
 msgstr "Trang chủ"
 
@@ -71,7 +71,7 @@ msgstr "Trang chủ"
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "Tôi là Lương Vĩ Phú, một kỹ sư phần mềm. Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi."
 
-#: src/components/templates/blog.tsx:104
+#: src/components/templates/blog.tsx:96
 msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 msgstr "Tôi thích viết về những gì tôi quan tâm. Bạn sẽ tìm thấy sự kết hợp giữa các bài viết về phát triển web, tin tức công nghệ và những suy nghĩ ngẫu nhiên từ cuộc sống của tôi. Sử dụng thanh tìm kiếm bên dưới để lọc theo tiêu đề."
 
@@ -85,7 +85,7 @@ msgstr "Blog kỹ thuật & portfolio của Lương Vĩ Phú"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
-#: src/components/organisms/navbar.tsx:61
+#: src/components/organisms/navbar.tsx:57
 #: src/app/[lang]/(page)/photos/page.tsx:9
 msgid "Photos"
 msgstr "Hình ảnh"
@@ -95,16 +95,17 @@ msgid "Present"
 msgstr "Hiện tại"
 
 #: src/components/templates/projects.tsx:12
-#: src/components/organisms/navbar.tsx:49
+#: src/components/organisms/navbar.tsx:51
 #: src/app/[lang]/(page)/projects/page.tsx:9
 msgid "Projects"
 msgstr "Dự án"
 
-#: src/components/templates/about.tsx:57
+#: src/components/templates/about.tsx:58
+#: src/components/organisms/navbar.tsx:69
 msgid "Resume"
 msgstr "Resume"
 
-#: src/components/organisms/navbar.tsx:87
+#: src/components/organisms/navbar.tsx:95
 #: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Cài đặt"
@@ -117,10 +118,10 @@ msgstr "Một số điều thú vị về bản thân và sở thích viết cod
 msgid "Some things I've done"
 msgstr "Một số thứ tôi đã làm"
 
-#: src/components/organisms/navbar.tsx:43
-#: src/app/[lang]/(page)/tags/page.tsx:12
+#: src/components/organisms/navbar.tsx:45
+#: src/app/[lang]/(page)/tags/page.tsx:11
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
 #: src/components/organisms/technologies.tsx:77
 msgid "Technologies I've worked with"
@@ -138,9 +139,9 @@ msgstr "Giao diện"
 msgid "These are my most used technologies."
 msgstr "Đây là những công nghệ tôi sử dụng nhiều nhất."
 
-#: src/app/[lang]/(page)/tags/page.tsx:13
+#: src/app/[lang]/(page)/tags/page.tsx:12
 msgid "Things I blog about"
-msgstr ""
+msgstr "Các chủ đề tôi thường viết"
 
 #: src/components/molecules/locale-switch.tsx:14
 msgid "Tiếng Việt"

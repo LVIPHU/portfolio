@@ -4,18 +4,20 @@ import { useMemo } from 'react'
 import { Trans } from '@lingui/react/macro'
 import { FloatingDock, Item } from '@/components/molecules'
 import {
+  Book,
   Facebook,
+  FileUser,
   FolderGit,
   GalleryHorizontal,
   Github,
   House,
   MonitorCog,
   Paperclip,
-  Rss,
   Signature,
   Tags,
 } from 'lucide-react'
 import { Setting } from '@/components/molecules'
+import { SITE_METADATA } from '@data/site-metadata'
 
 type Props = {
   lang: string
@@ -35,7 +37,7 @@ export const Navbar = (props: Props) => {
       {
         type: 'link',
         title: <Trans>Blog</Trans>,
-        icon: <Rss className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <Book className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/blog`,
       },
       {
@@ -52,15 +54,21 @@ export const Navbar = (props: Props) => {
       },
       {
         type: 'link',
+        title: <Trans>Photos</Trans>,
+        icon: <GalleryHorizontal className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        href: `/${lang}/photos`,
+      },
+      {
+        type: 'link',
         title: <Trans>About</Trans>,
         icon: <Signature className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: `/${lang}/about`,
       },
       {
         type: 'link',
-        title: <Trans>Photos</Trans>,
-        icon: <GalleryHorizontal className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
-        href: `/${lang}/photos`,
+        title: <Trans>Resume</Trans>,
+        icon: <FileUser className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        href: SITE_METADATA.resume,
       },
       null,
       {
