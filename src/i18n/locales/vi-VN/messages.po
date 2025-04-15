@@ -17,7 +17,7 @@ msgstr ""
 msgid "{category}"
 msgstr "{category}"
 
-#: src/components/templates/about.tsx:40
+#: src/components/templates/about.tsx:39
 #: src/components/organisms/navbar.tsx:63
 #: src/app/[lang]/(page)/about/page.tsx:9
 msgid "About"
@@ -32,6 +32,11 @@ msgstr "Tất cả bài viết"
 msgid "Blog"
 msgstr "Blog"
 
+#: src/app/[lang]/@modal/(.)contact/page.tsx:11
+msgid "Chat with me"
+msgstr "Trò chuyện với tôi"
+
+#: src/components/templates/contact.tsx:15
 #: src/components/organisms/navbar.tsx:88
 #: src/app/[lang]/(page)/contact/page.tsx:9
 msgid "Contact"
@@ -49,21 +54,16 @@ msgstr "English"
 msgid "Experience"
 msgstr "Kinh nghiệm"
 
-#: src/components/templates/about.tsx:26
-#: src/components/organisms/navbar.tsx:76
-msgid "Facebook"
-msgstr "Facebook"
-
-#: src/components/templates/about.tsx:31
-#: src/components/organisms/navbar.tsx:82
-msgid "Github"
-msgstr "Github"
+#: src/components/molecules/contact-form.tsx:12
+#: src/components/molecules/contact-form.tsx:13
+msgid "First name"
+msgstr "Tên"
 
 #: src/components/molecules/previous-page.tsx:16
 msgid "Go back"
 msgstr "Quay lại"
 
-#: src/components/templates/contact.tsx:52
+#: src/components/templates/contact.tsx:64
 msgid "Hire me"
 msgstr "Thuê tôi"
 
@@ -79,26 +79,46 @@ msgstr "Tôi là Lương Vĩ Phú, một kỹ sư phần mềm. Nếu bạn có 
 msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 msgstr "Tôi thích viết về những gì tôi quan tâm. Bạn sẽ tìm thấy sự kết hợp giữa các bài viết về phát triển web, tin tức công nghệ và những suy nghĩ ngẫu nhiên từ cuộc sống của tôi. Sử dụng thanh tìm kiếm bên dưới để lọc theo tiêu đề."
 
-#: src/components/templates/contact.tsx:22
-#: src/components/templates/contact.tsx:42
+#: src/components/templates/contact.tsx:26
+#: src/components/templates/contact.tsx:52
 msgid "I will always be ready to support you."
 msgstr "Tôi sẽ luôn sẵn sàng hỗ trợ bạn."
+
+#: src/components/templates/contact.tsx:16
+#: src/app/[lang]/@modal/(.)contact/page.tsx:12
+msgid "I'd love to hear from you. Please fill out this form or send me an email."
+msgstr "Tôi rất mong nhận được phản hồi từ bạn. Vui lòng điền vào biểu mẫu này hoặc gửi email cho tôi."
 
 #: src/components/molecules/setting.tsx:17
 msgid "Language"
 msgstr "Ngôn ngữ"
 
+#: src/components/molecules/contact-form.tsx:16
+#: src/components/molecules/contact-form.tsx:17
+msgid "Last name"
+msgstr "Họ"
+
 #: src/app/[lang]/layout.tsx:44
 msgid "Lương Vĩ Phú's dev blog - portfolio"
 msgstr "Blog kỹ thuật & portfolio của Lương Vĩ Phú"
 
-#: src/components/templates/contact.tsx:32
+#: src/components/molecules/contact-form.tsx:28
+#: src/components/molecules/contact-form.tsx:29
+msgid "Message"
+msgstr "Lời nhắn"
+
+#: src/components/templates/contact.tsx:40
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Từ thứ Hai đến thứ Sáu, từ 8 giờ sáng đến 5 giờ chiều."
 
-#: src/components/templates/contact.tsx:31
+#: src/components/templates/contact.tsx:37
 msgid "Phone"
 msgstr "Điện thoại"
+
+#: src/components/molecules/contact-form.tsx:24
+#: src/components/molecules/contact-form.tsx:25
+msgid "Phone Number"
+msgstr "Số điện thoại"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
@@ -117,23 +137,22 @@ msgstr "Hiện tại"
 msgid "Projects"
 msgstr "Dự án"
 
-#: src/components/templates/about.tsx:58
-#: src/components/organisms/navbar.tsx:69
-msgid "Resume"
-msgstr "Resume"
-
 #: src/components/organisms/navbar.tsx:95
 #: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Cài đặt"
 
-#: src/components/templates/about.tsx:41
+#: src/components/templates/about.tsx:40
 msgid "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 msgstr "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng."
 
 #: src/components/templates/projects.tsx:12
 msgid "Some things I've done"
 msgstr "Một số thứ tôi đã làm"
+
+#: src/components/molecules/contact-form.tsx:33
+msgid "Submit"
+msgstr "Gửi"
 
 #: src/components/organisms/navbar.tsx:45
 #: src/app/[lang]/(page)/tags/page.tsx:11

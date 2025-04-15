@@ -1,6 +1,7 @@
 import { env } from '@env'
 
 export const SITE_METADATA = {
+  avatar: 'https://avatars.githubusercontent.com/u/84316006?s…00&u=2f5f6e6e02e5195fddbe9c1d73c387cc22151cc5&v=4',
   title: `Lương Vĩ Phú's dev blog - portfolio`,
   author: process.env.owner,
   headerTitle: `Lương Vĩ Phú's dev blog`,
@@ -11,11 +12,11 @@ export const SITE_METADATA = {
   siteUrl: env.NEXT_PUBLIC_APP_URL,
   siteRepo: 'https://github.com/LVIPHU/portfolio',
   siteLogo: `/static/images/logo.jpg`,
-  socialBanner: `/static/images/twitter-card.jpeg`,
+  socialBanner: `/static/images/logo/light.svg`,
   email: process.env.email,
   github: 'https://github.com/LVIPHU',
   facebook: 'https://www.facebook.com/phuphu.phang.54',
-  linkedin: '',
+  linkedIn: 'https://www.linkedin.com/in/luong-vi-phu',
   resume: 'https://rxresu.me/kenlock.lvp/luong-vi-phu',
   locale: 'vi-VN',
   comments: {

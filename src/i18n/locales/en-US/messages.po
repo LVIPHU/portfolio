@@ -17,7 +17,7 @@ msgstr ""
 msgid "{category}"
 msgstr "{category}"
 
-#: src/components/templates/about.tsx:40
+#: src/components/templates/about.tsx:39
 #: src/components/organisms/navbar.tsx:63
 #: src/app/[lang]/(page)/about/page.tsx:9
 msgid "About"
@@ -32,6 +32,11 @@ msgstr "All posts"
 msgid "Blog"
 msgstr "Blog"
 
+#: src/app/[lang]/@modal/(.)contact/page.tsx:11
+msgid "Chat with me"
+msgstr "Chat with me"
+
+#: src/components/templates/contact.tsx:15
 #: src/components/organisms/navbar.tsx:88
 #: src/app/[lang]/(page)/contact/page.tsx:9
 msgid "Contact"
@@ -49,21 +54,16 @@ msgstr "English"
 msgid "Experience"
 msgstr "Experience"
 
-#: src/components/templates/about.tsx:26
-#: src/components/organisms/navbar.tsx:76
-msgid "Facebook"
-msgstr "Facebook"
-
-#: src/components/templates/about.tsx:31
-#: src/components/organisms/navbar.tsx:82
-msgid "Github"
-msgstr "Github"
+#: src/components/molecules/contact-form.tsx:12
+#: src/components/molecules/contact-form.tsx:13
+msgid "First name"
+msgstr "First name"
 
 #: src/components/molecules/previous-page.tsx:16
 msgid "Go back"
 msgstr "Go back"
 
-#: src/components/templates/contact.tsx:52
+#: src/components/templates/contact.tsx:64
 msgid "Hire me"
 msgstr "Hire me"
 
@@ -79,26 +79,46 @@ msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, pl
 msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 msgstr "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 
-#: src/components/templates/contact.tsx:22
-#: src/components/templates/contact.tsx:42
+#: src/components/templates/contact.tsx:26
+#: src/components/templates/contact.tsx:52
 msgid "I will always be ready to support you."
 msgstr "I will always be ready to support you."
+
+#: src/components/templates/contact.tsx:16
+#: src/app/[lang]/@modal/(.)contact/page.tsx:12
+msgid "I'd love to hear from you. Please fill out this form or send me an email."
+msgstr "I'd love to hear from you. Please fill out this form or send me an email."
 
 #: src/components/molecules/setting.tsx:17
 msgid "Language"
 msgstr "Language"
 
+#: src/components/molecules/contact-form.tsx:16
+#: src/components/molecules/contact-form.tsx:17
+msgid "Last name"
+msgstr "Last name"
+
 #: src/app/[lang]/layout.tsx:44
 msgid "Lương Vĩ Phú's dev blog - portfolio"
 msgstr "Lương Vĩ Phú's dev blog - portfolio"
 
-#: src/components/templates/contact.tsx:32
+#: src/components/molecules/contact-form.tsx:28
+#: src/components/molecules/contact-form.tsx:29
+msgid "Message"
+msgstr "Message"
+
+#: src/components/templates/contact.tsx:40
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Mon-Fri from 8am to 5pm."
 
-#: src/components/templates/contact.tsx:31
+#: src/components/templates/contact.tsx:37
 msgid "Phone"
 msgstr "Phone"
+
+#: src/components/molecules/contact-form.tsx:24
+#: src/components/molecules/contact-form.tsx:25
+msgid "Phone Number"
+msgstr "Phone Number"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
@@ -117,23 +137,22 @@ msgstr "Present"
 msgid "Projects"
 msgstr "Projects"
 
-#: src/components/templates/about.tsx:58
-#: src/components/organisms/navbar.tsx:69
-msgid "Resume"
-msgstr "Resume"
-
 #: src/components/organisms/navbar.tsx:95
 #: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Setting"
 
-#: src/components/templates/about.tsx:41
+#: src/components/templates/about.tsx:40
 msgid "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 msgstr "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 
 #: src/components/templates/projects.tsx:12
 msgid "Some things I've done"
 msgstr "Some things I've done"
+
+#: src/components/molecules/contact-form.tsx:33
+msgid "Submit"
+msgstr "Submit"
 
 #: src/components/organisms/navbar.tsx:45
 #: src/app/[lang]/(page)/tags/page.tsx:11
