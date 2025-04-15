@@ -3,6 +3,7 @@ import { Card, CardContent, Container, NavigationLink } from '@/components/atoms
 import { Facebook, Linkedin, MailIcon, PhoneIcon } from 'lucide-react'
 import { Header } from '@/components/organisms'
 import { SITE_METADATA } from '@data/site-metadata'
+import { Trans } from '@lingui/react/macro'
 
 export const ContactTemplate = () => {
   return (
@@ -18,8 +19,10 @@ export const ContactTemplate = () => {
               <MailIcon />
             </div>
             <h3 className='mt-6 text-xl font-semibold'>Email</h3>
-            <p className='my-2.5 text-muted-foreground'>Our friendly team is here to help.</p>
-            <NavigationLink className='font-medium text-primary' href='mailto:akashmoradiya3444@gmail.com'>
+            <p className='my-2.5 text-muted-foreground'>
+              <Trans>I will always be ready to support you.</Trans>
+            </p>
+            <NavigationLink className='font-medium text-primary' href={`mailto:${SITE_METADATA.email}`}>
               {SITE_METADATA.email}
             </NavigationLink>
           </div>
@@ -27,8 +30,12 @@ export const ContactTemplate = () => {
             <div className='flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary'>
               <PhoneIcon />
             </div>
-            <h3 className='mt-6 text-xl font-semibold'>Phone</h3>
-            <p className='my-2.5 text-muted-foreground'>Mon-Fri from 8am to 5pm.</p>
+            <h3 className='mt-6 text-xl font-semibold'>
+              <Trans>Phone</Trans>
+            </h3>
+            <p className='my-2.5 text-muted-foreground'>
+              <Trans>Mon-Fri from 8am to 5pm.</Trans>
+            </p>
             <NavigationLink className='font-medium text-primary' href='tel:akashmoradiya3444@gmail.com'>
               +48 528-307-775
             </NavigationLink>
@@ -38,7 +45,9 @@ export const ContactTemplate = () => {
               <Facebook />
             </div>
             <h3 className='mt-6 text-xl font-semibold'>Facebook</h3>
-            <p className='my-2.5 text-muted-foreground'>Our friendly team is here to help.</p>
+            <p className='my-2.5 text-muted-foreground'>
+              <Trans>I will always be ready to support you.</Trans>
+            </p>
             <NavigationLink className='font-medium text-primary' href='#'>
               Start new chat
             </NavigationLink>
@@ -48,7 +57,9 @@ export const ContactTemplate = () => {
               <Linkedin />
             </div>
             <h3 className='mt-6 text-xl font-semibold'>Linkedin</h3>
-            <NavigationLink className='font-medium text-primary'>Hire me</NavigationLink>
+            <NavigationLink className='font-medium text-primary'>
+              <Trans>Hire me</Trans>
+            </NavigationLink>
           </div>
         </div>
         <Card>

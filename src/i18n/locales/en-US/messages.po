@@ -63,6 +63,10 @@ msgstr "Github"
 msgid "Go back"
 msgstr "Go back"
 
+#: src/components/templates/contact.tsx:52
+msgid "Hire me"
+msgstr "Hire me"
+
 #: src/components/organisms/navbar.tsx:32
 msgid "Home"
 msgstr "Home"
@@ -75,6 +79,11 @@ msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, pl
 msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 msgstr "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 
+#: src/components/templates/contact.tsx:22
+#: src/components/templates/contact.tsx:42
+msgid "I will always be ready to support you."
+msgstr "I will always be ready to support you."
+
 #: src/components/molecules/setting.tsx:17
 msgid "Language"
 msgstr "Language"
@@ -82,6 +91,14 @@ msgstr "Language"
 #: src/app/[lang]/layout.tsx:44
 msgid "Lương Vĩ Phú's dev blog - portfolio"
 msgstr "Lương Vĩ Phú's dev blog - portfolio"
+
+#: src/components/templates/contact.tsx:32
+msgid "Mon-Fri from 8am to 5pm."
+msgstr "Mon-Fri from 8am to 5pm."
+
+#: src/components/templates/contact.tsx:31
+msgid "Phone"
+msgstr "Phone"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
