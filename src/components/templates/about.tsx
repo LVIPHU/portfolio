@@ -12,8 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/atoms'
-import { Trans } from '@lingui/react/macro'
-import { Facebook, Github } from 'lucide-react'
+import { Github, Linkedin } from 'lucide-react'
 import { Experience, GithubCal, Header, Technologies } from '@/components/organisms'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
@@ -23,14 +22,14 @@ export const AboutTemplate = () => {
   const { i18n } = useLingui()
   const navItems = [
     {
-      title: <Trans>Facebook</Trans>,
-      icon: <Facebook className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
-      href: `https://www.facebook.com/phuphu.phang.54`,
+      title: 'LinkedIn',
+      icon: <Linkedin className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+      href: SITE_METADATA.linkedIn,
     },
     {
-      title: <Trans>Github</Trans>,
+      title: 'Github',
       icon: <Github className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
-      href: `https://github.com/LVIPHU`,
+      href: SITE_METADATA.github,
     },
   ]
   return (
@@ -54,9 +53,7 @@ export const AboutTemplate = () => {
           </div>
           <nav className={'flex items-center justify-center gap-6'}>
             <NavigationLink href={SITE_METADATA.resume}>
-              <Button variant={'default'}>
-                <Trans>Resume</Trans>
-              </Button>
+              <Button variant={'default'}>Resume</Button>
             </NavigationLink>
             <Separator orientation={'vertical'} className={'h-6'} />
             {navItems.map((item, idx) => (

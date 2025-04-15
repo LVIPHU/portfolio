@@ -5,12 +5,12 @@ import { Trans } from '@lingui/react/macro'
 import { FloatingDock, Item } from '@/components/molecules'
 import {
   Book,
-  Facebook,
   FileUser,
   FolderGit,
   GalleryHorizontal,
   Github,
   House,
+  Linkedin,
   MonitorCog,
   Paperclip,
   Signature,
@@ -66,22 +66,22 @@ export const Navbar = (props: Props) => {
       },
       {
         type: 'link',
-        title: <Trans>Resume</Trans>,
+        title: 'Resume',
         icon: <FileUser className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
         href: SITE_METADATA.resume,
       },
       null,
       {
         type: 'link',
-        title: <Trans>Facebook</Trans>,
-        icon: <Facebook className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
-        href: `https://www.facebook.com/phuphu.phang.54`,
+        title: 'LinkedIn',
+        icon: <Linkedin className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        href: SITE_METADATA.linkedIn,
       },
       {
         type: 'link',
-        title: <Trans>Github</Trans>,
+        title: 'Github',
         icon: <Github className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
-        href: `https://github.com/LVIPHU`,
+        href: SITE_METADATA.github,
       },
       {
         type: 'link',
