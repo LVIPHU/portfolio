@@ -1,7 +1,8 @@
-import { generateRSS } from './rss'
+import 'dotenv/config'
+import { generateRssFeed } from './rss'
 
 async function postbuild() {
-  await generateRSS()
+  await generateRssFeed()
 }
 
 postbuild()

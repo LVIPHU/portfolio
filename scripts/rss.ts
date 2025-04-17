@@ -4,7 +4,9 @@ import { slug } from 'github-slugger'
 import tagData from '@json/tag-data.json'
 import { sortPosts, escape } from '@/utils'
 import { SITE_METADATA } from '@data/site-metadata'
-import { allBlogs, type Blog } from '@contentlayer/generated'
+
+import { type Blog } from '.contentlayer/generated'
+import { allBlogs } from '.contentlayer/generated/index.mjs'
 
 const blogs = allBlogs as unknown as Blog[]
 const RSS_PAGE = 'feed.xml'
@@ -43,7 +45,7 @@ function generateRss(items: Blog[], page = RSS_PAGE) {
 	`
 }
 
-export async function generateRSS() {
+export async function generateRssFeed() {
   const publishPosts = blogs.filter((post) => post.draft !== true)
   // RSS for blog post
   if (publishPosts.length > 0) {
