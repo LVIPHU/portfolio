@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && cross-env NODE_OPTIONS='--experimental-json-modules' tsx ./scripts/post-build.ts",
+    "build": "cross-env INIT_CWD=$PWD next build && next build",
+    "postbuild": "cross-env NODE_OPTIONS='--experimental-json-modules' tsx ./scripts/post-build.ts",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint",
@@ -102,6 +103,7 @@
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
     "drizzle-kit": "^0.30.6",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
