@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && cross-env NODE_OPTIONS='--experimental-json-modules' tsx ./scripts/post-build.ts",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint",

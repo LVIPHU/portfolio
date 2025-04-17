@@ -150,6 +150,10 @@ msgstr "Một số điều thú vị về bản thân và sở thích viết cod
 msgid "Some things I've done"
 msgstr "Một số thứ tôi đã làm"
 
+#: src/components/templates/contact.tsx:55
+msgid "Start new chat"
+msgstr ""
+
 #: src/components/molecules/contact-form.tsx:33
 msgid "Submit"
 msgstr "Gửi"

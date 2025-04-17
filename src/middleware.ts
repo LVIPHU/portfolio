@@ -41,9 +41,13 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - manifest.json (manifest file)
+     * - sitemap.xml (sitemap file)
+     * - feed.xml (RSS feed file)
      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
+     * - audio - .mp3, .mp4
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|manifest.json|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp3|mp4|json)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|manifest.json|sitemap.xml|feed.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp3|mp4)$).*)',
   ],
 }
