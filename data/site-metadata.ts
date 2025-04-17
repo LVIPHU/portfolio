@@ -12,7 +12,7 @@ export const SITE_METADATA = {
   siteUrl: env.NEXT_PUBLIC_APP_URL,
   siteRepo: 'https://github.com/LVIPHU/portfolio',
   siteLogo: `/static/images/logo.jpg`,
-  socialBanner: `/static/images/logo/light.svg`,
+  socialBanner: `/static/images/twitter-card.jpg`,
   email: process.env.email,
   github: 'https://github.com/LVIPHU',
   facebook: 'https://www.facebook.com/phuphu.phang.54',
