@@ -1,5 +1,6 @@
 export * from './contentlayer'
 export * from './github'
+export * from './html-escaper'
 export * from './icons'
 export * from './image'
 export * from './misc'

@@ -150,6 +150,10 @@ msgstr "Some interesting things about myself and my habit of coding then making 
 msgid "Some things I've done"
 msgstr "Some things I've done"
 
+#: src/components/templates/contact.tsx:55
+msgid "Start new chat"
+msgstr "Start new chat"
+
 #: src/components/molecules/contact-form.tsx:33
 msgid "Submit"
 msgstr "Submit"

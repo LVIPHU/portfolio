@@ -52,7 +52,7 @@ export const ContactTemplate = () => {
               <Trans>I will always be ready to support you.</Trans>
             </p>
             <NavigationLink className='font-medium text-primary' href='#'>
-              Start new chat
+              <Trans>Start new chat</Trans>
             </NavigationLink>
           </div>
           <div>

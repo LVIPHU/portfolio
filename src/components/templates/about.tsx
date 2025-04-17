@@ -45,7 +45,7 @@ export const AboutTemplate = () => {
         <div className={'pt-5 md:pt-10'}>
           <div className={'mb-7'}>
             <Avatar className='mx-auto mb-2 h-60 w-60'>
-              <AvatarImage src='/static/images/avatars/main.jpg' alt={SITE_METADATA.author} />
+              <AvatarImage src={SITE_METADATA.avatar} alt={SITE_METADATA.author} />
               <AvatarFallback>{SITE_METADATA.author}</AvatarFallback>
             </Avatar>
             <h3 className='w-full text-center text-4xl font-bold'>{SITE_METADATA.author}</h3>
