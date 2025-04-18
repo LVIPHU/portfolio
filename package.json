@@ -12,6 +12,8 @@
     "postbuild": "cross-env NODE_OPTIONS='--experimental-json-modules' tsx ./scripts/post-build.ts",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
+    "db:init": "npx drizzle-kit generate && npx drizzle-kit push",
+    "db:studio": "npx drizzle-kit studio --port 8088",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier --check --ignore-path .gitignore .",

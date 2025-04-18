@@ -77,7 +77,7 @@ function createSearchIndex(allBlogs: any) {
   const searchDocsPath = SITE_METADATA.search.kbarConfigs.searchDocumentsPath
   if (searchDocsPath) {
     writeFileSync(`public/${path.basename(searchDocsPath)}`, JSON.stringify(allCoreContent(sortPosts(allBlogs))))
-    console.log('🔍 Local search index generated.')
+    console.log('🔍. Local search index generated.')
   }
 }
 
@@ -174,6 +174,6 @@ export default makeSource({
     const { allBlogs } = await importData()
     createTagCount(allBlogs)
     createSearchIndex(allBlogs)
-    console.log('✨ Content source generated successfully!')
+    console.log('✨. Content source generated successfully!')
   },
 })
