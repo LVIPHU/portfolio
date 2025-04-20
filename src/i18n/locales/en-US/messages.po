@@ -89,7 +89,7 @@ msgstr "I will always be ready to support you."
 msgid "I'd love to hear from you. Please fill out this form or send me an email."
 msgstr "I'd love to hear from you. Please fill out this form or send me an email."
 
-#: src/components/templates/not-found.tsx:15
+#: src/components/templates/not-found.tsx:17
 msgid "It seems like the page you're looking for doesn't exist! Please go back!"
 msgstr "It seems like the page you're looking for doesn't exist! Please go back!"
 
@@ -115,11 +115,11 @@ msgstr "Message"
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Mon-Fri from 8am to 5pm."
 
-#: src/components/organisms/search/kbar-modal.tsx:111
+#: src/components/organisms/search/kbar-modal.tsx:107
 msgid "No results for your search..."
 msgstr "No results for your search..."
 
-#: src/components/templates/not-found.tsx:17
+#: src/components/templates/not-found.tsx:23
 msgid "not found"
 msgstr "not found"
 
@@ -158,7 +158,7 @@ msgstr "Search"
 msgid "Setting"
 msgstr "Setting"
 
-#: src/components/templates/projects.tsx:25
+#: src/components/templates/projects.tsx:24
 msgid "Side projects"
 msgstr "Side projects"
 
