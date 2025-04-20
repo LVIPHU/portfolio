@@ -4,8 +4,8 @@ import { t } from '@lingui/macro'
 
 export default async function ContactModal(props: PageLangParam) {
   const lang = (await props.params).lang
-  const i18n = await getI18nInstance(lang)
   await initLingui(lang)
+  const i18n = await getI18nInstance(lang)
   return (
     <Modal
       title={t(i18n)`Chat with me`}

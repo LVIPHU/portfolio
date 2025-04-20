@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { SITE_METADATA } from '@data/site-metadata'
 import tagData from '@json/tag-data.json'
 import { allCoreContent, sortPosts } from '@/utils'
-import { TagTemplate } from '@/components/templates/tag'
+import { TagTemplate } from '@/components/templates'
 
 export async function generateMetadata(props: { params: Promise<{ tag: string }> }): Promise<Metadata> {
   const params = await props.params
