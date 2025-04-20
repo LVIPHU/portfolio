@@ -18,7 +18,7 @@ msgid "{category}"
 msgstr "{category}"
 
 #: src/components/templates/about.tsx:39
-#: src/components/organisms/navbar.tsx:63
+#: src/components/organisms/navbar.tsx:66
 #: src/app/[lang]/(page)/about/page.tsx:9
 msgid "About"
 msgstr "About"
@@ -27,7 +27,7 @@ msgstr "About"
 msgid "All posts"
 msgstr "All posts"
 
-#: src/components/organisms/navbar.tsx:39
+#: src/components/organisms/navbar.tsx:42
 #: src/app/[lang]/(page)/blog/page.tsx:13
 msgid "Blog"
 msgstr "Blog"
@@ -37,7 +37,7 @@ msgid "Chat with me"
 msgstr "Chat with me"
 
 #: src/components/templates/contact.tsx:15
-#: src/components/organisms/navbar.tsx:88
+#: src/components/organisms/navbar.tsx:91
 #: src/app/[lang]/(page)/contact/page.tsx:9
 msgid "Contact"
 msgstr "Contact"
@@ -67,11 +67,11 @@ msgstr "Go back"
 msgid "Hire me"
 msgstr "Hire me"
 
-#: src/components/organisms/navbar.tsx:32
+#: src/components/organisms/navbar.tsx:35
 msgid "Home"
 msgstr "Home"
 
-#: src/app/[lang]/layout.tsx:46
+#: src/app/[lang]/layout.tsx:47
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 
@@ -102,7 +102,7 @@ msgstr "Language"
 msgid "Last name"
 msgstr "Last name"
 
-#: src/app/[lang]/layout.tsx:44
+#: src/app/[lang]/layout.tsx:45
 msgid "Lương Vĩ Phú's dev blog - portfolio"
 msgstr "Lương Vĩ Phú's dev blog - portfolio"
 
@@ -114,6 +114,10 @@ msgstr "Message"
 #: src/components/templates/contact.tsx:40
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Mon-Fri from 8am to 5pm."
+
+#: src/components/organisms/search/kbar-modal.tsx:111
+msgid "No results for your search..."
+msgstr "No results for your search..."
 
 #: src/components/templates/not-found.tsx:17
 msgid "not found"
@@ -130,7 +134,7 @@ msgstr "Phone Number"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
-#: src/components/organisms/navbar.tsx:57
+#: src/components/organisms/navbar.tsx:60
 #: src/app/[lang]/(page)/photos/page.tsx:9
 msgid "Photos"
 msgstr "Photos"
@@ -140,12 +144,16 @@ msgid "Present"
 msgstr "Present"
 
 #: src/components/templates/projects.tsx:12
-#: src/components/organisms/navbar.tsx:51
+#: src/components/organisms/navbar.tsx:54
 #: src/app/[lang]/(page)/projects/page.tsx:9
 msgid "Projects"
 msgstr "Projects"
 
-#: src/components/organisms/navbar.tsx:95
+#: src/components/organisms/navbar.tsx:98
+msgid "Search"
+msgstr "Search"
+
+#: src/components/organisms/navbar.tsx:104
 #: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Setting"
@@ -166,7 +174,7 @@ msgstr "Start new chat"
 msgid "Submit"
 msgstr "Submit"
 
-#: src/components/organisms/navbar.tsx:45
+#: src/components/organisms/navbar.tsx:48
 #: src/app/[lang]/(page)/tags/page.tsx:11
 msgid "Tags"
 msgstr "Tags"

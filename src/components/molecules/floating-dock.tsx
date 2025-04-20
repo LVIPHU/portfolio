@@ -14,6 +14,13 @@ import { PanelBottomClose, PanelBottomOpen } from 'lucide-react'
 import { NavigationLink, Popover, PopoverContent, PopoverTrigger, Separator } from '@/components/atoms'
 import { usePathname } from 'next/navigation'
 
+type ActionItem = {
+  type: 'action'
+  title: string | React.ReactNode
+  icon: React.ReactNode
+  onClick: () => void
+}
+
 type LinkItem = {
   type: 'link'
   title: string | React.ReactNode
@@ -28,7 +35,7 @@ type PopoverItem = {
   content: React.ReactNode
 }
 
-export type Item = PopoverItem | LinkItem | null
+export type Item = PopoverItem | LinkItem | ActionItem | null
 
 export const FloatingDock = ({
   items,
@@ -59,7 +66,22 @@ const FloatingDockMobile = ({ items, className }: { items: Item[]; className?: s
           <motion.div layoutId='nav' className='absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2'>
             {items.map((item, idx) => {
               if (!item) {
-                return <Separator className='w-10' key={idx} />
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{
+                      opacity: 0,
+                      y: 10,
+                      transition: { delay: idx * 0.05 },
+                    }}
+                    transition={{ delay: (items.length - 1 - idx) * 0.05 }}
+                    className='relative'
+                  >
+                    <Separator  className='w-10'/>
+                  </motion.div>
+                )
               }
 
               if (item.type === 'link') {
@@ -112,6 +134,27 @@ const FloatingDockMobile = ({ items, className }: { items: Item[]; className?: s
                     <PopoverContent className={'w-80'}>{item.content}</PopoverContent>
                   </Popover>
                 )
+              } else if (item.type === 'action') {
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{
+                      opacity: 0,
+                      y: 10,
+                      transition: { delay: idx * 0.05 },
+                    }}
+                    transition={{ delay: (items.length - 1 - idx) * 0.05 }}
+                    className='relative'
+                  >
+                    <div
+                      onClick={item.onClick}
+                      className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900">
+                      <div className="h-4 w-4">{item.icon}</div>
+                    </div>
+                  </motion.div>
+                )
               }
             })}
           </motion.div>
@@ -150,6 +193,8 @@ const FloatingDockDesktop = ({ items, className }: { items: Item[]; className?: 
           return <LinkIconContainer mouseX={mouseX} key={idx} {...item} />
         } else if (item.type === 'popover') {
           return <PopoverIconContainer mouseX={mouseX} key={idx} {...item} />
+        } else if (item.type === 'action') {
+          return <ActionLinkIconContainer mouseX={mouseX} key={idx} {...item} />
         }
       })}
     </motion.div>
@@ -335,5 +380,97 @@ function PopoverIconContainer({
       </PopoverTrigger>
       <PopoverContent className={'w-80'}>{content}</PopoverContent>
     </Popover>
+  )
+}
+
+function ActionLinkIconContainer({
+                             mouseX,
+                             title,
+                             icon,
+                             onClick,
+                           }: {
+  mouseX: MotionValue
+  title: string | React.ReactNode
+  icon: React.ReactNode
+  onClick: () => void
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  const distance = useTransform(mouseX, (val) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 }
+
+    return val - bounds.x - bounds.width / 2
+  })
+
+  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40])
+  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40])
+
+  const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20])
+  const heightTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20])
+
+  const width = useSpring(widthTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  })
+  const height = useSpring(heightTransform, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  })
+
+  const widthIcon = useSpring(widthTransformIcon, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  })
+  const heightIcon = useSpring(heightTransformIcon, {
+    mass: 0.1,
+    stiffness: 150,
+    damping: 12,
+  })
+
+  const controls = useAnimation()
+  const [hovered, setHovered] = useState(false)
+
+  const handleTap = async () => {
+    await controls.start({
+      y: -50,
+      transition: { duration: 0.15, ease: 'easeOut' },
+    })
+    await controls.start({
+      y: 0,
+      transition: { duration: 0.15, ease: 'easeIn' },
+    })
+  }
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ width, height }}
+      animate={controls}
+      onTap={handleTap}
+      whileTap={{ translateY: 10 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={onClick}
+      className='relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800'
+    >
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: 2, x: '-50%' }}
+            className='absolute -top-8 left-1/2 w-fit -translate-x-1/2 whitespace-pre rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white'
+          >
+            {title}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <motion.div style={{ width: widthIcon, height: heightIcon }} className='flex items-center justify-center'>
+        {icon}
+      </motion.div>
+    </motion.div>
   )
 }

@@ -10,6 +10,7 @@ import { Navbar } from '@/components/organisms'
 import { JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
 import { cn } from '@/utils'
 import { SITE_METADATA } from '@data/site-metadata'
+import { KBarSearchProvider } from '@/components/organisms/search/kbar-provider'
 
 const FONT_PLAYPEN_SANS = Playpen_Sans({
   subsets: ['latin', 'vietnamese'],
@@ -99,9 +100,11 @@ export default async function RootLayout({ children, modal, params }: Readonly<P
     >
       <body>
         <ProviderRegistry params={params}>
-          <Navbar lang={lang} />
-          {children}
-          {modal}
+          <KBarSearchProvider configs={SITE_METADATA.search.kbarConfigs}>
+            <Navbar lang={lang} />
+            {children}
+            {modal}
+          </KBarSearchProvider>
         </ProviderRegistry>
       </body>
     </html>

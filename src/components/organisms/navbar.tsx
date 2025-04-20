@@ -5,6 +5,7 @@ import { Trans } from '@lingui/react/macro'
 import { FloatingDock, Item } from '@/components/molecules'
 import {
   Book,
+  Command,
   FileUser,
   FolderGit,
   GalleryHorizontal,
@@ -14,10 +15,11 @@ import {
   MonitorCog,
   Paperclip,
   Signature,
-  Tags,
+  Tags
 } from 'lucide-react'
 import { Setting } from '@/components/molecules'
 import { SITE_METADATA } from '@data/site-metadata'
+import { useKBar } from 'kbar'
 
 type Props = {
   lang: string
@@ -25,6 +27,7 @@ type Props = {
 
 export const Navbar = (props: Props) => {
   const { lang } = props
+  const { query } = useKBar()
   const links: Item[] = useMemo(() => {
     return [
       {
@@ -90,6 +93,12 @@ export const Navbar = (props: Props) => {
         href: `/${lang}/contact`,
       },
       null,
+      {
+        type: 'action',
+        title: <Trans>Search</Trans>,
+        icon: <Command className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        onClick: () => query.toggle(),
+      },
       {
         type: 'popover',
         title: <Trans>Setting</Trans>,

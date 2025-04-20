@@ -18,7 +18,7 @@ msgid "{category}"
 msgstr "{category}"
 
 #: src/components/templates/about.tsx:39
-#: src/components/organisms/navbar.tsx:63
+#: src/components/organisms/navbar.tsx:66
 #: src/app/[lang]/(page)/about/page.tsx:9
 msgid "About"
 msgstr "Giới thiệu"
@@ -27,7 +27,7 @@ msgstr "Giới thiệu"
 msgid "All posts"
 msgstr "Tất cả bài viết"
 
-#: src/components/organisms/navbar.tsx:39
+#: src/components/organisms/navbar.tsx:42
 #: src/app/[lang]/(page)/blog/page.tsx:13
 msgid "Blog"
 msgstr "Blog"
@@ -37,7 +37,7 @@ msgid "Chat with me"
 msgstr "Trò chuyện với tôi"
 
 #: src/components/templates/contact.tsx:15
-#: src/components/organisms/navbar.tsx:88
+#: src/components/organisms/navbar.tsx:91
 #: src/app/[lang]/(page)/contact/page.tsx:9
 msgid "Contact"
 msgstr "Liên hệ"
@@ -67,11 +67,11 @@ msgstr "Quay lại"
 msgid "Hire me"
 msgstr "Thuê tôi"
 
-#: src/components/organisms/navbar.tsx:32
+#: src/components/organisms/navbar.tsx:35
 msgid "Home"
 msgstr "Trang chủ"
 
-#: src/app/[lang]/layout.tsx:46
+#: src/app/[lang]/layout.tsx:47
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "Tôi là Lương Vĩ Phú, một kỹ sư phần mềm. Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi."
 
@@ -102,7 +102,7 @@ msgstr "Ngôn ngữ"
 msgid "Last name"
 msgstr "Họ"
 
-#: src/app/[lang]/layout.tsx:44
+#: src/app/[lang]/layout.tsx:45
 msgid "Lương Vĩ Phú's dev blog - portfolio"
 msgstr "Blog kỹ thuật & portfolio của Lương Vĩ Phú"
 
@@ -114,6 +114,10 @@ msgstr "Lời nhắn"
 #: src/components/templates/contact.tsx:40
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Từ thứ Hai đến thứ Sáu, từ 8 giờ sáng đến 5 giờ chiều."
+
+#: src/components/organisms/search/kbar-modal.tsx:111
+msgid "No results for your search..."
+msgstr "Không có kết quả nào cho tìm kiếm của bạn..."
 
 #: src/components/templates/not-found.tsx:17
 msgid "not found"
@@ -130,7 +134,7 @@ msgstr "Số điện thoại"
 
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
-#: src/components/organisms/navbar.tsx:57
+#: src/components/organisms/navbar.tsx:60
 #: src/app/[lang]/(page)/photos/page.tsx:9
 msgid "Photos"
 msgstr "Hình ảnh"
@@ -140,12 +144,16 @@ msgid "Present"
 msgstr "Hiện tại"
 
 #: src/components/templates/projects.tsx:12
-#: src/components/organisms/navbar.tsx:51
+#: src/components/organisms/navbar.tsx:54
 #: src/app/[lang]/(page)/projects/page.tsx:9
 msgid "Projects"
 msgstr "Dự án"
 
-#: src/components/organisms/navbar.tsx:95
+#: src/components/organisms/navbar.tsx:98
+msgid "Search"
+msgstr "Tìm kiếm"
+
+#: src/components/organisms/navbar.tsx:104
 #: src/components/molecules/setting.tsx:11
 msgid "Setting"
 msgstr "Cài đặt"
@@ -166,7 +174,7 @@ msgstr "Bắt đầu cuộc trò chuyện mới"
 msgid "Submit"
 msgstr "Gửi"
 
-#: src/components/organisms/navbar.tsx:45
+#: src/components/organisms/navbar.tsx:48
 #: src/app/[lang]/(page)/tags/page.tsx:11
 msgid "Tags"
 msgstr "Tags"
