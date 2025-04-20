@@ -46,8 +46,9 @@ export const config = {
      * - feed.xml (RSS feed file)
      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
      * - audio - .mp3, .mp4
+     * - data - json
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|manifest.json|sitemap.xml|feed.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp3|mp4)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|manifest.json|sitemap.xml|feed.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp3|mp4|json)$).*)',
   ],
 }

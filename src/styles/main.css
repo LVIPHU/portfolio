@@ -1,6 +1,7 @@
 @import url('./_tailwind.css');
 @import url('./_theme.css');
 @import url('./_base.css');
+@import url('./_prism.css');
 @import url('./_animations.css');
 @import url('./_utilities.css');
 @import url('./components/_boxes.css');

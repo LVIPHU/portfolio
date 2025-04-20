@@ -48,7 +48,7 @@ export interface Company {
   items: Experience[]
 }
 
-export const skillsData: Skill[] = [
+export const SKILLS: Skill[] = [
   {
     name: 'Javascript',
     id: 'javascript',
@@ -338,44 +338,49 @@ export const skillsData: Skill[] = [
   },
 ]
 
-export let projectsData: Project[] = [
+export const PROJECTS: Project[] = [
   {
     type: 'work',
     title: 'Bạc Hà',
     image: '/static/images/projects/1.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    description: '',
     technologies: [],
   },
   {
     type: 'work',
     title: 'Hồng Vĩ Automations',
     image: '/static/images/projects/2.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    description: '',
     technologies: [],
+  },
+  {
+    type: 'work',
+    title: 'Zerohomstay',
+    image: '/static/images/projects/3.jpg',
+    description: 'Homstay management system',
+    repo: 'hotel-management',
+    url: 'https://zerohomstay.vercel.app',
+    technologies: ['nextjs', 'tailwindcss', 'shadcn', 'sanity', 'stripe'],
   },
   {
     type: 'self',
     title: 'AppChat',
-    image: '/static/images/projects/3.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    image: '/static/images/projects/4.jpg',
+    description: 'A real-time chat app that enables secure, seamless messaging and effortless group collaboration.',
     repo: 'AppChat-v2.0.0',
     technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'antd', 'socket.io'],
   },
   {
     type: 'self',
     title: 'Shopology',
-    image: '/static/images/projects/4.jpg',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    image: '/static/images/projects/5.jpg',
+    description: 'ECommerce platform built with MERN stack.',
     repo: 'MERN_SHOP',
     technologies: ['mongodb', 'nodejs', 'expressjs', 'react', 'bootstrap'],
   },
 ]
 
-export const experienceData: Company[] = [
+export const EXPERIENCES: Company[] = [
   {
     name: 'PVS Solution',
     location: '60 Đ. D1, Khu đô thị Him Lam, Quận 7, Hồ Chí Minh',
@@ -391,7 +396,7 @@ export const experienceData: Company[] = [
         roleType: 'Fulltime',
         startDate: '2024/02/04',
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+          'Pinance is an automated electronic invoice management software that helps businesses input, control, and report invoices efficiently while providing real-time connectivity with tax authorities.',
         technologies: ['bootstrap', 'vuejs', 'datadog', 'socketio'],
         active: true,
       },
@@ -402,7 +407,7 @@ export const experienceData: Company[] = [
         startDate: '2023/11/04',
         endDate: '2024/02/18',
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+          'The Rainbow Kindergarten management panel provides streamlined oversight of kindergarten operations through an integrated dashboard and modules for managing teachers, students, attendance, supplies, branches, and expenditures.',
         technologies: ['antd', 'react', 'vite'],
       },
       {
@@ -412,7 +417,7 @@ export const experienceData: Company[] = [
         startDate: '2023/02/03',
         endDate: '2023/11/22',
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+          'An internal admin panel for the Mobi 8 web platform, enabling efficient content management and real-time synchronization with the client-facing website.',
         technologies: ['antd', 'react', 'redux'],
       },
       {
@@ -422,7 +427,7 @@ export const experienceData: Company[] = [
         startDate: '2022/06/20',
         endDate: '2024/03/27',
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+          'The official website of Mobifone Region 8, providing digital telecommunication services such as mobile plans, internet packages, digital solutions, and customer support.',
         technologies: ['nextjs', 'react', 'tailwindcss'],
       },
     ],
