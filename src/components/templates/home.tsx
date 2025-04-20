@@ -1,11 +1,14 @@
 'use client'
 import { Boxes, SocialIcons, VideoCard } from '@/components/atoms'
 import React, { useRef, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 const DISTANCE_MOUSE = 160
 const DISTANCE_SCREEN = 50
 
 export const HomeTemplate: React.FC = () => {
+  const { systemTheme, theme } = useTheme()
+
   const containerRef = useRef<HTMLDivElement | null>(null)
   const videoRefs: Record<string, React.RefObject<HTMLVideoElement | null>> = {
     video_1: useRef<HTMLVideoElement | null>(null),
@@ -93,7 +96,7 @@ export const HomeTemplate: React.FC = () => {
             gridRow: '13 / span 1',
           }}
         >
-          <SocialIcons kind='logolight' iconType='icon' size={96} />
+          <SocialIcons kind={`logo${theme === 'system' ? systemTheme : theme}`} iconType='icon' size={96} />
         </div>
       </Boxes>
       {href && (

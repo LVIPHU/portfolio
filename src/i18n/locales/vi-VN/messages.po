@@ -89,7 +89,7 @@ msgstr "Tôi sẽ luôn sẵn sàng hỗ trợ bạn."
 msgid "I'd love to hear from you. Please fill out this form or send me an email."
 msgstr "Tôi rất mong nhận được phản hồi từ bạn. Vui lòng điền vào biểu mẫu này hoặc gửi email cho tôi."
 
-#: src/components/templates/not-found.tsx:15
+#: src/components/templates/not-found.tsx:17
 msgid "It seems like the page you're looking for doesn't exist! Please go back!"
 msgstr "Có vẻ như trang cậu tìm không có! Hãy quay trở lại!"
 
@@ -115,11 +115,11 @@ msgstr "Lời nhắn"
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Từ thứ Hai đến thứ Sáu, từ 8 giờ sáng đến 5 giờ chiều."
 
-#: src/components/organisms/search/kbar-modal.tsx:111
+#: src/components/organisms/search/kbar-modal.tsx:107
 msgid "No results for your search..."
 msgstr "Không có kết quả nào cho tìm kiếm của bạn..."
 
-#: src/components/templates/not-found.tsx:17
+#: src/components/templates/not-found.tsx:23
 msgid "not found"
 msgstr "Không tìm thấy"
 
@@ -158,7 +158,7 @@ msgstr "Tìm kiếm"
 msgid "Setting"
 msgstr "Cài đặt"
 
-#: src/components/templates/projects.tsx:25
+#: src/components/templates/projects.tsx:24
 msgid "Side projects"
 msgstr "Dự án cá nhân"
 
