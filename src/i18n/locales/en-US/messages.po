@@ -89,6 +89,10 @@ msgstr "I will always be ready to support you."
 msgid "I'd love to hear from you. Please fill out this form or send me an email."
 msgstr "I'd love to hear from you. Please fill out this form or send me an email."
 
+#: src/components/templates/not-found.tsx:15
+msgid "It seems like the page you're looking for doesn't exist! Please go back!"
+msgstr "It seems like the page you're looking for doesn't exist! Please go back!"
+
 #: src/components/molecules/setting.tsx:17
 msgid "Language"
 msgstr "Language"
@@ -110,6 +114,10 @@ msgstr "Message"
 #: src/components/templates/contact.tsx:40
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Mon-Fri from 8am to 5pm."
+
+#: src/components/templates/not-found.tsx:17
+msgid "not found"
+msgstr "not found"
 
 #: src/components/templates/contact.tsx:37
 msgid "Phone"

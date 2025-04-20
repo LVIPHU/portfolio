@@ -1,7 +1,7 @@
 import { allBlogs } from '@contentlayer/generated'
 import { allCoreContent, sortPosts } from '@/utils'
 import { POSTS_PER_PAGE } from '@/constants/post'
-import { BlogTemplate } from '@/components/templates/blog'
+import { BlogTemplate } from '@/components/templates'
 import { getI18nInstance, initLingui, PageLangParam } from '@/i18n'
 import { t } from '@lingui/macro'
 import { notFound } from 'next/navigation'

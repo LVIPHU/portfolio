@@ -89,6 +89,10 @@ msgstr "Tôi sẽ luôn sẵn sàng hỗ trợ bạn."
 msgid "I'd love to hear from you. Please fill out this form or send me an email."
 msgstr "Tôi rất mong nhận được phản hồi từ bạn. Vui lòng điền vào biểu mẫu này hoặc gửi email cho tôi."
 
+#: src/components/templates/not-found.tsx:15
+msgid "It seems like the page you're looking for doesn't exist! Please go back!"
+msgstr "Có vẻ như trang cậu tìm không có! Hãy quay trở lại!"
+
 #: src/components/molecules/setting.tsx:17
 msgid "Language"
 msgstr "Ngôn ngữ"
@@ -110,6 +114,10 @@ msgstr "Lời nhắn"
 #: src/components/templates/contact.tsx:40
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Từ thứ Hai đến thứ Sáu, từ 8 giờ sáng đến 5 giờ chiều."
+
+#: src/components/templates/not-found.tsx:17
+msgid "not found"
+msgstr "Không tìm thấy"
 
 #: src/components/templates/contact.tsx:37
 msgid "Phone"
@@ -152,7 +160,7 @@ msgstr "Một số thứ tôi đã làm"
 
 #: src/components/templates/contact.tsx:55
 msgid "Start new chat"
-msgstr ""
+msgstr "Bắt đầu cuộc trò chuyện mới"
 
 #: src/components/molecules/contact-form.tsx:33
 msgid "Submit"
