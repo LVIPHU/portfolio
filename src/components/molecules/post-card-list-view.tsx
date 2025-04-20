@@ -1,6 +1,6 @@
 import type { Blog } from '@contentlayer/generated'
 import type { CoreContent } from '@/types/data'
-import { cn, formatDate } from '@/utils'
+import { formatDate } from '@/utils'
 import { SITE_METADATA } from '@data/site-metadata'
 import { Card, CardContent, CardHeader, GrowingUnderline, Image, NavigationLink } from '@/components/atoms'
 import { TagsList } from '@/components/molecules/tags'
@@ -25,7 +25,7 @@ export function PostCardListView({ post, loading }: { post: CoreContent<Blog>; l
         </CardHeader>
         <CardContent className='flex flex-col px-0 py-0 sm:px-6'>
           <TagsList tags={tags} />
-          <h3 className='pb-1 text-xl font-bold tracking-tight md:text-2xl'>
+          <h3 className='py-1 text-xl font-bold tracking-tight md:text-2xl'>
             <NavigationLink href={`/blog/${slug}`} className='text-gray-900 dark:text-gray-100'>
               <GrowingUnderline>{title}</GrowingUnderline>
             </NavigationLink>

@@ -67,3 +67,22 @@ samp {
   font-family: var(--font-jetbrains-mono), monospace;
   font-weight: 500;
 }
+
+pre {
+  margin: 0!important;
+}
+
+.remark-code-title {
+  border-bottom: 0 !important;
+  border-top-right-radius: 0.5rem !important;
+  border-top-left-radius: 0.5rem !important;
+}
+
+.remark-code-title + #code-custom {
+  border-top: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+  .copy-code {
+    display: none !important;
+  }
+}
