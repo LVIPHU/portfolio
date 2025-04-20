@@ -20,13 +20,7 @@ export interface KBarConfig {
   kbarConfig: KBarSearchProps
 }
 
-export function KBarSearchProvider({
-                                     configs,
-                                     children,
-                                   }: {
-  configs: KBarSearchProps
-  children: ReactNode
-}) {
+export function KBarSearchProvider({ configs, children }: { configs: KBarSearchProps; children: ReactNode }) {
   const { searchDocumentsPath, defaultActions, onSearchDocumentsLoad } = configs
   const router = useRouter()
   const [searchActions, setSearchActions] = useState<Action[]>([])

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { cn } from '@/utils'
 import {
   Container,
@@ -9,9 +10,7 @@ import {
   TooltipTrigger,
 } from '@/components/atoms'
 import { Dot } from 'lucide-react'
-import { skillsData } from '@data/main'
-import { useMemo } from 'react'
-import type { Skill } from '@data/main'
+import { type Skill, SKILLS } from '@data/main'
 import { SITE_METADATA } from '@data/site-metadata'
 
 const techs = ['typescript', 'nextjs', 'react', 'tailwindcss', 'shadcn']
@@ -37,7 +36,7 @@ type Props = {
 export const Footer = ({ className, description }: Props) => {
   const techsUsed = useMemo(() => {
     return techs.map((item) => {
-      const skill = skillsData.find((skill) => skill.id === item)
+      const skill = SKILLS.find((skill) => skill.id === item)
       if (skill) {
         return (
           <li key={item}>

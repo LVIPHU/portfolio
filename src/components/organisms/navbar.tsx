@@ -15,7 +15,7 @@ import {
   MonitorCog,
   Paperclip,
   Signature,
-  Tags
+  Tags,
 } from 'lucide-react'
 import { Setting } from '@/components/molecules'
 import { SITE_METADATA } from '@data/site-metadata'

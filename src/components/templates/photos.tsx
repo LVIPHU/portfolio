@@ -91,7 +91,7 @@ export const PhotosTemplate = () => {
     },
     {
       id: '5118',
-      src: '1H8oZsEJqIBqzDmYbxhK6QQIby7RYoBX3',
+      src: '1lNZBXv_1P7q6zl7V75vtV9fkNUfA3q0I',
     },
     {
       id: '5119',
@@ -119,7 +119,7 @@ export const PhotosTemplate = () => {
     },
     {
       id: '5131',
-      src: '1ls3A86a6v2pOQPExsJ9GxI8ovkFroHBZ',
+      src: '1KeGkzKe3YwF4HcdkHO1wXhU-p8gHH6Xs',
     },
     {
       id: '5133',

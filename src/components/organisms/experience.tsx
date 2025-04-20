@@ -1,4 +1,4 @@
-import { type Experience, experienceData, skillsData } from '@data/main'
+import { type Experience, EXPERIENCES, SKILLS } from '@data/main'
 import {
   Avatar,
   AvatarFallback,
@@ -33,7 +33,7 @@ function TechnologyIcons({ technologies }: { technologies: string[] }) {
         <Trans>Technologies used</Trans>:
       </span>
       {technologies.map((tech) => {
-        const skill = skillsData.find((skill) => skill.id === tech)
+        const skill = SKILLS.find((skill) => skill.id === tech)
         if (!skill) return null
         return <SocialIcons key={skill.id} kind={skill.id} size={4} iconType='link' href={skill.href} />
       })}
@@ -70,12 +70,12 @@ export function Experience() {
       </h3>
       <div className='mt-5'>
         <Tabs
-          defaultValue={experienceData[0]?.name}
+          defaultValue={EXPERIENCES[0]?.name}
           className='flex flex-col md:flex-row md:space-x-4'
           orientation='vertical'
         >
           <TabsList className={`flex h-max w-full flex-col space-y-2 md:w-64`}>
-            {experienceData.map((company) => (
+            {EXPERIENCES.map((company) => (
               <HoverCard key={`trigger-${company.name}`}>
                 <TabsTrigger className='flex w-full text-left' value={company.name}>
                   <HoverCardTrigger asChild>
@@ -107,7 +107,7 @@ export function Experience() {
             orientation='vertical'
             className='mx-[15px] hidden data-[orientation=vertical]:h-56 data-[orientation=vertical]:w-px md:flex'
           />
-          {experienceData.map((company) => (
+          {EXPERIENCES.map((company) => (
             <TabsContent key={company.name} value={company.name} className='mt-4 w-full md:mt-0'>
               <Card key={`card-${company.name}`} className='border-none shadow-sm outline-none ring-0'>
                 <CardHeader>

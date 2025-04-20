@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { Badge, Button, NavigationLink } from '@/components/atoms'
-import { Github } from 'lucide-react'
+import { Button, NavigationLink, SocialIcons, TypeOfIconsMap } from '@/components/atoms'
+import { Eye, Github } from 'lucide-react'
 import { type Project } from '@data/main'
 import useSWR from 'swr'
 import { GithubRepository } from '@/types/github'
@@ -15,6 +15,7 @@ interface ProjectCardProps {
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const { title, description, image, technologies, url, repo } = project
   const { data: repository } = useSWR<GithubRepository>(`/api/github?repo=${repo}`, fetcher)
+  console.log('repository', repository)
   const href = repository?.url
   const lang = repository?.languages?.[0]
   return (
@@ -34,30 +35,47 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         <p className='mb-4 tracking-wide text-muted-foreground'>{description}</p>
 
         {/* Technologies */}
-        <div className='mb-6 flex flex-wrap gap-2'>
-          {technologies.map((tech) => (
-            <Badge key={tech}>{tech}</Badge>
-          ))}
-        </div>
+        {technologies.length > 0 && (
+          <div className='mb-6 space-y-1.5'>
+            <div className='text-xs text-gray-600 dark:text-gray-400'>Stack</div>
+            <div className='flex flex-wrap gap-2'>
+              {technologies.map((tech) => (
+                <SocialIcons key={tech} kind={tech as TypeOfIconsMap} iconType='icon' className='h-4 w-4' />
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Actions */}
-        <div className='mt-auto flex gap-3'>
-          {url && (
-            <Button variant='default' className='rounded-full' asChild>
-              <NavigationLink href={url}>
-                <Github className='mr-1 h-4 w-4' />
-                liveUrl
-              </NavigationLink>
-            </Button>
+        <div className='mt-auto flex items-center justify-between'>
+          <div className='flex gap-3'>
+            {url && (
+              <Button variant='default' className='rounded-full' asChild>
+                <NavigationLink href={url}>
+                  Website
+                  <Eye className='ml-1 h-4 w-4' />
+                </NavigationLink>
+              </Button>
+            )}
+            {href && (
+              <Button variant='outline' className='rounded-full shadow-none' asChild>
+                <NavigationLink href={href}>
+                  View Code
+                  <Github className='ml-1 h-4 w-4' />
+                </NavigationLink>
+              </Button>
+            )}
+          </div>
+
+          {lang && (
+            <div className='space-y-1.5'>
+              <div className='text-xs text-gray-600 dark:text-gray-400'>Language</div>
+              <div className='flex items-center gap-1.5'>
+                <SocialIcons kind={lang.name.toLowerCase() as TypeOfIconsMap} iconType='icon' className='h-4 w-4' />
+                <span className='font-medium'>{lang.name}</span>
+              </div>
+            </div>
           )}
-          {href && (
-            <Button variant='outline' className='rounded-full shadow-none' asChild>
-              <NavigationLink href={href}>
-                <Github className='mr-1 h-4 w-4' />
-                View Code
-              </NavigationLink>
-            </Button>
-          )}
-          {lang && <p>{lang.name}</p>}
         </div>
       </div>
     </div>

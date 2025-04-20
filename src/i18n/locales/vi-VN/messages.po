@@ -143,7 +143,7 @@ msgstr "Hình ảnh"
 msgid "Present"
 msgstr "Hiện tại"
 
-#: src/components/templates/projects.tsx:12
+#: src/components/templates/projects.tsx:15
 #: src/components/organisms/navbar.tsx:54
 #: src/app/[lang]/(page)/projects/page.tsx:9
 msgid "Projects"
@@ -158,11 +158,15 @@ msgstr "Tìm kiếm"
 msgid "Setting"
 msgstr "Cài đặt"
 
+#: src/components/templates/projects.tsx:25
+msgid "Side projects"
+msgstr "Dự án cá nhân"
+
 #: src/components/templates/about.tsx:40
 msgid "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
 msgstr "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng."
 
-#: src/components/templates/projects.tsx:12
+#: src/components/templates/projects.tsx:15
 msgid "Some things I've done"
 msgstr "Một số thứ tôi đã làm"
 
@@ -202,6 +206,10 @@ msgstr "Các chủ đề tôi thường viết"
 #: src/components/molecules/locale-switch.tsx:14
 msgid "Tiếng Việt"
 msgstr "Tiếng Việt"
+
+#: src/components/templates/projects.tsx:18
+msgid "Work"
+msgstr "Công việc"
 
 #: src/components/organisms/github-cal.tsx:15
 msgid "Work Calendar"

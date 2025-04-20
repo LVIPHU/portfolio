@@ -24,7 +24,7 @@ import {
   TooltipTrigger,
 } from '@/components/atoms'
 import { useState } from 'react'
-import { Skill, skillsData } from '@data/main'
+import { type Skill, SKILLS } from '@data/main'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 function filterSkillsData(skillsData: Skill[]) {
@@ -48,7 +48,7 @@ function filterSkillsData(skillsData: Skill[]) {
 }
 
 export const Technologies = () => {
-  const filteredSkillsData = filterSkillsData(skillsData)
+  const filteredSkillsData = filterSkillsData(SKILLS)
   const categories = Object.keys(filteredSkillsData)
   const [tabIndex, setTabIndex] = useState(0)
 

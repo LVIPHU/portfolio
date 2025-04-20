@@ -79,7 +79,7 @@ const FloatingDockMobile = ({ items, className }: { items: Item[]; className?: s
                     transition={{ delay: (items.length - 1 - idx) * 0.05 }}
                     className='relative'
                   >
-                    <Separator  className='w-10'/>
+                    <Separator className='w-10' />
                   </motion.div>
                 )
               }
@@ -150,8 +150,9 @@ const FloatingDockMobile = ({ items, className }: { items: Item[]; className?: s
                   >
                     <div
                       onClick={item.onClick}
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900">
-                      <div className="h-4 w-4">{item.icon}</div>
+                      className='flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900'
+                    >
+                      <div className='h-4 w-4'>{item.icon}</div>
                     </div>
                   </motion.div>
                 )
@@ -384,11 +385,11 @@ function PopoverIconContainer({
 }
 
 function ActionLinkIconContainer({
-                             mouseX,
-                             title,
-                             icon,
-                             onClick,
-                           }: {
+  mouseX,
+  title,
+  icon,
+  onClick,
+}: {
   mouseX: MotionValue
   title: string | React.ReactNode
   icon: React.ReactNode

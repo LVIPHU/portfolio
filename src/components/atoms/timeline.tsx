@@ -76,15 +76,15 @@ const TimelineItemBullet = () => (
 )
 
 export const TimelineItemTitle = ({ children }: { children: React.ReactNode }) => {
-  return <div className='mb-1 text-base font-semibold leading-none'>{children}</div>
+  return <div className='mb-1 text-lg font-semibold leading-none'>{children}</div>
 }
 
 export const TimelineItemDescription = ({ children, className }: { children: React.ReactNode; className?: string }) => {
-  return <p className={cn('text-sm text-muted-foreground', className)}>{children}</p>
+  return <p className={cn('text-muted-foreground', className)}>{children}</p>
 }
 
 export const TimelineItemSmallText = ({ children }: { children: React.ReactNode }) => {
-  return <div className='pt-1 text-xs'>{children}</div>
+  return <div className='pt-1 text-sm'>{children}</div>
 }
 
 export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date; endDate?: Date }) => {
@@ -111,6 +111,6 @@ export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date;
   const durationVie = years > 0 ? `${years} năm ${months} tháng` : `${months} tháng`
 
   return (
-    <div className='pt-1 text-xs'>{`${formattedStartDate} - ${formattedEndDate} · ${i18n.locale === 'en-US' ? durationEng : durationVie}`}</div>
+    <div className='pt-1 text-sm'>{`${formattedStartDate} - ${formattedEndDate} · ${i18n.locale === 'en-US' ? durationEng : durationVie}`}</div>
   )
 }
