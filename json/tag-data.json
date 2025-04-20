@@ -1,1 +1,12 @@
-{"javascipt":1,"test":1,"vietnamese":1,"javascript":1,"promise":1,"parallel":1,"sequential":1,"concurrently":1,"english":2,"next-js":1,"guide":1}
+{
+  "javascript": 2,
+  "promise": 1,
+  "parallel": 1,
+  "sequential": 1,
+  "concurrently": 1,
+  "english": 2,
+  "next-js": 1,
+  "guide": 1,
+  "test": 1,
+  "vietnamese": 1
+}
