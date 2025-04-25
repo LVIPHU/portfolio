@@ -5,7 +5,7 @@
     --grid-border: var(--grid-width) solid hsl(var(--border));
     --crosshair-size: calc(var(--grid-cell-size) / 4);
 
-    @apply h-screen cursor-grab touch-none;
+    @apply h-screen touch-none;
   }
   .box-content {
     display: grid;
@@ -16,7 +16,6 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transition: opacity 300ms;
     will-change: transform;
   }
   .box-grid {

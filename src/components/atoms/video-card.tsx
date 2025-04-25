@@ -30,24 +30,23 @@ export const VideoCard = (props: VideoCardProps) => {
   return (
     <NavigationLink
       href={href}
-      className='absolute z-10 cursor-pointer select-none drop-shadow-2xl grayscale transition-all hover:grayscale-0 active:scale-95 active:drop-shadow-md'
+      className='absolute z-10 h-full w-full cursor-pointer select-none shadow-[32px_50px_50px_0px_#193A3E55] grayscale transition-all hover:grayscale-0 active:scale-95 active:shadow-[8px_8px_12px_-4px_#00132960]'
       style={{ gridColumn, gridRow }}
     >
       <div
-        className='relative'
+        className='relative h-full w-full'
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
         onPointerMove={handlePointerMove}
       >
-        <div className='bg-white'>
+        <div className='h-full w-full bg-white'>
           <video
             ref={videoRef}
             poster={`/static/videos/poster/${name}.jpg`}
-            width={300}
-            height={300}
             muted
             loop
             playsInline
+            className='aspect-video h-full w-full object-cover'
           >
             <source src={`/static/videos/${name}.mp4`} type='video/mp4' />
           </video>

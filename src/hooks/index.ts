@@ -1,5 +1,6 @@
 export * from './use-blog-stats'
 export * from './use-debounce-callback'
+export * from './use-drag-rotate'
 export * from './use-event-listener'
 export * from './use-isomorphic-layout-effect'
 export * from './use-media-query'

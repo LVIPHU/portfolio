@@ -1,20 +1,18 @@
 'use client'
-import { Boxes, SocialIcons, VideoCard } from '@/components/atoms'
+import { Boxes, Logo, VideoCard } from '@/components/atoms'
 import React, { useRef, useState } from 'react'
-import { useTheme } from 'next-themes'
 
 const DISTANCE_MOUSE = 160
 const DISTANCE_SCREEN = 50
 
 export const HomeTemplate: React.FC = () => {
-  const { systemTheme, theme } = useTheme()
-
   const containerRef = useRef<HTMLDivElement | null>(null)
   const videoRefs: Record<string, React.RefObject<HTMLVideoElement | null>> = {
     video_1: useRef<HTMLVideoElement | null>(null),
     video_2: useRef<HTMLVideoElement | null>(null),
     video_3: useRef<HTMLVideoElement | null>(null),
     video_4: useRef<HTMLVideoElement | null>(null),
+    video_5: useRef<HTMLVideoElement | null>(null),
   }
 
   const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -52,8 +50,8 @@ export const HomeTemplate: React.FC = () => {
         <VideoCard
           href='/about'
           name='video_1'
-          gridColumn='12 / 16'
-          gridRow='10 / span 2'
+          gridColumn='10 / 14'
+          gridRow='9 / 12'
           videoRef={videoRefs.video_1}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
@@ -62,8 +60,8 @@ export const HomeTemplate: React.FC = () => {
         <VideoCard
           href='/projects'
           name='video_2'
-          gridColumn='20 / span 4'
-          gridRow='14 / span 3'
+          gridColumn='16 / 20'
+          gridRow='10 / 13'
           videoRef={videoRefs.video_2}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
@@ -72,8 +70,8 @@ export const HomeTemplate: React.FC = () => {
         <VideoCard
           href='/blog'
           name='video_3'
-          gridColumn='14 / 17'
-          gridRow='19 / span 3'
+          gridColumn='19 / 24'
+          gridRow='16 / 19'
           videoRef={videoRefs.video_3}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
@@ -82,9 +80,19 @@ export const HomeTemplate: React.FC = () => {
         <VideoCard
           href='/photos'
           name='video_4'
-          gridColumn='14 / 9'
-          gridRow='14 / span 3'
+          gridColumn='13 / 18'
+          gridRow='19 / 22'
           videoRef={videoRefs.video_4}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
+          onPointerMove={handlePointerMove}
+        />
+        <VideoCard
+          href='/tags'
+          name='video_5'
+          gridColumn='12 / 7'
+          gridRow='13 / 16'
+          videoRef={videoRefs.video_5}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerMove={handlePointerMove}
@@ -92,11 +100,11 @@ export const HomeTemplate: React.FC = () => {
         <div
           className='pointer-events-none absolute z-10'
           style={{
-            gridColumn: '14 / 15',
-            gridRow: '13 / span 1',
+            gridColumn: '13 / 14',
+            gridRow: '13 / 14',
           }}
         >
-          <SocialIcons kind={`logo${theme === 'system' ? systemTheme : theme}`} iconType='icon' size={96} />
+          <Logo />
         </div>
       </Boxes>
       {href && (
