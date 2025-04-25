@@ -15,7 +15,6 @@ interface ProjectCardProps {
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const { title, description, image, technologies, url, repo } = project
   const { data: repository } = useSWR<GithubRepository>(`/api/github?repo=${repo}`, fetcher)
-  console.log('repository', repository)
   const href = repository?.url
   const lang = repository?.languages?.[0]
   return (

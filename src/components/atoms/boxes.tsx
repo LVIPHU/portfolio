@@ -1,7 +1,7 @@
 'use client'
 import React, { CSSProperties, memo, useRef, useState, useMemo } from 'react'
-import { cn } from '@/utils'
-import { useIsomorphicLayoutEffect } from '@/hooks'
+import { cn, playRandomNote } from '@/utils'
+import { useDragRotate, useIsomorphicLayoutEffect } from '@/hooks'
 import { BREAKPOINTS, COLORS, TOTAL_GRID } from '@/constants/boxes'
 
 type Color = (typeof COLORS)[number]
@@ -39,6 +39,7 @@ const Cell = memo(function BoxCell({ id }: BoxCellProps) {
         'box-cell-3': id === '3',
       })}
       style={styles}
+      onClick={() => playRandomNote()}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     />
@@ -88,6 +89,7 @@ type BoxCoreProps = {
 }
 
 export const BoxesCore = ({ children }: BoxCoreProps) => {
+  const { ref, angle, isDragging, onMouseDown } = useDragRotate()
   const grids = useMemo(() => Array.from({ length: TOTAL_GRID }, (_, i) => i), [])
   const [scaleValue, setScaleValue] = useState(0.6)
 
@@ -115,26 +117,27 @@ export const BoxesCore = ({ children }: BoxCoreProps) => {
     return () => window.removeEventListener('resize', updateScale)
   }, [])
 
-  const styles = useMemo<CSSProperties & { '--rotate': string; '--x': string; '--y': string }>(
+  const styles = useMemo<CSSProperties & { '--x': string; '--y': string }>(
     () => ({
       opacity: 1,
-      '--rotate': '0deg',
       '--x': '0px',
       '--y': '0px',
-      transform: `translate(calc(-50% + var(--x)), calc(-50% + var(--y))) skewX(-48deg) skewY(14deg) scaleX(2) scale(${scaleValue}) rotate(var(--rotate)) translateZ(0)`,
+      transition: isDragging ? 'none' : 'transform 0.2s ease-out',
+      cursor: isDragging ? 'grabbing' : 'grab',
+      transform: `translate(calc(-50% + var(--x)), calc(-50% + var(--y))) skewX(-48deg) skewY(14deg) scaleX(2) scale(${scaleValue}) rotate(${angle}deg) translateZ(0)`,
     }),
-    [scaleValue]
+    [angle, isDragging, scaleValue]
   )
 
   return (
     <div className='box-container'>
-      <div style={styles} className='box-content'>
+      <div ref={ref} style={styles} className='box-content' onMouseDown={onMouseDown}>
         {children}
         {grids.map((idx) => (
           <Grid key={idx} />
         ))}
       </div>
-      <div className='pointer-events-none absolute inset-0 select-none bg-background [mask-image:radial-gradient(transparent,black)]' />
+      <div className='[WebkitMaskImage:radial-gradient(ellipse_at_center,transparent_50%,black)] pointer-events-none fixed inset-0 select-none backdrop-blur-sm [background:radial-gradient(ellipse_at_center,transparent_50%,var(-----background))] [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]' />
     </div>
   )
 }

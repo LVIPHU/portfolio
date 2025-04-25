@@ -45,10 +45,11 @@ export const config = {
      * - sitemap.xml (sitemap file)
      * - feed.xml (RSS feed file)
      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
-     * - audio - .mp3, .mp4
+     * - audio - wav
+     * - video - mp4
      * - data - json
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|manifest.json|sitemap.xml|feed.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp3|mp4|json)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|manifest.json|sitemap.xml|feed.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|wav|mp4|json)$).*)',
   ],
 }

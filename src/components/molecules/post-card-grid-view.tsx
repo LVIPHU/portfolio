@@ -10,7 +10,7 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
   const { path, date, title, tags, images, readingTime } = post
   return (
     <article className={'h-full'}>
-      <Card className='shadow-none h-full flex flex-col'>
+      <Card className='flex h-full flex-col shadow-none'>
         <CardHeader className='p-2'>
           <NavigationLink href={`/${path}`}>
             <Image
