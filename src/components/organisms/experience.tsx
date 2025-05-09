@@ -81,19 +81,16 @@ export function Experience() {
             {EXPERIENCES.map((company, idx) => (
               <HoverCard key={`trigger-${company.name}`}>
                 <TabsTrigger className='flex w-full text-left' value={company.name}>
-                  <HoverCardTrigger asChild>
-                    <AnimatedContent
-                      className='flex w-full items-center justify-between'
-                      delay={idx * 0.1}
-                      direction={'horizontal'}
-                      reverse={true}
-                    >
-                      <span>{company.name}</span>
-                      <span
-                        className={`mx-1 inline-block h-3 w-3 rounded-full ${company.active ? 'bg-amber-500' : ''}`}
-                      />
-                    </AnimatedContent>
-                  </HoverCardTrigger>
+                  <AnimatedContent className={'w-full'} delay={idx * 0.1} direction={'horizontal'} reverse={true}>
+                    <HoverCardTrigger asChild>
+                      <div className='flex w-full items-center justify-between'>
+                        <span>{company.name}</span>
+                        <span
+                          className={`mx-1 inline-block h-3 w-3 rounded-full ${company.active ? 'bg-amber-500' : ''}`}
+                        />
+                      </div>
+                    </HoverCardTrigger>
+                  </AnimatedContent>
                 </TabsTrigger>
                 <HoverCardContent className='mt-3 w-96'>
                   <div className='flex justify-between space-x-4'>
