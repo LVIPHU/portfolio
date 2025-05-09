@@ -25,84 +25,85 @@ type Props = {
   lang: string
 }
 
-export const Navbar = (props: Props) => {
-  const { lang } = props
+const ICON_CLASS = 'h-full w-full text-neutral-500 dark:text-neutral-300'
+
+export const Navbar = ({ lang }: Props) => {
   const { query } = useKBar()
   const links: Item[] = useMemo(() => {
     return [
       {
         type: 'link',
         title: <Trans>Home</Trans>,
-        icon: <House className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <House className={ICON_CLASS} />,
         href: `/${lang}`,
       },
       null,
       {
         type: 'link',
         title: <Trans>Blog</Trans>,
-        icon: <Book className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <Book className={ICON_CLASS} />,
         href: `/${lang}/blog`,
       },
       {
         type: 'link',
         title: <Trans>Tags</Trans>,
-        icon: <Tags className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <Tags className={ICON_CLASS} />,
         href: `/${lang}/tags`,
       },
       {
         type: 'link',
         title: <Trans>Projects</Trans>,
-        icon: <FolderGit className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <FolderGit className={ICON_CLASS} />,
         href: `/${lang}/projects`,
       },
       {
         type: 'link',
         title: <Trans>Photos</Trans>,
-        icon: <GalleryHorizontal className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <GalleryHorizontal className={ICON_CLASS} />,
         href: `/${lang}/photos`,
       },
       {
         type: 'link',
         title: <Trans>About</Trans>,
-        icon: <Signature className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <Signature className={ICON_CLASS} />,
         href: `/${lang}/about`,
       },
       {
         type: 'link',
         title: 'Resume',
-        icon: <FileUser className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <FileUser className={ICON_CLASS} />,
         href: SITE_METADATA.resume,
       },
       null,
       {
         type: 'link',
         title: 'LinkedIn',
-        icon: <Linkedin className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <Linkedin className={ICON_CLASS} />,
         href: SITE_METADATA.linkedIn,
       },
       {
         type: 'link',
         title: 'Github',
-        icon: <Github className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <Github className={ICON_CLASS} />,
         href: SITE_METADATA.github,
       },
       {
         type: 'link',
         title: <Trans>Contact</Trans>,
-        icon: <Paperclip className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <Paperclip className={ICON_CLASS} />,
         href: `/${lang}/contact`,
       },
       null,
       {
         type: 'action',
         title: <Trans>Search</Trans>,
-        icon: <Command className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <Command className={ICON_CLASS} />,
         onClick: () => query.toggle(),
       },
       {
         type: 'popover',
         title: <Trans>Setting</Trans>,
-        icon: <MonitorCog className='h-full w-full text-neutral-500 dark:text-neutral-300' />,
+        icon: <MonitorCog className={ICON_CLASS} />,
         content: <Setting />,
       },
     ]
