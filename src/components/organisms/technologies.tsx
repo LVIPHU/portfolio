@@ -1,6 +1,7 @@
 'use client'
 import { Trans } from '@lingui/react/macro'
 import {
+  AnimatedContent,
   Button,
   Card,
   CardContent,
@@ -69,13 +70,15 @@ export const Technologies = () => {
 
   return (
     <Container className={'py-5 md:py-10'}>
-      <h3
-        className={
-          'md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'
-        }
-      >
-        <Trans>Technologies I&#39;ve worked with</Trans>
-      </h3>
+      <AnimatedContent direction={'horizontal'} reverse={true}>
+        <h3
+          className={
+            'md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'
+          }
+        >
+          <Trans>Technologies I&#39;ve worked with</Trans>
+        </h3>
+      </AnimatedContent>
       <TooltipProvider>
         <Tabs
           value={categories[tabIndex]}
@@ -95,33 +98,40 @@ export const Technologies = () => {
               <TabsContent key={'content-' + category} value={category}>
                 <Card>
                   <CardHeader>
-                    <CardTitle>
-                      <Trans>{category}</Trans>
-                    </CardTitle>
-                    {category === 'Most Used' && (
-                      <CardDescription>
-                        <Trans>These are my most used technologies.</Trans>
-                      </CardDescription>
-                    )}
+                    <AnimatedContent direction={'horizontal'}>
+                      <CardTitle>
+                        <Trans>{category}</Trans>
+                      </CardTitle>
+                      {category === 'Most Used' && (
+                        <CardDescription>
+                          <Trans>These are my most used technologies.</Trans>
+                        </CardDescription>
+                      )}
+                    </AnimatedContent>
                   </CardHeader>
-                  <CardContent className='grid grid-cols-5 gap-4 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-10'>
-                    {filteredSkillsData[category].map((skill) => (
-                      <Tooltip key={`${category}-icon-${skill.name}`}>
-                        <TooltipTrigger asChild>
-                          <NavigationLink className={'w-full'} href={skill.href}>
-                            <Button
-                              variant={'outline'}
-                              className={`h-14 w-full p-2 sm:p-2 ${skill.level === 'learning' ? 'border border-amber-500' : ''}`}
-                            >
-                              <SocialIcons className={'size-5 md:size-10'} kind={skill.id} iconType={'icon'} />
-                            </Button>
-                          </NavigationLink>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{skill.name}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    ))}
+                  <CardContent>
+                    <AnimatedContent
+                      distance={20}
+                      className='grid grid-cols-5 gap-4 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-10'
+                    >
+                      {filteredSkillsData[category].map((skill) => (
+                        <Tooltip key={`${category}-icon-${skill.name}`}>
+                          <TooltipTrigger asChild>
+                            <NavigationLink className={'w-full'} href={skill.href}>
+                              <Button
+                                variant={'outline'}
+                                className={`h-14 w-full p-2 sm:p-2 ${skill.level === 'learning' ? 'border border-amber-500' : ''}`}
+                              >
+                                <SocialIcons className={'size-5 md:size-10'} kind={skill.id} iconType={'icon'} />
+                              </Button>
+                            </NavigationLink>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{skill.name}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      ))}
+                    </AnimatedContent>
                   </CardContent>
                   {category !== 'Most Used' && (
                     <CardFooter className='flex flex-row items-center justify-between border-t bg-muted/50 px-6 py-3'>

@@ -9,7 +9,7 @@ import {
   useTransform,
   useAnimation,
 } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import { PanelBottomClose, PanelBottomOpen } from 'lucide-react'
 import { NavigationLink, Popover, PopoverContent, PopoverTrigger, Separator } from '@/components/atoms'
 import { usePathname } from 'next/navigation'
@@ -37,7 +37,7 @@ type PopoverItem = {
 
 export type Item = PopoverItem | LinkItem | ActionItem | null
 
-export const FloatingDock = ({
+export const FloatingDock = memo(function FloatingDock({
   items,
   desktopClassName,
   mobileClassName,
@@ -46,14 +46,14 @@ export const FloatingDock = ({
   desktopClassName?: string
   mobileClassName?: string
   selected?: string
-}) => {
+}) {
   return (
     <>
       <FloatingDockDesktop items={items} className={desktopClassName} />
       <FloatingDockMobile items={items} className={mobileClassName} />
     </>
   )
-}
+})
 
 const FloatingDockMobile = ({ items, className }: { items: Item[]; className?: string }) => {
   const pathname = usePathname()

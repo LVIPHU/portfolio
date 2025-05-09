@@ -1,7 +1,7 @@
 import tagData from '@json/tag-data.json'
 import { getI18nInstance, PageLangParam } from '@/i18n'
 import { t } from '@lingui/macro'
-import { Badge, Container, NavigationLink } from '@/components/atoms'
+import { AnimatedContent, Badge, Container, NavigationLink } from '@/components/atoms'
 import { slug } from 'github-slugger'
 
 export async function generateMetadata(props: PageLangParam) {
@@ -27,19 +27,21 @@ export default async function Page() {
         </div>
         <div className='my-8 flex flex-wrap gap-x-5 gap-y-2 py-8 md:my-0 md:py-8'>
           {tagKeys.length === 0 && 'No tags found.'}
-          {sortedTags.map((text) => {
+          {sortedTags.map((text, idx) => {
             const tagName = text.split(' ').join('-')
             return (
               <NavigationLink key={text} href={`/tags/${slug(text)}`}>
-                <li
-                  data-umami-event={`tag-${tagName}`}
-                  className='flex items-center justify-between gap-2 rounded-md bg-black p-3 text-white dark:bg-white dark:text-black'
-                >
-                  <span className='font-medium'>{tagName}</span>
-                  <Badge variant={'secondary'} className='rounded-full px-1.5'>
-                    {tagCounts[text]}
-                  </Badge>
-                </li>
+                <AnimatedContent delay={idx * 0.1}>
+                  <li
+                    data-umami-event={`tag-${tagName}`}
+                    className='flex items-center justify-between gap-2 rounded-md bg-black p-3 text-white dark:bg-white dark:text-black'
+                  >
+                    <span className='font-medium'>{tagName}</span>
+                    <Badge variant={'secondary'} className='rounded-full px-1.5'>
+                      {tagCounts[text]}
+                    </Badge>
+                  </li>
+                </AnimatedContent>
               </NavigationLink>
             )
           })}

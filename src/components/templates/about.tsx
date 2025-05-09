@@ -1,4 +1,5 @@
 import {
+  AnimatedContent,
   Avatar,
   AvatarFallback,
   AvatarImage,
@@ -42,7 +43,7 @@ export const AboutTemplate = () => {
         )`Some interesting things about myself and my habit of coding then making things harder for myself after six months.`}
       />
       <section className={'pb-5 md:pb-10 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0'}>
-        <div className={'pt-5 md:pt-10'}>
+        <AnimatedContent direction={'horizontal'} reverse={true} className={'pt-5 md:pt-10'}>
           <div className={'mb-7'}>
             <Avatar className='mx-auto mb-2 h-60 w-60'>
               <AvatarImage src={SITE_METADATA.avatar} alt={SITE_METADATA.author} />
@@ -73,8 +74,11 @@ export const AboutTemplate = () => {
               </NavigationLink>
             ))}
           </nav>
-        </div>
-        <div className={'flex flex-col gap-y-6 py-5 text-lg md:py-10 xl:col-span-2'}>
+        </AnimatedContent>
+        <AnimatedContent
+          direction={'horizontal'}
+          className={'flex flex-col gap-y-6 py-5 text-lg md:py-10 xl:col-span-2'}
+        >
           <h2 className={'mb-2 text-3xl font-bold'}>Xin chào! {String.fromCodePoint(0x1f44b)}</h2>
           <span>
             Tôi là {SITE_METADATA.author}, một Kỹ sư Phần mềm {String.fromCodePoint(0x1f4bb)} đến từ Việt Nam, với niềm
@@ -104,7 +108,7 @@ export const AboutTemplate = () => {
             </LinkPreview>
             . Những sở thích này giúp tôi duy trì sự sáng tạo và giải tỏa những căng thẳng.
           </span>
-        </div>
+        </AnimatedContent>
       </section>
       <Separator className={'mt-5 md:mt-10'} />
       <Technologies />

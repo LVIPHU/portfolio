@@ -7,6 +7,7 @@ import dayjs from 'dayjs'
 import { useLingui } from '@lingui/react'
 import { dayjsLocaleMap, dayjsLocales } from '@/libs/dayjs'
 import { t } from '@lingui/macro'
+import { AnimatedContent } from '@/components/atoms/animated-content'
 
 interface TimelineEntry {
   title: string
@@ -40,13 +41,13 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
   return (
     <div className={cn('w-full', className)} ref={containerRef}>
       <div ref={wrapperRef} className='relative'>
-        {data.map((item, index) => (
-          <div key={index} className='flex justify-start pb-8'>
+        {data.map((item, idx) => (
+          <div key={idx} className='flex justify-start pb-8'>
             <TimelineItemBullet />
-            <div className='relative ml-5 w-full pl-6'>
+            <AnimatedContent direction={'horizontal'} delay={idx * 0.1} className='relative ml-5 w-full pl-6'>
               <TimelineItemTitle>{item.title}</TimelineItemTitle>
               {item.content}
-            </div>
+            </AnimatedContent>
           </div>
         ))}
 

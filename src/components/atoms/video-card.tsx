@@ -1,7 +1,9 @@
 import React from 'react'
 import { NavigationLink } from '@/components/atoms/navigation-link'
+import { FadeContent } from '@/components/atoms/fade-content'
 
 interface VideoCardProps {
+  idx?: number
   name: string
   href: string
   gridColumn: string
@@ -13,7 +15,7 @@ interface VideoCardProps {
 }
 
 export const VideoCard = (props: VideoCardProps) => {
-  const { name, href, gridColumn, gridRow, videoRef, onPointerEnter, onPointerLeave, onPointerMove } = props
+  const { idx = 0, name, href, gridColumn, gridRow, videoRef, onPointerEnter, onPointerLeave, onPointerMove } = props
 
   const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
     onPointerEnter(e, href, name)
@@ -28,18 +30,21 @@ export const VideoCard = (props: VideoCardProps) => {
   }
 
   return (
-    <NavigationLink
-      href={href}
-      className='absolute z-10 h-full w-full cursor-pointer select-none shadow-[32px_50px_50px_0px_#193A3E55] grayscale transition-all hover:grayscale-0 active:scale-95 active:shadow-[8px_8px_12px_-4px_#00132960]'
-      style={{ gridColumn, gridRow }}
-    >
-      <div
-        className='relative h-full w-full'
-        onPointerEnter={handlePointerEnter}
-        onPointerLeave={handlePointerLeave}
-        onPointerMove={handlePointerMove}
+    <NavigationLink href={href} className='absolute z-10 h-full w-full' style={{ gridColumn, gridRow }}>
+      <FadeContent
+        blur={true}
+        delay={idx * 300}
+        duration={500}
+        className={
+          'relative h-full w-full cursor-pointer select-none shadow-[32px_50px_50px_0px_#193A3E55] grayscale transition-all hover:grayscale-0 active:scale-95 active:shadow-[8px_8px_12px_-4px_#00132960]'
+        }
       >
-        <div className='h-full w-full bg-white'>
+        <div
+          className='relative h-full w-full bg-white'
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
+          onPointerMove={handlePointerMove}
+        >
           <video
             ref={videoRef}
             poster={`/static/videos/poster/${name}.jpg`}
@@ -51,7 +56,7 @@ export const VideoCard = (props: VideoCardProps) => {
             <source src={`/static/videos/${name}.mp4`} type='video/mp4' />
           </video>
         </div>
-      </div>
+      </FadeContent>
     </NavigationLink>
   )
 }

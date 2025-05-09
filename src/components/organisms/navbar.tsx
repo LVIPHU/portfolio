@@ -106,6 +106,7 @@ export const Navbar = (props: Props) => {
         content: <Setting />,
       },
     ]
+    // eslint-disable-next-line
   }, [lang])
 
   return (

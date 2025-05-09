@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import { ProjectCard } from '@/components/molecules/project-card'
 import { type Project } from '@data/main'
+import { AnimatedContent } from '@/components/atoms'
 
 export const HoverEffect = ({ items, className }: { items: Project[]; className?: string }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
@@ -44,7 +45,9 @@ export const HoverEffect = ({ items, className }: { items: Project[]; className?
               />
             )}
           </AnimatePresence>
-          <ProjectCard project={item} />
+          <AnimatedContent className={'h-full'} direction={'horizontal'} reverse={true} delay={idx * 0.1}>
+            <ProjectCard project={item} />
+          </AnimatedContent>
         </div>
       ))}
     </div>
