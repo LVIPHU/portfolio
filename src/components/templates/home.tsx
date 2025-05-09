@@ -1,5 +1,5 @@
 'use client'
-import { Boxes, Logo, VideoCard } from '@/components/atoms'
+import { Boxes, FadeContent, Logo, VideoCard } from '@/components/atoms'
 import React, { useRef, useState } from 'react'
 
 const DISTANCE_MOUSE = 160
@@ -48,6 +48,7 @@ export const HomeTemplate: React.FC = () => {
     <main ref={containerRef} className='relative flex min-h-screen w-full flex-col overflow-hidden bg-background'>
       <Boxes>
         <VideoCard
+          idx={1}
           href='/about'
           name='video_1'
           gridColumn='10 / 14'
@@ -58,6 +59,7 @@ export const HomeTemplate: React.FC = () => {
           onPointerMove={handlePointerMove}
         />
         <VideoCard
+          idx={2}
           href='/projects'
           name='video_2'
           gridColumn='16 / 20'
@@ -68,6 +70,7 @@ export const HomeTemplate: React.FC = () => {
           onPointerMove={handlePointerMove}
         />
         <VideoCard
+          idx={3}
           href='/blog'
           name='video_3'
           gridColumn='19 / 24'
@@ -78,6 +81,7 @@ export const HomeTemplate: React.FC = () => {
           onPointerMove={handlePointerMove}
         />
         <VideoCard
+          idx={4}
           href='/photos'
           name='video_4'
           gridColumn='13 / 18'
@@ -88,6 +92,7 @@ export const HomeTemplate: React.FC = () => {
           onPointerMove={handlePointerMove}
         />
         <VideoCard
+          idx={5}
           href='/tags'
           name='video_5'
           gridColumn='12 / 7'
@@ -104,7 +109,9 @@ export const HomeTemplate: React.FC = () => {
             gridRow: '13 / 14',
           }}
         >
-          <Logo />
+          <FadeContent blur={true} duration={500}>
+            <Logo />
+          </FadeContent>
         </div>
       </Boxes>
       {href && (

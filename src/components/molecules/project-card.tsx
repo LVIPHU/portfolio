@@ -18,7 +18,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
   const href = repository?.url
   const lang = repository?.languages?.[0]
   return (
-    <div className='relative z-10 flex h-full flex-col overflow-hidden rounded-xl border border-card transition-all group-hover/container:border-transparent group-hover/effect:!border-accent'>
+    <div className='relative z-10 flex h-full flex-col overflow-hidden rounded-xl border border-primary/20 transition-all group-hover/container:border-transparent group-hover/effect:!border-accent'>
       <div className='relative h-64 overflow-hidden bg-accent'>
         <Image
           src={image}

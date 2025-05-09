@@ -1,5 +1,6 @@
 import { type Experience, EXPERIENCES, SKILLS } from '@data/main'
 import {
+  AnimatedContent,
   Avatar,
   AvatarFallback,
   AvatarImage,
@@ -65,26 +66,33 @@ function createTimelineItems(experiences: Experience[]) {
 export function Experience() {
   return (
     <Container className='w-full py-5 md:py-10'>
-      <h3 className='md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'>
-        <Trans>Experience</Trans>
-      </h3>
-      <div className='mt-5'>
+      <AnimatedContent direction={'horizontal'} reverse={true}>
+        <h3 className='md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'>
+          <Trans>Experience</Trans>
+        </h3>
+      </AnimatedContent>
+      <AnimatedContent className='mt-5'>
         <Tabs
           defaultValue={EXPERIENCES[0]?.name}
           className='flex flex-col md:flex-row md:space-x-4'
           orientation='vertical'
         >
           <TabsList className={`flex h-max w-full flex-col space-y-2 md:w-64`}>
-            {EXPERIENCES.map((company) => (
+            {EXPERIENCES.map((company, idx) => (
               <HoverCard key={`trigger-${company.name}`}>
                 <TabsTrigger className='flex w-full text-left' value={company.name}>
                   <HoverCardTrigger asChild>
-                    <div className='flex w-full items-center justify-between'>
+                    <AnimatedContent
+                      className='flex w-full items-center justify-between'
+                      delay={idx * 0.1}
+                      direction={'horizontal'}
+                      reverse={true}
+                    >
                       <span>{company.name}</span>
                       <span
                         className={`mx-1 inline-block h-3 w-3 rounded-full ${company.active ? 'bg-amber-500' : ''}`}
                       />
-                    </div>
+                    </AnimatedContent>
                   </HoverCardTrigger>
                 </TabsTrigger>
                 <HoverCardContent className='mt-3 w-96'>
@@ -111,12 +119,14 @@ export function Experience() {
             <TabsContent key={company.name} value={company.name} className='mt-4 w-full md:mt-0'>
               <Card key={`card-${company.name}`} className='border-none shadow-sm outline-none ring-0'>
                 <CardHeader>
-                  <CardTitle>
-                    <LinkPreview url={company.url || '#'}>
-                      <span className='px-0 text-2xl'>{company.name}</span>
-                    </LinkPreview>
-                  </CardTitle>
-                  <CardDescription>{company.description}</CardDescription>
+                  <AnimatedContent>
+                    <CardTitle>
+                      <LinkPreview url={company.url || '#'}>
+                        <span className='px-0 text-2xl'>{company.name}</span>
+                      </LinkPreview>
+                    </CardTitle>
+                    <CardDescription>{company.description}</CardDescription>
+                  </AnimatedContent>
                 </CardHeader>
                 <CardContent>
                   <Timeline data={createTimelineItems(company.items)} />
@@ -125,7 +135,7 @@ export function Experience() {
             </TabsContent>
           ))}
         </Tabs>
-      </div>
+      </AnimatedContent>
     </Container>
   )
 }

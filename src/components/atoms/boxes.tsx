@@ -88,7 +88,7 @@ type BoxCoreProps = {
   children?: React.ReactNode
 }
 
-export const BoxesCore = ({ children }: BoxCoreProps) => {
+export const Boxes = ({ children }: BoxCoreProps) => {
   const { ref, angle, isDragging, onMouseDown } = useDragRotate()
   const grids = useMemo(() => Array.from({ length: TOTAL_GRID }, (_, i) => i), [])
   const [scaleValue, setScaleValue] = useState(0.6)
@@ -141,5 +141,3 @@ export const BoxesCore = ({ children }: BoxCoreProps) => {
     </div>
   )
 }
-
-export const Boxes = memo(BoxesCore)
