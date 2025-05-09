@@ -31,19 +31,12 @@ export const VideoCard = (props: VideoCardProps) => {
 
   return (
     <NavigationLink href={href} className='absolute z-10 h-full w-full' style={{ gridColumn, gridRow }}>
-      <FadeContent
-        blur={true}
-        delay={idx * 300}
-        duration={500}
-        className={
-          'relative h-full w-full cursor-pointer select-none shadow-[32px_50px_50px_0px_#193A3E55] grayscale transition-all hover:grayscale-0 active:scale-95 active:shadow-[8px_8px_12px_-4px_#00132960]'
-        }
-      >
+      <FadeContent blur={true} delay={idx * 300} duration={500} className='h-full w-full'>
         <div
-          className='relative h-full w-full bg-white'
+          onPointerMove={handlePointerMove}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
-          onPointerMove={handlePointerMove}
+          className='relative h-full w-full cursor-pointer select-none shadow-[32px_50px_50px_0px_#193A3E55] grayscale transition-all hover:grayscale-0 active:scale-95 active:shadow-[8px_8px_12px_-4px_#00132960]'
         >
           <video
             ref={videoRef}
