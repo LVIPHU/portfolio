@@ -78,11 +78,34 @@
     ],
     "authors": ["andrewclark\r"],
     "type": "Blog",
-    "readingTime": { "text": "1 min read", "minutes": 0.725, "time": 43500, "words": 145 },
+    "readingTime": { "text": "18 min read", "minutes": 17.91, "time": 1074600, "words": 3582 },
     "slug": "kien-truc-react-fiber",
     "path": "blog/kien-truc-react-fiber",
     "filePath": "blog/kien-truc-react-fiber.mdx",
-    "toc": [{ "value": "Giới thiệu", "url": "#giới-thiệu", "depth": 2 }],
+    "toc": [
+      { "value": "Giới Thiệu", "url": "#giới-thiệu", "depth": 2 },
+      { "value": "Về Tài Liệu Này", "url": "#về-tài-liệu-này", "depth": 3 },
+      { "value": "Kiến Thức Tiền Đề", "url": "#kiến-thức-tiền-đề", "depth": 3 },
+      { "value": "Ôn Tập", "url": "#ôn-tập", "depth": 2 },
+      { "value": "Reconciliation Là Gì?", "url": "#reconciliation-là-gì", "depth": 3 },
+      {
+        "value": "Sự Khác Biệt Giữa Reconciliation Và Rendering",
+        "url": "#sự-khác-biệt-giữa-reconciliation-và-rendering",
+        "depth": 3
+      },
+      { "value": "Lập Lịch (Scheduling)", "url": "#lập-lịch-scheduling", "depth": 3 },
+      { "value": "Fiber Là Gì?", "url": "#fiber-là-gì", "depth": 2 },
+      { "value": "Cấu Trúc Của Một Fiber", "url": "#cấu-trúc-của-một-fiber", "depth": 3 },
+      { "value": "type và key", "url": "#type-và-key", "depth": 4 },
+      { "value": "child và sibling", "url": "#child-và-sibling", "depth": 4 },
+      { "value": "return", "url": "#return", "depth": 4 },
+      { "value": "pendingProps và memoizedProps", "url": "#pendingprops-và-memoizedprops", "depth": 4 },
+      { "value": "pendingWorkPriority", "url": "#pendingworkpriority", "depth": 4 },
+      { "value": "alternate", "url": "#alternate", "depth": 4 },
+      { "value": "output", "url": "#output", "depth": 4 },
+      { "value": "Các Phần Tiếp", "url": "#các-phần-tiếp", "depth": 2 },
+      { "value": "Videos Liên Quan", "url": "#videos-liên-quan", "depth": 2 }
+    ],
     "structuredData": {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
@@ -104,14 +127,24 @@
     "images": ["/static/images/banners/brown-and-gray-concrete-building__claybanks__jZlTskDjTlw.jpg"],
     "authors": ["danabramov\r"],
     "type": "Blog",
-    "readingTime": { "text": "4 min read", "minutes": 3.025, "time": 181500, "words": 605 },
+    "readingTime": { "text": "13 min read", "minutes": 12.26, "time": 735600, "words": 2452 },
     "slug": "cac-component-element-va-instance-trong-react",
     "path": "blog/cac-component-element-va-instance-trong-react",
     "filePath": "blog/cac-component-element-va-instance-trong-react.mdx",
     "toc": [
-      { "value": "Quản lý các Instance", "url": "#quản-lý-các-instance", "depth": 2 },
-      { "value": "Element mô tả cây UI", "url": "#element-mô-tả-cây-ui", "depth": 2 },
-      { "value": "DOM Elements", "url": "#dom-elements", "depth": 3 }
+      { "value": "Quản Lý Các Instance", "url": "#quản-lý-các-instance", "depth": 2 },
+      { "value": "Element Mô Tả Cây UI", "url": "#element-mô-tả-cây-ui", "depth": 2 },
+      { "value": "DOM Elements", "url": "#dom-elements", "depth": 3 },
+      { "value": "Component Elements", "url": "#component-elements", "depth": 3 },
+      { "value": "Component Encapsulate Element Trees", "url": "#component-encapsulate-element-trees", "depth": 3 },
+      {
+        "value": "Component Có Thể Là Class Hoặc Function",
+        "url": "#component-có-thể-là-class-hoặc-function",
+        "depth": 3
+      },
+      { "value": "Đối Chiếu Từ Trên Xuống", "url": "#đối-chiếu-từ-trên-xuống", "depth": 3 },
+      { "value": "Tóm Lại", "url": "#tóm-lại", "depth": 2 },
+      { "value": "Đọc Thêm", "url": "#đọc-thêm", "depth": 2 }
     ],
     "structuredData": {
       "@context": "https://schema.org",
