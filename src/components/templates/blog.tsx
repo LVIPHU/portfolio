@@ -3,13 +3,14 @@
 import type { Blog } from '@contentlayer/generated'
 import { ArrowLeft, ArrowRight, LayoutGrid, List } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import type { CoreContent } from '@/types/data'
 import { Container, NavigationLink, SearchArticles, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
 import { AppContextInterface, useApp } from '@/providers/app'
+import Image from 'next/image'
 
 interface PaginationProps {
   totalPages: number
@@ -118,7 +119,16 @@ export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: Li
         </Header>
 
         {!filteredBlogPosts.length ? (
-          <div className='py-10'>No posts found.</div>
+          <div className='py-10'>
+            <div className={'relative h-[50vh] w-full'}>
+              <Image
+                src={'/static/images/errors/empty.svg'}
+                fill={true}
+                alt={t(i18n)`no post found`}
+                className={'object-contain'}
+              />
+            </div>
+          </div>
         ) : (
           <>
             <TabsContent value='GRID'>
