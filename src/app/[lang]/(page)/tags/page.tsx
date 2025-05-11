@@ -25,7 +25,7 @@ export default async function Page() {
             Tags
           </h1>
         </div>
-        <div className='my-8 flex flex-wrap gap-x-5 gap-y-2 py-8 md:my-0 md:py-8'>
+        <div className='my-8 flex flex-wrap gap-x-4 gap-y-4 py-4 md:my-0 md:py-8'>
           {tagKeys.length === 0 && 'No tags found.'}
           {sortedTags.map((text, idx) => {
             const tagName = text.split(' ').join('-')
