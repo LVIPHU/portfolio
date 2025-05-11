@@ -1,6 +1,6 @@
 'use client'
 import React, { CSSProperties, memo, useRef, useState, useMemo } from 'react'
-import { cn, playRandomNote } from '@/utils'
+import { cn, initAudio, playRandomNote } from '@/utils'
 import { useDragRotate, useIsomorphicLayoutEffect } from '@/hooks'
 import { BREAKPOINTS, COLORS, TOTAL_GRID } from '@/constants/boxes'
 
@@ -112,6 +112,7 @@ export const Boxes = ({ children }: BoxCoreProps) => {
       setScaleValue(scale)
     }
 
+    initAudio()
     updateScale()
     window.addEventListener('resize', updateScale)
     return () => window.removeEventListener('resize', updateScale)

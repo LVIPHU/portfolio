@@ -1,40 +1,12 @@
 [
   {
-    "title": "Ném lỗi với một bài kiểm tra đơn giản trong JavaScript",
-    "date": "2025-04-20T00:00:00.000Z",
-    "tags": ["javascript", "test", "vietnamese"],
-    "draft": false,
-    "summary": "In this article we’ll get the most fundamental understanding of what an automated test is in JavaScript. A test is code that throws an error when the actual result of something does not match the expected output.",
-    "images": [
-      "/static/images/banners/white-and-blue-boat-on-water-near-buildings-during-daytime__claybanks__M4n71zrXQ8c.jpg"
-    ],
-    "authors": ["default\r"],
-    "type": "Blog",
-    "readingTime": { "text": "0 min read", "minutes": 0, "time": 0, "words": 0 },
-    "slug": "nem-loi-voi-mot-bai-kiem-tra-don-gian-trong-javascript",
-    "path": "blog/nem-loi-voi-mot-bai-kiem-tra-don-gian-trong-javascript",
-    "filePath": "blog/nem-loi-voi-mot-bai-kiem-tra-don-gian-trong-javascript.mdx",
-    "toc": [],
-    "structuredData": {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "Ném lỗi với một bài kiểm tra đơn giản trong JavaScript",
-      "datePublished": "2025-04-20T00:00:00.000Z",
-      "dateModified": "2025-04-20T00:00:00.000Z",
-      "description": "In this article we’ll get the most fundamental understanding of what an automated test is in JavaScript. A test is code that throws an error when the actual result of something does not match the expected output.",
-      "image": "/static/images/banners/white-and-blue-boat-on-water-near-buildings-during-daytime__claybanks__M4n71zrXQ8c.jpg",
-      "url": "http://localhost:3000/blog/nem-loi-voi-mot-bai-kiem-tra-don-gian-trong-javascript",
-      "author": ["default\r"]
-    }
-  },
-  {
     "title": "Does JavaScript Promise.all() run in parallel or sequential?",
     "date": "2023-09-04T00:00:00.000Z",
     "tags": ["javascript", "promise", "parallel", "sequential", "concurrently", "english"],
     "lastmod": "2024-11-11T00:00:00.000Z",
     "summary": "JavaScript is a single-threaded programming language, so it can't run multiple things at the same time, Promise.all() actually runs promises concurrently, not in parallel!. Let's dive in to see how it works.",
     "images": [
-      "/static/images/banners/brown-concrete-building-under-gray-sky-during-daytime-hi__claybanks__52O-h5G8.jpg"
+      "/static/images/banners/white-and-blue-boat-on-water-near-buildings-during-daytime__claybanks__M4n71zrXQ8c.jpg"
     ],
     "authors": ["leohuynh"],
     "type": "Blog",
@@ -58,7 +30,7 @@
       "datePublished": "2023-09-04T00:00:00.000Z",
       "dateModified": "2024-11-11T00:00:00.000Z",
       "description": "JavaScript is a single-threaded programming language, so it can't run multiple things at the same time, Promise.all() actually runs promises concurrently, not in parallel!. Let's dive in to see how it works.",
-      "image": "/static/images/banners/brown-concrete-building-under-gray-sky-during-daytime-hi__claybanks__52O-h5G8.jpg",
+      "image": "/static/images/banners/white-and-blue-boat-on-water-near-buildings-during-daytime__claybanks__M4n71zrXQ8c.jpg",
       "url": "http://localhost:3000/blog/does-promise-all-run-in-parallel-or-sequential",
       "author": ["leohuynh"]
     }
@@ -67,6 +39,7 @@
     "title": "Images in Next.js",
     "date": "2020-11-11T00:00:00.000Z",
     "tags": ["next js", "guide", "english"],
+    "lastmod": "2020-11-11T00:00:00.000Z",
     "draft": false,
     "summary": "In this article we introduce adding images in the tailwind starter blog and the benefits and limitations of the next/image component.",
     "images": ["/static/images/banners/gray-concrete-statue-in-building__claybanks__A1xNO6DFI3Q.jpg"],
@@ -92,6 +65,64 @@
       "image": "/static/images/banners/gray-concrete-statue-in-building__claybanks__A1xNO6DFI3Q.jpg",
       "url": "http://localhost:3000/blog/guide-to-using-images-in-nextjs",
       "author": ["sparrowhawk\r"]
+    }
+  },
+  {
+    "title": "Kiến trúc React Fiber",
+    "date": "2016-07-19T00:00:00.000Z",
+    "tags": ["react", "architecture", "vietnamese"],
+    "lastmod": "2025-05-10T00:00:00.000Z",
+    "summary": "React Fiber là một phiên bản tái cấu trúc liên tục của thuật toán cốt lỗi của React. Đây là kết quả của hơn hai năm nghiên cứu bởi đội ngũ React.",
+    "images": [
+      "/static/images/banners/brown-concrete-building-under-gray-sky-during-daytime-hi__claybanks__52O-h5G8.jpg"
+    ],
+    "authors": ["andrewclark\r"],
+    "type": "Blog",
+    "readingTime": { "text": "1 min read", "minutes": 0.725, "time": 43500, "words": 145 },
+    "slug": "kien-truc-react-fiber",
+    "path": "blog/kien-truc-react-fiber",
+    "filePath": "blog/kien-truc-react-fiber.mdx",
+    "toc": [{ "value": "Giới thiệu", "url": "#giới-thiệu", "depth": 2 }],
+    "structuredData": {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Kiến trúc React Fiber",
+      "datePublished": "2016-07-19T00:00:00.000Z",
+      "dateModified": "2025-05-10T00:00:00.000Z",
+      "description": "React Fiber là một phiên bản tái cấu trúc liên tục của thuật toán cốt lỗi của React. Đây là kết quả của hơn hai năm nghiên cứu bởi đội ngũ React.",
+      "image": "/static/images/banners/brown-concrete-building-under-gray-sky-during-daytime-hi__claybanks__52O-h5G8.jpg",
+      "url": "http://localhost:3000/blog/kien-truc-react-fiber",
+      "author": ["andrewclark\r"]
+    }
+  },
+  {
+    "title": "Các Component, Element và Instance trong React",
+    "date": "2015-12-18T00:00:00.000Z",
+    "tags": ["react", "component", "element", "instance", "vietnamese"],
+    "lastmod": "2025-05-10T00:00:00.000Z",
+    "summary": "Sự khác biệt giữa component, instance và element khiến nhiều người mới học React cảm thấy bối rối. Tại sao lại có ba thuật ngữ khác nhau để chỉ một thứ xuất hiện trên màn hình?",
+    "images": ["/static/images/banners/brown-and-gray-concrete-building__claybanks__jZlTskDjTlw.jpg"],
+    "authors": ["danabramov\r"],
+    "type": "Blog",
+    "readingTime": { "text": "4 min read", "minutes": 3.025, "time": 181500, "words": 605 },
+    "slug": "cac-component-element-va-instance-trong-react",
+    "path": "blog/cac-component-element-va-instance-trong-react",
+    "filePath": "blog/cac-component-element-va-instance-trong-react.mdx",
+    "toc": [
+      { "value": "Quản lý các Instance", "url": "#quản-lý-các-instance", "depth": 2 },
+      { "value": "Element mô tả cây UI", "url": "#element-mô-tả-cây-ui", "depth": 2 },
+      { "value": "DOM Elements", "url": "#dom-elements", "depth": 3 }
+    ],
+    "structuredData": {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Các Component, Element và Instance trong React",
+      "datePublished": "2015-12-18T00:00:00.000Z",
+      "dateModified": "2025-05-10T00:00:00.000Z",
+      "description": "Sự khác biệt giữa component, instance và element khiến nhiều người mới học React cảm thấy bối rối. Tại sao lại có ba thuật ngữ khác nhau để chỉ một thứ xuất hiện trên màn hình?",
+      "image": "/static/images/banners/brown-and-gray-concrete-building__claybanks__jZlTskDjTlw.jpg",
+      "url": "http://localhost:3000/blog/cac-component-element-va-instance-trong-react",
+      "author": ["danabramov\r"]
     }
   }
 ]

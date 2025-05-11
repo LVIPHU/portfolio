@@ -18,6 +18,8 @@ export const playRandomNote = () => {
   const note = NOTES[Math.floor(Math.random() * NOTES.length)]
   const audio = audioCache[note]
 
+  console.log(audio)
+
   if (!audio) return
 
   const clone = audio.cloneNode(true) as HTMLAudioElement

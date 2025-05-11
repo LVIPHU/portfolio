@@ -1,5 +1,5 @@
 {
-  "javascript": 2,
+  "javascript": 1,
   "promise": 1,
   "parallel": 1,
   "sequential": 1,
@@ -7,6 +7,10 @@
   "english": 2,
   "next-js": 1,
   "guide": 1,
-  "test": 1,
-  "vietnamese": 1
+  "react": 2,
+  "architecture": 1,
+  "vietnamese": 2,
+  "component": 1,
+  "element": 1,
+  "instance": 1
 }
