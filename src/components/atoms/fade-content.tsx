@@ -1,6 +1,5 @@
 'use client'
-import { useRef, useState, ReactNode } from 'react'
-import { useIsomorphicLayoutEffect } from '@/hooks'
+import { useRef, useState, ReactNode, useEffect } from 'react'
 
 interface FadeContentProps {
   children: ReactNode
@@ -26,7 +25,7 @@ export const FadeContent: React.FC<FadeContentProps> = ({
   const [inView, setInView] = useState(false)
   const ref = useRef<HTMLDivElement | null>(null)
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     const element = ref.current
     if (!element) return
 

@@ -5,7 +5,16 @@ import { ArrowLeft, ArrowRight, LayoutGrid, List } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import React, { useState } from 'react'
 import type { CoreContent } from '@/types/data'
-import { Container, NavigationLink, SearchArticles, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
+import {
+  AnimatedContent,
+  Container,
+  NavigationLink,
+  SearchArticles,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
@@ -119,16 +128,14 @@ export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: Li
         </Header>
 
         {!filteredBlogPosts.length ? (
-          <div className='py-10'>
-            <div className={'relative h-[50vh] w-full'}>
-              <Image
-                src={'/static/images/errors/empty.svg'}
-                fill={true}
-                alt={t(i18n)`no post found`}
-                className={'object-contain'}
-              />
-            </div>
-          </div>
+          <AnimatedContent className={'relative h-[50vh] w-full'}>
+            <Image
+              src={'/static/images/errors/empty.svg'}
+              fill={true}
+              alt={t(i18n)`no post found`}
+              className={'object-contain'}
+            />
+          </AnimatedContent>
         ) : (
           <>
             <TabsContent value='GRID'>

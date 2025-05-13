@@ -1,7 +1,7 @@
 'use client'
-import React, { CSSProperties, memo, useRef, useState, useMemo } from 'react'
+import React, { CSSProperties, memo, useRef, useState, useMemo, useEffect, useLayoutEffect } from 'react'
 import { cn, initAudio, playRandomNote } from '@/utils'
-import { useDragRotate, useIsomorphicLayoutEffect } from '@/hooks'
+import { useDragRotate } from '@/hooks'
 import { BREAKPOINTS, COLORS, TOTAL_GRID } from '@/constants/boxes'
 
 type Color = (typeof COLORS)[number]
@@ -18,7 +18,7 @@ const Cell = memo(function BoxCell({ id }: BoxCellProps) {
   const [color, setColor] = useState<Color>('lime')
   const [isHovered, setIsHovered] = useState(false)
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     setColor(getRandomColor())
   }, [isHovered])
 
@@ -51,7 +51,7 @@ const Grid = memo(function BoxRow() {
   const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
-  useIsomorphicLayoutEffect(() => {
+  useLayoutEffect(() => {
     const element = ref.current
     if (!element) return
 
@@ -93,7 +93,7 @@ export const Boxes = ({ children }: BoxCoreProps) => {
   const grids = useMemo(() => Array.from({ length: TOTAL_GRID }, (_, i) => i), [])
   const [scaleValue, setScaleValue] = useState(0.6)
 
-  useIsomorphicLayoutEffect(() => {
+  useLayoutEffect(() => {
     const updateScale = () => {
       const width = window.innerWidth
       let scale: number

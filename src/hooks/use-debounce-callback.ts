@@ -1,9 +1,8 @@
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import debounce from 'lodash.debounce'
 
 import { useUnmount } from './use-unmount'
-import { useIsomorphicLayoutEffect } from '@/hooks/use-isomorphic-layout-effect'
 
 type DebounceOptions = {
   leading?: boolean
@@ -58,7 +57,7 @@ export function useDebounceCallback<T extends (...args: any) => ReturnType<T>>(
   }, [func, delay, options])
 
   // Update the debounced function ref whenever func, wait, or options change
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     debouncedFunc.current = debounce(func, delay, options)
   }, [func, delay, options])
 
