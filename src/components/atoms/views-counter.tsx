@@ -12,8 +12,7 @@ export function ViewsCounter({ type, slug, className }: { type: StatsType; slug:
     if (!isLoading && stats) {
       updateView({ type, slug, views: stats['views'] + 1 }).then(() => {})
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stats, isLoading])
+  }, [stats, isLoading, updateView, type, slug])
 
   return <span className={className}>{isLoading ? '---' : (stats['views'] || 0) + ' views'}</span>
 }

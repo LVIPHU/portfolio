@@ -9,7 +9,7 @@ import {
   useTransform,
   useAnimation,
 } from 'framer-motion'
-import { memo, useRef, useState, ReactNode } from 'react'
+import { memo, useRef, useState, ReactNode, useEffect, useLayoutEffect } from 'react'
 import { PanelBottomClose, PanelBottomOpen } from 'lucide-react'
 import { NavigationLink, Popover, PopoverContent, PopoverTrigger, Separator } from '@/components/atoms'
 import { usePathname } from 'next/navigation'
@@ -193,10 +193,17 @@ function IconContainer({ mouseX, title, icon, href, content, onClick }: IconProp
   const pathname = usePathname()
   const controls = useAnimation()
   const [hovered, setHovered] = useState(false)
+  const boundsRef = useRef({ x: 0, width: 0 })
+
+  useLayoutEffect(() => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect()
+      boundsRef.current = { x: rect.x, width: rect.width }
+    }
+  }, [])
 
   const distance = useTransform(mouseX, (val) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 }
-    return val - bounds.x - bounds.width / 2
+    return val - boundsRef.current.x - boundsRef.current.width / 2
   })
 
   const width = useSpring(useTransform(distance, DISTANCE_RANGE, SIZE_RANGE), SPRING_CONFIG)

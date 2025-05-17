@@ -88,7 +88,7 @@ type BoxCoreProps = {
   children?: React.ReactNode
 }
 
-export const Boxes = ({ children }: BoxCoreProps) => {
+export const Boxes = memo(function BoxCore({ children }: BoxCoreProps) {
   const { ref, angle, isDragging, onMouseDown } = useDragRotate()
   const grids = useMemo(() => Array.from({ length: TOTAL_GRID }, (_, i) => i), [])
   const [scaleValue, setScaleValue] = useState(0.6)
@@ -141,4 +141,4 @@ export const Boxes = ({ children }: BoxCoreProps) => {
       <div className='[WebkitMaskImage:radial-gradient(ellipse_at_center,transparent_50%,black)] pointer-events-none fixed inset-0 select-none backdrop-blur-sm [background:radial-gradient(ellipse_at_center,transparent_50%,var(-----background))] [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]' />
     </div>
   )
-}
+})

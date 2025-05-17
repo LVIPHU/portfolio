@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState, ReactNode, useEffect } from 'react'
+import { useRef, useState, ReactNode, useEffect, memo } from 'react'
 
 interface FadeContentProps {
   children: ReactNode
@@ -12,7 +12,7 @@ interface FadeContentProps {
   className?: string
 }
 
-export const FadeContent: React.FC<FadeContentProps> = ({
+export const FadeContent = memo(function FadeContent({
   children,
   blur = false,
   duration = 1000,
@@ -21,7 +21,7 @@ export const FadeContent: React.FC<FadeContentProps> = ({
   threshold = 0.1,
   initialOpacity = 0,
   className,
-}) => {
+}: FadeContentProps) {
   const [inView, setInView] = useState(false)
   const ref = useRef<HTMLDivElement | null>(null)
 
@@ -59,4 +59,4 @@ export const FadeContent: React.FC<FadeContentProps> = ({
       {children}
     </div>
   )
-}
+})
