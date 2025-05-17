@@ -1,46 +1,59 @@
 'use client'
 import { Boxes, FadeContent, Logo, VideoCard } from '@/components/atoms'
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 
 const DISTANCE_MOUSE = 160
 const DISTANCE_SCREEN = 50
 
+export type VideoKey = 'video_1' | 'video_2' | 'video_3' | 'video_4' | 'video_5'
+type VideoRefs = Record<VideoKey, React.RefObject<HTMLVideoElement | null>>
+
 export const HomeTemplate: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const videoRefs: Record<string, React.RefObject<HTMLVideoElement | null>> = {
-    video_1: useRef<HTMLVideoElement | null>(null),
-    video_2: useRef<HTMLVideoElement | null>(null),
-    video_3: useRef<HTMLVideoElement | null>(null),
-    video_4: useRef<HTMLVideoElement | null>(null),
-    video_5: useRef<HTMLVideoElement | null>(null),
-  }
+
+  const videoRefs = useRef<VideoRefs>({
+    video_1: React.createRef<HTMLVideoElement>(),
+    video_2: React.createRef<HTMLVideoElement>(),
+    video_3: React.createRef<HTMLVideoElement>(),
+    video_4: React.createRef<HTMLVideoElement>(),
+    video_5: React.createRef<HTMLVideoElement>(),
+  })
 
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [href, setHref] = useState('')
   const [cursorY, setCursorY] = useState(0)
 
-  const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>, href: string, name: string) => {
-    if (e.pointerType !== 'touch') {
-      setHref(href)
-    }
-    videoRefs[name].current?.play()
-  }
+  const handlePointerEnter = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>, href: string, name: VideoKey) => {
+      if (e.pointerType !== 'touch') {
+        setHref(href)
+      }
+      videoRefs.current[name]?.current?.play()
+    },
+    [videoRefs]
+  )
 
-  const handlePointerLeave = (name: string) => {
-    setHref('')
-    videoRefs[name].current?.pause()
-  }
+  const handlePointerLeave = useCallback(
+    (name: VideoKey) => {
+      setHref('')
+      videoRefs.current[name]?.current?.pause()
+    },
+    [videoRefs]
+  )
 
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return
+  const handlePointerMove = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      if (!containerRef.current) return
 
-    const rect = containerRef.current.getBoundingClientRect()
-    setCursorY(e.clientY)
-    setPosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    })
-  }
+      const rect = containerRef.current.getBoundingClientRect()
+      setCursorY(e.clientY)
+      setPosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      })
+    },
+    [containerRef]
+  )
 
   const distance = Math.min(DISTANCE_MOUSE, cursorY - DISTANCE_SCREEN)
 
@@ -53,7 +66,7 @@ export const HomeTemplate: React.FC = () => {
           name='video_1'
           gridColumn='10 / 14'
           gridRow='9 / 12'
-          videoRef={videoRefs.video_1}
+          ref={videoRefs.current.video_1}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerMove={handlePointerMove}
@@ -64,7 +77,7 @@ export const HomeTemplate: React.FC = () => {
           name='video_2'
           gridColumn='16 / 20'
           gridRow='10 / 13'
-          videoRef={videoRefs.video_2}
+          ref={videoRefs.current.video_2}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerMove={handlePointerMove}
@@ -75,7 +88,7 @@ export const HomeTemplate: React.FC = () => {
           name='video_3'
           gridColumn='19 / 24'
           gridRow='16 / 19'
-          videoRef={videoRefs.video_3}
+          ref={videoRefs.current.video_3}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerMove={handlePointerMove}
@@ -86,7 +99,7 @@ export const HomeTemplate: React.FC = () => {
           name='video_4'
           gridColumn='13 / 18'
           gridRow='19 / 22'
-          videoRef={videoRefs.video_4}
+          ref={videoRefs.current.video_4}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerMove={handlePointerMove}
@@ -97,7 +110,7 @@ export const HomeTemplate: React.FC = () => {
           name='video_5'
           gridColumn='12 / 7'
           gridRow='13 / 16'
-          videoRef={videoRefs.video_5}
+          ref={videoRefs.current.video_5}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerMove={handlePointerMove}
@@ -109,7 +122,7 @@ export const HomeTemplate: React.FC = () => {
             gridRow: '13 / 14',
           }}
         >
-          <FadeContent blur={true} duration={500}>
+          <FadeContent key='logo' blur={true} duration={500}>
             <Logo />
           </FadeContent>
         </div>

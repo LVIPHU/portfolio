@@ -3,11 +3,10 @@
 import type { Action } from 'kbar'
 import { KBarProvider } from 'kbar'
 import { useRouter } from 'next/navigation.js'
-import { useState, type ReactNode } from 'react'
+import { useState, type ReactNode, useEffect } from 'react'
 import type { CoreContent, MDXDocument } from '@/types/data'
 import { formatDate } from '@/utils'
 import { KBarModal } from './kbar-modal'
-import { useIsomorphicLayoutEffect } from '@/hooks'
 
 export interface KBarSearchProps {
   searchDocumentsPath: string | false
@@ -26,7 +25,7 @@ export function KBarSearchProvider({ configs, children }: { configs: KBarSearchP
   const [searchActions, setSearchActions] = useState<Action[]>([])
   const [dataLoaded, setDataLoaded] = useState(false)
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     function mapPosts(posts: CoreContent<MDXDocument>[]) {
       const actions: Action[] = []
       for (const post of posts) {

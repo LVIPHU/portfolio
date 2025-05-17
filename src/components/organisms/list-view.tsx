@@ -11,7 +11,7 @@ type ListViewProps = {
 export const ListView = (props: ListViewProps) => {
   const { posts } = props
   return (
-    <ul className='grid gap-y-6 md:gap-y-10'>
+    <ul className='grid gap-y-5 md:gap-y-10'>
       {posts && (
         <AnimatePresence>
           {posts.map((post, idx) => (

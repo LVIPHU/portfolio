@@ -12,7 +12,7 @@ export const GridView = (props: ListViewProps) => {
   const { posts } = props
 
   return (
-    <ul className='grid grid-cols-1 gap-x-8 gap-y-8 md:gap-y-16 lg:grid-cols-2 xl:grid-cols-3'>
+    <ul className='grid grid-cols-1 gap-5 md:gap-10 lg:grid-cols-2 xl:grid-cols-3'>
       {posts && (
         <AnimatePresence>
           {posts.map((post, idx) => (

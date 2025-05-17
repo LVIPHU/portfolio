@@ -1,7 +1,6 @@
 'use client'
-import React, { useRef, useState, ReactNode } from 'react'
+import React, { useRef, useState, ReactNode, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { useIsomorphicLayoutEffect } from '@/hooks'
 
 interface AnimatedContentProps {
   children: ReactNode
@@ -33,7 +32,7 @@ export const AnimatedContent: React.FC<AnimatedContentProps> = ({
   const ref = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

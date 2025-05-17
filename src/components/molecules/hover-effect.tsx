@@ -11,12 +11,15 @@ export const HoverEffect = ({ items, className }: { items: Project[]; className?
 
   return (
     <div
-      className={cn('group/container my-10 grid grid-cols-1 bg-background md:grid-cols-2 lg:grid-cols-3', className)}
+      className={cn(
+        'group/container grid grid-cols-1 gap-2 bg-background md:gap-5 lg:grid-cols-2 xl:grid-cols-3',
+        className
+      )}
     >
       {items.map((item, idx) => (
         <div
           key={item.title}
-          className='group/effect relative block h-full w-full p-2'
+          className='group/effect relative block h-full w-full p-1.5 md:p-2.5'
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
         >

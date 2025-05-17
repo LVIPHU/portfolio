@@ -107,8 +107,7 @@ export const Navbar = ({ lang }: Props) => {
         content: <Setting />,
       },
     ]
-    // eslint-disable-next-line
-  }, [lang])
+  }, [lang, query])
 
   return (
     <nav className={'fixed bottom-5 left-3 z-20 md:left-1/2 md:-translate-x-1/2'}>

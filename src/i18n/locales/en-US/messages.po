@@ -23,7 +23,7 @@ msgstr "{category}"
 msgid "About"
 msgstr "About"
 
-#: src/components/templates/blog.tsx:96
+#: src/components/templates/blog.tsx:105
 msgid "All posts"
 msgstr "All posts"
 
@@ -75,7 +75,7 @@ msgstr "Home"
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 
-#: src/components/templates/blog.tsx:97
+#: src/components/templates/blog.tsx:106
 msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 msgstr "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 
@@ -115,7 +115,7 @@ msgstr "Message"
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Mon-Fri from 8am to 5pm."
 
-#: src/components/templates/blog.tsx:127
+#: src/components/templates/blog.tsx:135
 msgid "no post found"
 msgstr "no post found"
 
