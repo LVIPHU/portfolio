@@ -23,7 +23,7 @@ msgstr "{category}"
 msgid "About"
 msgstr "Giới thiệu"
 
-#: src/components/templates/blog.tsx:96
+#: src/components/templates/blog.tsx:105
 msgid "All posts"
 msgstr "Tất cả bài viết"
 
@@ -75,7 +75,7 @@ msgstr "Trang chủ"
 msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
 msgstr "Tôi là Lương Vĩ Phú, một kỹ sư phần mềm. Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi."
 
-#: src/components/templates/blog.tsx:97
+#: src/components/templates/blog.tsx:106
 msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
 msgstr "Tôi thích viết về những gì tôi quan tâm. Bạn sẽ tìm thấy sự kết hợp giữa các bài viết về phát triển web, tin tức công nghệ và những suy nghĩ ngẫu nhiên từ cuộc sống của tôi. Sử dụng thanh tìm kiếm bên dưới để lọc theo tiêu đề."
 
@@ -115,7 +115,7 @@ msgstr "Lời nhắn"
 msgid "Mon-Fri from 8am to 5pm."
 msgstr "Từ thứ Hai đến thứ Sáu, từ 8 giờ sáng đến 5 giờ chiều."
 
-#: src/components/templates/blog.tsx:127
+#: src/components/templates/blog.tsx:135
 msgid "no post found"
 msgstr "không tìm thấy bài viết"
 
