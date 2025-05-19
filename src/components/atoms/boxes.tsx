@@ -22,11 +22,14 @@ const Cell = memo(function BoxCell({ id }: BoxCellProps) {
     setColor(getRandomColor())
   }, [isHovered])
 
-  const styles : CSSProperties & { '--transition': string } = {
+  const styles = useMemo<CSSProperties & { '--transition': string }>(
+    () => ({
       '--transition': isHovered ? `background 0s ease` : `background 2s ease`,
       backgroundColor: isHovered ? `var(--${color}-300)` : 'transparent',
       transition: 'opacity 250ms ease-out, var(--transition)',
-    }
+    }),
+    [isHovered, color]
+  )
 
   return (
     <div
@@ -44,6 +47,7 @@ const Cell = memo(function BoxCell({ id }: BoxCellProps) {
 })
 
 const Grid = memo(function BoxRow() {
+  const cells = useMemo(() => Array.from({ length: 4 }, (_, i) => i), [])
   const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -56,8 +60,6 @@ const Grid = memo(function BoxRow() {
     observer.observe(element)
     return () => observer.unobserve(element)
   }, [])
-
-  const cells = [1, 2, 3, 4]
 
   return (
     <div ref={ref} className='box-grid'>
@@ -88,9 +90,8 @@ type BoxCoreProps = {
 
 export const Boxes = memo(function BoxCore({ children }: BoxCoreProps) {
   const { ref, angle, isDragging, onMouseDown } = useDragRotate()
-  const [scaleValue, setScaleValue] = useState(0.6)
-
   const grids = useMemo(() => Array.from({ length: TOTAL_GRID }, (_, i) => i), [])
+  const [scaleValue, setScaleValue] = useState(0.6)
 
   useLayoutEffect(() => {
     const updateScale = () => {
