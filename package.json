@@ -10,7 +10,7 @@
     "dev": "next dev",
     "build": "cross-env INIT_CWD=$PWD next build && next build",
     "postbuild": "cross-env NODE_OPTIONS='--experimental-json-modules' tsx ./scripts/post-build.ts",
-    "deploy": "npm run db:generate && next build",
+    "deploy": "npm run db:generate && next build && cross-env NODE_OPTIONS='--experimental-json-modules' tsx ./scripts/post-build.ts",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "db:generate": "npx drizzle-kit generate ",
