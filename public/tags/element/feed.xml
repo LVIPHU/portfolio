@@ -1,0 +1,25 @@
+
+		<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+			<channel>
+				<title>Lương Vĩ Phú&#39;s dev blog - portfolio</title>
+				<link>http://localhost:3000/blog</link>
+				<description>I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.</description>
+				<language>vi-VN</language>
+				<managingEditor>undefined (undefined)</managingEditor>
+				<webMaster>undefined (undefined)</webMaster>
+				<lastBuildDate>Fri, 18 Dec 2015 00:00:00 GMT</lastBuildDate>
+				<atom:link href="http://localhost:3000/tags/element/feed.xml" rel="self" type="application/rss+xml"/>
+				
+		<item>
+			<guid>http://localhost:3000/blog/cac-component-element-va-instance-trong-react</guid>
+			<title>Các Component, Element và Instance trong React</title>
+			<link>http://localhost:3000/blog/cac-component-element-va-instance-trong-react</link>
+			<description>Sự khác biệt giữa component, instance và element khiến nhiều người mới học React cảm thấy bối rối. Tại sao lại có ba thuật ngữ khác nhau để chỉ một thứ xuất hiện trên màn hình?</description>
+			<pubDate>Fri, 18 Dec 2015 00:00:00 GMT</pubDate>
+			<author>undefined (undefined)</author>
+			<category>react</category><category>component</category><category>element</category><category>instance</category><category>vietnamese</category>
+		</item>
+	
+			</channel>
+		</rss>
+	

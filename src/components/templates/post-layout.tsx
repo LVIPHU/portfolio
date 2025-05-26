@@ -55,28 +55,7 @@ export function PostLayoutTemplate({ content, next, prev, children }: LayoutProp
           </div>
           <div className='hidden lg:col-span-4 lg:block xl:col-span-3'>
             <div className='space-y-4 divide-y divide-gray-200 dark:divide-gray-700 lg:sticky lg:top-24'>
-              {/* <BackToPosts label="Back to posts" /> */}
               <TableOfContents toc={toc} />
-              <div className='hidden'>
-                {/* <script src="//servedby.eleavers.com/ads/ads.php?t=MzA5NzQ7MjEwNjA7c3F1YXJlLnNxdWFyZV9ib3g=&index=1"></script> */}
-                {/* <script
-                  type="text/javascript"
-                  dangerouslySetInnerHTML={{
-                    __html: `
-                        atOptions = {
-                          'key' : '1a0dbe126a158e715cd3377a597850d8',
-                          'format' : 'iframe',
-                          'height' : 300,
-                          'width' : 160,
-                          'params' : {}
-                        };`,
-                  }}
-                />
-                <script
-                  type="text/javascript"
-                  src="//www.topcpmcreativeformat.com/1a0dbe126a158e715cd3377a597850d8/invoke.js"
-                /> */}
-              </div>
             </div>
           </div>
         </div>

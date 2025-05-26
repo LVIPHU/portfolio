@@ -95,7 +95,9 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
       name: author.name,
     }
   })
+
   const Layout = TEMPLATES[(post.layout as keyof typeof TEMPLATES) || DEFAULT_TEMPLATE]
+  console.log('post:', post)
 
   return (
     <>
