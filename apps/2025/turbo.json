@@ -3,6 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "env": ["DATABASE_URL", "GITHUB_API_TOKEN"],
       "outputs": [
         ".next/**", "!.next/cache/**",
         ".contentlayer/**",
