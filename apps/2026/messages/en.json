@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "resume": "Resume",
+    "gallery": "Gallery",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "footer": {
+    "builtWith": "Built with Next.js · Version 2026",
+    "rights": "All rights reserved."
+  },
+  "home": {
+    "greeting": "Hi, I'm",
+    "viewProjects": "View projects",
+    "contactMe": "Contact me",
+    "featuredProjects": "Featured projects",
+    "latestPosts": "Latest posts",
+    "viewAll": "View all"
+  },
+  "about": {
+    "title": "About",
+    "quickFacts": "Quick facts",
+    "location": "Location",
+    "email": "Email"
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Things I've built and am building.",
+    "demo": "Demo",
+    "source": "Source"
+  },
+  "resume": {
+    "title": "Resume",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "present": "Present",
+    "download": "Download PDF"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "description": "A few moments of mine — portraits and trips."
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Writing about code, tech and life.",
+    "readMore": "Read more",
+    "allTags": "All tags",
+    "backToBlog": "Back to Blog",
+    "postsTaggedWith": "Posts tagged"
+  },
+  "tags": {
+    "title": "Tags",
+    "description": "Topics covered on the blog.",
+    "postCount": "{count, plural, =1 {1 post} other {# posts}}"
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Want to collaborate, chat, or just say hi? Drop me a line.",
+    "emailMe": "Email me",
+    "findMeOn": "Find me on"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has moved.",
+    "backHome": "Back home"
+  },
+  "localeSwitcher": {
+    "label": "Language"
+  }
+}

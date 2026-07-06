@@ -1,0 +1,74 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "projects": "Dự án",
+    "resume": "Resume",
+    "gallery": "Ảnh",
+    "blog": "Blog",
+    "contact": "Liên hệ"
+  },
+  "footer": {
+    "builtWith": "Xây dựng bằng Next.js · Version 2026",
+    "rights": "Bảo lưu mọi quyền."
+  },
+  "home": {
+    "greeting": "Xin chào, mình là",
+    "viewProjects": "Xem dự án",
+    "contactMe": "Liên hệ với mình",
+    "featuredProjects": "Dự án nổi bật",
+    "latestPosts": "Bài viết mới",
+    "viewAll": "Xem tất cả"
+  },
+  "about": {
+    "title": "Giới thiệu",
+    "quickFacts": "Thông tin nhanh",
+    "location": "Nơi ở",
+    "email": "Email"
+  },
+  "projects": {
+    "title": "Dự án",
+    "description": "Những thứ mình đã và đang xây dựng.",
+    "demo": "Demo",
+    "source": "Mã nguồn"
+  },
+  "resume": {
+    "title": "Resume",
+    "experience": "Kinh nghiệm",
+    "education": "Học vấn",
+    "skills": "Kỹ năng",
+    "present": "Hiện tại",
+    "download": "Tải PDF"
+  },
+  "gallery": {
+    "title": "Ảnh",
+    "description": "Vài khoảnh khắc của mình — chân dung và những chuyến đi."
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Chia sẻ về code, công nghệ và cuộc sống.",
+    "readMore": "Đọc tiếp",
+    "allTags": "Tất cả tag",
+    "backToBlog": "Quay lại Blog",
+    "postsTaggedWith": "Bài viết có tag"
+  },
+  "tags": {
+    "title": "Tag",
+    "description": "Chủ đề các bài viết trên blog.",
+    "postCount": "{count, plural, =1 {1 bài viết} other {# bài viết}}"
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "description": "Muốn hợp tác, trao đổi hay chỉ đơn giản là chào một câu? Cứ nhắn cho mình.",
+    "emailMe": "Gửi email",
+    "findMeOn": "Tìm mình trên"
+  },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "description": "Trang bạn tìm không tồn tại hoặc đã bị chuyển đi.",
+    "backHome": "Về trang chủ"
+  },
+  "localeSwitcher": {
+    "label": "Ngôn ngữ"
+  }
+}

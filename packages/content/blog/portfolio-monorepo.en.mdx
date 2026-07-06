@@ -1,0 +1,31 @@
+---
+title: "Building my portfolio as a monorepo"
+description: "Why I chose a monorepo for my portfolio: multiple versions running side by side with a single source of content."
+date: "2026-07-06"
+tags: ["nextjs", "monorepo"]
+---
+
+A portfolio is something I'll rebuild again and again — a new design and a new stack every year. But one thing never changes: **the content**. Name, bio, project list, resume, photos, blog posts... re-entering all of that on every rebuild is a waste.
+
+## The solution: separate content from UI
+
+This site's monorepo structure:
+
+```
+portfolio/
+├── apps/
+│   └── 2026/          # the 2026 design
+└── packages/
+    └── content/       # content — shared by every version
+```
+
+When I build the 2027 version, I just create `apps/2027` and import `@portfolio/content`. Old versions keep running on their own subdomains, and since content is a shared package, one edit updates every version.
+
+## Tooling
+
+- **pnpm workspaces** — link internal packages
+- **Turborepo** — only rebuild apps that changed
+- **Next.js + next-intl** — vi/en localization
+- **MDX** — blog posts live right in the repo
+
+If you also get the itch to rebuild your portfolio every year, give this a try!

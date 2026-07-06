@@ -1,0 +1,31 @@
+---
+title: "Xây dựng portfolio bằng monorepo"
+description: "Vì sao mình chọn monorepo cho portfolio: giữ nhiều version chạy song song mà chỉ cần một nguồn nội dung."
+date: "2026-07-06"
+tags: ["nextjs", "monorepo"]
+---
+
+Portfolio là thứ mình sẽ làm đi làm lại nhiều lần — mỗi năm một giao diện mới, một stack mới. Nhưng có một thứ không đổi: **nội dung**. Tên, bio, danh sách project, resume, ảnh, bài blog... nhập lại mỗi lần rebuild thì quá phí.
+
+## Giải pháp: tách nội dung khỏi giao diện
+
+Cấu trúc monorepo của trang này:
+
+```
+portfolio/
+├── apps/
+│   └── 2026/          # giao diện version 2026
+└── packages/
+    └── content/       # nội dung — dùng chung mọi version
+```
+
+Khi làm version 2027, mình chỉ cần tạo `apps/2027` và import `@portfolio/content`. Version cũ vẫn chạy ở subdomain riêng, và vì nội dung là package chung, sửa một chỗ là mọi version đều cập nhật.
+
+## Công cụ
+
+- **pnpm workspaces** — link các package nội bộ
+- **Turborepo** — chỉ build lại app có thay đổi
+- **Next.js + next-intl** — song ngữ vi/en
+- **MDX** — viết blog ngay trong repo
+
+Nếu bạn cũng hay "ngứa tay" làm lại portfolio, thử cách này xem!

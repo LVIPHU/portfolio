@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#065f46"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#g4)"/>
+  <path d="M400 180 L520 420 H280 Z" fill="#ffffff" opacity="0.3"/>
+  <path d="M400 320 L560 620 H240 Z" fill="#ffffff" opacity="0.25"/>
+  <rect x="380" y="620" width="40" height="120" fill="#ffffff" opacity="0.35"/>
+  <text x="400" y="880" text-anchor="middle" font-family="sans-serif" font-size="34" fill="#ffffff" opacity="0.85">Nature placeholder</text>
+</svg>

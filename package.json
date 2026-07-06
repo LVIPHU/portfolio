@@ -1,0 +1,17 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "packageManager": "pnpm@11.10.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "typecheck": "turbo typecheck",
+    "dev:2026": "turbo dev --filter=web-2026"
+  },
+  "devDependencies": {
+    "turbo": "^2.10.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
