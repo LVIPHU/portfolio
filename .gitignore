@@ -11,6 +11,9 @@ dist/
 # assets được sync tự động từ packages/content/assets
 apps/*/public/content/
 
+# vercel
+.vercel/
+
 # misc
 .DS_Store
 *.tsbuildinfo
@@ -20,3 +23,5 @@ apps/*/public/content/
 .env
 .env.*
 !.env.example
+
+.vercel
