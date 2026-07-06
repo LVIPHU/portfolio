@@ -7,6 +7,7 @@ Monorepo chứa các version portfolio theo thời gian. Mỗi version là một
 ```
 portfolio/
 ├── apps/
+│   ├── 2025/              # Version 2025 — Next.js 15 + Contentlayer2 + Lingui (6 locale), content riêng trong data/
 │   └── 2026/              # Version 2026 — Next.js 16 + Tailwind v4, song ngữ vi/en
 ├── packages/
 │   └── content/           # Nội dung dùng chung giữa mọi version
@@ -25,8 +26,11 @@ Yêu cầu: Node >= 20, pnpm >= 9 (`npm install -g pnpm` hoặc `corepack enable
 pnpm install
 pnpm dev          # chạy tất cả apps
 pnpm dev:2026     # chỉ chạy version 2026 → http://localhost:3000
+pnpm dev:2025     # chỉ chạy version 2025 → http://localhost:3001 (cần apps/2025/.env.local)
 pnpm build        # build tất cả (Turborepo chỉ build app có thay đổi)
 ```
+
+Lưu ý Windows: chạy dev/build từ PowerShell hoặc cmd (Git Bash làm Contentlayer của app 2025 trỏ sai thư mục config do biến `PWD`).
 
 ## Cập nhật nội dung
 

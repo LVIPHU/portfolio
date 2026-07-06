@@ -6,6 +6,7 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "typecheck": "turbo typecheck",
+    "dev:2025": "turbo dev --filter=web-2025",
     "dev:2026": "turbo dev --filter=web-2026"
   },
   "devDependencies": {

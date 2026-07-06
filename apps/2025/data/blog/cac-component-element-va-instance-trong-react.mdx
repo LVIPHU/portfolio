@@ -1,0 +1,439 @@
+---
+title: 'Các Component, Element và Instance trong React'
+date: '2015-12-18'
+lastmod: '2025-05-10'
+tags: ['react', 'component', 'element', 'instance', 'vietnamese']
+summary: 'Sự khác biệt giữa component, instance và element khiến nhiều người mới học React cảm thấy bối rối. Tại sao lại có ba thuật ngữ khác nhau để chỉ một thứ xuất hiện trên màn hình?'
+images: ['/static/images/banners/brown-and-gray-concrete-building__claybanks__jZlTskDjTlw.jpg']
+authors:
+  - danabramov
+---
+
+## Quản Lý Các Instance
+
+Nếu bạn mới làm quen với React, có lẽ bạn chỉ làm việc với các component class và các instance của chúng.
+Ví dụ, bạn có thể khai báo một `component Button` bằng cách tạo một class.
+Trong khi ứng dụng chạy, có thể có nhiều instance của component này xuất hiện trên màn hình, mỗi cái có thuộc tính và trạng thái cục bộ riêng.
+Đây là cách lập trình UI hướng đối tượng truyền thống.
+
+Vậy tại sao lại cần thêm khái niệm element?
+
+Trong mô hình UI truyền thống, bạn phải tự chịu trách nhiệm tạo và hủy các instance của component con.
+Nếu một `component Form` muốn render một `component Button`, nó cần tạo instance của Button và tự cập nhật nó theo bất kỳ thông tin mới nào.
+
+```js
+class Form extends TraditionalObjectOrientedView {
+  render() {
+    // Read some data passed to the view
+    const { isSubmitted, buttonText } = this.attrs
+
+    if (!isSubmitted && !this.button) {
+      // Form is not yet submitted. Create the button!
+      this.button = new Button({
+        children: buttonText,
+        color: 'blue',
+      })
+      this.el.appendChild(this.button.el)
+    }
+
+    if (this.button) {
+      // The button is visible. Update its text!
+      this.button.attrs.children = buttonText
+      this.button.render()
+    }
+
+    if (isSubmitted && this.button) {
+      // Form was submitted. Destroy the button!
+      this.el.removeChild(this.button.el)
+      this.button.destroy()
+    }
+
+    if (isSubmitted && !this.message) {
+      // Form was submitted. Show the success message!
+      this.message = new Message({ text: 'Success!' })
+      this.el.appendChild(this.message.el)
+    }
+  }
+}
+```
+
+Đây là mã giả (pseudocode), nhưng về cơ bản, đây chính là thứ mà bạn tạo ra khi viết mã UI phức hợp (composite UI) theo các hướng đối tượng một cách nhất quán, sử dụng thư viện như Backbone.
+Mỗi instance của component phải gữ tham chiếu đến DOM node của nó và đến các instance của các component con, đồng thời phải tự tạo, cập nhật và hủy chúng vào thời điểm thích hợp.
+Số dòng mã tăng theo cấp số mũ (bình phương) so với số trạng thái có thể có của component.
+Ngoài ra, các component cha có quyền truy cập trực tiếp vào các instance của component con, khiến việc tách rời (decouple) chúng trong tương lai trở nên khó khăn.
+
+Vậy React khác biệt điểm nào?
+
+## Element Mô Tả Cây UI
+
+Trong React, đây chính là lúc element phát huy vai trò của mình. **Môt element là một đối tượng thuần túy (plain object) dùng để mô tả một instance của component hoặc một DOM node cùng với các thuộc tính mong muốn.**
+Nó chỉ chứa thông tin về loại component (ví dụ: `Button`), các thuộc tính (ví dụ: `color`), và bất kỳ element con nào bên trong nó.
+
+Element không phải là một instance thực sự.
+Thay vào đó, nó là cách để bạn nói với React rằng bạn muốn thấy gì trên màn hình.
+Bạn không thể gọi bất kì phương thức nào trên element.
+Nó chỉ là một đối tượng mô tả bất biến (immutable) cới 2 trường: `type: (string | ReactClass) và props: Object`.
+
+### DOM Elements
+
+Khi `type` của một element là string, nó biểu thị một DOM node với thẻ tên tương ứng, và `props` chính là các thuộc tính (attributes) của thẻ đó.
+Đây chính là phần mà React sẽ render ra giao diện.
+Ví dụ:
+
+```js
+{
+  type: 'button',
+  props: {
+    className: 'button button-blue',
+    children: {
+      type: 'b',
+      props: {
+        children: 'OK!'
+      }
+    }
+  }
+}
+```
+
+Element này chỉ đơn giản là một cách để biểu diễn đoạn HTML sau dưới dạng một đối tượng thuần (plain object):
+
+```html
+<button class="button button-blue">
+  <b> OK! </b>
+</button>
+```
+
+Lưu ý rằng các element có thể được lồng nhau.
+Theo quy ước, khi muốn tạo một element tree, ta chỉ định một hoặc nhiều phần tử con bằng cách truyền chúng vào prop children của phần tử cha.
+
+Điều quan trọng là cả phần tử cha và phần tử con đều chỉ là các mô tả chứ không phải là các instance thật.
+Chúng không tham chiếu đến bất kỳ thứ gì trên màn hình tại thời điểm bạn tạo ra chúng.
+Bạn có thể tạo rồi bỏ chúng đi, cũng không ảnh hưởng gì cả.
+
+React elements rất dễ duyệt, không cần phải phân tích cú pháp (parse), và tất nhiên chúng nhẹ hơn nhiều so với các phần tử DOM thực — vì chúng chỉ là các object!
+
+### Component Elements
+
+Tuy nhiên, type của một phần tử cũng có thể là một hàm hoặc lớp (class) tương ứng với một React component:
+
+```js
+{
+  type: Button,
+  props: {
+    color: 'blue',
+    children: 'OK!'
+  }
+}
+```
+
+Đây chính là ý tưởng cốt lõi của React.
+
+**Một phần tử mô tả một component cũng là một phần tử, giống như một phần tử mô tả một DOM node. Chúng có thể được lồng vào nhau và trộn lẫn với nhau.**
+
+Tính năng này cho phép bạn định nghĩa một component `DangerButton` như là một `Button` với giá trị `color` cụ thể, mà không cần quan tâm `Button` sẽ render thành một thẻ `<button>`, một `<div>`, hay thứ gì khác:
+
+```js
+const DangerButton = ({ children }) => ({
+  type: Button,
+  props: {
+    color: 'red',
+    children: children,
+  },
+})
+```
+
+Bạn có thể kết hợp và trộn lẫn các phần tử DOM và phần tử component trong cùng một cây phần tử:
+
+```js
+const DeleteAccount = () => ({
+  type: 'div',
+  props: {
+    children: [
+      {
+        type: 'p',
+        props: {
+          children: 'Are you sure?',
+        },
+      },
+      {
+        type: DangerButton,
+        props: {
+          children: 'Yep',
+        },
+      },
+      {
+        type: Button,
+        props: {
+          color: 'blue',
+          children: 'Cancel',
+        },
+      },
+    ],
+  },
+})
+```
+
+Hoặc nếu bạn thích cú pháp JSX:
+
+```jsx
+const DeleteAccount = () => (
+  <div>
+    <p>Are you sure?</p>
+    <DangerButton>Yep</DangerButton>
+    <Button color='blue'>Cancel</Button>
+  </div>
+)
+```
+
+Việc kết hợp như vậy giúp các component không phụ thuộc lẫn nhau (decoupled), vì chúng có thể thể hiện mối quan hệ kiểu “là một” (is-a) và “chứa một” (has-a) thông qua composition:
+
+- `Button` là một DOM `<button>` với một số thuộc tính nhất định.
+- `DangerButton` là một `Button` với các thuộc tính cụ thể.
+- `DeleteAccount` chứa một `Button` và một `DangerButton` bên trong một thẻ `<div>`.
+
+### Component Encapsulate Element Trees
+
+Khi React thấy một element có `type` là function hoặc class, nó sẽ gọi component đó để hỏi xem với các `props` tương ứng thì nó sẽ render ra element nào.
+
+Khi React thấy phần tử sau:
+
+```js
+{
+  type: Button,
+  props: {
+    color: 'blue',
+    children: 'OK!'
+  }
+}
+```
+
+React sẽ gọi `Button` để hỏi nó render ra gì. `Button` sẽ trả về phần tử sau:
+
+```js
+{
+  type: 'button',
+  props: {
+    className: 'button button-blue',
+    children: {
+      type: 'b',
+      props: {
+        children: 'OK!'
+      }
+    }
+  }
+}
+```
+
+React sẽ lặp lại quá trình này cho đến khi nó biết được toàn bộ các thẻ DOM thực sự nằm dưới mọi component trên trang.
+
+👉 React giống như một đứa trẻ hay hỏi “Y là gì?” cho mỗi “X là Y” bạn nói với nó, cho đến khi nó hiểu mọi thứ trên đời
+
+📌 Bạn có nhớ ví dụ về Form ở trên không? Ta có thể viết lại trong React như sau:
+
+```js
+const Form = ({ isSubmitted, buttonText }) => {
+  if (isSubmitted) {
+    // Form đã được submit! Trả về phần tử Message.
+    return {
+      type: Message,
+      props: {
+        text: 'Success!',
+      },
+    }
+  }
+
+  // Form vẫn đang hiển thị! Trả về phần tử Button.
+  return {
+    type: Button,
+    props: {
+      children: buttonText,
+      color: 'blue',
+    },
+  }
+}
+```
+
+Vậy là xong! Đối với một component React, props là đầu vào, và element tree là đầu ra.
+
+**Cây phần tử được trả về có thể chứa cả các element mô tả DOM nodes, lẫn các element mô tả các component khác.
+Điều này cho phép bạn kết hợp (compose) các phần giao diện độc lập với nhau, mà không cần phụ thuộc vào cấu trúc DOM bên trong của chúng.**
+
+Chúng ta để React tự tạo, cập nhật và huỷ bỏ các instance.
+Chúng ta chỉ việc mô tả chúng thông qua các element được return từ component,
+và React sẽ lo toàn bộ phần quản lý vòng đời của các instance.
+
+### Component Có Thể Là Class Hoặc Function
+
+Trong đoạn mã trên, `Form`, `Message`, và `Button` đều là component của React.
+Chúng có thể được viết dưới dạng function (như ví dụ trên), hoặc class kế thừa từ `React.Component`.
+Có ba cách phổ biến để khai báo một component, và chúng về cơ bản là tương đương nhau:
+
+```js
+// 1) As a function of props
+const Button = ({ children, color }) => ({
+  type: 'button',
+  props: {
+    className: 'button button-' + color,
+    children: {
+      type: 'b',
+      props: {
+        children: children,
+      },
+    },
+  },
+})
+
+// 2) Using the React.createClass() factory
+const Button = React.createClass({
+  render() {
+    const { children, color } = this.props
+    return {
+      type: 'button',
+      props: {
+        className: 'button button-' + color,
+        children: {
+          type: 'b',
+          props: {
+            children: children,
+          },
+        },
+      },
+    }
+  },
+})
+
+// 3) As an ES6 class descending from React.Component
+class Button extends React.Component {
+  render() {
+    const { children, color } = this.props
+    return {
+      type: 'button',
+      props: {
+        className: 'button button-' + color,
+        children: {
+          type: 'b',
+          props: {
+            children: children,
+          },
+        },
+      },
+    }
+  }
+}
+```
+
+Khi một component được định nghĩa dưới dạng class, nó mạnh hơn một chút so với function component:
+
+- Nó có thể lưu trữ state cục bộ
+- Có thể thực thi logic tùy chỉnh khi DOM node tương ứng được tạo hoặc bị huỷ
+
+Ngược lại, function component ít mạnh hơn nhưng đơn giản hơn.
+Nó hoạt động giống như một class component chỉ có duy nhất một phương thức render().
+
+👉 Trừ khi bạn cần những tính năng chỉ có ở class, chúng tôi khuyến khích bạn nên sử dụng function component.
+
+**Tuy nhiên, dù là function hay class, về bản chất chúng đều là component trong mắt React.
+Chúng nhận props làm đầu vào và trả về element làm đầu ra.**
+
+### Đối Chiếu Từ Trên Xuống
+
+Khi bạn gọi:
+
+```js
+ReactDOM.render(
+  {
+    type: Form,
+    props: {
+      isSubmitted: false,
+      buttonText: 'OK!',
+    },
+  },
+  document.getElementById('root')
+)
+```
+
+React sẽ hỏi component `Form` rằng nó trả về element tree nào, dựa trên `props` được cung cấp.
+Sau đó, React sẽ dần dần "tinh chỉnh" (refine) sự hiểu biết của nó về cây component của bạn dưới dạng các primitive đơn giản hơn:
+
+```js
+// React: Bạn nói với tôi điều này...
+{
+  type: Form,
+  props: {
+    isSubmitted: false,
+    buttonText: 'OK!'
+  }
+}
+
+// React: ... Và Form nói với tôi thế này...
+{
+  type: Button,
+  props: {
+    children: 'OK!',
+    color: 'blue'
+  }
+}
+
+// React: ... và Button lại nói với tôi điều này! Vậy là xong rồi.
+{
+  type: 'button',
+  props: {
+    className: 'button button-blue',
+    children: {
+      type: 'b',
+      props: {
+        children: 'OK!'
+      }
+    }
+  }
+}
+```
+
+Đây chính là một phần của quá trình mà React gọi là ["reconciliation" (đối chiếu)](https://legacy.reactjs.org/docs/reconciliation.html), nó bắt đầu khi bạn gọi [ReactDOM.render()](https://legacy.reactjs.org/docs/react-api.html) hoặc [setState()](https://legacy.reactjs.org/docs/react-component.html).
+Kết thúc quá trình reconciliation, React sẽ biết chính xác DOM tree cuối cùng trông như thế nào, và một renderer như `react-dom` hoặc `react-native` sẽ áp dụng tập thay đổi tối thiểu cần thiết để cập nhật các DOM node (hoặc view tương ứng trên nền tảng React Native).
+
+Quá trình tinh chỉnh dần dần này giải thích tại sao các ứng dụng React lại dễ tối ưu hóa.
+Nếu một phần của cây component quá lớn khiến React xử lý không hiệu quả, bạn có thể chỉ định để React [bỏ qua việc so sánh và đối chiếu lại phần đó, nếu props liên quan không thay đổi](https://legacy.reactjs.org/docs/optimizing-performance.html).
+Việc kiểm tra props có thay đổi không sẽ rất nhanh nếu props là immutable.
+Vì vậy, React và tính bất biến (immutability) phối hợp rất tốt, mang lại hiệu năng tối ưu mà không cần nỗ lực lớn.
+
+Bạn có thể nhận ra bài viết này nói rất nhiều về components và elements, nhưng gần như không đề cập tới instances.
+Sự thật là instance ít quan trọng hơn nhiều trong React so với các framework UI hướng đối tượng truyền thống.
+
+- Chỉ các component khai báo dưới dạng class mới có instance.
+- Và bạn không bao giờ tự tạo instance — React lo phần đó cho bạn.
+
+Việc [một parent muốn truy cập instance của child](https://legacy.reactjs.org/docs/refs-and-the-dom.html) là vẫn có thể, nhưng chỉ nên dùng trong các hành vi bắt buộc (imperative) như focus vào input field, và nên tránh trong phần lớn các trường hợp.
+
+React tự động tạo instance cho mỗi class component, nên bạn có thể viết code theo phong cách hướng đối tượng, với các phương thức và state cục bộ. Nhưng ngoài mục đích đó, instance không phải là phần trọng tâm trong mô hình lập trình của React và được React quản lý hoàn toàn.
+
+## Tóm Lại
+
+Element là một đối tượng JavaScript thuần (plain object) mô tả bạn muốn hiển thị cái gì trên màn hình, dưới dạng các DOM node hoặc các component khác.
+Các element có thể chứa những element khác trong props.
+Việc tạo một React element là rẻ (tốn ít tài nguyên), và một khi đã tạo thì nó không bao giờ bị thay đổi (immutable).
+
+Component có thể được khai báo theo nhiều cách khác nhau:
+Bằng class có phương thức `render()`.
+Hoặc đơn giản hơn, bằng một function.
+Dù theo cách nào, component nhận props làm đầu vào và trả về một element tree làm đầu ra.
+
+Khi một component nhận được props, điều đó là vì component cha của nó đã trả về một element có `type` là component này và chứa các props tương ứng.
+Đó là lý do tại sao người ta nói: props trong React luôn chảy một chiều — từ cha xuống con.
+
+Instance là đối tượng mà bạn truy cập thông qua this bên trong component viết bằng class.
+Nó hữu ích cho [việc lưu trữ local state và xử lý các lifecycle events](https://legacy.reactjs.org/docs/react-component.html).
+
+Function component không có instance.
+Class component có instance, nhưng bạn không cần tự tạo — React sẽ làm điều đó.
+
+Cuối cùng, để tạo element:
+
+- Hãy dùng [React.createElement()](https://legacy.reactjs.org/docs/react-api.html), [JSX](https://legacy.reactjs.org/docs/jsx-in-depth.html), hoặc các [helper tạo element](https://legacy.reactjs.org/docs/react-api.html).
+- Không nên tự viết element dưới dạng plain object trong code thực tế — bạn chỉ cần hiểu rằng về bản chất, chúng là object thuần.
+
+## Đọc Thêm
+
+- [Introducing React Elements](https://legacy.reactjs.org/blog/2014/10/14/introducing-react-elements.html)
+- [Streamlining React Elements](https://legacy.reactjs.org/blog/2015/02/24/streamlining-react-elements.html)
+- [React (Virtual) DOM Terminology](https://legacy.reactjs.org/docs/glossary.html)

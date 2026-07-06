@@ -1,0 +1,278 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-11-26 15:49+0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: zh-CN\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/components/organisms/technologies.tsx:103
+msgid "{category}"
+msgstr "{category}"
+
+#: src/app/[lang]/(page)/about/page.tsx:9
+#: src/components/organisms/navbar.tsx:67
+#: src/components/templates/about.tsx:41
+msgid "About"
+msgstr "关于"
+
+#: src/components/templates/blog.tsx:105
+msgid "All posts"
+msgstr "所有文章"
+
+#: src/app/[lang]/(page)/blog/page.tsx:13
+#: src/components/organisms/navbar.tsx:43
+msgid "Blog"
+msgstr "博客"
+
+#: src/app/[lang]/@modal/(.)contact/page.tsx:11
+msgid "Chat with me"
+msgstr "与我聊天"
+
+#: src/app/[lang]/(page)/contact/page.tsx:9
+#: src/components/organisms/navbar.tsx:92
+#: src/components/templates/contact.tsx:15
+msgid "Contact"
+msgstr "联系"
+
+#: src/components/organisms/technologies.tsx:141
+msgid "Currently Learning"
+msgstr "学习中"
+
+#: src/components/templates/about.tsx:100
+msgid "Currently, I am working for <0>PVS Solution</0> in Vietnam. I focus on creating excellent user experiences by using modern frontend architecture. Whether it's writing code or collaborating with cross-functional teams, I always ensure products meet the highest standards and deliver impressive experiences for users."
+msgstr "目前，我在越南的<0>PVS Solution</0>工作。我专注于通过使用现代前端架构来创造出色的用户体验。无论是编写代码还是与跨职能团队协作，我总是确保产品达到最高标准，并为用户提供令人印象深刻的体验。"
+
+#: src/components/organisms/experience.tsx:74
+msgid "Experience"
+msgstr "经验"
+
+#: src/components/molecules/contact-form.tsx:12
+#: src/components/molecules/contact-form.tsx:13
+msgid "First name"
+msgstr "名"
+
+#: src/components/molecules/previous-page.tsx:16
+msgid "Go back"
+msgstr "返回"
+
+#: src/components/templates/blog.tsx:121
+#: src/components/templates/tag.tsx:37
+msgid "Grid"
+msgstr "网格"
+
+#. placeholder {0}: String.fromCodePoint(0x1f44b)
+#: src/components/templates/about.tsx:88
+msgid "Hello! {0}"
+msgstr "你好！{0}"
+
+#: src/components/templates/contact.tsx:64
+msgid "Hire me"
+msgstr "雇用我"
+
+#: src/components/organisms/navbar.tsx:36
+msgid "Home"
+msgstr "首页"
+
+#. placeholder {0}: SITE_METADATA.author
+#. placeholder {1}: String.fromCodePoint(0x1f4bb)
+#. placeholder {2}: String.fromCodePoint(0x1f393)
+#: src/components/templates/about.tsx:91
+msgid "I am {0}, a Software Engineer {1} from Vietnam, with a passion for programming and web development, I enjoy creating innovative solutions that enhance performance and efficiency. My technology journey includes building e-commerce websites, data management, and advanced full-stack solutions. Educationally, I hold a Bachelor's degree {2} in Information Technology."
+msgstr "我是{0}，来自越南的软件工程师{1}，对编程和Web开发充满热情，我喜欢创建能够提高性能和效率的创新解决方案。我的技术之旅包括构建电子商务网站、数据管理和先进的全栈解决方案。在教育方面，我拥有信息技术的学士学位{2}。"
+
+#: src/app/[lang]/layout.tsx:47
+msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
+msgstr "我是Lương Vĩ Phú，一名软件工程师。如果您有任何问题，请随时与我联系。感谢您访问我的网站。"
+
+#: src/components/templates/blog.tsx:106
+msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
+msgstr "我喜欢写我感兴趣的东西。您会发现Web开发文章、科技新闻以及我生活中的随机想法的混合。使用下面的搜索按标题过滤。"
+
+#: src/components/templates/contact.tsx:26
+#: src/components/templates/contact.tsx:52
+msgid "I will always be ready to support you."
+msgstr "我将随时准备支持您。"
+
+#: src/app/[lang]/@modal/(.)contact/page.tsx:12
+#: src/components/templates/contact.tsx:16
+msgid "I'd love to hear from you. Please fill out this form or send me an email."
+msgstr "我很想收到您的来信。请填写此表格或给我发送电子邮件。"
+
+#: src/components/templates/not-found.tsx:17
+msgid "It seems like the page you're looking for doesn't exist! Please go back!"
+msgstr "您要查找的页面似乎不存在！请返回！"
+
+#: src/components/molecules/project-card.tsx:79
+#: src/components/molecules/setting.tsx:17
+msgid "Language"
+msgstr "语言"
+
+#: src/components/molecules/contact-form.tsx:16
+#: src/components/molecules/contact-form.tsx:17
+msgid "Last name"
+msgstr "姓"
+
+#: src/components/templates/blog.tsx:127
+#: src/components/templates/tag.tsx:43
+msgid "List"
+msgstr "列表"
+
+#: src/app/[lang]/layout.tsx:45
+msgid "Lương Vĩ Phú's dev blog - portfolio"
+msgstr "Lương Vĩ Phú的开发博客 - 作品集"
+
+#: src/components/molecules/contact-form.tsx:28
+#: src/components/molecules/contact-form.tsx:29
+msgid "Message"
+msgstr "消息"
+
+#: src/components/templates/contact.tsx:40
+msgid "Mon-Fri from 8am to 5pm."
+msgstr "周一至周五，上午8点至下午5点。"
+
+#: src/components/templates/blog.tsx:139
+msgid "no post found"
+msgstr "未找到文章"
+
+#: src/components/organisms/search/kbar-modal.tsx:107
+msgid "No results for your search..."
+msgstr "没有搜索结果..."
+
+#: src/components/templates/not-found.tsx:23
+msgid "not found"
+msgstr "未找到"
+
+#: src/components/templates/not-found.tsx:16
+msgid "Oop!"
+msgstr "哎呀！"
+
+#: src/components/templates/contact.tsx:37
+msgid "Phone"
+msgstr "电话"
+
+#: src/components/molecules/contact-form.tsx:24
+#: src/components/molecules/contact-form.tsx:25
+msgid "Phone Number"
+msgstr "电话号码"
+
+#: src/app/[lang]/(page)/photos/page.tsx:9
+#: src/components/organisms/navbar.tsx:61
+#: src/components/templates/photos.tsx:235
+#: src/components/templates/photos.tsx:235
+msgid "Photos"
+msgstr "照片"
+
+#: src/components/atoms/timeline.tsx:99
+msgid "Present"
+msgstr "现在"
+
+#: src/app/[lang]/(page)/projects/page.tsx:9
+#: src/components/organisms/navbar.tsx:55
+#: src/components/templates/projects.tsx:15
+msgid "Projects"
+msgstr "项目"
+
+#: src/components/organisms/navbar.tsx:73
+#: src/components/templates/about.tsx:61
+msgid "Resume"
+msgstr "简历"
+
+#: src/components/organisms/navbar.tsx:99
+msgid "Search"
+msgstr "搜索"
+
+#: src/components/templates/blog.tsx:114
+msgid "Search articles"
+msgstr "搜索文章"
+
+#: src/components/molecules/locale-switch.tsx:39
+msgid "Select a timezone"
+msgstr "选择时区"
+
+#: src/components/molecules/setting.tsx:11
+#: src/components/organisms/navbar.tsx:105
+msgid "Setting"
+msgstr "设置"
+
+#: src/components/templates/projects.tsx:24
+msgid "Side projects"
+msgstr "个人项目"
+
+#: src/components/templates/about.tsx:55
+msgid "Software Engineer"
+msgstr "软件工程师"
+
+#: src/components/templates/about.tsx:42
+msgid "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
+msgstr "关于我自己以及我编码然后在六个月后让事情变得更难的习惯的一些有趣的事情。"
+
+#: src/components/templates/projects.tsx:15
+msgid "Some things I've done"
+msgstr "我做过的一些事情"
+
+#: src/components/molecules/project-card.tsx:45
+msgid "Stack"
+msgstr "技术栈"
+
+#: src/components/templates/contact.tsx:55
+msgid "Start new chat"
+msgstr "开始新聊天"
+
+#: src/components/molecules/contact-form.tsx:33
+msgid "Submit"
+msgstr "提交"
+
+#: src/app/[lang]/(page)/tags/page.tsx:11
+#: src/components/organisms/navbar.tsx:49
+msgid "Tags"
+msgstr "标签"
+
+#: src/components/organisms/technologies.tsx:79
+msgid "Technologies I've worked with"
+msgstr "我使用过的技术"
+
+#: src/components/organisms/experience.tsx:35
+msgid "Technologies used"
+msgstr "使用的技术"
+
+#: src/components/molecules/setting.tsx:25
+msgid "Theme"
+msgstr "主题"
+
+#: src/components/organisms/technologies.tsx:107
+msgid "These are my most used technologies."
+msgstr "这些是我最常用的技术。"
+
+#: src/app/[lang]/(page)/tags/page.tsx:12
+msgid "Things I blog about"
+msgstr "我博客的内容"
+
+#: src/components/molecules/project-card.tsx:69
+msgid "View Code"
+msgstr "查看代码"
+
+#: src/components/molecules/project-card.tsx:61
+msgid "Website"
+msgstr "网站"
+
+#. placeholder {0}: String.fromCodePoint(0x1f3a7)
+#. placeholder {1}: String.fromCodePoint(0x1f3ae)
+#: src/components/templates/about.tsx:111
+msgid "When I'm not coding, I usually listen to music {0} or play games {1} like <0>League of Legends</0>, <1>Wuthering Waves</1>. These hobbies help me maintain creativity and relieve stress."
+msgstr "当我不编码时，我通常听音乐{0}或玩<0>英雄联盟</0>、<1>鸣潮</1>等游戏{1}。这些爱好帮助我保持创造力并缓解压力。"
+
+#: src/components/templates/projects.tsx:18
+msgid "Work"
+msgstr "工作"
+
+#: src/components/organisms/github-cal.tsx:16
+msgid "Work Calendar"
+msgstr "工作日历"

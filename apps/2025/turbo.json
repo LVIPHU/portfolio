@@ -1,0 +1,13 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".next/**", "!.next/cache/**",
+        ".contentlayer/**",
+        "public/feed.xml", "public/search.json", "public/tags/**"
+      ]
+    }
+  }
+}

@@ -1,0 +1,278 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-11-26 15:49+0700\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ko-KR\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/components/organisms/technologies.tsx:103
+msgid "{category}"
+msgstr "{category}"
+
+#: src/app/[lang]/(page)/about/page.tsx:9
+#: src/components/organisms/navbar.tsx:67
+#: src/components/templates/about.tsx:41
+msgid "About"
+msgstr "소개"
+
+#: src/components/templates/blog.tsx:105
+msgid "All posts"
+msgstr "모든 게시물"
+
+#: src/app/[lang]/(page)/blog/page.tsx:13
+#: src/components/organisms/navbar.tsx:43
+msgid "Blog"
+msgstr "블로그"
+
+#: src/app/[lang]/@modal/(.)contact/page.tsx:11
+msgid "Chat with me"
+msgstr "채팅하기"
+
+#: src/app/[lang]/(page)/contact/page.tsx:9
+#: src/components/organisms/navbar.tsx:92
+#: src/components/templates/contact.tsx:15
+msgid "Contact"
+msgstr "연락처"
+
+#: src/components/organisms/technologies.tsx:141
+msgid "Currently Learning"
+msgstr "학습 중"
+
+#: src/components/templates/about.tsx:100
+msgid "Currently, I am working for <0>PVS Solution</0> in Vietnam. I focus on creating excellent user experiences by using modern frontend architecture. Whether it's writing code or collaborating with cross-functional teams, I always ensure products meet the highest standards and deliver impressive experiences for users."
+msgstr "현재 베트남의 <0>PVS Solution</0>에서 일하고 있습니다. 현대적인 프론트엔드 아키텍처를 사용하여 우수한 사용자 경험을 만드는 데 집중하고 있습니다. 코드를 작성하거나 크로스 기능 팀과 협력할 때 항상 제품이 최고 기준을 충족하고 사용자에게 인상적인 경험을 제공하도록 보장합니다."
+
+#: src/components/organisms/experience.tsx:74
+msgid "Experience"
+msgstr "경력"
+
+#: src/components/molecules/contact-form.tsx:12
+#: src/components/molecules/contact-form.tsx:13
+msgid "First name"
+msgstr "이름"
+
+#: src/components/molecules/previous-page.tsx:16
+msgid "Go back"
+msgstr "돌아가기"
+
+#: src/components/templates/blog.tsx:121
+#: src/components/templates/tag.tsx:37
+msgid "Grid"
+msgstr "그리드"
+
+#. placeholder {0}: String.fromCodePoint(0x1f44b)
+#: src/components/templates/about.tsx:88
+msgid "Hello! {0}"
+msgstr "안녕하세요! {0}"
+
+#: src/components/templates/contact.tsx:64
+msgid "Hire me"
+msgstr "채용하기"
+
+#: src/components/organisms/navbar.tsx:36
+msgid "Home"
+msgstr "홈"
+
+#. placeholder {0}: SITE_METADATA.author
+#. placeholder {1}: String.fromCodePoint(0x1f4bb)
+#. placeholder {2}: String.fromCodePoint(0x1f393)
+#: src/components/templates/about.tsx:91
+msgid "I am {0}, a Software Engineer {1} from Vietnam, with a passion for programming and web development, I enjoy creating innovative solutions that enhance performance and efficiency. My technology journey includes building e-commerce websites, data management, and advanced full-stack solutions. Educationally, I hold a Bachelor's degree {2} in Information Technology."
+msgstr "저는 {0}이며, 베트남 출신의 소프트웨어 엔지니어{1}입니다. 프로그래밍과 웹 개발에 대한 열정을 가지고 있으며, 성능과 효율성을 향상시키는 혁신적인 솔루션을 만드는 것을 즐깁니다. 제 기술 여정에는 전자상거래 웹사이트 구축, 데이터 관리, 고급 풀스택 솔루션이 포함됩니다. 교육적으로는 정보 기술 분야의 학사 학위{2}를 보유하고 있습니다."
+
+#: src/app/[lang]/layout.tsx:47
+msgid "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website."
+msgstr "저는 Lương Vĩ Phú이며, 소프트웨어 엔지니어입니다. 질문이 있으시면 언제든지 연락 주세요. 제 웹사이트를 방문해 주셔서 감사합니다."
+
+#: src/components/templates/blog.tsx:106
+msgid "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title."
+msgstr "제가 관심 있는 것들에 대해 글을 쓰는 것을 좋아합니다. 웹 개발 기사, 기술 뉴스, 그리고 제 삶의 무작위적인 생각들의 혼합을 찾을 수 있습니다. 아래 검색을 사용하여 제목으로 필터링하세요."
+
+#: src/components/templates/contact.tsx:26
+#: src/components/templates/contact.tsx:52
+msgid "I will always be ready to support you."
+msgstr "항상 지원할 준비가 되어 있습니다."
+
+#: src/app/[lang]/@modal/(.)contact/page.tsx:12
+#: src/components/templates/contact.tsx:16
+msgid "I'd love to hear from you. Please fill out this form or send me an email."
+msgstr "연락을 기다리고 있습니다. 이 양식을 작성하거나 이메일을 보내주세요."
+
+#: src/components/templates/not-found.tsx:17
+msgid "It seems like the page you're looking for doesn't exist! Please go back!"
+msgstr "찾고 계신 페이지가 존재하지 않는 것 같습니다! 돌아가 주세요!"
+
+#: src/components/molecules/project-card.tsx:79
+#: src/components/molecules/setting.tsx:17
+msgid "Language"
+msgstr "언어"
+
+#: src/components/molecules/contact-form.tsx:16
+#: src/components/molecules/contact-form.tsx:17
+msgid "Last name"
+msgstr "성"
+
+#: src/components/templates/blog.tsx:127
+#: src/components/templates/tag.tsx:43
+msgid "List"
+msgstr "목록"
+
+#: src/app/[lang]/layout.tsx:45
+msgid "Lương Vĩ Phú's dev blog - portfolio"
+msgstr "Lương Vĩ Phú의 개발 블로그 - 포트폴리오"
+
+#: src/components/molecules/contact-form.tsx:28
+#: src/components/molecules/contact-form.tsx:29
+msgid "Message"
+msgstr "메시지"
+
+#: src/components/templates/contact.tsx:40
+msgid "Mon-Fri from 8am to 5pm."
+msgstr "월요일부터 금요일까지 오전 8시부터 오후 5시까지."
+
+#: src/components/templates/blog.tsx:139
+msgid "no post found"
+msgstr "게시물을 찾을 수 없습니다"
+
+#: src/components/organisms/search/kbar-modal.tsx:107
+msgid "No results for your search..."
+msgstr "검색 결과가 없습니다..."
+
+#: src/components/templates/not-found.tsx:23
+msgid "not found"
+msgstr "찾을 수 없음"
+
+#: src/components/templates/not-found.tsx:16
+msgid "Oop!"
+msgstr "앗!"
+
+#: src/components/templates/contact.tsx:37
+msgid "Phone"
+msgstr "전화"
+
+#: src/components/molecules/contact-form.tsx:24
+#: src/components/molecules/contact-form.tsx:25
+msgid "Phone Number"
+msgstr "전화번호"
+
+#: src/app/[lang]/(page)/photos/page.tsx:9
+#: src/components/organisms/navbar.tsx:61
+#: src/components/templates/photos.tsx:235
+#: src/components/templates/photos.tsx:235
+msgid "Photos"
+msgstr "사진"
+
+#: src/components/atoms/timeline.tsx:99
+msgid "Present"
+msgstr "현재"
+
+#: src/app/[lang]/(page)/projects/page.tsx:9
+#: src/components/organisms/navbar.tsx:55
+#: src/components/templates/projects.tsx:15
+msgid "Projects"
+msgstr "프로젝트"
+
+#: src/components/organisms/navbar.tsx:73
+#: src/components/templates/about.tsx:61
+msgid "Resume"
+msgstr "이력서"
+
+#: src/components/organisms/navbar.tsx:99
+msgid "Search"
+msgstr "검색"
+
+#: src/components/templates/blog.tsx:114
+msgid "Search articles"
+msgstr "글 검색"
+
+#: src/components/molecules/locale-switch.tsx:39
+msgid "Select a timezone"
+msgstr "시간대 선택"
+
+#: src/components/molecules/setting.tsx:11
+#: src/components/organisms/navbar.tsx:105
+msgid "Setting"
+msgstr "설정"
+
+#: src/components/templates/projects.tsx:24
+msgid "Side projects"
+msgstr "사이드 프로젝트"
+
+#: src/components/templates/about.tsx:55
+msgid "Software Engineer"
+msgstr "소프트웨어 엔지니어"
+
+#: src/components/templates/about.tsx:42
+msgid "Some interesting things about myself and my habit of coding then making things harder for myself after six months."
+msgstr "제 자신과 6개월 후에 코딩한 다음 일을 더 어렵게 만드는 습관에 대한 흥미로운 것들."
+
+#: src/components/templates/projects.tsx:15
+msgid "Some things I've done"
+msgstr "제가 한 일들"
+
+#: src/components/molecules/project-card.tsx:45
+msgid "Stack"
+msgstr "스택"
+
+#: src/components/templates/contact.tsx:55
+msgid "Start new chat"
+msgstr "새 채팅 시작"
+
+#: src/components/molecules/contact-form.tsx:33
+msgid "Submit"
+msgstr "제출"
+
+#: src/app/[lang]/(page)/tags/page.tsx:11
+#: src/components/organisms/navbar.tsx:49
+msgid "Tags"
+msgstr "태그"
+
+#: src/components/organisms/technologies.tsx:79
+msgid "Technologies I've worked with"
+msgstr "제가 작업한 기술들"
+
+#: src/components/organisms/experience.tsx:35
+msgid "Technologies used"
+msgstr "사용된 기술"
+
+#: src/components/molecules/setting.tsx:25
+msgid "Theme"
+msgstr "테마"
+
+#: src/components/organisms/technologies.tsx:107
+msgid "These are my most used technologies."
+msgstr "제가 가장 많이 사용하는 기술들입니다."
+
+#: src/app/[lang]/(page)/tags/page.tsx:12
+msgid "Things I blog about"
+msgstr "제가 블로그에 쓰는 것들"
+
+#: src/components/molecules/project-card.tsx:69
+msgid "View Code"
+msgstr "코드 보기"
+
+#: src/components/molecules/project-card.tsx:61
+msgid "Website"
+msgstr "웹사이트"
+
+#. placeholder {0}: String.fromCodePoint(0x1f3a7)
+#. placeholder {1}: String.fromCodePoint(0x1f3ae)
+#: src/components/templates/about.tsx:111
+msgid "When I'm not coding, I usually listen to music {0} or play games {1} like <0>League of Legends</0>, <1>Wuthering Waves</1>. These hobbies help me maintain creativity and relieve stress."
+msgstr "코딩하지 않을 때는 보통 음악{0}을 듣거나 <0>리그 오브 레전드</0>, <1>명조</1> 같은 게임{1}을 합니다. 이러한 취미는 창의성을 유지하고 스트레스를 완화하는 데 도움이 됩니다."
+
+#: src/components/templates/projects.tsx:18
+msgid "Work"
+msgstr "작업"
+
+#: src/components/organisms/github-cal.tsx:16
+msgid "Work Calendar"
+msgstr "작업 캘린더"

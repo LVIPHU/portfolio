@@ -1,0 +1,356 @@
+---
+title: 'Kiến trúc React Fiber'
+date: '2016-07-19'
+lastmod: '2025-05-10'
+tags: ['react', 'architecture', 'vietnamese']
+summary: 'React Fiber là một phiên bản tái cấu trúc liên tục của thuật toán cốt lỗi của React. Đây là kết quả của hơn hai năm nghiên cứu bởi đội ngũ React.'
+images: ['/static/images/banners/brown-concrete-building-under-gray-sky-during-daytime-hi__claybanks__52O-h5G8.jpg']
+authors:
+  - andrewclark
+---
+
+## Giới Thiệu
+
+React Fiber là một bản tái cấu trúc lại từ đầu của thuật toán cốt lõi trong React. Đây là kết quả của hơn hai năm nghiên cứu bởi đội ngũ phát triển React.
+
+Mục tiêu của React Fiber là tăng khả năng thích ứng với các trường hợp như animation (hoạt ảnh), layout (bố cục) và gestures (cử chỉ người dùng). Tính năng nổi bật nhất là **render theo từng phần (incremental rendering)** – nghĩa là có thể chia nhỏ công việc render và thực hiện chúng dàn trải qua nhiều khung hình (frames).
+
+Các tính năng then chốt khác bao gồm:
+
+- Tạm dừng, hủy bỏ hoặc tái sử dụng công việc render khi có cập nhật mới đến;
+- Gán độ ưu tiên cho từng loại cập nhật;
+- Thêm các primitive cho concurrent rendering (render đồng thời).
+
+### Về Tài Liệu Này
+
+Fiber giới thiệu một số khái niệm mới tương đối khó hiểu nếu chỉ đọc mã nguồn.
+Tài liệu này bắt đầu như một tập hợp ghi chú tôi viết ra trong quá trình theo dõi quá trình triển khai Fiber trong dự án React.
+Khi tài liệu này ngày càng đầy đủ hơn, tôi nhận ra nó có thể là nguồn tham khảo hữu ích cho người khác.
+
+Tôi sẽ cố gắng sử dụng ngôn ngữ đơn giản nhất có thể và tránh biệt ngữ bằng cách định nghĩa rõ các thuật ngữ quan trọng.
+Tôi cũng sẽ liên kết đến các tài liệu bên ngoài khi có thể.
+
+Lưu ý rằng tôi không thuộc đội ngũ React và không đại diện chính thức cho họ.
+Tuy nhiên, tôi đã nhờ một số thành viên trong nhóm React xem qua để đảm bảo tính chính xác.
+
+Đây cũng là một tài liệu đang trong quá trình hoàn thiện.
+Fiber vẫn đang được phát triển và có thể sẽ còn nhiều thay đổi lớn trước khi hoàn tất.
+Việc tôi ghi chép và viết tài liệu này cũng đang được cập nhật liên tục.
+Mọi góp ý và cải thiện đều rất được hoan nghênh.
+
+Mục tiêu của tôi là: sau khi đọc xong tài liệu này, bạn sẽ hiểu đủ rõ về Fiber để có thể [theo dõi quá trình phát triển của nó](https://github.com/facebook/react/commits/master/src/renderers/shared/fiber), và có thể tự đóng góp trở lại cho React.
+
+### Kiến Thức Tiền Đề
+
+Tôi thực sự khuyến nghị bạn nên nắm vững các tài liệu sau trước khi tiếp tục:
+
+- [Các Component, Element và Instance trong React](/blog/cac-component-element-va-instance-trong-react) – Thuật ngữ "Component" thường bị lạm dụng và gây nhầm lẫn. Việc hiểu rõ các khái niệm này là rất quan trọng.
+- [Reconciliation](https://facebook.github.io/react/docs/reconciliation.html) – Mô tả cấp cao về thuật toán reconciliation của React.
+- [React Basic Theoretical Concepts](https://github.com/reactjs/react-basic) – Giải thích mô hình tư duy của React mà không đi sâu vào phần hiện thực. Một số phần có thể chưa rõ ngay lần đọc đầu tiên – không sao cả, bạn sẽ hiểu dần theo thời gian.
+- [React Design Principles](https://facebook.github.io/react/contributing/design-principles.html) – Đặc biệt chú ý đến phần nói về scheduling (lập lịch). Nó giải thích rất rõ về lý do tồn tại của React Fiber.
+
+## Ôn Tập
+
+Vui lòng xem lại phần Kiến thức tiền đề nếu bạn chưa đọc.
+
+Trước khi đi sâu vào những nội dung mới, chúng ta hãy ôn lại một vài khái niệm.
+
+### Reconciliation Là Gì?
+
+<dl>
+  <dt>reconciliation</dt>
+  <dd>Thuật toán mà React sử dụng để so sánh hai cây (tree) với nhau nhằm xác định phần nào cần được thay đổi.</dd>
+
+  <dt>update</dt>
+  <dd>Một thay đổi trong dữ liệu được dùng để render một ứng dụng React. Thường là kết quả của `setState`. Cuối cùng dẫn đến việc render lại.</dd>
+</dl>
+
+Ý tưởng trung tâm của API React là xem mỗi lần cập nhật như thể toàn bộ ứng dụng sẽ được render lại.
+Cách tiếp cận này cho phép lập trình viên suy nghĩ theo hướng khai báo (declarative), thay vì phải lo lắng về cách chuyển đổi hiệu quả ứng dụng từ trạng thái này sang trạng thái khác (A → B, B → C, C → A, v.v.).
+
+Tuy nhiên, thực tế render lại toàn bộ ứng dụng sau mỗi thay đổi chỉ phù hợp với các ứng dụng rất đơn giản; đối với ứng dụng thực tế, việc này quá tốn kém về hiệu năng.
+React có các cơ chế tối ưu giúp giả lập việc render lại toàn bộ ứng dụng nhưng vẫn giữ được hiệu suất cao.
+Phần lớn các tối ưu đó nằm trong quy trình gọi là reconciliation (quá trình hòa giải).
+
+Reconciliation là thuật toán đứng sau khái niệm được gọi phổ biến là “virtual DOM” (DOM ảo).
+Mô tả ở mức cao như sau: khi bạn render một ứng dụng React, một cây các node mô tả giao diện ứng dụng được tạo và lưu trữ trong bộ nhớ.
+Cây này sau đó được flush (đẩy) vào môi trường render — ví dụ, trong trình duyệt thì nó được chuyển thành một loạt thao tác DOM.
+Khi ứng dụng được cập nhật (thường thông qua setState), một cây mới được tạo. Cây mới này được so sánh (diff) với cây cũ để tính toán ra các thao tác cần thiết nhằm cập nhật ứng dụng đã render.
+
+Mặc dù Fiber là một bản viết lại từ đầu của bộ reconciler, thuật toán cấp cao [được mô tả trong tài liệu React](https://facebook.github.io/react/docs/reconciliation.html) phần lớn vẫn giữ nguyên.
+Những điểm chính cần lưu ý:
+
+- Các component có kiểu khác nhau được giả định là tạo ra cây khác nhau đáng kể. React sẽ không cố diff chúng mà thay vào đó thay thế toàn bộ cây cũ.
+- Việc diff các danh sách (lists) được thực hiện bằng cách sử dụng key. Key cần phải "ổn định, có thể đoán trước và duy nhất".
+
+### Sự Khác Biệt Giữa Reconciliation Và Rendering
+
+DOM chỉ là một trong số các môi trường mà React có thể render đến; các mục tiêu quan trọng khác bao gồm giao diện gốc (native views) của iOS và Android thông qua React Native.
+(Vì lý do này, cụm từ “virtual DOM” có phần không chính xác.)
+
+Lý do khiến React có thể hỗ trợ nhiều nền tảng như vậy là vì React được thiết kế sao cho reconciliation (quá trình tính toán phần nào thay đổi trong cây) và rendering (quá trình hiển thị thực tế) là hai pha tách biệt.
+Bộ reconciler thực hiện việc tính toán phần nào trong cây đã thay đổi; sau đó, renderer sử dụng thông tin đó để thực sự cập nhật giao diện đã render.
+
+Việc tách biệt này cho phép React DOM và React Native sử dụng các renderer riêng của chúng trong khi vẫn dùng chung một bộ reconciler do React core cung cấp.
+
+Fiber là bản tái hiện lại bộ reconciler. Nó không tập trung chính vào rendering, mặc dù các renderer vẫn cần phải thay đổi để hỗ trợ (và tận dụng) kiến trúc mới này.
+
+### Lập Lịch (Scheduling)
+
+<dl>
+  <dt>lập lịch (scheduling)</dt>
+  <dd>quá trình xác định thời điểm một công việc nên được thực hiện.</dd>
+
+  <dt>công việc (work)</dt>
+  <dd>bất kỳ phép tính hoặc xử lý nào cần được thực hiện. Công việc thường xuất phát từ một cập nhật (ví dụ: `setState`).</dd>
+</dl>
+
+[Tài liệu Nguyên lý thiết kế](https://facebook.github.io/react/contributing/design-principles.html#scheduling) của React trình bày rất tốt chủ đề này, nên tôi sẽ trích dẫn lại trực tiếp:
+
+> Trong bản hiện tại, React duyệt cây một cách đệ quy và gọi hàm render của toàn bộ cây được cập nhật trong một lần xử lý duy nhất.
+> Tuy nhiên, trong tương lai, React có thể sẽ bắt đầu trì hoãn một số cập nhật để tránh bị rớt khung hình.
+>
+> Đây là một chủ đề phổ biến trong thiết kế của React. Một số thư viện phổ biến sử dụng cách tiếp cận "push" – nghĩa là thực hiện tính toán ngay khi dữ liệu mới đến.
+> Trong khi đó, React giữ cách tiếp cận "pull" – nghĩa là trì hoãn tính toán cho đến khi thật sự cần thiết.
+>
+> React không phải là một thư viện xử lý dữ liệu tổng quát. Nó là thư viện để xây dựng giao diện người dùng.
+> Chúng tôi tin rằng React có vị trí độc đáo trong ứng dụng để biết được phần nào cần tính toán ngay bây giờ và phần nào thì không.
+>
+> Nếu một phần tử đang nằm ngoài màn hình, ta có thể trì hoãn mọi logic liên quan đến nó.
+> Nếu dữ liệu đến nhanh hơn tốc độ khung hình, ta có thể gộp và xử lý hàng loạt cập nhật.
+> Ta có thể ưu tiên công việc đến từ các tương tác của người dùng (chẳng hạn như animation sau khi nhấn nút) hơn là công việc nền ít quan trọng hơn (chẳng hạn như render nội dung vừa tải từ mạng) để tránh bị rớt khung hình.
+
+Các điểm mấu chốt:
+
+- Trong UI, không phải lúc nào cũng cần áp dụng mọi cập nhật ngay lập tức; thực hiện như vậy có thể gây lãng phí và làm rớt khung hình, từ đó ảnh hưởng đến trải nghiệm người dùng.
+- Các loại cập nhật khác nhau có mức độ ưu tiên khác nhau — cập nhật animation cần được hoàn tất nhanh hơn nhiều so với cập nhật dữ liệu từ store.
+- Cách tiếp cận "push" buộc lập trình viên (bạn) phải tự quyết định lập lịch công việc như thế nào.
+  Trong khi đó, cách "pull" cho phép framework (React) xử lý thông minh các quyết định này thay cho bạn.
+
+Hiện tại, React chưa khai thác mạnh mẽ khả năng lập lịch; mỗi lần cập nhật sẽ dẫn đến việc re-render toàn bộ subtree ngay lập tức.
+Việc đại tu thuật toán lõi của React để tận dụng lập lịch là ý tưởng chính thúc đẩy sự ra đời của Fiber.
+
+---
+
+Bây giờ bạn đã sẵn sàng để đi sâu vào phần cài đặt của Fiber.
+Phần tiếp theo sẽ mang tính kỹ thuật hơn nhiều so với những gì đã trình bày ở trên.
+Hãy đảm bảo rằng bạn đã hiểu rõ các phần trước trước khi tiếp tục.
+
+## Fiber Là Gì?
+
+Chúng ta sắp thảo luận về phần cốt lõi trong kiến trúc của React Fiber.
+Fiber là một tầng trừu tượng rất thấp, thấp hơn nhiều so với những gì lập trình viên ứng dụng thường suy nghĩ.
+Nếu bạn cảm thấy khó hiểu hay bực bội khi cố gắng nắm bắt nó, đừng nản.
+Hãy tiếp tục cố gắng và bạn sẽ hiểu được — (và khi hiểu rồi, đừng ngần ngại góp ý để cải thiện phần này).
+
+Bắt đầu nhé!
+
+---
+
+Chúng ta đã xác định rằng mục tiêu chính của Fiber là giúp React có thể tận dụng được cơ chế lập lịch (scheduling). Cụ thể, chúng ta cần khả năng:
+
+- tạm dừng công việc và tiếp tục lại sau.
+- gán độ ưu tiên cho các loại công việc khác nhau.
+- tái sử dụng công việc đã hoàn thành trước đó.
+- hủy bỏ công việc nếu nó không còn cần thiết.
+
+Để làm được những điều này, đầu tiên chúng ta cần một cách để chia nhỏ công việc thành các đơn vị nhỏ.
+Theo một nghĩa nào đó, đó chính là vai trò của fiber.
+Fiber đại diện cho một **đơn vị công việc (unit of work)**.
+
+Để hiểu sâu hơn, hãy quay lại quan điểm rằng [React component là một hàm của dữ liệu](https://github.com/reactjs/react-basic#transformation), thường được biểu diễn như sau:
+
+```
+v = f(d)
+```
+
+Suy ra, việc render một ứng dụng React tương tự như gọi một hàm mà bên trong đó lại gọi các hàm khác, và cứ thế tiếp tục.
+Ví dụ này rất hữu ích để hiểu về fiber.
+
+Cách mà máy tính thường theo dõi tiến trình thực thi là thông qua call stack (ngăn xếp lời gọi).
+Mỗi lần một hàm được gọi, một stack frame mới sẽ được thêm vào stack.
+Stack frame này đại diện cho khối công việc mà hàm đó thực hiện.
+
+Khi xử lý giao diện người dùng, vấn đề là nếu quá nhiều công việc được thực hiện trong một lần, nó có thể khiến animation bị giật, rớt khung hình và gây trải nghiệm kém.
+Hơn nữa, một số công việc có thể trở nên dư thừa nếu một cập nhật mới đến và thay thế hoàn toàn chúng.
+Tại đây, ví dụ so sánh giữa UI component và function không còn phù hợp nữa, vì component có những mối quan tâm cụ thể hơn nhiều so với một hàm thông thường.
+
+Các trình duyệt hiện đại (và cả React Native) cung cấp một số API để giải quyết chính xác vấn đề này, như:
+
+- `requestIdleCallback`: lên lịch một hàm có ưu tiên thấp để thực thi khi trình duyệt rảnh.
+- `requestAnimationFrame`: lên lịch một hàm có ưu tiên cao để thực thi trong frame animation tiếp theo.
+
+Vấn đề là: để tận dụng các API này, ta cần chia nhỏ công việc render thành các đơn vị nhỏ. Nếu ta chỉ dựa vào call stack, thì nó sẽ tiếp tục xử lý cho đến khi stack trống.
+
+Sẽ thật tuyệt nếu ta có thể tùy biến hành vi của call stack để tối ưu cho UI.
+Sẽ thật tuyệt nếu ta có thể ngắt call stack bất kỳ lúc nào và tự mình quản lý các stack frame.
+
+Đó chính là mục đích của React Fiber.
+Fiber là một sự tái hiện lại cơ chế call stack, nhưng được chuyên biệt hóa cho các React component.
+Bạn có thể xem mỗi fiber như là một **stack frame ảo**.
+
+Lợi ích của việc tái hiện stack là bạn có thể [giữ lại các stack frame trong bộ nhớ](https://www.facebook.com/groups/2003630259862046/permalink/2054053404819731/) và thực thi chúng bằng bất kỳ cách nào và bất kỳ lúc nào.
+Đây là điều cốt yếu để đạt được khả năng lập lịch (scheduling) mà React hướng tới.
+
+Ngoài lập lịch, việc xử lý thủ công các stack frame còn mở ra khả năng hỗ trợ các tính năng như concurrency (xử lý đồng thời) và error boundaries (biên lỗi).
+Chúng ta sẽ tìm hiểu kỹ hơn trong các phần sau.
+
+Trong phần kế tiếp, chúng ta sẽ đi sâu hơn vào cấu trúc bên trong của một fiber.
+
+### Cấu Trúc Của Một Fiber
+
+_Lưu ý: Khi chúng ta đi sâu hơn vào các chi tiết cài đặt cụ thể, khả năng có thay đổi trong tương lai sẽ cao hơn._
+
+Cụ thể, một fiber là một đối tượng JavaScript chứa thông tin về:
+
+- component
+- input (props)
+- output (element tree)
+
+Một fiber tương ứng với một stack frame, nhưng nó cũng đồng thời đại diện cho một instance của một component.
+
+Dưới đây là một số thuộc tính quan trọng mà một fiber sở hữu (danh sách này không đầy đủ, chỉ liệt kê những phần cốt lõi nhất):
+
+#### `type` và `key`
+
+Thuộc tính type và key của một fiber giữ đúng vai trò như trong React element.
+(Thực tế, khi một fiber được tạo từ một element, hai trường này được sao chép trực tiếp từ element sang.)
+
+type mô tả component mà fiber này tương ứng.
+
+- Với composite component (component do người dùng định nghĩa), type là chính hàm function hoặc class component đó.
+- Với host component (như `div`, `span`,...), type là một chuỗi string biểu diễn tag HTML.
+
+Về mặt khái niệm, type chính là hàm trong biểu thức `v = f(d)`, và fiber đang theo dõi việc thực thi của hàm này giống như một stack frame.
+
+key được sử dụng trong quá trình reconciliation để xác định xem một fiber có thể được tái sử dụng hay không.
+Nếu key khác nhau, React sẽ không tái sử dụng fiber cũ, mà tạo fiber mới hoàn toàn.
+
+#### `child` và `sibling`
+
+Các trường này trỏ đến các fiber khác, nhằm mô tả cấu trúc đệ quy dạng cây của hệ thống fiber.
+
+child: là fiber con, tương ứng với giá trị được trả về từ hàm `render()` của một component. Ví dụ:
+
+```js
+function Parent() {
+  return <Child />
+}
+```
+
+Ở đây, fiber của `Parent` sẽ có child fiber tương ứng với `Child`.
+
+sibling: là fiber kế tiếp trong danh sách các con nếu `render()` trả về nhiều phần tử.
+Đây là một tính năng mới trong Fiber (so với React trước đó không cho phép trả về nhiều node từ render).
+Ví dụ:
+
+```js
+function Parent() {
+  return [<Child1 />, <Child2 />]
+}
+```
+
+Ở đây:
+
+- `Child1` là child đầu tiên của `Parent`
+- `Child2` là sibling của `Child1`
+
+Các fiber con này được tổ chức thành một danh sách liên kết đơn (singly-linked list) bắt đầu từ child.
+
+Theo phép so sánh với stack frame, thì một fiber con (child) giống như một hàm được gọi theo kiểu [tail call](https://en.wikipedia.org/wiki/Tail_call) — tức là lời gọi hàm cuối cùng trong một hàm, được tối ưu hóa để không chiếm thêm stack frame.
+
+#### `return`
+
+Trường return trỏ đến fiber mà chương trình sẽ quay lại sau khi xử lý xong fiber hiện tại.
+Về mặt khái niệm, nó tương đương với địa chỉ trả về trong một stack frame.
+Bạn cũng có thể xem nó là fiber cha.
+
+Nếu một fiber có nhiều fiber con, thì tất cả các fiber con đều có return trỏ đến fiber cha.
+Ví dụ ở phần trước, `Child1` và `Child2` đều có return là `Parent`.
+
+#### `pendingProps` và `memoizedProps`
+
+Về bản chất, props là các tham số của một hàm.
+
+- `pendingProps`: giá trị props được gán khi bắt đầu thực thi fiber.
+- `memoizedProps`: giá trị props được lưu lại sau khi fiber xử lý xong.
+
+Nếu `pendingProps` bằng với `memoizedProps`, điều đó cho biết kết quả render trước vẫn còn giá trị, và có thể tái sử dụng để tránh render lại không cần thiết.
+
+#### `pendingWorkPriority`
+
+Là một số nguyên đại diện cho độ ưu tiên của công việc tương ứng với fiber này.
+Module [ReactPriorityLevel](https://github.com/facebook/react/blob/master/src/renderers/shared/fiber/ReactPriorityLevel.js) định nghĩa các cấp độ ưu tiên và ý nghĩa của chúng.
+
+Ngoại trừ NoWork (0), số càng lớn thì mức độ ưu tiên càng thấp.
+Ví dụ, bạn có thể dùng hàm sau để kiểm tra liệu fiber có mức ưu tiên cao hơn hoặc bằng một ngưỡng cụ thể không:
+
+```js
+function matchesPriority(fiber, priority) {
+  return fiber.pendingWorkPriority !== 0 && fiber.pendingWorkPriority <= priority
+}
+```
+
+_Hàm trên chỉ mang tính minh họa, không có trong mã nguồn React._
+
+Scheduler sử dụng trường này để xác định đơn vị công việc tiếp theo cần thực hiện.
+Cách hoạt động cụ thể sẽ được giải thích ở các phần sau.
+
+#### `alternate`
+
+<dl>
+  <dt>flush</dt>
+  <dd>Flush một fiber là quá trình đưa kết quả render của nó lên màn hình.</dd>
+
+  <dt>work-in-progress</dt>
+  <dd>Là fiber đang được xử lý; tương đương với một stack frame chưa hoàn tất.</dd>
+</dl>
+
+Tại bất kỳ thời điểm nào, một component chỉ có tối đa hai fiber:
+
+- Fiber hiện tại đã được flush.
+- Fiber work-in-progress đang được dựng.
+
+Hai fiber này được liên kết với nhau thông qua trường alternate.
+
+- alternate của fiber hiện tại là work-in-progress.
+- alternate của work-in-progress là fiber hiện tại.
+
+Fiber alternate được tạo một cách lười biếng (lazy) thông qua hàm `cloneFiber`.
+Thay vì luôn tạo fiber mới, `cloneFiber` sẽ tái sử dụng alternate cũ nếu có, giúp giảm số lượng phân bổ bộ nhớ.
+
+Bạn nên xem `alternate` là chi tiết triển khai nội bộ, nhưng vì nó xuất hiện nhiều trong mã nguồn, nên việc hiểu rõ là hữu ích.
+
+#### `output`
+
+<dl>
+  <dt>host component</dt>
+  <dd>
+    Là các node lá trong ứng dụng React, cụ thể cho từng môi trường render (trong trình duyệt là `div`, `span`, v.v.).
+    Trong JSX, chúng có tag name viết thường.
+  </dd>
+</dl>
+
+Về mặt khái niệm, output là giá trị trả về của hàm.
+
+Mỗi fiber cuối cùng sẽ có một output, nhưng chỉ các **host component** mới tạo ra output một cách trực tiếp.
+Sau đó, output được truyền ngược lên cây fiber.
+
+Output này sẽ được gửi đến renderer để nó flush thay đổi lên môi trường render.
+Renderer sẽ chịu trách nhiệm định nghĩa cách tạo và cập nhật output đó.
+
+## Các Phần Tiếp
+
+Tài liệu tạm thời kết thúc tại đây, nhưng vẫn chưa đầy đủ.
+Các phần tiếp theo sẽ trình bày chi tiết các thuật toán được sử dụng trong toàn bộ vòng đời của một lần cập nhật:
+
+- Cách scheduler tìm ra đơn vị công việc tiếp theo.
+- Cách hệ thống theo dõi và lan truyền mức ưu tiên trong cây fiber.
+- Khi nào scheduler nên tạm dừng hoặc tiếp tục công việc.
+- Cách flush công việc và đánh dấu là hoàn tất.
+- Cách xử lý các side-effect như lifecycle methods.
+- Coroutine là gì và cách nó được dùng để triển khai context, layout, v.v.
+
+## Videos Liên Quan
+
+- [What's Next for React (ReactNext 2016)](https://youtu.be/aV1271hd9ew)

@@ -1,0 +1,343 @@
+/* Custom Prose Styles - Replacement for @tailwindcss/typography */
+
+.prose {
+  color: hsl(var(--foreground));
+  a {
+    @apply text-primary-500 hover:text-primary-600 underline-offset-4;
+    code {
+      @apply text-primary-400;
+    }
+  }
+
+  h1 .heading-anchor,
+  h1 .content-header-link {
+    @apply -ml-8 pr-1;
+    svg {
+      @apply w-7 h-7;
+    }
+  }
+  h2 .heading-anchor,
+  h2 .content-header-link {
+    @apply -ml-6 pr-1;
+    svg {
+      @apply w-5 h-5;
+    }
+  }
+  h3 .heading-anchor,
+  h3 .content-header-link {
+    @apply -ml-5 pr-1;
+    svg {
+      @apply w-4 h-4;
+    }
+  }
+  h4 .heading-anchor,
+  h4 .content-header-link {
+    @apply -ml-4 pr-1;
+    svg {
+      @apply w-3 h-3;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply scroll-mt-24;
+  }
+
+  h1,
+  h2 {
+    @apply font-bold tracking-tight;
+  }
+
+  h3 {
+    @apply font-semibold;
+  }
+
+  .remark-code-title + figure > div {
+    @apply rounded-t-none border-t-0;
+  }
+
+  .remark-code-title + figure .copy-code {
+    @apply hidden;
+  }
+
+  figure {
+    @apply mt-0;
+  }
+
+  pre {
+    @apply m-0 rounded-none;
+    code {
+      @apply font-medium text-base;
+      span {
+        color: var(--shiki-light, inherit);
+        font-style: var(--shiki-light-font-style, inherit);
+        font-weight: var(--shiki-light-font-weight, inherit);
+        text-decoration: var(--shiki-light-text-decoration, inherit);
+      }
+    }
+  }
+
+  [data-line] {
+    @apply -ml-6 pl-4;
+  }
+
+  [data-line-numbers] {
+    counter-reset: line;
+    [data-line]::before {
+      counter-increment: line;
+      content: counter(line);
+      @apply mr-8 inline-block w-3 text-right text-[#657b83];
+    }
+  }
+
+  [data-line-numbers-max-digits="2"] [data-line]::before {
+    @apply w-5;
+  }
+
+  [data-line-numbers-max-digits="3"] [data-line]::before {
+    @apply w-7;
+  }
+
+  [data-line-numbers-max-digits="4"] [data-line]::before {
+    @apply w-9;
+  }
+
+  [data-highlighted-line] {
+    @apply border-l-4 border-l-gray-300 bg-orange-100/75 pl-3;
+  }
+
+  [data-highlighted-chars] {
+    @apply rounded bg-zinc-600 shadow-[0_0_0_4px_rgb(82_82_91_/_0.5)];
+  }
+
+  [data-chars-id] {
+    @apply border-b-2 border-b-gray-800 p-1 shadow-none;
+  }
+
+  code {
+    @apply font-medium text-indigo-500;
+  }
+
+  .image-container {
+    @apply mx-auto w-fit rounded-lg;
+    img {
+      @apply mt-0 mb-0;
+    }
+  }
+
+  .markdown-alert p.markdown-alert-title {
+    @apply mt-2 mb-0 text-lg font-bold;
+    svg {
+      @apply h-5 w-5;
+    }
+  }
+}
+
+/* Additional prose styles */
+.prose [class~="lead"] {
+  color: hsl(var(--muted-foreground));
+  font-size: 1.25em;
+  line-height: 1.6;
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
+}
+
+.prose strong {
+  color: hsl(var(--foreground));
+  font-weight: 600;
+}
+
+.prose ol[type="A"],
+.prose ol[type="a"],
+.prose ol[type="I"],
+.prose ol[type="i"] {
+  --list-counter-style: upper-alpha;
+}
+
+.prose ol[type="A" s],
+.prose ol[type="a" s],
+.prose ol[type="I" s],
+.prose ol[type="i" s] {
+  --list-counter-style: upper-alpha;
+}
+
+.prose ol[type="1"] {
+  --list-counter-style: decimal;
+}
+
+.prose ol > li {
+  position: relative;
+  padding-left: 1.75em;
+}
+
+.prose ol > li::marker {
+  font-weight: 400;
+  color: hsl(var(--muted-foreground));
+}
+
+.prose ul > li {
+  position: relative;
+  padding-left: 1.75em;
+}
+
+.prose ul > li::marker {
+  color: hsl(var(--muted-foreground));
+}
+
+.prose hr {
+  border-color: hsl(var(--border));
+  border-top-width: 1px;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.prose blockquote {
+  font-weight: 500;
+  font-style: italic;
+  color: hsl(var(--foreground));
+  border-left-width: 0.25rem;
+  border-left-color: hsl(var(--border));
+  quotes: "\201C""\201D""\2018""\2019";
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  padding-left: 1em;
+}
+
+.prose img {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.prose video {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.prose figure > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.prose figcaption {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.875em;
+  line-height: 1.4285714;
+  margin-top: 0.8571429em;
+}
+
+.prose code::before,
+.prose code::after {
+  content: "`";
+}
+
+.prose pre code::before,
+.prose pre code::after {
+  content: none;
+}
+
+.prose .remark-code-title {
+  border-bottom: 0 !important;
+  border-top-right-radius: 0.5rem !important;
+  border-top-left-radius: 0.5rem !important;
+}
+
+/* Prose LG variant */
+.prose-lg {
+  font-size: 1.125em;
+  line-height: 1.7777778;
+}
+
+.prose-lg figure {
+  margin-top: 0;
+}
+
+.prose-lg pre {
+  margin: 0;
+  border-radius: 0;
+}
+
+.prose-lg pre code {
+  font-size: 0.95em;
+}
+
+.prose.dark,
+.dark .prose {
+  a {
+    @apply text-primary-400 hover:text-primary-400;
+    code {
+      @apply text-primary-400;
+    }
+  }
+
+  pre code span {
+    color: var(--shiki-dark, inherit);
+    font-style: var(--shiki-dark-font-style, inherit);
+    font-weight: var(--shiki-dark-font-weight, inherit);
+    text-decoration: var(--shiki-dark-text-decoration, inherit);
+  }
+
+  [data-highlighted-line] {
+    @apply border-l-4 border-l-gray-500 bg-[#37415180] pl-3;
+  }
+
+  code {
+    @apply text-primary-400;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-gray-100;
+  }
+}
+
+/* Prose invert variant */
+.prose-invert {
+  color: hsl(var(--foreground));
+}
+
+.prose-invert a {
+  color: hsl(24.3 95% 53.1%); /* amber-400 */
+}
+
+.prose-invert a:hover {
+  color: hsl(24.3 95% 53.1%); /* amber-400 */
+}
+
+.prose-invert a code {
+  color: hsl(24.3 95% 53.1%); /* amber-400 */
+}
+
+.prose-invert pre code span {
+  color: var(--shiki-dark, inherit);
+  font-style: var(--shiki-dark-font-style, inherit);
+  font-weight: var(--shiki-dark-font-weight, inherit);
+  text-decoration: var(--shiki-dark-text-decoration, inherit);
+}
+
+.prose-invert [data-highlighted-line] {
+  background-color: #37415180;
+  border-left: 4px solid hsl(217.9 10.1% 64.9%); /* gray-500 */
+  padding-left: 0.75rem;
+}
+
+.prose-invert code {
+  color: hsl(24.3 95% 53.1%); /* amber-400 */
+}
+
+.prose-invert h1,
+.prose-invert h2,
+.prose-invert h3,
+.prose-invert h4,
+.prose-invert h5,
+.prose-invert h6 {
+  color: hsl(220 13% 91%); /* gray-100 */
+}
+
