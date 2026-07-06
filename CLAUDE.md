@@ -52,6 +52,13 @@ There are no tests and no linter configured — `pnpm typecheck` and `pnpm build
 
 Create `apps/<year>` with any stack, add `"@portfolio/content": "workspace:*"` as a dependency, and give it a unique package name and dev port. Old versions stay deployed in parallel (one Vercel project per app, Root Directory set to the app folder).
 
+## Deploy (Vercel)
+
+- GitHub: `LVIPHU/portfolio` (the pre-monorepo repo was renamed `portfolio-2025-legacy`). Pushing to `main` auto-deploys both Vercel projects.
+- Vercel team `luong-vi-phus-projects`: project `web-2026` (Root Directory `apps/2026`) → https://web-2026.vercel.app, project `web-2025` (Root Directory `apps/2025`) → https://web-2025.vercel.app.
+- Turborepo on Vercel strips undeclared env vars from task processes: non-`NEXT_PUBLIC_*` vars must be declared in the app's `turbo.json` (`env` / `passThroughEnv` — see apps/2025/turbo.json). web-2025 production env: `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_NODE_ENV`, `DATABASE_URL` (placeholder; swap in a real one to enable views/reactions).
+- Do NOT use `vercel build` / `vercel deploy --prebuilt` locally on Windows — the local @vercel/next builder fails lambda mapping for route groups/intercepting routes ("Unable to find lambda for route"). Deploy by pushing to `main` (or API-triggered git builds).
+
 ## Active plan
 
 [docs/PLAN-apps-2025.md](docs/PLAN-apps-2025.md) is the agreed roadmap for importing the older 2025 portfolio as `apps/2025` and incrementally upgrading it (Contentlayer→Velite, Lingui→next-intl, Next 15→16, motion→GSAP). Consult it before doing any `apps/2025` work — the phase ordering and gates there are deliberate.
