@@ -7,6 +7,6 @@ import { ThemeSwitch } from 'web-2025'
 export const IconToggle = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
     <ThemeSwitch />
-    <span className="text-sm text-muted-foreground">Đổi giao diện sáng / tối</span>
+    <span className='text-muted-foreground text-sm'>Đổi giao diện sáng / tối</span>
   </div>
 )

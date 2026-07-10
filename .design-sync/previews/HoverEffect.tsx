@@ -44,8 +44,8 @@ const items = [
 export const ProjectsGrid = () => (
   <>
     <style>{`.hed .group\\/effect > .h-full{opacity:1!important;transform:none!important}`}</style>
-    <div className="hed">
-      <HoverEffect items={items as any} className="md:grid-cols-2" />
+    <div className='hed'>
+      <HoverEffect items={items as any} className='md:grid-cols-2' />
     </div>
   </>
 )

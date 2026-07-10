@@ -29,7 +29,7 @@ export function TagTemplate({ title, description, posts }: ListLayoutProps) {
       >
         <Header title={title} className='border-b border-gray-200 dark:border-gray-700'>
           <>
-            <i className={'text-base text-gray-500 dark:text-gray-400 md:text-lg md:leading-7'}>{description}</i>
+            <i className={'text-base text-gray-500 md:text-lg md:leading-7 dark:text-gray-400'}>{description}</i>
             <TabsList>
               <TabsTrigger value='GRID'>
                 <LayoutGrid />

@@ -20,14 +20,11 @@ const posts = [
 ]
 
 export const RecentPostsPanel = () => (
-  <ScrollArea
-    className="border rounded-md"
-    {...({ type: 'always', style: { height: 240, width: 340 } } as any)}
-  >
-    <div className="p-4" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <p className="text-xs font-medium text-muted-foreground">BÀI VIẾT GẦN ĐÂY</p>
+  <ScrollArea className='rounded-md border' {...({ type: 'always', style: { height: 240, width: 340 } } as any)}>
+    <div className='p-4' style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <p className='text-muted-foreground text-xs font-medium'>BÀI VIẾT GẦN ĐÂY</p>
       {posts.map((title) => (
-        <p key={title} className="text-sm">
+        <p key={title} className='text-sm'>
           {title}
         </p>
       ))}

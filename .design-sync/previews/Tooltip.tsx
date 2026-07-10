@@ -6,9 +6,9 @@ export const SaveArticleTooltip = () => (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 240 }}>
     <Tooltip open>
       <TooltipTrigger asChild>
-        <Button variant="outline">Lưu bài viết</Button>
+        <Button variant='outline'>Lưu bài viết</Button>
       </TooltipTrigger>
-      <TooltipContent side="top">Thêm vào danh sách đọc sau</TooltipContent>
+      <TooltipContent side='top'>Thêm vào danh sách đọc sau</TooltipContent>
     </Tooltip>
   </div>
 )

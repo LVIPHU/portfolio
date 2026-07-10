@@ -8,11 +8,11 @@ import { TagsList } from '@/components/molecules/tags'
 
 export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
   const { path, date, title, tags, images, readingTime } = post
-  
+
   const handleClick = () => {
     playRandomNote()
   }
-  
+
   return (
     <article className={'h-full'} onClick={handleClick}>
       <Card className='flex h-full flex-col shadow-none'>
@@ -38,13 +38,13 @@ export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
         <CardFooter className='mt-auto flex items-center justify-between'>
           <div className='flex items-center gap-2'>
             <Calendar className='size-4' />
-            <time dateTime={date} className='text-sm text-muted-foreground'>
+            <time dateTime={date} className='text-muted-foreground text-sm'>
               {formatDate(date)}
             </time>
           </div>
           <div className='flex items-center gap-2'>
             <ClockIcon className='size-4' />
-            <span className='text-sm text-muted-foreground'>{Math.ceil(readingTime.minutes)} mins read</span>
+            <span className='text-muted-foreground text-sm'>{Math.ceil(readingTime.minutes)} mins read</span>
           </div>
         </CardFooter>
       </Card>

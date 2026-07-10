@@ -25,7 +25,7 @@ export const PhotoColumns = () => (
 .pxs ul:nth-of-type(2) li:nth-of-type(1) .image-container{background:linear-gradient(135deg,#22c55e,#14b8a6)}
 .pxs ul:nth-of-type(2) li:nth-of-type(2) .image-container{background:linear-gradient(135deg,#ec4899,#8b5cf6)}
 `}</style>
-    <div className="pxs">
+    <div className='pxs'>
       <ParallaxScroll images={images} />
     </div>
   </>

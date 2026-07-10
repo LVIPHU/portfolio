@@ -20,14 +20,14 @@
   }
 
   body {
-    @apply min-h-screen bg-background font-sans text-foreground antialiased;
+    @apply bg-background text-foreground min-h-screen font-sans antialiased;
     ::selection {
-      @apply bg-amber-500 text-primary-foreground;
+      @apply text-primary-foreground bg-amber-500;
     }
   }
 
   button:not(:disabled),
-  [role="button"]:not(:disabled) {
+  [role='button']:not(:disabled) {
     @apply cursor-pointer;
   }
 

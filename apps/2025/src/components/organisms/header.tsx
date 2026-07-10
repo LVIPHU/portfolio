@@ -21,7 +21,7 @@ export const Header = (props: Props) => {
       </h1>
       {description && (
         <p className={'mt-3 md:mt-5'}>
-          <i className={'text-base text-gray-500 dark:text-gray-400 md:text-lg md:leading-7'}>{description}</i>
+          <i className={'text-base text-gray-500 md:text-lg md:leading-7 dark:text-gray-400'}>{description}</i>
         </p>
       )}
       {children && <div className={'mt-3 flex items-center justify-between md:mt-5'}>{children}</div>}

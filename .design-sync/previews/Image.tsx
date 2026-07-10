@@ -12,8 +12,14 @@ const cover =
 
 export const ArticleCover = () => (
   <div style={{ maxWidth: 640 }}>
-    <Image src={cover} alt="Ảnh bìa: gradient tím xanh với bố cục hình tròn" width={720} height={405} className="rounded-lg" />
-    <p className="text-xs text-muted-foreground mt-2" style={{ textAlign: 'center' }}>
+    <Image
+      src={cover}
+      alt='Ảnh bìa: gradient tím xanh với bố cục hình tròn'
+      width={720}
+      height={405}
+      className='rounded-lg'
+    />
+    <p className='text-muted-foreground mt-2 text-xs' style={{ textAlign: 'center' }}>
       Ảnh bìa bài &quot;Tối ưu hiệu năng ảnh trong Next.js&quot;
     </p>
   </div>
@@ -28,11 +34,11 @@ export const ZoomablePortrait = () => (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Zoom>
         <Image
-          src="https://avatars.githubusercontent.com/u/84316006?v=4"
-          alt="Chân dung Lương Vĩ Phú"
+          src='https://avatars.githubusercontent.com/u/84316006?v=4'
+          alt='Chân dung Lương Vĩ Phú'
           width={180}
           height={180}
-          className="rounded-lg"
+          className='rounded-lg'
         />
       </Zoom>
     </div>

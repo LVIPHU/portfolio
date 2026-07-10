@@ -18,49 +18,49 @@ export const ContactTemplate = () => {
       <div className='mt-24 grid gap-16 md:gap-10 lg:grid-cols-2'>
         <div className='grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2'>
           <div>
-            <div className='flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary'>
+            <div className='bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full'>
               <MailIcon />
             </div>
             <h3 className='mt-6 text-xl font-semibold'>Email</h3>
-            <p className='my-2.5 text-muted-foreground'>
+            <p className='text-muted-foreground my-2.5'>
               <Trans>I will always be ready to support you.</Trans>
             </p>
-            <NavigationLink className='font-medium text-primary' href={`mailto:${SITE_METADATA.email}`}>
+            <NavigationLink className='text-primary font-medium' href={`mailto:${SITE_METADATA.email}`}>
               {SITE_METADATA.email}
             </NavigationLink>
           </div>
           <div>
-            <div className='flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary'>
+            <div className='bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full'>
               <PhoneIcon />
             </div>
             <h3 className='mt-6 text-xl font-semibold'>
               <Trans>Phone</Trans>
             </h3>
-            <p className='my-2.5 text-muted-foreground'>
+            <p className='text-muted-foreground my-2.5'>
               <Trans>Mon-Fri from 8am to 5pm.</Trans>
             </p>
-            <NavigationLink className='font-medium text-primary' href={`tel:${SITE_METADATA.email}`}>
+            <NavigationLink className='text-primary font-medium' href={`tel:${SITE_METADATA.email}`}>
               +84 528-307-775
             </NavigationLink>
           </div>
           <div>
-            <div className='flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary'>
+            <div className='bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full'>
               <Facebook />
             </div>
             <h3 className='mt-6 text-xl font-semibold'>Facebook</h3>
-            <p className='my-2.5 text-muted-foreground'>
+            <p className='text-muted-foreground my-2.5'>
               <Trans>I will always be ready to support you.</Trans>
             </p>
-            <NavigationLink className='font-medium text-primary' href='#'>
+            <NavigationLink className='text-primary font-medium' href='#'>
               <Trans>Start new chat</Trans>
             </NavigationLink>
           </div>
           <div>
-            <div className='flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary'>
+            <div className='bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full'>
               <Linkedin />
             </div>
             <h3 className='mt-6 text-xl font-semibold'>LinkedIn</h3>
-            <NavigationLink href={SITE_METADATA.linkedIn} className='font-medium text-primary'>
+            <NavigationLink href={SITE_METADATA.linkedIn} className='text-primary font-medium'>
               <Trans>Hire me</Trans>
             </NavigationLink>
           </div>

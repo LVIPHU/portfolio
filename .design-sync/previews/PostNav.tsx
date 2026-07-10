@@ -8,12 +8,12 @@ const rowFix = '.pn-fix > div{flex-direction:row!important;justify-content:space
 export const BetweenPosts = () => (
   <>
     <style>{rowFix}</style>
-    <div className="pn-fix" style={{ minWidth: 480 }}>
+    <div className='pn-fix' style={{ minWidth: 480 }}>
       <PostNav
         prev={{ path: 'blog/kien-truc-react-fiber', title: 'Kiến trúc React Fiber' }}
-        prevLabel="Bài trước"
+        prevLabel='Bài trước'
         next={{ path: 'blog/toi-uu-hieu-nang-anh-nextjs', title: 'Tối ưu hiệu năng ảnh trong Next.js' }}
-        nextLabel="Bài sau"
+        nextLabel='Bài sau'
       />
     </div>
   </>
@@ -22,13 +22,13 @@ export const BetweenPosts = () => (
 export const NextOnly = () => (
   <>
     <style>{rowFix}</style>
-    <div className="pn-fix" style={{ minWidth: 480 }}>
+    <div className='pn-fix' style={{ minWidth: 480 }}>
       <PostNav
         next={{
           path: 'blog/does-promise-all-run-in-parallel-or-sequential',
           title: 'Does JavaScript Promise.all() run in parallel or sequential?',
         }}
-        nextLabel="Next article"
+        nextLabel='Next article'
       />
     </div>
   </>

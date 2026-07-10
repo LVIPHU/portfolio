@@ -48,15 +48,12 @@ export const HomeTemplate: React.FC = () => {
     }
   }, [])
 
-  const handlePointerEnter = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>, href: string, name: VideoKey) => {
-      if (e.pointerType !== 'touch') {
-        setHref(href)
-      }
-      videoRefs.current[name]?.current?.play()
-    },
-    []
-  )
+  const handlePointerEnter = useCallback((e: React.PointerEvent<HTMLDivElement>, href: string, name: VideoKey) => {
+    if (e.pointerType !== 'touch') {
+      setHref(href)
+    }
+    videoRefs.current[name]?.current?.play()
+  }, [])
 
   const handlePointerLeave = useCallback((name: VideoKey) => {
     setHref('')
@@ -92,7 +89,7 @@ export const HomeTemplate: React.FC = () => {
   const distance = Math.min(DISTANCE_MOUSE, cursorY - DISTANCE_SCREEN)
 
   return (
-    <main ref={containerRef} className='relative flex min-h-screen w-full flex-col overflow-hidden bg-background'>
+    <main ref={containerRef} className='bg-background relative flex min-h-screen w-full flex-col overflow-hidden'>
       <Boxes>
         <VideoCard
           idx={1}

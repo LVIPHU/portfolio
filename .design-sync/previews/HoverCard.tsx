@@ -12,25 +12,25 @@ export const AuthorProfileCard = () => (
     <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 12, minHeight: 230 }}>
       <HoverCard open>
         <HoverCardTrigger
-          href="https://github.com/LVIPHU"
-          className="text-sm font-medium text-primary-500"
+          href='https://github.com/LVIPHU'
+          className='text-primary-500 text-sm font-medium'
           style={{ textDecoration: 'underline', textUnderlineOffset: 4 }}
         >
           @LVIPHU
         </HoverCardTrigger>
-        <HoverCardContent className="w-64" avoidCollisions={false}>
-          <div className="flex gap-3">
+        <HoverCardContent className='w-64' avoidCollisions={false}>
+          <div className='flex gap-3'>
             <img
-              src="https://avatars.githubusercontent.com/u/84316006?v=4"
-              alt="Lương Vĩ Phú"
+              src='https://avatars.githubusercontent.com/u/84316006?v=4'
+              alt='Lương Vĩ Phú'
               style={{ width: 40, height: 40, borderRadius: 9999, flexShrink: 0 }}
             />
-            <div className="space-y-1">
-              <p className="text-sm font-semibold">Lương Vĩ Phú</p>
-              <p className="text-sm text-muted-foreground">
+            <div className='space-y-1'>
+              <p className='text-sm font-semibold'>Lương Vĩ Phú</p>
+              <p className='text-muted-foreground text-sm'>
                 Full-stack developer — Next.js, NestJS. Viết blog kỹ thuật song ngữ Việt – Anh.
               </p>
-              <p className="text-xs text-muted-foreground">TP. Hồ Chí Minh · GitHub từ 2021</p>
+              <p className='text-muted-foreground text-xs'>TP. Hồ Chí Minh · GitHub từ 2021</p>
             </div>
           </div>
         </HoverCardContent>

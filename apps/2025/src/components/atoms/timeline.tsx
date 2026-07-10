@@ -154,7 +154,5 @@ export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date;
     }
   }
 
-  return (
-    <div className='pt-1 text-sm'>{`${formattedStartDate} - ${formattedEndDate} · ${duration}`}</div>
-  )
+  return <div className='pt-1 text-sm'>{`${formattedStartDate} - ${formattedEndDate} · ${duration}`}</div>
 }

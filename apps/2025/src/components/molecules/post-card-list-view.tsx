@@ -18,7 +18,7 @@ export function PostCardListView({ post, loading }: { post: CoreContent<Blog>; l
               alt={title}
               width={500}
               height={500}
-              className='aspect-video w-full rounded-lg bg-muted sm:aspect-square'
+              className='bg-muted aspect-video w-full rounded-lg sm:aspect-square'
               loading={loading}
             />
           </NavigationLink>
@@ -30,8 +30,8 @@ export function PostCardListView({ post, loading }: { post: CoreContent<Blog>; l
               <GrowingUnderline>{title}</GrowingUnderline>
             </NavigationLink>
           </h3>
-          <p className='mt-2 line-clamp-2 text-ellipsis text-muted-foreground md:line-clamp-3'>{summary}</p>
-          <dl className='mt-4 flex items-center gap-6 text-sm font-medium text-muted-foreground'>
+          <p className='text-muted-foreground mt-2 line-clamp-2 text-ellipsis md:line-clamp-3'>{summary}</p>
+          <dl className='text-muted-foreground mt-4 flex items-center gap-6 text-sm font-medium'>
             <dt className='sr-only'>Published on</dt>
             <dd className='flex items-center gap-2'>
               <ClockIcon className='size-4' />

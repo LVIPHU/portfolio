@@ -9,21 +9,21 @@ export const SharePostPopover = () => (
     <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 8, minHeight: 230 }}>
       <Popover open>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="sm">
+          <Button variant='outline' size='sm'>
             Chia sẻ
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-72" sideOffset={6} avoidCollisions={false}>
-          <div className="grid gap-2">
-            <div className="space-y-1">
-              <h4 className="text-sm font-medium leading-none">Chia sẻ bài viết</h4>
-              <p className="text-sm text-muted-foreground">Lan tỏa tới cộng đồng dev Việt.</p>
+        <PopoverContent className='w-72' sideOffset={6} avoidCollisions={false}>
+          <div className='grid gap-2'>
+            <div className='space-y-1'>
+              <h4 className='text-sm font-medium leading-none'>Chia sẻ bài viết</h4>
+              <p className='text-muted-foreground text-sm'>Lan tỏa tới cộng đồng dev Việt.</p>
             </div>
-            <div className="flex gap-2">
-              <Button size="sm" variant="outline">
+            <div className='flex gap-2'>
+              <Button size='sm' variant='outline'>
                 Facebook
               </Button>
-              <Button size="sm">Sao chép link</Button>
+              <Button size='sm'>Sao chép link</Button>
             </div>
           </div>
         </PopoverContent>

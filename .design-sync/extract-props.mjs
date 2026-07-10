@@ -22,8 +22,7 @@ project.resolveSourceFileDependencies()
 const REPO = resolve('.').replace(/\\/g, '/').toLowerCase()
 const SKIP = new Set(['key', 'ref'])
 const KEEP_INHERITED = new Set(['children', 'className'])
-const FMT =
-  ts.TypeFormatFlags.UseAliasDefinedOutsideCurrentScope | ts.TypeFormatFlags.InTypeAlias
+const FMT = ts.TypeFormatFlags.UseAliasDefinedOutsideCurrentScope | ts.TypeFormatFlags.InTypeAlias
 
 function linesFor(propsType, anchor) {
   const lines = []
@@ -31,8 +30,7 @@ function linesFor(propsType, anchor) {
     const name = sym.getName()
     if (SKIP.has(name) || !/^[A-Za-z_$][\w$]*$/.test(name)) continue
     const dp = sym.getDeclarations()[0]?.getSourceFile().getFilePath() ?? ''
-    const own =
-      dp.replace(/\\/g, '/').toLowerCase().startsWith(REPO) && !dp.includes('node_modules')
+    const own = dp.replace(/\\/g, '/').toLowerCase().startsWith(REPO) && !dp.includes('node_modules')
     if (!own && !KEEP_INHERITED.has(name)) continue
     let t
     try {

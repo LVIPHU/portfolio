@@ -89,19 +89,19 @@ export const AboutTemplate = () => {
           </h2>
           <span>
             <Trans>
-              I am {SITE_METADATA.author}, a Software Engineer {String.fromCodePoint(0x1f4bb)} from Vietnam, with a passion
-              for programming and web development, I enjoy creating innovative solutions that enhance performance and
-              efficiency. My technology journey includes building e-commerce websites, data management, and advanced
-              full-stack solutions. Educationally, I hold a Bachelor's degree {String.fromCodePoint(0x1f393)} in
-              Information Technology.
+              I am {SITE_METADATA.author}, a Software Engineer {String.fromCodePoint(0x1f4bb)} from Vietnam, with a
+              passion for programming and web development, I enjoy creating innovative solutions that enhance
+              performance and efficiency. My technology journey includes building e-commerce websites, data management,
+              and advanced full-stack solutions. Educationally, I hold a Bachelor's degree{' '}
+              {String.fromCodePoint(0x1f393)} in Information Technology.
             </Trans>
           </span>
           <span>
             <Trans>
               Currently, I am working for{' '}
-            <LinkPreview url='https://pvssolution.com' className='font-semibold'>
-              PVS Solution
-            </LinkPreview>{' '}
+              <LinkPreview url='https://pvssolution.com' className='font-semibold'>
+                PVS Solution
+              </LinkPreview>{' '}
               in Vietnam. I focus on creating excellent user experiences by using modern frontend architecture. Whether
               it's writing code or collaborating with cross-functional teams, I always ensure products meet the highest
               standards and deliver impressive experiences for users.
@@ -111,13 +111,13 @@ export const AboutTemplate = () => {
             <Trans>
               When I'm not coding, I usually listen to music {String.fromCodePoint(0x1f3a7)} or play games{' '}
               {String.fromCodePoint(0x1f3ae)} like{' '}
-            <LinkPreview url='https://www.leagueoflegends.com' className='font-semibold'>
-              League of Legends
-            </LinkPreview>
-            ,{' '}
-            <LinkPreview url='https://wutheringwaves.kurogames.com' className='font-semibold'>
-              Wuthering Waves
-            </LinkPreview>
+              <LinkPreview url='https://www.leagueoflegends.com' className='font-semibold'>
+                League of Legends
+              </LinkPreview>
+              ,{' '}
+              <LinkPreview url='https://wutheringwaves.kurogames.com' className='font-semibold'>
+                Wuthering Waves
+              </LinkPreview>
               . These hobbies help me maintain creativity and relieve stress.
             </Trans>
           </span>

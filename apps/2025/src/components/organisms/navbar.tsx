@@ -30,7 +30,7 @@ const ICON_CLASS = 'h-full w-full text-neutral-500 dark:text-neutral-300'
 export const Navbar = ({ lang }: Props) => {
   const { query } = useKBar()
   const toggleSearch = useCallback(() => query.toggle(), [query])
-  
+
   const links: Item[] = useMemo(() => {
     return [
       {

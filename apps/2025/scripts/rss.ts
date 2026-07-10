@@ -14,7 +14,8 @@ const RSS_CONFIG = {
   language: 'vi-VN',
   // RSS feed uses English strings (hardcoded) as RSS feeds typically don't support i18n
   title: "Lương Vĩ Phú's dev blog - portfolio",
-  description: "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.",
+  description:
+    'I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.',
 }
 
 import { type Blog } from '.contentlayer/generated'

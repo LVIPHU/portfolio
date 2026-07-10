@@ -9,8 +9,8 @@ const data = [
     content: (
       <>
         <TimelineItemDescription>
-          Xây dựng portfolio monorepo (Next.js 16, Turborepo, Tailwind v4) với content layer song ngữ Việt – Anh
-          dùng chung giữa các phiên bản.
+          Xây dựng portfolio monorepo (Next.js 16, Turborepo, Tailwind v4) với content layer song ngữ Việt – Anh dùng
+          chung giữa các phiên bản.
         </TimelineItemDescription>
         <TimelineItemSmallText>06/2024 — nay · TP. Hồ Chí Minh</TimelineItemSmallText>
       </>
@@ -21,8 +21,8 @@ const data = [
     content: (
       <>
         <TimelineItemDescription>
-          Phát triển nền tảng đặt phòng homestay: tìm kiếm theo khu vực, lịch trống thời gian thực và thanh toán
-          trực tuyến (React, Node.js, MongoDB).
+          Phát triển nền tảng đặt phòng homestay: tìm kiếm theo khu vực, lịch trống thời gian thực và thanh toán trực
+          tuyến (React, Node.js, MongoDB).
         </TimelineItemDescription>
         <TimelineItemSmallText>06/2023 — 05/2024 · Remote</TimelineItemSmallText>
       </>
@@ -46,7 +46,7 @@ const data = [
 // clock fake performance.now. CSS !important ép item về TRẠNG THÁI CUỐI của
 // animation — đúng bằng resting state trên site thật, không đổi style DS.
 export const WorkExperience = () => (
-  <div className="tl-fix" style={{ maxWidth: 620, padding: '16px 24px 8px' }}>
+  <div className='tl-fix' style={{ maxWidth: 620, padding: '16px 24px 8px' }}>
     <style>{`.tl-fix .relative.ml-5.w-full.pl-6{opacity:1!important;transform:none!important}`}</style>
     <Timeline data={data} />
   </div>

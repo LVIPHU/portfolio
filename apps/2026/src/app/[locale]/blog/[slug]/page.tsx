@@ -1,58 +1,52 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { getAllSlugs, getPost, type Locale } from "@portfolio/content";
-import { Link } from "@/i18n/navigation";
-import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/utils";
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { ArrowLeft } from 'lucide-react'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { getAllSlugs, getPost, type Locale } from '@portfolio/content'
+import { Link } from '@/i18n/navigation'
+import { Badge } from '@/components/ui/badge'
+import { formatDate } from '@/lib/utils'
 
 export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
+  return getAllSlugs().map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale; slug: string }>;
+  params: Promise<{ locale: Locale; slug: string }>
 }): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const post = getPost(slug, locale);
-  if (!post) return {};
-  return { title: post.title, description: post.description };
+  const { locale, slug } = await params
+  const post = getPost(slug, locale)
+  if (!post) return {}
+  return { title: post.title, description: post.description }
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: Promise<{ locale: Locale; slug: string }>;
-}) {
-  const { locale, slug } = await params;
-  setRequestLocale(locale);
-  const t = await getTranslations("blog");
-  const post = getPost(slug, locale);
-  if (!post) notFound();
+export default async function BlogPostPage({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {
+  const { locale, slug } = await params
+  setRequestLocale(locale)
+  const t = await getTranslations('blog')
+  const post = getPost(slug, locale)
+  if (!post) notFound()
 
   return (
-    <article className="mx-auto max-w-3xl">
+    <article className='mx-auto max-w-3xl'>
       <Link
-        href="/blog"
-        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+        href='/blog'
+        className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm'
       >
-        <ArrowLeft className="h-4 w-4" /> {t("backToBlog")}
+        <ArrowLeft className='h-4 w-4' /> {t('backToBlog')}
       </Link>
 
-      <header className="mt-6">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          {post.title}
-        </h1>
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+      <header className='mt-6'>
+        <h1 className='text-3xl font-bold tracking-tight sm:text-4xl'>{post.title}</h1>
+        <div className='text-muted-foreground mt-3 flex flex-wrap items-center gap-3 text-sm'>
           <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
-          <div className="flex gap-1.5">
+          <div className='flex gap-1.5'>
             {post.tags.map((tag) => (
               <Link key={tag} href={`/tags/${tag}`}>
-                <Badge variant="outline" className="hover:bg-accent">
+                <Badge variant='outline' className='hover:bg-accent'>
                   {tag}
                 </Badge>
               </Link>
@@ -61,9 +55,9 @@ export default async function BlogPostPage({
         </div>
       </header>
 
-      <div className="prose prose-neutral dark:prose-invert mt-8 max-w-none">
+      <div className='prose prose-neutral dark:prose-invert mt-8 max-w-none'>
         <MDXRemote source={post.content} />
       </div>
     </article>
-  );
+  )
 }

@@ -81,19 +81,22 @@ function DesktopDock({ items, className }: { items: Item[]; className?: string }
   const rafRef = useRef<number | null>(null)
   const pendingXRef = useRef<number | null>(null)
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    pendingXRef.current = e.pageX
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      pendingXRef.current = e.pageX
 
-    if (!rafRef.current) {
-      rafRef.current = requestAnimationFrame(() => {
-        if (pendingXRef.current !== null) {
-          mouseX.set(pendingXRef.current)
-          pendingXRef.current = null
-        }
-        rafRef.current = null
-      })
-    }
-  }, [mouseX])
+      if (!rafRef.current) {
+        rafRef.current = requestAnimationFrame(() => {
+          if (pendingXRef.current !== null) {
+            mouseX.set(pendingXRef.current)
+            pendingXRef.current = null
+          }
+          rafRef.current = null
+        })
+      }
+    },
+    [mouseX]
+  )
 
   useEffect(() => {
     return () => {
@@ -108,7 +111,7 @@ function DesktopDock({ items, className }: { items: Item[]; className?: string }
       onMouseMove={handleMouseMove}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        'mx-auto hidden h-16 items-end gap-4 rounded-full bg-gray-50/70 px-4 pb-3 backdrop-blur dark:bg-neutral-900/75 md:flex',
+        'mx-auto hidden h-16 items-end gap-4 rounded-full bg-gray-50/70 px-4 pb-3 backdrop-blur md:flex dark:bg-neutral-900/75',
         className
       )}
     >

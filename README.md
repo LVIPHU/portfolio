@@ -34,14 +34,14 @@ Lưu ý Windows: chạy dev/build từ PowerShell hoặc cmd (Git Bash làm Cont
 
 ## Cập nhật nội dung
 
-| Muốn sửa | Sửa ở đâu |
-|---|---|
-| Tên, chức danh, bio, social links | `packages/content/src/profile.ts` |
-| Projects | `packages/content/src/projects.ts` |
-| Resume (kinh nghiệm, học vấn, skills) | `packages/content/src/resume.ts` |
-| Ảnh gallery | Thêm ảnh vào `packages/content/assets/gallery/` + khai báo trong `packages/content/src/gallery.ts` |
-| Viết blog | Tạo `packages/content/blog/<slug>.vi.mdx` và `<slug>.en.mdx` |
-| File resume PDF | Đặt `resume.pdf` vào `apps/2026/public/` |
+| Muốn sửa                              | Sửa ở đâu                                                                                          |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Tên, chức danh, bio, social links     | `packages/content/src/profile.ts`                                                                  |
+| Projects                              | `packages/content/src/projects.ts`                                                                 |
+| Resume (kinh nghiệm, học vấn, skills) | `packages/content/src/resume.ts`                                                                   |
+| Ảnh gallery                           | Thêm ảnh vào `packages/content/assets/gallery/` + khai báo trong `packages/content/src/gallery.ts` |
+| Viết blog                             | Tạo `packages/content/blog/<slug>.vi.mdx` và `<slug>.en.mdx`                                       |
+| File resume PDF                       | Đặt `resume.pdf` vào `apps/2026/public/`                                                           |
 
 Mọi text đều song ngữ dạng `{ vi: "...", en: "..." }`. URL tiếng Việt không có prefix, tiếng Anh có `/en`.
 

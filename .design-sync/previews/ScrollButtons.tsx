@@ -8,7 +8,7 @@ import { ScrollButtons } from 'web-2025'
 export const FloatingActions = () => (
   <>
     <style>{'.sbd > div{position:static!important;display:inline-flex!important}'}</style>
-    <div className="sbd" style={{ padding: 8 }}>
+    <div className='sbd' style={{ padding: 8 }}>
       <ScrollButtons />
     </div>
   </>

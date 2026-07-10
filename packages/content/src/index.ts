@@ -1,12 +1,6 @@
-export * from "./types";
-export { profile } from "./profile";
-export { projects, featuredProjects } from "./projects";
-export { resume } from "./resume";
-export { gallery } from "./gallery";
-export {
-  getAllPosts,
-  getPost,
-  getAllSlugs,
-  getAllTags,
-  getPostsByTag,
-} from "./blog";
+export * from './types'
+export { profile } from './profile'
+export { projects, featuredProjects } from './projects'
+export { resume } from './resume'
+export { gallery } from './gallery'
+export { getAllPosts, getPost, getAllSlugs, getAllTags, getPostsByTag } from './blog'

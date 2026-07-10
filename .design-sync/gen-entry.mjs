@@ -9,7 +9,11 @@ const COMP = join(ROOT, 'apps/2025/src/components')
 const SKIP_FILES = new Set(['molecules/back-to-posts.tsx', 'atoms/social-icons.tsx'])
 
 const pascal = (f) =>
-  f.replace(/\.tsx$/, '').split('-').map((s) => s[0].toUpperCase() + s.slice(1)).join('')
+  f
+    .replace(/\.tsx$/, '')
+    .split('-')
+    .map((s) => s[0].toUpperCase() + s.slice(1))
+    .join('')
 
 const lines = []
 const map = {}
@@ -19,9 +23,19 @@ for (const dir of ['atoms', 'molecules']) {
     const rel = `${dir}/${f}`
     if (SKIP_FILES.has(rel)) continue
     const srcTxt = readFileSync(join(COMP, dir, f), 'utf8')
-    const names = [...srcTxt.matchAll(/export\s+(?:default\s+)?(?:const|function|class)\s+([A-Z][A-Za-z0-9]*)/g)].map((m) => m[1])
+    const names = [...srcTxt.matchAll(/export\s+(?:default\s+)?(?:const|function|class)\s+([A-Z][A-Za-z0-9]*)/g)].map(
+      (m) => m[1]
+    )
     const fromBraces = [...srcTxt.matchAll(/export\s*\{([^}]+)\}/g)].flatMap((m) =>
-      m[1].split(',').map((s) => s.trim().split(/\s+as\s+/).pop()).filter((n) => /^[A-Z][A-Za-z0-9]*$/.test(n ?? ''))
+      m[1]
+        .split(',')
+        .map((s) =>
+          s
+            .trim()
+            .split(/\s+as\s+/)
+            .pop()
+        )
+        .filter((n) => /^[A-Z][A-Za-z0-9]*$/.test(n ?? ''))
     )
     const all = [...new Set([...names, ...fromBraces])]
     if (!all.length) continue

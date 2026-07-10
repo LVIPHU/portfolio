@@ -40,7 +40,7 @@ export function PostBannerTemplate({ content, children }: LayoutProps) {
             <Banner banner={images?.[0] || SITE_METADATA.socialBanner} className='lg:-mx-8 xl:-mx-36 2xl:-mx-52' />
           </div>
         </div>
-        <div className='prose prose-lg max-w-none dark:prose-invert'>{children}</div>
+        <div className='prose prose-lg dark:prose-invert max-w-none'>{children}</div>
         <div className='space-y-8 border-t border-gray-200 pt-4 dark:border-gray-700'>
           <div className='flex justify-between gap-4'>
             <div className='flex items-center gap-2'>

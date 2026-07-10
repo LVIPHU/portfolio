@@ -8,9 +8,9 @@ export const ShareTrigger = () => (
     <style>{'html{scrollbar-gutter:stable}body{margin-right:0!important;padding-right:0!important}'}</style>
     <div style={{ display: 'flex', justifyContent: 'center', padding: 8 }}>
       <SocialShare
-        postUrl="https://web-2025.vercel.app/vi-VN/blog/toi-uu-hieu-nang-anh-nextjs"
-        filePath="data/blog/toi-uu-hieu-nang-anh-nextjs.mdx"
-        title="Tối ưu hiệu năng ảnh trong Next.js"
+        postUrl='https://web-2025.vercel.app/vi-VN/blog/toi-uu-hieu-nang-anh-nextjs'
+        filePath='data/blog/toi-uu-hieu-nang-anh-nextjs.mdx'
+        title='Tối ưu hiệu năng ảnh trong Next.js'
       />
     </div>
   </>

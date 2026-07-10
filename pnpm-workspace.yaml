@@ -1,12 +1,12 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - 'apps/*'
+  - 'packages/*'
 
 # pnpm 11: cho phép các package này chạy build/postinstall script
 allowBuilds:
-  "@parcel/watcher": true
-  "@swc/core": true
-  "@tailwindcss/oxide": true
+  '@parcel/watcher': true
+  '@swc/core': true
+  '@tailwindcss/oxide': true
   contentlayer2: true
   esbuild: true
   protobufjs: true

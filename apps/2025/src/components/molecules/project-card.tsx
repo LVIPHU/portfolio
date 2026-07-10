@@ -21,8 +21,8 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
   const lang = repository?.languages?.[0]
   const { i18n } = useLingui()
   return (
-    <div className='relative z-10 flex h-full flex-col overflow-hidden rounded-xl border border-primary/20 transition-all group-hover/container:border-transparent group-hover/effect:!border-accent'>
-      <div className='relative h-64 overflow-hidden bg-accent'>
+    <div className='border-primary/20 group-hover/effect:!border-accent relative z-10 flex h-full flex-col overflow-hidden rounded-xl border transition-all group-hover/container:border-transparent'>
+      <div className='bg-accent relative h-64 overflow-hidden'>
         <Image
           src={image}
           alt={title}
@@ -34,7 +34,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       {/* Content */}
       <div className='flex flex-1 flex-col p-6'>
         <h3 className='mb-2 text-xl font-semibold tracking-wide'>{title}</h3>
-        <p className='mb-4 tracking-wide text-muted-foreground'>
+        <p className='text-muted-foreground mb-4 tracking-wide'>
           {typeof description === 'string' ? description : description ? i18n._(description) : ''}
         </p>
 

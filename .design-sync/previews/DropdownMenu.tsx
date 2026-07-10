@@ -15,9 +15,9 @@ export const PostActionsMenu = () => (
   <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 24, minHeight: 380 }}>
     <DropdownMenu open>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">Tùy chọn bài viết</Button>
+        <Button variant='outline'>Tùy chọn bài viết</Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" style={{ width: 224 }}>
+      <DropdownMenuContent align='start' style={{ width: 224 }}>
         <DropdownMenuLabel>Hành động</DropdownMenuLabel>
         <DropdownMenuItem>
           Sao chép link
@@ -29,7 +29,7 @@ export const PostActionsMenu = () => (
         <DropdownMenuCheckboxItem checked>Hiện mục lục</DropdownMenuCheckboxItem>
         <DropdownMenuCheckboxItem>Ghim lên đầu trang</DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant='destructive'>
           Xóa bài viết
           <DropdownMenuShortcut>⌫</DropdownMenuShortcut>
         </DropdownMenuItem>

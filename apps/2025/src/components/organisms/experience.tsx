@@ -104,10 +104,18 @@ export function Experience() {
                     <div className='space-y-1'>
                       <h4 className='text-sm font-semibold'>@{company.name}</h4>
                       <h4 className='text-sm font-semibold'>
-                        {company.location ? (typeof company.location === 'string' ? company.location : i18n._(company.location)) : ''}
+                        {company.location
+                          ? typeof company.location === 'string'
+                            ? company.location
+                            : i18n._(company.location)
+                          : ''}
                       </h4>
                       <p className='text-sm'>
-                        {company.description ? (typeof company.description === 'string' ? company.description : i18n._(company.description)) : ''}
+                        {company.description
+                          ? typeof company.description === 'string'
+                            ? company.description
+                            : i18n._(company.description)
+                          : ''}
                       </p>
                     </div>
                   </div>
@@ -130,7 +138,11 @@ export function Experience() {
                       </LinkPreview>
                     </CardTitle>
                     <CardDescription>
-                      {company.description ? (typeof company.description === 'string' ? company.description : i18n._(company.description)) : ''}
+                      {company.description
+                        ? typeof company.description === 'string'
+                          ? company.description
+                          : i18n._(company.description)
+                        : ''}
                     </CardDescription>
                   </AnimatedContent>
                 </CardHeader>

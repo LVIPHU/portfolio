@@ -9,12 +9,12 @@ export const DeletePostModal = () => (
     <style>{`html{scrollbar-gutter:stable}body{margin-right:0!important;padding-right:0!important}
 [data-vaul-drawer],[data-vaul-overlay]{transition:none!important}`}</style>
     <Modal
-      title="Xóa bài viết?"
-      description="Bài viết “Tối ưu hiệu năng ảnh trong Next.js” sẽ bị xóa vĩnh viễn cùng toàn bộ bình luận. Hành động này không thể hoàn tác."
+      title='Xóa bài viết?'
+      description='Bài viết “Tối ưu hiệu năng ảnh trong Next.js” sẽ bị xóa vĩnh viễn cùng toàn bộ bình luận. Hành động này không thể hoàn tác.'
     >
-      <div className="flex justify-end gap-2">
-        <Button variant="outline">Hủy</Button>
-        <Button variant="destructive">Xóa bài viết</Button>
+      <div className='flex justify-end gap-2'>
+        <Button variant='outline'>Hủy</Button>
+        <Button variant='destructive'>Xóa bài viết</Button>
       </div>
     </Modal>
   </>

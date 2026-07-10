@@ -31,12 +31,18 @@ export const PhotoGridFooterBlur = () => (
       background: 'var(--color-background)',
     }}
   >
-    <div className="p-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+    <div className='p-4' style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
       {photos.map((src, i) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={i} src={src} alt={`Ảnh Đà Lạt ${i + 1}`} className="rounded-md" style={{ width: '100%', height: 110, objectFit: 'cover' }} />
+        <img
+          key={i}
+          src={src}
+          alt={`Ảnh Đà Lạt ${i + 1}`}
+          className='rounded-md'
+          style={{ width: '100%', height: 110, objectFit: 'cover' }}
+        />
       ))}
-      <p className="text-sm text-muted-foreground" style={{ gridColumn: '1 / -1' }}>
+      <p className='text-muted-foreground text-sm' style={{ gridColumn: '1 / -1' }}>
         Bộ ảnh Đà Lạt 2024 — cuộn xuống để xem thêm. Mép dưới được phủ backdrop-blur.
       </p>
     </div>

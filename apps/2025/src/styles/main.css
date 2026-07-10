@@ -1,13 +1,13 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "./_prose.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import './_prose.css';
 @plugin "@tailwindcss/typography";
-@import "./_theme.css";
-@import "./_base.css";
-@import "./_tailwind.css";
-@import "./_prism.css";
-@import "./_animations.css";
-@import "./_utilities.css";
-@import "./components/_boxes.css";
+@import './_theme.css';
+@import './_base.css';
+@import './_tailwind.css';
+@import './_prism.css';
+@import './_animations.css';
+@import './_utilities.css';
+@import './components/_boxes.css';
 
 @custom-variant dark (&:where(.dark, .dark *));

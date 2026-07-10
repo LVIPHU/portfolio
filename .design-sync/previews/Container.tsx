@@ -5,9 +5,9 @@ import { Container } from 'web-2025'
 
 export const CenteredPageSection = () => (
   <div style={{ background: 'var(--color-muted)', padding: '20px 0', borderRadius: 8 }}>
-    <Container className="bg-background rounded-lg py-2">
-      <h2 className="text-2xl font-bold tracking-tight">Dự án nổi bật</h2>
-      <p className="text-sm text-muted-foreground mt-2">
+    <Container className='bg-background rounded-lg py-2'>
+      <h2 className='text-2xl font-bold tracking-tight'>Dự án nổi bật</h2>
+      <p className='text-muted-foreground mt-2 text-sm'>
         Portfolio Monorepo, blog kỹ thuật và bộ sưu tập ảnh — tất cả nằm trong Container để đồng bộ lề trang trên mọi
         breakpoint.
       </p>
@@ -17,10 +17,10 @@ export const CenteredPageSection = () => (
 
 export const AsArticle = () => (
   <div style={{ background: 'var(--color-muted)', padding: '20px 0', borderRadius: 8 }}>
-    <Container as="article" className="bg-card border rounded-lg py-2">
-      <p className="text-xs text-muted-foreground">15 tháng 5, 2024 · 8 phút đọc</p>
-      <h3 className="text-xl font-semibold mt-1">Does JavaScript Promise.all() run in parallel or sequential?</h3>
-      <p className="text-sm text-muted-foreground mt-2">
+    <Container as='article' className='bg-card rounded-lg border py-2'>
+      <p className='text-muted-foreground text-xs'>15 tháng 5, 2024 · 8 phút đọc</p>
+      <h3 className='mt-1 text-xl font-semibold'>Does JavaScript Promise.all() run in parallel or sequential?</h3>
+      <p className='text-muted-foreground mt-2 text-sm'>
         Rendered as an &lt;article&gt; element via the <code>as</code> prop — same centering and gutter behaviour.
       </p>
     </Container>

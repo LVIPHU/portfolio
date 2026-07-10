@@ -12,7 +12,7 @@ export const HoverEffect = ({ items, className }: { items: Project[]; className?
   return (
     <div
       className={cn(
-        'group/container grid grid-cols-1 gap-2 bg-background md:gap-5 lg:grid-cols-2 xl:grid-cols-3',
+        'group/container bg-background grid grid-cols-1 gap-2 md:gap-5 lg:grid-cols-2 xl:grid-cols-3',
         className
       )}
     >

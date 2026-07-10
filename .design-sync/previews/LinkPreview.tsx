@@ -38,9 +38,9 @@ export const HoverPreviewOpen = () => {
         }}
         style={{ minHeight: 300, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: 8 }}
       >
-        <p className="text-sm text-muted-foreground" style={{ maxWidth: 480, textAlign: 'center' }}>
+        <p className='text-muted-foreground text-sm' style={{ maxWidth: 480, textAlign: 'center' }}>
           Phiên bản mới nhất của portfolio —{' '}
-          <LinkPreview url={URL_2026} isStatic imageSrc={shot} className="font-semibold">
+          <LinkPreview url={URL_2026} isStatic imageSrc={shot} className='font-semibold'>
             web-2026.vercel.app
           </LinkPreview>{' '}
           — xây bằng Next.js 16 và Tailwind v4.
@@ -53,9 +53,9 @@ export const HoverPreviewOpen = () => {
 // Trạng thái nghỉ: trigger là link thường nằm trong câu văn.
 export const InlineTriggerResting = () => (
   <div style={{ padding: 24, display: 'flex', justifyContent: 'center' }}>
-    <p className="text-sm text-muted-foreground" style={{ maxWidth: 480 }}>
+    <p className='text-muted-foreground text-sm' style={{ maxWidth: 480 }}>
       Đọc thêm về Turborepo tại{' '}
-      <LinkPreview url="https://turborepo.dev" isStatic imageSrc={shot} className="font-semibold">
+      <LinkPreview url='https://turborepo.dev' isStatic imageSrc={shot} className='font-semibold'>
         turborepo.dev
       </LinkPreview>{' '}
       — hover để xem preview trang.

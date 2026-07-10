@@ -134,8 +134,8 @@ export const Technologies = () => {
                     </AnimatedContent>
                   </CardContent>
                   {category !== 'Most Used' && (
-                    <CardFooter className='flex flex-row items-center justify-between border-t bg-muted/50 px-6 py-3'>
-                      <div className='flex items-center text-xs text-muted-foreground'>
+                    <CardFooter className='bg-muted/50 flex flex-row items-center justify-between border-t px-6 py-3'>
+                      <div className='text-muted-foreground flex items-center text-xs'>
                         <span className='mx-1 inline-block h-3 w-3 rounded-full bg-amber-500'></span>
                         <span>
                           <Trans>Currently Learning</Trans>

@@ -38,7 +38,7 @@ export function PostSimpleTemplate({ content, children }: PostSimpleProps) {
           </dl>
         </div>
         <Separator />
-        <div className='prose prose-lg max-w-none dark:prose-invert'>{children}</div>
+        <div className='prose prose-lg dark:prose-invert max-w-none'>{children}</div>
         <Separator className='mb-2 mt-1' />
         <div className='space-y-8'>
           {/* <div className="flex justify-between gap-4">
