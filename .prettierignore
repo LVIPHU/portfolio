@@ -1,0 +1,26 @@
+# deps & build
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+.contentlayer/
+.vercel/
+
+# generated
+apps/*/public/content/
+apps/2025/public/feed.xml
+apps/2025/public/search.json
+apps/2025/public/tags/
+apps/2025/json/
+apps/2025/src/i18n/locales/
+apps/2025/.design-sync.entry.tsx
+apps/2025/.ds-css/
+next-env.d.ts
+pnpm-lock.yaml
+
+# design-sync machine state
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
