@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
-import { buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@portfolio/ui'
 
 export default function NotFound() {
   const t = useTranslations('notFound')

@@ -1,6 +1,6 @@
 import type { Locale, PostMeta } from '@portfolio/content'
 import { Link } from '@/i18n/navigation'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@portfolio/ui'
 import { formatDate } from '@/lib/utils'
 
 export function PostCard({ post, locale }: { post: PostMeta; locale: Locale }) {

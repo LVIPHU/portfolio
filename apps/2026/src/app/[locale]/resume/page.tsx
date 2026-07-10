@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { Download } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { resume, type Locale } from '@portfolio/content'
-import { Badge } from '@/components/ui/badge'
-import { buttonVariants } from '@/components/ui/button'
+import { Badge } from '@portfolio/ui'
+import { buttonVariants } from '@portfolio/ui'
 import { formatMonth, t } from '@/lib/utils'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -72,7 +72,9 @@ export default async function ResumePage({ params }: { params: Promise<{ locale:
               <h3 className='text-muted-foreground mb-2 text-sm font-medium'>{t(group.label, locale)}</h3>
               <div className='flex flex-wrap gap-1.5'>
                 {group.items.map((skill) => (
-                  <Badge key={skill}>{skill}</Badge>
+                  <Badge key={skill} variant='secondary'>
+                    {skill}
+                  </Badge>
                 ))}
               </div>
             </div>

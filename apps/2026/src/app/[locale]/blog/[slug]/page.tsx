@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllSlugs, getPost, type Locale } from '@portfolio/content'
 import { Link } from '@/i18n/navigation'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@portfolio/ui'
 import { formatDate } from '@/lib/utils'
 
 export function generateStaticParams() {

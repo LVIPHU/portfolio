@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ArrowUpRight, Mail } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { profile, type Locale } from '@portfolio/content'
-import { buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@portfolio/ui'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params

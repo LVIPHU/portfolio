@@ -1,7 +1,7 @@
 import { Code, ExternalLink } from 'lucide-react'
 import type { Locale, Project } from '@portfolio/content'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@portfolio/ui'
+import { Badge } from '@portfolio/ui'
 import { t } from '@/lib/utils'
 
 export function ProjectCard({
@@ -27,7 +27,9 @@ export function ProjectCard({
       <CardContent className='mt-auto flex flex-col gap-4'>
         <div className='flex flex-wrap gap-1.5'>
           {project.tech.map((tech) => (
-            <Badge key={tech}>{tech}</Badge>
+            <Badge key={tech} variant='secondary'>
+              {tech}
+            </Badge>
           ))}
         </div>
         {(project.links.demo || project.links.source) && (
