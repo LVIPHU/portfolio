@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "jsxFactory": "globalThis.React.createElement",
+    "jsxFragmentFactory": "globalThis.React.Fragment",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "baseUrl": "../apps/2025",
+    "paths": {
+      "next/image": ["../../.design-sync/shims/next-image.tsx"],
+      "next/link": ["../../.design-sync/shims/next-link.tsx"],
+      "next/navigation": ["../../.design-sync/shims/next-navigation.ts"],
+      "@env": ["../../.design-sync/shims/env.ts"],
+      "@lingui/macro": ["../../.design-sync/shims/lingui-macro.ts"],
+      "@lingui/core/macro": ["../../.design-sync/shims/lingui-macro.ts"],
+      "@lingui/react/macro": ["../../.design-sync/shims/lingui-react-macro.tsx"],
+      "@lingui/react": ["../../.design-sync/shims/lingui-react.tsx"],
+      "@/utils": ["../../.design-sync/shims/utils-barrel.ts"],
+      "@/hooks": ["./src/hooks/index.ts"],
+      "@/constants": ["./src/constants/index.ts"],
+      "@/components/atoms": ["../../.design-sync/.cache/atoms-barrel-safe.ts"],
+      "@/components/molecules": ["./src/components/molecules/index.ts"],
+      "@/*": ["./src/*"],
+      "@data/site-metadata": ["../../.design-sync/shims/site-metadata.ts"],
+      "@data/*": ["./data/*"],
+      "@json/*": ["./json/*"],
+      "@public/*": ["./public/*"]
+    }
+  }
+}

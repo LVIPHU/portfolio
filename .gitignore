@@ -14,6 +14,15 @@ apps/*/public/content/
 # vercel
 .vercel/
 
+# design-sync (scripts staged + build output + machine state; .design-sync/ còn lại là durable, commit)
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+apps/2025/.design-sync.entry.tsx
+apps/2025/.ds-css/
+
 # misc
 .DS_Store
 *.tsbuildinfo
