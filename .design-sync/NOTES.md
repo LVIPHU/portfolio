@@ -38,6 +38,17 @@
 - Banner: nhánh Credit cần filename dạng `path__author__id` — không demo được bằng data-URI; GritBackground texture trỏ /static không có trong bundle (mất trang trí, không vỡ).
 - ThemeSwitch không cần ThemeProvider (next-themes có default context).
 
+## Học từ wave 2 (fold từ learnings wave2-D/E/F — pattern hệ thống cho preview)
+- **Capture đóng băng clock** (`page.clock.setFixedTime`) → framer-motion kẹt ở keyframe `initial` (component trắng/collapse dù mount OK). CSS transition thuần + Radix animate-in KHÔNG bị. Fix theo thứ tự ưu tiên: (1) tắt animation bằng chính props (AnimatedContent: `distance={0} animateOpacity={false}`; FadeContent: `initialOpacity={1} duration={1}`), (2) CSS scoped `!important` ép trạng thái CUỐI (= resting state site thật).
+- Viewport capture 900x700: `md:` ăn, `lg:`/`xl:` KHÔNG — cần cột thì truyền `className='md:grid-cols-2'`.
+- Atom `position:fixed` (Blur, Boxes, ScrollButtons): wrapper `relative + overflow:hidden + translateZ(0)` làm containing block; ScrollButtons cần gỡ `fixed`+`hidden` bằng glue CSS.
+- **react-hover-card popper trong bundle NEO SAI** (HoverCard, LinkPreview — khác react-popover neo đúng): ghim `[data-radix-popper-content-wrapper]{position:fixed!important;top:...;left:50%;transform:translateX(-50%)}`. LinkPreview không có prop open → dispatch `PointerEvent('pointerover')` lên trigger.
+- Radix ScrollArea: `type="always"` mới thấy scrollbar trong screenshot; props ngoài d.ts spread qua `as any` được (esbuild không typecheck).
+- `imageDriveLoader` của app bọc MỌI src qua drive.google.com → ảnh trong ParallaxScroll/Image dùng qua loader sẽ 404: glue CSS gradient trên `.image-container` hoặc dùng component không qua loader.
+- **Quirk THẬT của site (đừng sửa trong preview, note trong grade)**: avatar Authors vuông-bo (`.image-container` đè `rounded-full`); chevron TableOfContents không xoay (`[&_.chevron-right]:open:` compile sai target); placeholder LocaleSwitch là "Select a timezone" (copy sót trong source — nên fix ở app).
+- Class thiếu thêm trong CSS bundle: `z-[-1]`, toàn bộ `dark:*` của SearchArticles, `focus:border-primary-500`.
+- Scroll-lock guard `body{margin-right:0!important;padding-right:0!important}` đặt trong mọi preview có trigger mở overlay live (Setting, LocaleSwitch, SocialShare, Modal, Popover).
+
 ## Known render warns (triaged hợp lệ)
 - [RENDER_THIN]/nhỏ trên các icon-only components (ThemeSwitch trước khi author) — đã có authored preview.
 - GritBackground/Blur/AnimatedContent...: floor card, một số render trắng trang trí — đúng bản chất decorative.

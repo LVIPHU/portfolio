@@ -157,6 +157,31 @@
     "Modal": {
       "cardMode": "single",
       "viewport": "640x480"
+    },
+    "Boxes": {
+      "cardMode": "single",
+      "primaryStory": "IsometricGridHero"
+    },
+    "HoverCard": {
+      "cardMode": "single",
+      "primaryStory": "AuthorProfileCard"
+    },
+    "LinkPreview": {
+      "cardMode": "single",
+      "primaryStory": "HoverPreviewOpen"
+    },
+    "Select": {
+      "cardMode": "single",
+      "primaryStory": "OpenLanguagePicker"
+    },
+    "Image": {
+      "cardMode": "column"
+    },
+    "Pagination": {
+      "cardMode": "column"
+    },
+    "Banner": {
+      "cardMode": "column"
     }
   },
   "readmeHeader": ".design-sync/conventions.md"
