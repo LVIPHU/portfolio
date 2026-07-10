@@ -6,7 +6,7 @@ import { LocaleSwitch } from 'web-2025'
 // Trans đã shim về children). Guard chống body-shift khi user mở Select live.
 export const ClosedTrigger = () => (
   <>
-    <style>{'body{margin-right:0!important;padding-right:0!important}'}</style>
+    <style>{'html{scrollbar-gutter:stable}body{margin-right:0!important;padding-right:0!important}'}</style>
     <div style={{ maxWidth: 260 }}>
       <LocaleSwitch />
     </div>

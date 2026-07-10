@@ -5,7 +5,7 @@ import { SocialShare } from 'web-2025'
 // body-shift của react-remove-scroll khi user mở menu live trong DS pane.
 export const ShareTrigger = () => (
   <>
-    <style>{'body{margin-right:0!important;padding-right:0!important}'}</style>
+    <style>{'html{scrollbar-gutter:stable}body{margin-right:0!important;padding-right:0!important}'}</style>
     <div style={{ display: 'flex', justifyContent: 'center', padding: 8 }}>
       <SocialShare
         postUrl="https://web-2025.vercel.app/vi-VN/blog/toi-uu-hieu-nang-anh-nextjs"

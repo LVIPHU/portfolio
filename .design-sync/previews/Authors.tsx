@@ -21,14 +21,16 @@ const quan = {
   twitter: 'https://x.com/tmquan_dev',
 }
 
+const liGap = ".authors-fix li{gap:10px}"
+
 export const SingleAuthor = () => (
-  <div style={{ maxWidth: 640, padding: 16 }}>
+  <><style>{liGap}</style><div className="authors-fix" style={{ maxWidth: 640, padding: 16 }}>
     <Authors authors={[phu] as any} />
-  </div>
+  </div></>
 )
 
 export const CoAuthors = () => (
-  <div style={{ maxWidth: 640, padding: 16 }}>
+  <><style>{liGap}</style><div className="authors-fix" style={{ maxWidth: 640, padding: 16 }}>
     <Authors authors={[phu, quan] as any} />
-  </div>
+  </div></>
 )

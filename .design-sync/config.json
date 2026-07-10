@@ -50,7 +50,7 @@
     "ToggleGroup": "src/components/atoms/toggle-group.tsx",
     "Toggle": "src/components/atoms/toggle.tsx",
     "Tooltip": "src/components/atoms/tooltip.tsx",
-    "VideoCard": "src/components/atoms/video-card.tsx",
+    "VideoCard": null,
     "ViewsCounter": "src/components/atoms/views-counter.tsx",
     "Banner": "src/components/molecules/banner.tsx",
     "BlogMeta": "src/components/molecules/blog-meta.tsx",
@@ -112,7 +112,6 @@
     "ToggleGroup": "className?: string | undefined; children?: React.ReactNode; variant?: \"default\" | \"outline\" | null | undefined; size?: \"default\" | \"sm\" | \"lg\" | null | undefined",
     "Toggle": "className?: string | undefined; children?: React.ReactNode; variant?: \"default\" | \"outline\" | null | undefined; size?: \"default\" | \"sm\" | \"lg\" | null | undefined",
     "Tooltip": "children?: React.ReactNode",
-    "VideoCard": "idx?: number | undefined; name: \"video_1\" | \"video_2\" | \"video_3\" | \"video_4\" | \"video_5\"; href: string; gridColumn: string; gridRow: string; onPointerEnter: (e: React.PointerEvent<HTMLDivElement>, href: string, name: VideoKey) => void; onPointerLeave: (name: VideoKey) => void; onPointerMove: (e: React.PointerEvent<HTMLDivElement>) => void",
     "ViewsCounter": "type: \"blog\"; slug: string; className?: string | undefined",
     "Banner": "banner: string; className?: string | undefined",
     "BlogMeta": "date: string; lastmod?: string | undefined; slug: string; type: \"blog\"; readingTime: ReadTimeResults",
@@ -181,6 +180,9 @@
       "cardMode": "column"
     },
     "Banner": {
+      "cardMode": "column"
+    },
+    "PostNav": {
       "cardMode": "column"
     }
   },

@@ -6,7 +6,7 @@ import { Button, Modal } from 'web-2025'
 // giữa animation; guard chống body-shift của scroll-lock khi xem live.
 export const DeletePostModal = () => (
   <>
-    <style>{`body{margin-right:0!important;padding-right:0!important}
+    <style>{`html{scrollbar-gutter:stable}body{margin-right:0!important;padding-right:0!important}
 [data-vaul-drawer],[data-vaul-overlay]{transition:none!important}`}</style>
     <Modal
       title="Xóa bài viết?"

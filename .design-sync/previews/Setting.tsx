@@ -7,7 +7,7 @@ import { Setting } from 'web-2025'
 // icon Sun vì không có ThemeProvider.
 export const SettingsPanel = () => (
   <>
-    <style>{'body{margin-right:0!important;padding-right:0!important}'}</style>
+    <style>{'html{scrollbar-gutter:stable}body{margin-right:0!important;padding-right:0!important}'}</style>
     <div className="rounded-lg border p-4" style={{ maxWidth: 320 }}>
       <Setting />
     </div>

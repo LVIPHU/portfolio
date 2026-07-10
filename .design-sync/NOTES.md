@@ -49,6 +49,13 @@
 - Class thiếu thêm trong CSS bundle: `z-[-1]`, toàn bộ `dark:*` của SearchArticles, `focus:border-primary-500`.
 - Scroll-lock guard `body{margin-right:0!important;padding-right:0!important}` đặt trong mọi preview có trigger mở overlay live (Setting, LocaleSwitch, SocialShare, Modal, Popover).
 
+## Học từ vòng review 3 của user (live trong DS pane)
+- **Guard scroll-lock v2**: `body{margin-right:0}` chưa đủ — scrollbar iframe biến mất khi Radix khóa scroll vẫn gây xê dịch → thêm `html{scrollbar-gutter:stable}`. Chuẩn hiện tại: `html{scrollbar-gutter:stable}body{margin-right:0!important;padding-right:0!important}`.
+- Card iframe trong PANE hẹp hơn 768px → mọi layout `md:flex-row` xếp cột (khác capture 900px!). Component responsive kiểu này (PostNav) cần glue CSS ép resting state desktop + cardMode column.
+- Modal zoom của react-medium-image-zoom (position:fixed) bị transform của harness giam trong cell → user zoom xong KẸT. Preview nào có Zoom phải `[data-rmiz]{pointer-events:none}` (chỉ trình bày).
+- `space-x-2` không tạo gap giữa `.image-container` và text trong Authors (cấu trúc con của Image) → glue `li{gap:10px}`.
+- **VideoCard đã LOẠI card** (componentSrcMap null, vẫn là bundle export): props là glue trang chủ (`name: VideoKey` từ templates, pointer handlers bắt buộc, src suy nội bộ /static/videos) — không dùng độc lập được, không có gì hiển thị nổi trong card.
+
 ## Known render warns (triaged hợp lệ)
 - [RENDER_THIN]/nhỏ trên các icon-only components (ThemeSwitch trước khi author) — đã có authored preview.
 - GritBackground/Blur/AnimatedContent...: floor card, một số render trắng trang trí — đúng bản chất decorative.

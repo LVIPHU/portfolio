@@ -19,16 +19,22 @@ export const ArticleCover = () => (
   </div>
 )
 
+// Zoom hoạt động trong app thật; trong card của DS pane, modal zoom (position:
+// fixed) bị transform của harness giam trong cell → kẹt trạng thái phóng to.
+// Vô hiệu tương tác zoom trong card — chỉ trình bày.
 export const ZoomablePortrait = () => (
-  <div style={{ display: 'flex', justifyContent: 'center' }}>
-    <Zoom>
-      <Image
-        src="https://avatars.githubusercontent.com/u/84316006?v=4"
-        alt="Chân dung Lương Vĩ Phú"
-        width={180}
-        height={180}
-        className="rounded-lg"
-      />
-    </Zoom>
-  </div>
+  <>
+    <style>{'[data-rmiz]{pointer-events:none!important}'}</style>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <Zoom>
+        <Image
+          src="https://avatars.githubusercontent.com/u/84316006?v=4"
+          alt="Chân dung Lương Vĩ Phú"
+          width={180}
+          height={180}
+          className="rounded-lg"
+        />
+      </Zoom>
+    </div>
+  </>
 )
