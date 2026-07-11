@@ -79,10 +79,18 @@ function isPublished(p: { draft: boolean }): boolean {
   return !p.draft || process.env.NODE_ENV !== 'production'
 }
 
-/** Tất cả bài viết của 1 locale (bỏ draft ở production), mới nhất trước */
+/**
+ * Tất cả bài viết cho 1 locale (bỏ draft ở production), mới nhất trước.
+ * Mỗi slug 1 bài: ưu tiên bản đúng locale, thiếu thì fallback bản locale còn lại
+ * (cùng ngữ nghĩa fallback với getPost — danh sách và trang bài luôn khớp nhau).
+ */
 export function getAllPosts(locale: Locale): PostMeta[] {
-  return listFiles()
-    .filter((f) => f.locale === locale)
+  const bySlug = new Map<string, ParsedFile>()
+  for (const f of listFiles()) {
+    const current = bySlug.get(f.slug)
+    if (!current || f.locale === locale) bySlug.set(f.slug, f)
+  }
+  return [...bySlug.values()]
     .map((f) => {
       const { content: _content, ...meta } = toPost(f)
       return meta
