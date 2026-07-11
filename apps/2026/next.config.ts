@@ -7,7 +7,7 @@ const withNextIntl = createNextIntlPlugin()
 const repoRoot = path.join(__dirname, '..', '..')
 
 const config: NextConfig = {
-  transpilePackages: ['@portfolio/content', '@portfolio/ui'],
+  transpilePackages: ['@portfolio/content', '@portfolio/ui', '@portfolio/mdx'],
   // Monorepo: chỉ rõ workspace root để Turbopack không phải đoán (cần cho vercel build)
   outputFileTracingRoot: repoRoot,
   turbopack: {

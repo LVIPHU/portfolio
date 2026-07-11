@@ -127,6 +127,11 @@
 
 /* ---------- Anchor heading (rehype-autolink prepend) ---------- */
 
+/* <a> autolink chỉ chứa icon — bỏ gạch chân prose kẻ dưới icon trong suốt */
+.content-header > a:first-child {
+  text-decoration: none;
+}
+
 .content-header-link {
   display: inline-block;
   margin-right: 0.25rem;

@@ -29,3 +29,13 @@ When I build the 2027 version, I just create `apps/2027` and import `@portfolio/
 - **MDX** — blog posts live right in the repo
 
 If you also get the itch to rebuild your portfolio every year, give this a try!
+
+<Callout type='pitfall'>
+  Don't split packages too early — every package is a contract you must maintain. Extract only when there are at least
+  two real consumers.
+</Callout>
+
+<Callout type='deep-dive' title='Why does raw-TS need no build step?'>
+  Packages export `./src/index.ts` directly and apps declare `transpilePackages` — Next transpiles them at build time.
+  Package changes show up instantly, no separate watch/rebuild.
+</Callout>

@@ -29,3 +29,13 @@ Khi làm version 2027, mình chỉ cần tạo `apps/2027` và import `@portfoli
 - **MDX** — viết blog ngay trong repo
 
 Nếu bạn cũng hay "ngứa tay" làm lại portfolio, thử cách này xem!
+
+<Callout type='pitfall'>
+  Đừng chia package quá sớm — mỗi package thêm là thêm một hợp đồng phải giữ. Chỉ tách khi có ít nhất 2 nơi tiêu thụ
+  thật.
+</Callout>
+
+<Callout type='deep-dive' title='Vì sao raw-TS không cần build step?'>
+  Các package export thẳng `./src/index.ts` và app khai `transpilePackages` — Next tự transpile khi build. Đổi code
+  package là app thấy ngay, không cần watch/rebuild riêng.
+</Callout>

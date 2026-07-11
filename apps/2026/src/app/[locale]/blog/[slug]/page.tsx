@@ -1,8 +1,9 @@
+import 'katex/dist/katex.min.css'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { MDXRemote } from 'next-mdx-remote/rsc'
+import { MDXContent } from '@portfolio/mdx'
 import { getAllSlugs, getPost, type Locale } from '@portfolio/content'
 import { Link } from '@/i18n/navigation'
 import { Badge } from '@portfolio/ui'
@@ -56,7 +57,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       </header>
 
       <div className='prose prose-neutral dark:prose-invert mt-8 max-w-none'>
-        <MDXRemote source={post.content} />
+        <MDXContent source={post.content} />
       </div>
     </article>
   )
