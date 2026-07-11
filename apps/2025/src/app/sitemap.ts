@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { getAllPosts } from '@/utils/content'
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -1,17 +1,11 @@
-import { LayoutProps } from '@/types/app'
-import { allMessages, initLingui } from '@/i18n'
+import { ReactNode } from 'react'
 import { ThemeProvider } from '@/providers/theme'
-import { LocaleProvider } from '@/providers/locale'
 import { AppProvider } from '@/providers/app'
 
-export default async function ProviderRegistry({ children, params }: LayoutProps) {
-  const lang = (await params).lang
-  await initLingui(lang)
+export default function ProviderRegistry({ children }: { children: ReactNode }) {
   return (
-    <LocaleProvider initialLocale={lang} initialMessages={allMessages[lang]!}>
-      <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-        <AppProvider>{children}</AppProvider>
-      </ThemeProvider>
-    </LocaleProvider>
+    <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+      <AppProvider>{children}</AppProvider>
+    </ThemeProvider>
   )
 }

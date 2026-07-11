@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { BlogContent } from '@/utils/content'
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import type { CoreContent } from '@/types/data'
 import type { StatsType } from '@/db/schema'
 import { Container, Separator } from '@/components/atoms'

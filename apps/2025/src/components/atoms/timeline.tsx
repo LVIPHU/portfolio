@@ -4,9 +4,8 @@ import { useScroll, useTransform, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 import { cn } from '@/utils'
 import dayjs from 'dayjs'
-import { useLingui } from '@lingui/react'
+import { useLocale, useTranslations } from 'next-intl'
 import { dayjsLocaleMap, dayjsLocales } from '@/libs/dayjs'
-import { msg, t } from '@lingui/macro'
 import { AnimatedContent } from '@/components/atoms/animated-content'
 
 interface TimelineEntry {
@@ -89,14 +88,15 @@ export const TimelineItemSmallText = ({ children }: { children: React.ReactNode 
 }
 
 export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date; endDate?: Date }) => {
-  const { i18n } = useLingui()
-  if (dayjsLocales[i18n.locale]) {
-    void dayjsLocales[i18n.locale]()
-    dayjs.locale(dayjsLocaleMap[i18n.locale])
+  const locale = useLocale()
+  const t = useTranslations()
+  if (dayjsLocales[locale]) {
+    void dayjsLocales[locale]()
+    dayjs.locale(dayjsLocaleMap[locale])
   }
 
   const formattedStartDate = dayjs(startDate).format('MMM YYYY')
-  const formattedEndDate = endDate ? dayjs(endDate).format('MMM YYYY') : t(i18n)`Present`
+  const formattedEndDate = endDate ? dayjs(endDate).format('MMM YYYY') : t('Timeline.present')
   const monthDiff = endDate
     ? dayjs.duration(dayjs(endDate).diff(dayjs(startDate)))
     : dayjs.duration(dayjs(new Date()).diff(dayjs(startDate)))
@@ -107,22 +107,22 @@ export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date;
   // Format duration based on locale
   let duration = ''
   if (years > 0) {
-    switch (i18n.locale) {
-      case 'en-US':
+    switch (locale) {
+      case 'en':
         duration = `${years} ${years === 1 ? 'yr' : 'yrs'} ${months} ${months === 1 ? 'mo' : 'mos'}`
         break
-      case 'vi-VN':
+      case 'vi':
         duration = `${years} năm ${months} tháng`
         break
       default:
         duration = `${years} ${years === 1 ? 'yr' : 'yrs'} ${months} ${months === 1 ? 'mo' : 'mos'}`
     }
   } else {
-    switch (i18n.locale) {
-      case 'en-US':
+    switch (locale) {
+      case 'en':
         duration = `${months} ${months === 1 ? 'mo' : 'mos'}`
         break
-      case 'vi-VN':
+      case 'vi':
         duration = `${months} tháng`
         break
       default:

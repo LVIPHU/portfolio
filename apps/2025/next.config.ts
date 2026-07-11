@@ -1,9 +1,12 @@
+import createNextIntlPlugin from 'next-intl/plugin'
 import { version, author } from './package.json'
 import type { NextConfig } from 'next'
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
+
+const withNextIntl = createNextIntlPlugin()
 
 const ContentSecurityPolicy = `
   default-src 'self';
@@ -55,7 +58,7 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = () => {
-  const plugins = [withBundleAnalyzer]
+  const plugins = [withNextIntl, withBundleAnalyzer]
   return plugins.reduce((acc, next) => next(acc), {
     reactStrictMode: true,
     // next-mdx-remote phải được bundle + alias react theo layer RSC của webpack,
@@ -63,17 +66,6 @@ const nextConfig: NextConfig = () => {
     // của Next 15.2 → TypeError recentlyCreatedOwnerStacks trong dev. Bỏ được ở C7 (Next 16).
     transpilePackages: ['@portfolio/content', '@portfolio/mdx', 'next-mdx-remote'],
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-    experimental: {
-      swcPlugins: [['@lingui/swc-plugin', {}]],
-      turbo: {
-        rules: {
-          '*.po': {
-            loaders: ['@lingui/loader'],
-            as: '*.js',
-          },
-        },
-      },
-    },
     env: {
       version: version,
       owner: author.name,
@@ -91,6 +83,15 @@ const nextConfig: NextConfig = () => {
         },
       ],
     },
+    async redirects() {
+      // URL cũ /vi-VN/* và /en-US/* → scheme mới (C6-04, D-02) — permanent 308
+      return [
+        { source: '/vi-VN', destination: '/', permanent: true },
+        { source: '/vi-VN/:path*', destination: '/:path*', permanent: true },
+        { source: '/en-US', destination: '/en', permanent: true },
+        { source: '/en-US/:path*', destination: '/en/:path*', permanent: true },
+      ]
+    },
     async headers() {
       return [
         {
@@ -100,10 +101,6 @@ const nextConfig: NextConfig = () => {
       ]
     },
     webpack: (config: any) => {
-      config.module.rules.push({
-        test: /\.po$/,
-        use: '@lingui/loader',
-      })
       config.module.rules.push({
         test: /\.svg$/,
         use: ['@svgr/webpack'],

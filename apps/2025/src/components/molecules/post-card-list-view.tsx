@@ -1,7 +1,7 @@
 import type { Blog } from '@/utils/content'
 import type { CoreContent } from '@/types/data'
 import { formatDate } from '@/utils'
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { Card, CardContent, CardHeader, GrowingUnderline, Image, NavigationLink } from '@/components/atoms'
 import { TagsList } from '@/components/molecules/tags'
 import { Calendar, ClockIcon } from 'lucide-react'
