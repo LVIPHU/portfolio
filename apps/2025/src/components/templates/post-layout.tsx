@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { Author, Blog } from '@contentlayer/generated'
+import type { Author, BlogContent } from '@/utils/content'
 import { SITE_METADATA } from '@data/site-metadata'
 import type { CoreContent } from '@/types/data'
 import type { StatsType } from '@/db/schema'
@@ -16,7 +16,7 @@ import {
 } from '@/components/molecules'
 
 interface LayoutProps {
-  content: CoreContent<Blog>
+  content: BlogContent
   authorDetails: CoreContent<Author>[]
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
@@ -24,8 +24,8 @@ interface LayoutProps {
 }
 
 export function PostLayoutTemplate({ content, next, prev, children }: LayoutProps) {
-  const { slug, images, lastmod, readingTime, date, filePath, title, tags, toc, type } = content
-  const postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
+  const { slug, images, lastmod, readingTime, date, filePath, title, tags, toc } = content
+  const postUrl = `${SITE_METADATA.siteUrl}/blog/${slug}`
 
   return (
     <Container className='pt-4 lg:pt-12'>
@@ -38,13 +38,7 @@ export function PostLayoutTemplate({ content, next, prev, children }: LayoutProp
             <Banner banner={images?.[0] || SITE_METADATA.socialBanner} />
           </div>
           <div className='flex items-center justify-between gap-2 pb-4 lg:pt-2'>
-            <BlogMeta
-              date={date}
-              lastmod={lastmod}
-              type={type.toLowerCase() as StatsType}
-              slug={slug}
-              readingTime={readingTime}
-            />
+            <BlogMeta date={date} lastmod={lastmod} type={'blog' as StatsType} slug={slug} readingTime={readingTime} />
             <SocialShare postUrl={postUrl} filePath={filePath} title={title} className='hidden md:flex' />
           </div>
         </div>

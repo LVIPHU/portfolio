@@ -1,37 +1,50 @@
+import 'katex/dist/katex.min.css'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import type { Author, Blog } from '@contentlayer/generated'
-import { allAuthors, allBlogs } from '@contentlayer/generated'
+import { MDXContent, extractTocHeadings } from '@portfolio/mdx'
 import { PostBannerTemplate, PostLayoutTemplate, PostSimpleTemplate } from '@/components/templates'
-import { allCoreContent, coreContent, sortPosts } from '@/utils'
+import {
+  coreContent,
+  getAllAuthors,
+  getAllPosts,
+  getAllSlugs,
+  getPost,
+  getStructuredData,
+  mapLocale,
+} from '@/utils/content'
 import { SITE_METADATA } from '@data/site-metadata'
-import { MDXLayoutRenderer } from '@/mdx-components/layout-renderer'
 import { MDX_COMPONENTS } from '@/mdx-components'
-import { getI18nInstance, PageLangParam } from '@/i18n'
+import { getI18nInstance } from '@/i18n'
 
-const DEFAULT_TEMPLATE = 'PostLayoutTemplate'
+// Map tĩnh chọn template theo frontmatter layout (D-03 — hết meta-programming)
+const DEFAULT_TEMPLATE = 'PostLayout'
 const TEMPLATES = {
-  PostBannerTemplate,
-  PostLayoutTemplate,
-  PostSimpleTemplate,
+  PostLayout: PostLayoutTemplate,
+  PostSimple: PostSimpleTemplate,
+  PostBanner: PostBannerTemplate,
 }
 
 type BlogPostParams = {
   params: Promise<{ slug: string[]; lang: string }>
 }
 
+function getAuthorDetails(authorList: string[]) {
+  const allAuthors = getAllAuthors()
+  return authorList.map((author) => {
+    const found = allAuthors.find((a) => a.slug === author)
+    if (!found) throw new Error(`Không tìm thấy author "${author}" trong packages/content/authors`)
+    return coreContent(found)
+  })
+}
+
 export async function generateMetadata(props: BlogPostParams): Promise<Metadata | undefined> {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'))
-  const post = allBlogs.find((p) => p.slug === slug)
-  const authorList = post?.authors || ['default']
-  const authorDetails = authorList.map((author) => {
-    const authorResults = allAuthors.find((p) => p.slug === author)
-    return coreContent(authorResults as Author)
-  })
+  const post = getPost(slug, mapLocale(params.lang))
   if (!post) {
     return
   }
+  const authorDetails = getAuthorDetails(post.authors.length ? post.authors : ['default'])
 
   const i18n = await getI18nInstance(params.lang)
   const siteName = i18n._(SITE_METADATA.title)
@@ -39,15 +52,10 @@ export async function generateMetadata(props: BlogPostParams): Promise<Metadata 
   const publishedAt = new Date(post.date).toISOString()
   const modifiedAt = new Date(post.lastmod || post.date).toISOString()
   const authors = authorDetails.map((author) => author.name)
-  let imageList = [SITE_METADATA.socialBanner]
-  if (post.images) {
-    imageList = typeof post.images === 'string' ? [post.images] : post.images
-  }
-  const ogImages = imageList.map((img) => {
-    return {
-      url: img.includes('http') ? img : SITE_METADATA.siteUrl + img,
-    }
-  })
+  const imageList = post.images.length ? post.images : [SITE_METADATA.socialBanner]
+  const ogImages = imageList.map((img) => ({
+    url: img.includes('http') ? img : SITE_METADATA.siteUrl + img,
+  }))
 
   return {
     title: post.title,
@@ -74,44 +82,42 @@ export async function generateMetadata(props: BlogPostParams): Promise<Metadata 
 }
 
 export const generateStaticParams = async () => {
-  return allBlogs.map((p) => ({ slug: p.slug.split('/').map((name) => decodeURI(name)) }))
+  return getAllSlugs().map((slug) => ({ slug: slug.split('/').map((name) => decodeURI(name)) }))
 }
 
-export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
+export default async function Page(props: BlogPostParams) {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'))
-  // Filter out drafts in production
-  const sortedCoreContents = allCoreContent(sortPosts(allBlogs))
-  const postIndex = sortedCoreContents.findIndex((p) => p.slug === slug)
+  const locale = mapLocale(params.lang)
+
+  // Đã sort + lọc draft + fallback locale (D-04)
+  const posts = getAllPosts(locale)
+  const postIndex = posts.findIndex((p) => p.slug === slug)
   if (postIndex === -1) {
     return notFound()
   }
 
-  const prev = sortedCoreContents[postIndex + 1]
-  const next = sortedCoreContents[postIndex - 1]
-  const post = allBlogs.find((p) => p.slug === slug) as Blog
-  const authorList = post?.authors || ['default']
-  const authorDetails = authorList.map((author) => {
-    const authorResults = allAuthors.find((p) => p.slug === author)
-    return coreContent(authorResults as Author)
-  })
+  const prev = posts[postIndex + 1]
+  const next = posts[postIndex - 1]
+  const post = getPost(slug, locale)
+  if (!post) {
+    return notFound()
+  }
+  const authorDetails = getAuthorDetails(post.authors.length ? post.authors : ['default'])
   const mainContent = coreContent(post)
-  const jsonLd = post.structuredData
-  jsonLd['author'] = authorDetails.map((author) => {
-    return {
-      '@type': 'Person',
-      name: author.name,
-    }
-  })
+  const toc = await extractTocHeadings(post.content)
+
+  // Thay computedField structuredData của contentlayer (D-02)
+  const jsonLd: Record<string, unknown> = getStructuredData(mainContent, SITE_METADATA.siteUrl ?? '')
+  jsonLd['author'] = authorDetails.map((author) => ({ '@type': 'Person', name: author.name }))
 
   const Layout = TEMPLATES[(post.layout as keyof typeof TEMPLATES) || DEFAULT_TEMPLATE]
-  console.log('post:', post)
 
   return (
     <>
       <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
-        <MDXLayoutRenderer code={post.body.code} components={MDX_COMPONENTS} toc={post.toc} />
+      <Layout content={{ ...mainContent, toc }} authorDetails={authorDetails} next={next} prev={prev}>
+        <MDXContent source={post.content} components={MDX_COMPONENTS} />
       </Layout>
     </>
   )

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { Blog } from '@contentlayer/generated'
+import type { BlogContent } from '@/utils/content'
 import { SITE_METADATA } from '@data/site-metadata'
 import type { CoreContent } from '@/types/data'
 import type { StatsType } from '@/db/schema'
@@ -7,14 +7,14 @@ import { Container, Separator } from '@/components/atoms'
 import { BlogMeta, Comments, PostTitle, ScrollButtons, TagsList } from '@/components/molecules'
 
 interface PostSimpleProps {
-  content: CoreContent<Blog>
+  content: BlogContent
   children: ReactNode
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
 }
 
 export function PostSimpleTemplate({ content, children }: PostSimpleProps) {
-  const { slug, date, lastmod, title, type, tags, readingTime } = content
+  const { slug, date, lastmod, title, tags, readingTime } = content
   // const postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
@@ -30,7 +30,7 @@ export function PostSimpleTemplate({ content, children }: PostSimpleProps) {
               <BlogMeta
                 date={date}
                 lastmod={lastmod}
-                type={type.toLowerCase() as StatsType}
+                type={'blog' as StatsType}
                 slug={slug}
                 readingTime={readingTime}
               />

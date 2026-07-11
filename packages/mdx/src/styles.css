@@ -38,11 +38,13 @@
   padding: 0 1rem;
 }
 
-/* Dual theme: token mang cặp biến --shiki-light/--shiki-dark, đổi theo .dark gốc (D-07) */
-[data-rehype-pretty-code-figure] code[data-theme*=' '] span {
+/* Dual theme: token mang cặp biến --shiki-light/--shiki-dark, đổi theo .dark gốc (D-07).
+   Pipeline luôn dùng dual theme nên match mọi code[data-theme];
+   không dùng [data-theme*=' '] vì cssnano của webpack (Next 15) vỡ với space trong attr. */
+[data-rehype-pretty-code-figure] code[data-theme] span {
   color: var(--shiki-light);
 }
-.dark [data-rehype-pretty-code-figure] code[data-theme*=' '] span {
+.dark [data-rehype-pretty-code-figure] code[data-theme] span {
   color: var(--shiki-dark);
 }
 
