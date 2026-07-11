@@ -17,7 +17,7 @@
     "katex": "^0.16.21",
     "lucide-react": "^1.24.0",
     "mdast-util-to-string": "^4.0.0",
-    "next-mdx-remote": "^5.0.0",
+    "next-mdx-remote": "^6.0.0",
     "probe-image-size": "^7.2.3",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-katex": "^7.0.1",
