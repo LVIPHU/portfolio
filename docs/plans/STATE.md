@@ -4,15 +4,15 @@
 
 Roadmap: `docs/plans/ROADMAP.md` (cập nhật 2026-07-11)
 **Giá trị lõi:** "Nâng 1 là nâng cho cả 2" — 3 package raw-TS dùng chung, 2 app khóa chung stack.
-**Đang tập trung:** C2 + C3 ĐÓNG → kế tiếp C4 (trim locale 2025) hoặc C5 (bỏ contentlayer — cần C4 trước C6 thôi, C5 đi được ngay)
+**Đang tập trung:** C5 — bỏ Contentlayer2 (blocker #1 của Next 16), 4 plan
 
 ## Vị trí hiện tại
 
-Phase: C3/13 đóng (C0 ✅ C1 ✅ C2 ✅ C3 ✅)
-Status: Sẵn sàng C4/C5. **CHƯA PUSH** — main local đi trước origin 9 commit (`0f66153`…C3), push = deploy 2 Vercel project, chờ lệnh user.
+Phase: C4/13 đóng (C0…C4 ✅)
+Status: Sẵn sàng C5 (branch c5-drop-contentlayer). Main đã push tới `d899975`, 2 deploy Vercel READY (76084b7); deploy d899975 đang build.
 Hoạt động cuối: 2026-07-11 — C3 thi công + tự test browser (user ủy quyền), bắt & vá 2 bug khi test live
 
-Progress: [████░░░░░░░░░] 4/13 phase
+Progress: [█████░░░░░░░░] 5/13 phase
 
 ## Bối cảnh tích lũy
 
@@ -42,5 +42,5 @@ Progress: [████░░░░░░░░░] 4/13 phase
 ## Session Continuity
 
 Phiên cuối: 2026-07-11
-Dừng tại: C3 đóng đủ 3 SUMMARY; dev server :3000 đang chạy cho user xem
-Kế tiếp: push (chờ user OK) → `phases/C04-2025-trim-locales/C04-01-PLAN.md` (1 plan, nhanh) rồi C5
+Dừng tại: C4 đóng + push; C5 chưa bắt đầu
+Kế tiếp: `phases/C05-2025-drop-contentlayer/C05-01-PLAN.md` trên branch riêng
