@@ -20,7 +20,7 @@ const RSS_CONFIG = {
     'I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.',
 }
 
-// Union 2 locale, dedupe theo path — 1 item mỗi slug như bản contentlayer (C5-03, D-07)
+// Union 2 locale, dedupe theo path — 1 item mỗi slug như hệ cũ (C5-03, D-07)
 const seen = new Set<string>()
 const blogs = [...getAllPosts('vi'), ...getAllPosts('en')].filter((p) =>
   seen.has(p.path) ? false : (seen.add(p.path), true)

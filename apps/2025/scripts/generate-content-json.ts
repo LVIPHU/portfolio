@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync } from 'fs'
 import { getSearchDocs, getTagData } from '@portfolio/content'
 
 /**
- * Thay vai trò onSuccess của contentlayer (C5-03, D-06):
+ * Thay vai trò hook onSuccess của hệ content cũ (C5-03, D-06):
  * - json/tag-data.json: Record<slug(tag), count> — tags/[tag] generateStaticParams + rss per-tag
  * - public/search.json: PostMeta[] cho kbar
  * Locale 'vi' (mặc định) đã fallback-merge đủ mọi slug nên phủ toàn bộ bài.

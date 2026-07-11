@@ -107,7 +107,7 @@ export default async function Page(props: BlogPostParams) {
   const mainContent = coreContent(post)
   const toc = await extractTocHeadings(post.content)
 
-  // Thay computedField structuredData của contentlayer (D-02)
+  // Thay computedField structuredData của hệ cũ (D-02)
   const jsonLd: Record<string, unknown> = getStructuredData(mainContent, SITE_METADATA.siteUrl ?? '')
   jsonLd['author'] = authorDetails.map((author) => ({ '@type': 'Person', name: author.name }))
 

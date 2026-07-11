@@ -13,18 +13,10 @@
       "@env": ["./env.mjs"],
       "@data/*": ["./data/*"],
       "@json/*": ["./json/*"],
-      "@public/*": ["./public/*"],
-      "@contentlayer/generated": ["./.contentlayer/generated"]
+      "@public/*": ["./public/*"]
     },
     "typeRoots": ["./src/types", "./node_modules/@types"]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    ".contentlayer/generated",
-    ".contentlayer/generated/**/*.json"
-  ],
+  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

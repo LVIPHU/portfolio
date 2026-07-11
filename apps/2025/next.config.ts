@@ -1,4 +1,3 @@
-import { withContentlayer } from 'next-contentlayer2'
 import { version, author } from './package.json'
 import type { NextConfig } from 'next'
 
@@ -56,7 +55,7 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = () => {
-  const plugins = [withContentlayer, withBundleAnalyzer]
+  const plugins = [withBundleAnalyzer]
   return plugins.reduce((acc, next) => next(acc), {
     reactStrictMode: true,
     // next-mdx-remote phải được bundle + alias react theo layer RSC của webpack,

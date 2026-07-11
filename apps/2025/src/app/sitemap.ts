@@ -4,7 +4,7 @@ import { getAllPosts } from '@/utils/content'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = SITE_METADATA.siteUrl
-  // Union 2 locale, dedupe theo path — tập URL /blog/<slug> giữ nguyên như bản contentlayer (D-05)
+  // Union 2 locale, dedupe theo path — tập URL /blog/<slug> giữ nguyên như hệ cũ (D-05)
   const seen = new Set<string>()
   const blogRoutes = [...getAllPosts('vi'), ...getAllPosts('en')]
     .filter((p) => (seen.has(p.path) ? false : (seen.add(p.path), true)))

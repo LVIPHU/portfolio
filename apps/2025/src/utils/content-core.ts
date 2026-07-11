@@ -52,12 +52,12 @@ export const pick = <Obj, Keys extends keyof Obj>(obj: Obj, keys: Keys[]): Pick<
   )
 }
 
-/** Generic không ràng buộc — chấp nhận cả doc contentlayer (còn sống tới plan 04) lẫn Post mới */
+/** Generic không ràng buộc — dùng được cho mọi shape doc (cũ lẫn Post mới) */
 export function coreContent<T>(content: T): CoreContent<T> {
   return omit(content as T & object, ['content' as keyof T]) as CoreContent<T>
 }
 
-/** Bỏ content + lọc draft ở production — hành vi y hệt bản contentlayer */
+/** Bỏ content + lọc draft ở production — hành vi y hệt hệ cũ */
 export function allCoreContent<T>(contents: T[]): CoreContent<T>[] {
   if (isProduction)
     return contents

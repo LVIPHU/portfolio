@@ -1,6 +1,6 @@
 import type { Post } from '@portfolio/content'
 
-/** Shape cũ của contentlayer, giờ neo vào Post của @portfolio/content (C5) */
+/** Shape của hệ content cũ, giờ neo vào Post của @portfolio/content (C5) */
 export type MDXDocument = Post
 export type MDXDocumentDate = Post
 

@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A pnpm + Turborepo monorepo of portfolio website "versions". Each version is an app in `apps/`:
 
 - `apps/2026` (package `web-2026`) — Next.js 16 + React 19.2 + Tailwind v4 + next-intl, port 3000. Uses shared content from `packages/content` (`@portfolio/content`), so a redesign never requires re-entering data. Bilingual Vietnamese/English.
-- `apps/2025` (package `web-2025`) — the older portfolio moved in as-is: Next.js 15.2 + Contentlayer2 + Lingui (6 locales, URLs like `/vi-VN`, `/en-US`), Drizzle/Postgres-backed extras, port 3001. Does NOT use `packages/content` yet; its content lives in `apps/2025/data/`. Do not upgrade it ad hoc — the staged upgrade plan (Phase B) is in `docs/PLAN-apps-2025.md`.
+- `apps/2025` (package `web-2025`) — the older portfolio: Next.js 15.2 + Lingui (2 locales `/vi-VN`, `/en-US`), Drizzle/Postgres-backed extras, port 3001. Blog/content now comes from `packages/content` and renders via `packages/mdx` (contentlayer2 removed in C5). Upgrades follow the staged roadmap in `docs/plans/` (GSD format) — consult STATE.md/ROADMAP.md there before touching it.
 
 ## Commands
 
@@ -25,8 +25,6 @@ pnpm typecheck    # tsc --noEmit across all packages
 Scope to one package with turbo filters, e.g. `pnpm build --filter=web-2026` or `pnpm --filter web-2026 typecheck`.
 
 There are no tests and no linter configured — `pnpm typecheck` and `pnpm build` are the verification gates (`web-2025` has no typecheck script yet; its `next build` type-checks).
-
-**Run dev/build for web-2025 from PowerShell or cmd, NOT Git Bash.** contentlayer2 resolves its config via `process.env.PWD ?? process.cwd()`; Git Bash exports `PWD` (the shell's cwd), so invoking `pnpm build`/`pnpm dev` from Git Bash at the repo root makes Contentlayer look for `contentlayer.config.ts` in the wrong directory (`NoConfigFoundError`). From Git Bash, use `env -u PWD pnpm ...` as a workaround.
 
 `apps/2025` requires `apps/2025/.env.local` to build (untracked). Minimum: `NODE_ENV=development`, `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_NODE_ENV`, and a syntactically valid placeholder `DATABASE_URL` (src/db/index.ts throws at build if missing; the client is lazy so it never connects unless DB features are used).
 
