@@ -23,8 +23,8 @@ Bản roadmap này thay thế Giai đoạn B của `docs/PLAN-apps-2025.md` và 
 
 - [x] **Phase C0: Tooling nền móng** — prettier/husky/tsconfig base (commit `9e0fdbd`, `0b070a2`)
 - [x] **Phase C1: packages/ui khởi tạo (Base UI) + 2026 tiêu thụ** — button/badge/card/separator + 7 hooks (commit `a1a323e`)
-- [ ] **Phase C2: packages/content v2** — Zod + hút blog/authors/data 2025 _(3/3 plan thi công xong — chờ user nghiệm thu checkpoint C02-03)_
-- [ ] **Phase C3: packages/mdx** — pipeline + components + 2026 dùng
+- [x] **Phase C2: packages/content v2** — Zod + hút blog/authors/data 2025 (user đã duyệt trên :3000; +fix fallback `40a7453`)
+- [x] **Phase C3: packages/mdx** — pipeline + components + 2026 dùng (tự test browser theo ủy quyền user)
 - [ ] **Phase C4: 2025 thu gọn 6 locale → vi-VN + en-US** (giữ Lingui tạm)
 - [ ] **Phase C5: 2025 bỏ Contentlayer2** (blocker #1)
 - [ ] **Phase C6: 2025 Lingui → next-intl + data chung** (blocker #2)
@@ -171,18 +171,18 @@ Thứ tự bắt buộc: C2 → C3 → C5 → C6 → C7 → C8 → C9 → C10 �
 
 ## Progress
 
-| Phase                 | Plans Complete | Status                | Completed                      |
-| --------------------- | -------------- | --------------------- | ------------------------------ |
-| C0. Tooling           | 1/1            | ✅ Done               | 2026-07 (`9e0fdbd`, `0b070a2`) |
-| C1. packages/ui init  | 1/1            | ✅ Done               | 2026-07 (`a1a323e`)            |
-| C2. content v2        | 3/3            | ⏸ Chờ user nghiệm thu | -                              |
-| C3. mdx               | 0/3            | Not started           | -                              |
-| C4. trim locales      | 0/1            | Not started           | -                              |
-| C5. drop contentlayer | 0/4            | Not started           | -                              |
-| C6. next-intl         | 0/4            | Not started           | -                              |
-| C7. next16 + sweep    | 0/2            | Not started           | -                              |
-| C8. Base UI           | 0/4            | Not started           | -                              |
-| C9. GSAP              | 0/4            | Not started           | -                              |
-| C10. React Compiler   | 0/1            | Not started           | -                              |
-| C11. Sandpack         | 0/2            | Not started           | -                              |
-| C12. CI + cleanup     | 0/3            | Not started           | -                              |
+| Phase                 | Plans Complete | Status      | Completed                        |
+| --------------------- | -------------- | ----------- | -------------------------------- |
+| C0. Tooling           | 1/1            | ✅ Done     | 2026-07 (`9e0fdbd`, `0b070a2`)   |
+| C1. packages/ui init  | 1/1            | ✅ Done     | 2026-07 (`a1a323e`)              |
+| C2. content v2        | 3/3            | ✅ Done     | 2026-07-11 (`0f66153`…`40a7453`) |
+| C3. mdx               | 3/3            | ✅ Done     | 2026-07-11                       |
+| C4. trim locales      | 0/1            | Not started | -                                |
+| C5. drop contentlayer | 0/4            | Not started | -                                |
+| C6. next-intl         | 0/4            | Not started | -                                |
+| C7. next16 + sweep    | 0/2            | Not started | -                                |
+| C8. Base UI           | 0/4            | Not started | -                                |
+| C9. GSAP              | 0/4            | Not started | -                                |
+| C10. React Compiler   | 0/1            | Not started | -                                |
+| C11. Sandpack         | 0/2            | Not started | -                                |
+| C12. CI + cleanup     | 0/3            | Not started | -                                |
