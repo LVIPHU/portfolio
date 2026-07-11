@@ -70,6 +70,7 @@ function toPost(parsed: ParsedFile): Post {
     layout: f.layout,
     canonicalUrl: f.canonicalUrl,
     path: `blog/${parsed.slug}`,
+    filePath: `blog/${parsed.slug}.${parsed.locale}.mdx`,
     readingTime: readingTime(content),
     content,
   }

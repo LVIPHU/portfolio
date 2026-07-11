@@ -2,7 +2,7 @@
 
 import tagData from '@json/tag-data.json'
 import type { CoreContent } from '@/types/data'
-import type { Blog } from '@contentlayer/generated'
+import type { Blog } from '@/utils/content'
 import { Badge, Container, NavigationLink, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
 import { AppContextInterface, useApp } from '@/providers/app'

@@ -80,6 +80,8 @@ export interface PostMeta {
   canonicalUrl?: string
   /** đường dẫn tương đối dạng blog/<slug> (tương thích shape cũ của 2025) */
   path: string
+  /** blog/<slug>.<locale>.mdx — cho edit-on-github (tương thích filePath cũ) */
+  filePath: string
   readingTime: { text: string; minutes: number; time: number; words: number }
 }
 

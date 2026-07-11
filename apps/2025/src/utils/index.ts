@@ -1,4 +1,4 @@
-export * from './contentlayer'
+export * from './content-core'
 export * from './html-escaper'
 export * from './icons'
 export * from './image'

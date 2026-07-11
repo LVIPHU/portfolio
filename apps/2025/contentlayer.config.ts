@@ -26,10 +26,21 @@ const CONTENTLAYER_CONFIG = {
 import rehypeKatex from 'rehype-katex'
 import rehypePrismPlus from 'rehype-prism-plus'
 import { extractTocHeadings, remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx } from '@/libs/remark'
-import { allCoreContent, sortPosts } from '@/utils/contentlayer'
 
 const root = process.cwd()
 const isProduction = process.env.NODE_ENV === 'production'
+
+// Bản tự chứa của 2 helper (bundle esbuild của contentlayer không resolve được
+// transitive deps của facade @/utils/content) — cả config này chết ở C5 plan 04.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function sortPosts(allBlogs: any[]) {
+  return allBlogs.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function allCoreContent(contents: any[]) {
+  const core = contents.map(({ body: _b, _raw: _r, _id: _i, ...rest }) => rest)
+  return isProduction ? core.filter((c) => c.draft !== true) : core
+}
 
 // heroicon mini link
 const icon = fromHtmlIsomorphic(

@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion'
-import type { Blog } from '@contentlayer/generated'
+import type { Blog } from '@/utils/content'
 import { PostCardListView } from '@/components/molecules'
 import type { CoreContent } from '@/types/data'
 import { AnimatedContent } from '@/components/atoms'

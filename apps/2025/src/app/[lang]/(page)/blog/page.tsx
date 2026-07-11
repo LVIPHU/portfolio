@@ -1,5 +1,4 @@
-import { allBlogs } from '@contentlayer/generated'
-import { allCoreContent, sortPosts } from '@/utils'
+import { getAllPosts, mapLocale } from '@/utils/content'
 import { POSTS_PER_PAGE } from '@/constants/post'
 import { BlogTemplate } from '@/components/templates'
 import { getI18nInstance, initLingui, PageLangParam } from '@/i18n'
@@ -20,7 +19,8 @@ type PageBlogParam = {
 
 export default async function BlogPage(props: PageBlogParam) {
   const params = await props.params
-  const posts = allCoreContent(sortPosts(allBlogs))
+  // getAllPosts đã sort + lọc draft + bỏ content (per-locale, fallback slug thiếu — D-04)
+  const posts = getAllPosts(mapLocale(params.lang))
   const pageNumber = parseInt(params.page as string) || 1
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
 

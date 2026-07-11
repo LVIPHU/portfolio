@@ -15,3 +15,5 @@ allowBuilds:
 
 # Không tự re-install trước mỗi lần run script
 verifyDepsBeforeRun: false
+
+autoInstallPeers: false

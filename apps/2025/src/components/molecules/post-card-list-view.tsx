@@ -1,4 +1,4 @@
-import type { Blog } from '@contentlayer/generated'
+import type { Blog } from '@/utils/content'
 import type { CoreContent } from '@/types/data'
 import { formatDate } from '@/utils'
 import { SITE_METADATA } from '@data/site-metadata'

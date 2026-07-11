@@ -59,6 +59,10 @@ const nextConfig: NextConfig = () => {
   const plugins = [withContentlayer, withBundleAnalyzer]
   return plugins.reduce((acc, next) => next(acc), {
     reactStrictMode: true,
+    // next-mdx-remote phải được bundle + alias react theo layer RSC của webpack,
+    // nếu không nó resolve react@19.2.7 (peer-variant của pnpm) lẫn với react vendored
+    // của Next 15.2 → TypeError recentlyCreatedOwnerStacks trong dev. Bỏ được ở C7 (Next 16).
+    transpilePackages: ['@portfolio/content', '@portfolio/mdx', 'next-mdx-remote'],
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     experimental: {
       swcPlugins: [['@lingui/swc-plugin', {}]],
