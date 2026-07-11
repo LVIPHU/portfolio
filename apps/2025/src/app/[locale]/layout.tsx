@@ -1,9 +1,11 @@
 import '@/styles/main.css'
 import 'react-medium-image-zoom/dist/styles.css'
 import { msg } from '@lingui/core/macro'
-import linguiConfig from '../../../lingui.config'
-import { getI18nInstance, PageLangParam } from '@/i18n'
-import { LayoutProps } from '@/types/app'
+import { notFound } from 'next/navigation'
+import { hasLocale, NextIntlClientProvider } from 'next-intl'
+import { setRequestLocale } from 'next-intl/server'
+import { routing } from '@/i18n/routing'
+import { getI18nInstance } from '@/i18n'
 import ProviderRegistry from '@/providers'
 import { ReactNode } from 'react'
 import { Navbar } from '@/components/organisms'
@@ -35,12 +37,18 @@ const FONT_JETBRAINS_MONO = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
-export async function generateStaticParams() {
-  return linguiConfig.locales.map((lang) => ({ lang }))
+/** KHUNG CHUYỂN TIẾP (M-09, gỡ ở plan C06-03): map locale mới → catalog Lingui cũ */
+const toLinguiLocale = (locale: string) => (locale === 'en' ? 'en-US' : 'vi-VN')
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
 }
 
-export async function generateMetadata(props: PageLangParam & { children: ReactNode; modal: ReactNode }) {
-  const i18n = await getI18nInstance((await props.params).lang)
+type Params = { params: Promise<{ locale: string }> }
+
+export async function generateMetadata(props: Params & { children: ReactNode; modal: ReactNode }) {
+  const { locale } = await props.params
+  const i18n = await getI18nInstance(toLinguiLocale(locale))
 
   const title = i18n._(msg`Lương Vĩ Phú's dev blog - portfolio`)
   const description = i18n._(
@@ -88,24 +96,32 @@ export async function generateMetadata(props: PageLangParam & { children: ReactN
   }
 }
 
-type Props = LayoutProps & { modal: ReactNode }
+type Props = Params & { children: ReactNode; modal: ReactNode }
 
 export default async function RootLayout({ children, modal, params }: Readonly<Props>) {
-  const lang = (await params).lang
+  const { locale } = await params
+  if (!hasLocale(routing.locales, locale)) {
+    notFound()
+  }
+  setRequestLocale(locale)
+
   return (
     <html
-      lang={lang}
+      lang={locale}
       className={cn('scroll-smooth', FONT_NUNITO.variable, FONT_JETBRAINS_MONO.variable, FONT_PLAYPEN_SANS.variable)}
       suppressHydrationWarning
     >
       <body>
-        <ProviderRegistry params={params}>
-          <KBarSearchProvider configs={SITE_METADATA.search.kbarConfigs}>
-            <Navbar lang={lang} />
-            {children}
-            {modal}
-          </KBarSearchProvider>
-        </ProviderRegistry>
+        <NextIntlClientProvider>
+          {/* ProviderRegistry (Lingui) giữ cho component CHƯA port — gỡ ở C06-03 */}
+          <ProviderRegistry linguiLocale={toLinguiLocale(locale)}>
+            <KBarSearchProvider configs={SITE_METADATA.search.kbarConfigs}>
+              <Navbar lang={locale} />
+              {children}
+              {modal}
+            </KBarSearchProvider>
+          </ProviderRegistry>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

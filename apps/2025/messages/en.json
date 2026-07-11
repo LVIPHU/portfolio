@@ -1,0 +1,101 @@
+{
+  "About": {
+    "currentlyIAmWorking": "Currently, I am working for <0>PVS Solution</0> in Vietnam. I focus on creating excellent user experiences by using modern frontend architecture. Whether it's writing code or collaborating with cross-functional teams, I always ensure products meet the highest standards and deliver impressive experiences for users.",
+    "hello": "Hello! {0}",
+    "iAmASoftware": "I am {0}, a Software Engineer {1} from Vietnam, with a passion for programming and web development, I enjoy creating innovative solutions that enhance performance and efficiency. My technology journey includes building e-commerce websites, data management, and advanced full-stack solutions. Educationally, I hold a Bachelor's degree {2} in Information Technology.",
+    "softwareEngineer": "Software Engineer",
+    "someInterestingThingsAbout": "Some interesting things about myself and my habit of coding then making things harder for myself after six months.",
+    "whenIMNot": "When I'm not coding, I usually listen to music {0} or play games {1} like <0>League of Legends</0>, <1>Wuthering Waves</1>. These hobbies help me maintain creativity and relieve stress."
+  },
+  "App": {
+    "iAmLươngVĩ": "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.",
+    "lươngVĩPhúS": "Lương Vĩ Phú's dev blog - portfolio"
+  },
+  "Blog": {
+    "allPosts": "All posts",
+    "iLikeToWrite": "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title.",
+    "noPostFound": "no post found",
+    "searchArticles": "Search articles"
+  },
+  "Common": {
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "grid": "Grid",
+    "iDLoveTo": "I'd love to hear from you. Please fill out this form or send me an email.",
+    "language": "Language",
+    "list": "List",
+    "photos": "Photos",
+    "projects": "Projects",
+    "resume": "Resume",
+    "setting": "Setting",
+    "tags": "Tags"
+  },
+  "Contact": {
+    "hireMe": "Hire me",
+    "iWillAlwaysBe": "I will always be ready to support you.",
+    "monFriFrom8am": "Mon-Fri from 8am to 5pm.",
+    "phone": "Phone",
+    "startNewChat": "Start new chat"
+  },
+  "ContactForm": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "message": "Message",
+    "phoneNumber": "Phone Number",
+    "submit": "Submit"
+  },
+  "ContactModal": {
+    "chatWithMe": "Chat with me"
+  },
+  "Experience": {
+    "experience": "Experience",
+    "technologiesUsed": "Technologies used"
+  },
+  "GithubCal": {
+    "workCalendar": "Work Calendar"
+  },
+  "KbarModal": {
+    "noResultsForYour": "No results for your search..."
+  },
+  "LocaleSwitch": {
+    "selectATimezone": "Select a timezone"
+  },
+  "Navbar": {
+    "home": "Home",
+    "search": "Search"
+  },
+  "NotFound": {
+    "itSeemsLikeThe": "It seems like the page you're looking for doesn't exist! Please go back!",
+    "notFound": "not found",
+    "oop": "Oop!"
+  },
+  "PreviousPage": {
+    "goBack": "Go back"
+  },
+  "ProjectCard": {
+    "stack": "Stack",
+    "viewCode": "View Code",
+    "website": "Website"
+  },
+  "Projects": {
+    "sideProjects": "Side projects",
+    "someThingsIVe": "Some things I've done",
+    "work": "Work"
+  },
+  "Setting": {
+    "theme": "Theme"
+  },
+  "Tags": {
+    "thingsIBlogAbout": "Things I blog about"
+  },
+  "Technologies": {
+    "currentlyLearning": "Currently Learning",
+    "msg": "{category}",
+    "technologiesIVeWorked": "Technologies I've worked with",
+    "theseAreMyMost": "These are my most used technologies."
+  },
+  "Timeline": {
+    "present": "Present"
+  }
+}

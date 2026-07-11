@@ -36,7 +36,11 @@ export const allI18nInstances: AllI18nInstances = locales.reduce((acc, locale) =
   return { ...acc, [locale]: i18n }
 }, {})
 
-export const getI18nInstance = async (locale: SupportedLocales): Promise<I18n> => {
+// Cầu nối C6: nhận cả locale mới ('vi'|'en') lẫn locale Lingui cũ ('vi-VN'|'en-US')
+const normalizeLocale = (l: string) => (l === 'vi' ? 'vi-VN' : l === 'en' ? 'en-US' : l)
+
+export const getI18nInstance = async (rawLocale: SupportedLocales): Promise<I18n> => {
+  const locale = normalizeLocale(rawLocale)
   if (!allI18nInstances[locale]) {
     console.warn(`No i18n instance found for locale "${locale}"`)
   }

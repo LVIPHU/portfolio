@@ -1,0 +1,101 @@
+{
+  "About": {
+    "currentlyIAmWorking": "Hiện giờ tôi đang làm việc cho <0>PVS Solution</0> tại Việt Nam. Tôi tập trung tạo ra trải nghiệm người dùng tốt bằng cách sử dụng kiến trúc frontend hiện đại. Dù là viết code hay phối hợp với các nhóm đa chức năng, tôi luôn đảm bảo sản phẩm đạt tiêu chuẩn cao nhất và mang đến trải nghiệm ấn tượng cho người dùng.",
+    "hello": "Xin chào! {0}",
+    "iAmASoftware": "Tôi là {0}, một Kỹ sư Phần mềm {1} đến từ Việt Nam, với niềm đam mê về lập trình và phát triển web, tôi thích tạo ra những giải pháp sáng tạo giúp nâng cao hiệu suất và hiệu quả. Hành trình công nghệ của tôi bao gồm việc xây dựng các trang web thương mại, quản lý dữ liệu và các giải pháp full-stack tiên tiến. Về học vấn, tôi có bằng Kỹ sư {2} Công nghệ Thông tin.",
+    "softwareEngineer": "Kỹ sư Phần mềm",
+    "someInterestingThingsAbout": "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng.",
+    "whenIMNot": "Khi tôi không code tôi thường nghe nhạc {0} hoặc chơi các tựa game {1} như <0>League of Legends</0>, <1>Wuthering Waves</1>. Những sở thích này giúp tôi duy trì sự sáng tạo và giải tỏa những căng thẳng."
+  },
+  "App": {
+    "iAmLươngVĩ": "Tôi là Lương Vĩ Phú, một kỹ sư phần mềm. Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi.",
+    "lươngVĩPhúS": "Blog kỹ thuật & portfolio của Lương Vĩ Phú"
+  },
+  "Blog": {
+    "allPosts": "Tất cả bài viết",
+    "iLikeToWrite": "Tôi thích viết về những gì tôi quan tâm. Bạn sẽ tìm thấy sự kết hợp giữa các bài viết về phát triển web, tin tức công nghệ và những suy nghĩ ngẫu nhiên từ cuộc sống của tôi. Sử dụng thanh tìm kiếm bên dưới để lọc theo tiêu đề.",
+    "noPostFound": "không tìm thấy bài viết",
+    "searchArticles": "Tìm kiếm bài viết"
+  },
+  "Common": {
+    "about": "Giới thiệu",
+    "blog": "Blog",
+    "contact": "Liên hệ",
+    "grid": "Lưới",
+    "iDLoveTo": "Tôi rất mong nhận được phản hồi từ bạn. Vui lòng điền vào biểu mẫu này hoặc gửi email cho tôi.",
+    "language": "Ngôn ngữ",
+    "list": "Danh sách",
+    "photos": "Hình ảnh",
+    "projects": "Dự án",
+    "resume": "Sơ yếu lý lịch",
+    "setting": "Cài đặt",
+    "tags": "Tags"
+  },
+  "Contact": {
+    "hireMe": "Thuê tôi",
+    "iWillAlwaysBe": "Tôi sẽ luôn sẵn sàng hỗ trợ bạn.",
+    "monFriFrom8am": "Từ thứ Hai đến thứ Sáu, từ 8 giờ sáng đến 5 giờ chiều.",
+    "phone": "Điện thoại",
+    "startNewChat": "Bắt đầu cuộc trò chuyện mới"
+  },
+  "ContactForm": {
+    "firstName": "Tên",
+    "lastName": "Họ",
+    "message": "Lời nhắn",
+    "phoneNumber": "Số điện thoại",
+    "submit": "Gửi"
+  },
+  "ContactModal": {
+    "chatWithMe": "Trò chuyện với tôi"
+  },
+  "Experience": {
+    "experience": "Kinh nghiệm",
+    "technologiesUsed": "Các công nghệ đã sử dụng"
+  },
+  "GithubCal": {
+    "workCalendar": "Biểu đồ làm việc"
+  },
+  "KbarModal": {
+    "noResultsForYour": "Không có kết quả nào cho tìm kiếm của bạn..."
+  },
+  "LocaleSwitch": {
+    "selectATimezone": "Chọn múi giờ"
+  },
+  "Navbar": {
+    "home": "Trang chủ",
+    "search": "Tìm kiếm"
+  },
+  "NotFound": {
+    "itSeemsLikeThe": "Có vẻ như trang cậu tìm không có! Hãy quay trở lại!",
+    "notFound": "Không tìm thấy",
+    "oop": "Ối!"
+  },
+  "PreviousPage": {
+    "goBack": "Quay lại"
+  },
+  "ProjectCard": {
+    "stack": "Công nghệ",
+    "viewCode": "Xem mã nguồn",
+    "website": "Trang web"
+  },
+  "Projects": {
+    "sideProjects": "Dự án cá nhân",
+    "someThingsIVe": "Một số thứ tôi đã làm",
+    "work": "Công việc"
+  },
+  "Setting": {
+    "theme": "Giao diện"
+  },
+  "Tags": {
+    "thingsIBlogAbout": "Các chủ đề tôi thường viết"
+  },
+  "Technologies": {
+    "currentlyLearning": "Đang học",
+    "msg": "{category}",
+    "technologiesIVeWorked": "Các công nghệ tôi đã làm việc",
+    "theseAreMyMost": "Đây là những công nghệ tôi sử dụng nhiều nhất."
+  },
+  "Timeline": {
+    "present": "Hiện tại"
+  }
+}

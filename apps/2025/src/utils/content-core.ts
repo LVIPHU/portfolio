@@ -19,7 +19,7 @@ export type BlogContent = CoreContent<Blog> & { toc: Toc }
 
 /** Map segment URL [lang] (Lingui, còn tới C6) → locale của @portfolio/content */
 export function mapLocale(lang: string): 'vi' | 'en' {
-  return lang === 'en-US' ? 'en' : 'vi'
+  return lang === 'en-US' || lang === 'en' ? 'en' : 'vi'
 }
 
 const isProduction = env.NEXT_PUBLIC_NODE_ENV === 'production'

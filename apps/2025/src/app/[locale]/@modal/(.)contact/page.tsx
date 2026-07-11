@@ -3,7 +3,7 @@ import { getI18nInstance, initLingui, PageLangParam } from '@/i18n'
 import { t } from '@lingui/macro'
 
 export default async function ContactModal(props: PageLangParam) {
-  const lang = (await props.params).lang
+  const lang = (await props.params).locale
   await initLingui(lang)
   const i18n = await getI18nInstance(lang)
   return (

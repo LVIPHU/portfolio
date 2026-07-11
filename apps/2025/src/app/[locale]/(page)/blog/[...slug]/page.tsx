@@ -25,7 +25,7 @@ const TEMPLATES = {
 }
 
 type BlogPostParams = {
-  params: Promise<{ slug: string[]; lang: string }>
+  params: Promise<{ slug: string[]; locale: string }>
 }
 
 function getAuthorDetails(authorList: string[]) {
@@ -40,13 +40,13 @@ function getAuthorDetails(authorList: string[]) {
 export async function generateMetadata(props: BlogPostParams): Promise<Metadata | undefined> {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'))
-  const post = getPost(slug, mapLocale(params.lang))
+  const post = getPost(slug, mapLocale(params.locale))
   if (!post) {
     return
   }
   const authorDetails = getAuthorDetails(post.authors.length ? post.authors : ['default'])
 
-  const i18n = await getI18nInstance(params.lang)
+  const i18n = await getI18nInstance(params.locale)
   const siteName = i18n._(SITE_METADATA.title)
 
   const publishedAt = new Date(post.date).toISOString()
@@ -88,7 +88,7 @@ export const generateStaticParams = async () => {
 export default async function Page(props: BlogPostParams) {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'))
-  const locale = mapLocale(params.lang)
+  const locale = mapLocale(params.locale)
 
   // Đã sort + lọc draft + fallback locale (D-04)
   const posts = getAllPosts(locale)

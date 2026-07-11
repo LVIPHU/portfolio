@@ -1,9 +1,12 @@
+import createNextIntlPlugin from 'next-intl/plugin'
 import { version, author } from './package.json'
 import type { NextConfig } from 'next'
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
+
+const withNextIntl = createNextIntlPlugin()
 
 const ContentSecurityPolicy = `
   default-src 'self';
@@ -55,7 +58,7 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = () => {
-  const plugins = [withBundleAnalyzer]
+  const plugins = [withNextIntl, withBundleAnalyzer]
   return plugins.reduce((acc, next) => next(acc), {
     reactStrictMode: true,
     // next-mdx-remote phải được bundle + alias react theo layer RSC của webpack,

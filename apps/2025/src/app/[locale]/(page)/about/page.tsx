@@ -3,7 +3,7 @@ import { getI18nInstance, initLingui, PageLangParam } from '@/i18n'
 import { t } from '@lingui/macro'
 
 export async function generateMetadata(props: PageLangParam) {
-  const i18n = await getI18nInstance((await props.params).lang)
+  const i18n = await getI18nInstance((await props.params).locale)
 
   return {
     title: t(i18n)`About`,
@@ -11,7 +11,7 @@ export async function generateMetadata(props: PageLangParam) {
 }
 
 export default async function AboutPage(props: PageLangParam) {
-  const lang = (await props.params).lang
+  const lang = (await props.params).locale
   await initLingui(lang)
   return <AboutTemplate />
 }

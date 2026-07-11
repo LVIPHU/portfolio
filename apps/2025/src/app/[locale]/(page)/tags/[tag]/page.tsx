@@ -8,13 +8,13 @@ import { TagTemplate } from '@/components/templates'
 import { getI18nInstance, PageLangParam } from '@/i18n'
 
 type TagPageParams = {
-  params: Promise<{ tag: string; lang: string }>
+  params: Promise<{ tag: string; locale: string }>
 }
 
 export async function generateMetadata(props: TagPageParams): Promise<Metadata> {
   const params = await props.params
   const tag = decodeURI(params.tag)
-  const i18n = await getI18nInstance(params.lang)
+  const i18n = await getI18nInstance(params.locale)
   const siteTitle = i18n._(SITE_METADATA.title)
   return {
     title: tag,
@@ -42,7 +42,7 @@ export default async function TagPage(props: TagPageParams) {
   // Capitalize first letter and convert space to dash
   const title = '#' + tag[0] + tag.split(' ').join('-').slice(1)
   // so khớp theo slug(tag) như bản cũ — key trong tag-data.json là dạng slugified (D-06)
-  const filteredPosts = getAllPosts(mapLocale(params.lang)).filter((post) =>
+  const filteredPosts = getAllPosts(mapLocale(params.locale)).filter((post) =>
     post.tags.map((t) => slug(t)).includes(tag)
   )
   if (filteredPosts.length === 0) {

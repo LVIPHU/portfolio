@@ -5,7 +5,7 @@ import { AnimatedContent, Badge, Container, NavigationLink } from '@/components/
 import { slug } from 'github-slugger'
 
 export async function generateMetadata(props: PageLangParam) {
-  const i18n = await getI18nInstance((await props.params).lang)
+  const i18n = await getI18nInstance((await props.params).locale)
 
   return {
     title: t(i18n)`Tags`,
