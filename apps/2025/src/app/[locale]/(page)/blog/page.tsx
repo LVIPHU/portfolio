@@ -1,15 +1,14 @@
 import { getAllPosts, mapLocale } from '@/utils/content'
 import { POSTS_PER_PAGE } from '@/constants/post'
 import { BlogTemplate } from '@/components/templates'
-import { getI18nInstance, initLingui, PageLangParam } from '@/i18n'
-import { t } from '@lingui/macro'
+import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
-export async function generateMetadata(props: PageLangParam) {
-  const i18n = await getI18nInstance((await props.params).locale)
+export async function generateMetadata() {
+  const t = await getTranslations()
 
   return {
-    title: t(i18n)`Blog`,
+    title: t('Common.blog'),
   }
 }
 
@@ -33,8 +32,6 @@ export default async function BlogPage(props: PageBlogParam) {
     currentPage: pageNumber,
     totalPages: totalPages,
   }
-
-  await initLingui(params.locale)
 
   return <BlogTemplate posts={posts} initialDisplayPosts={initialDisplayPosts} pagination={pagination} />
 }

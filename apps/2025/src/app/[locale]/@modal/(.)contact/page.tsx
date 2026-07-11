@@ -1,16 +1,12 @@
 import { ContactForm, Modal } from '@/components/molecules'
-import { getI18nInstance, initLingui, PageLangParam } from '@/i18n'
-import { t } from '@lingui/macro'
+import { PageLangParam } from '@/i18n'
+import { getTranslations } from 'next-intl/server'
 
 export default async function ContactModal(props: PageLangParam) {
   const lang = (await props.params).locale
-  await initLingui(lang)
-  const i18n = await getI18nInstance(lang)
+  const t = await getTranslations()
   return (
-    <Modal
-      title={t(i18n)`Chat with me`}
-      description={t(i18n)`I'd love to hear from you. Please fill out this form or send me an email.`}
-    >
+    <Modal title={t('ContactModal.chatWithMe')} description={t('Common.iDLoveTo')}>
       <ContactForm />
     </Modal>
   )

@@ -1,15 +1,14 @@
 import tagData from '@json/tag-data.json'
-import { getI18nInstance, PageLangParam } from '@/i18n'
-import { t } from '@lingui/macro'
+import { getTranslations } from 'next-intl/server'
 import { AnimatedContent, Badge, Container, NavigationLink } from '@/components/atoms'
 import { slug } from 'github-slugger'
 
-export async function generateMetadata(props: PageLangParam) {
-  const i18n = await getI18nInstance((await props.params).locale)
+export async function generateMetadata() {
+  const t = await getTranslations()
 
   return {
-    title: t(i18n)`Tags`,
-    description: t(i18n)`Things I blog about`,
+    title: t('Common.tags'),
+    description: t('Tags.thingsIBlogAbout'),
   }
 }
 

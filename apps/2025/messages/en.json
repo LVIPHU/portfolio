@@ -1,11 +1,11 @@
 {
   "About": {
-    "currentlyIAmWorking": "Currently, I am working for <0>PVS Solution</0> in Vietnam. I focus on creating excellent user experiences by using modern frontend architecture. Whether it's writing code or collaborating with cross-functional teams, I always ensure products meet the highest standards and deliver impressive experiences for users.",
+    "currentlyIAmWorking": "Currently, I am working for <company>PVS Solution</company> in Vietnam. I focus on creating excellent user experiences by using modern frontend architecture. Whether it's writing code or collaborating with cross-functional teams, I always ensure products meet the highest standards and deliver impressive experiences for users.",
     "hello": "Hello! {0}",
     "iAmASoftware": "I am {0}, a Software Engineer {1} from Vietnam, with a passion for programming and web development, I enjoy creating innovative solutions that enhance performance and efficiency. My technology journey includes building e-commerce websites, data management, and advanced full-stack solutions. Educationally, I hold a Bachelor's degree {2} in Information Technology.",
     "softwareEngineer": "Software Engineer",
     "someInterestingThingsAbout": "Some interesting things about myself and my habit of coding then making things harder for myself after six months.",
-    "whenIMNot": "When I'm not coding, I usually listen to music {0} or play games {1} like <0>League of Legends</0>, <1>Wuthering Waves</1>. These hobbies help me maintain creativity and relieve stress."
+    "whenIMNot": "When I'm not coding, I usually listen to music {0} or play games {1} like <lol>League of Legends</lol>, <ww>Wuthering Waves</ww>. These hobbies help me maintain creativity and relieve stress."
   },
   "App": {
     "iAmLươngVĩ": "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.",

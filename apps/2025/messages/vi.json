@@ -1,11 +1,11 @@
 {
   "About": {
-    "currentlyIAmWorking": "Hiện giờ tôi đang làm việc cho <0>PVS Solution</0> tại Việt Nam. Tôi tập trung tạo ra trải nghiệm người dùng tốt bằng cách sử dụng kiến trúc frontend hiện đại. Dù là viết code hay phối hợp với các nhóm đa chức năng, tôi luôn đảm bảo sản phẩm đạt tiêu chuẩn cao nhất và mang đến trải nghiệm ấn tượng cho người dùng.",
+    "currentlyIAmWorking": "Hiện giờ tôi đang làm việc cho <company>PVS Solution</company> tại Việt Nam. Tôi tập trung tạo ra trải nghiệm người dùng tốt bằng cách sử dụng kiến trúc frontend hiện đại. Dù là viết code hay phối hợp với các nhóm đa chức năng, tôi luôn đảm bảo sản phẩm đạt tiêu chuẩn cao nhất và mang đến trải nghiệm ấn tượng cho người dùng.",
     "hello": "Xin chào! {0}",
     "iAmASoftware": "Tôi là {0}, một Kỹ sư Phần mềm {1} đến từ Việt Nam, với niềm đam mê về lập trình và phát triển web, tôi thích tạo ra những giải pháp sáng tạo giúp nâng cao hiệu suất và hiệu quả. Hành trình công nghệ của tôi bao gồm việc xây dựng các trang web thương mại, quản lý dữ liệu và các giải pháp full-stack tiên tiến. Về học vấn, tôi có bằng Kỹ sư {2} Công nghệ Thông tin.",
     "softwareEngineer": "Kỹ sư Phần mềm",
     "someInterestingThingsAbout": "Một số điều thú vị về bản thân và sở thích viết code rồi tự làm khó chính mình sau 6 tháng.",
-    "whenIMNot": "Khi tôi không code tôi thường nghe nhạc {0} hoặc chơi các tựa game {1} như <0>League of Legends</0>, <1>Wuthering Waves</1>. Những sở thích này giúp tôi duy trì sự sáng tạo và giải tỏa những căng thẳng."
+    "whenIMNot": "Khi tôi không code tôi thường nghe nhạc {0} hoặc chơi các tựa game {1} như <lol>League of Legends</lol>, <ww>Wuthering Waves</ww>. Những sở thích này giúp tôi duy trì sự sáng tạo và giải tỏa những căng thẳng."
   },
   "App": {
     "iAmLươngVĩ": "Tôi là Lương Vĩ Phú, một kỹ sư phần mềm. Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi.",

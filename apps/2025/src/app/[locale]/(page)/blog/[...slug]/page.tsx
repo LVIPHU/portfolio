@@ -12,9 +12,9 @@ import {
   getStructuredData,
   mapLocale,
 } from '@/utils/content'
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { MDX_COMPONENTS } from '@/mdx-components'
-import { getI18nInstance } from '@/i18n'
+import { getTranslations } from 'next-intl/server'
 
 // Map tĩnh chọn template theo frontmatter layout (D-03 — hết meta-programming)
 const DEFAULT_TEMPLATE = 'PostLayout'
@@ -46,8 +46,8 @@ export async function generateMetadata(props: BlogPostParams): Promise<Metadata 
   }
   const authorDetails = getAuthorDetails(post.authors.length ? post.authors : ['default'])
 
-  const i18n = await getI18nInstance(params.locale)
-  const siteName = i18n._(SITE_METADATA.title)
+  const t = await getTranslations()
+  const siteName = t('App.lươngVĩPhúS')
 
   const publishedAt = new Date(post.date).toISOString()
   const modifiedAt = new Date(post.lastmod || post.date).toISOString()

@@ -1,17 +1,16 @@
 import { ContactTemplate } from '@/components/templates'
-import { getI18nInstance, initLingui, PageLangParam } from '@/i18n'
-import { t } from '@lingui/macro'
+import { PageLangParam } from '@/i18n'
+import { getTranslations } from 'next-intl/server'
 
-export async function generateMetadata(props: PageLangParam) {
-  const i18n = await getI18nInstance((await props.params).locale)
+export async function generateMetadata() {
+  const t = await getTranslations()
 
   return {
-    title: t(i18n)`Contact`,
+    title: t('Common.contact'),
   }
 }
 
 export default async function ContactPage(props: PageLangParam) {
   const lang = (await props.params).locale
-  await initLingui(lang)
   return <ContactTemplate />
 }

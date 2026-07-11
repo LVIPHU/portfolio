@@ -1,13 +1,12 @@
 'use client'
 
 import { ParallaxScroll, ParallaxScrollImage } from '@/components/molecules'
-import { t } from '@lingui/macro'
 import { Header } from '@/components/organisms'
-import { useLingui } from '@lingui/react'
+import { useTranslations } from 'next-intl'
 import { Blur, Container } from '@/components/atoms'
 
 export const PhotosTemplate = () => {
-  const { i18n } = useLingui()
+  const t = useTranslations()
   const imageList: ParallaxScrollImage[] = [
     {
       id: '5015',
@@ -232,7 +231,7 @@ export const PhotosTemplate = () => {
   ]
   return (
     <Container>
-      <Header title={t(i18n)`Photos`} description={t(i18n)`Photos`} />
+      <Header title={t('Common.photos')} description={t('Common.photos')} />
       <section className={'items-start'}>
         <ParallaxScroll images={imageList}></ParallaxScroll>
       </section>

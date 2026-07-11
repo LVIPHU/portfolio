@@ -2,19 +2,14 @@ import { ContactForm } from '@/components/molecules'
 import { Card, CardContent, Container, NavigationLink } from '@/components/atoms'
 import { Facebook, Linkedin, MailIcon, PhoneIcon } from 'lucide-react'
 import { Header } from '@/components/organisms'
-import { SITE_METADATA } from '@data/site-metadata'
-import { Trans } from '@lingui/react/macro'
-import { useLingui } from '@lingui/react'
-import { t } from '@lingui/macro'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
+import { useTranslations } from 'next-intl'
 
 export const ContactTemplate = () => {
-  const { i18n } = useLingui()
+  const t = useTranslations()
   return (
     <Container>
-      <Header
-        title={t(i18n)`Contact`}
-        description={t(i18n)`I'd love to hear from you. Please fill out this form or send me an email.`}
-      />
+      <Header title={t('Common.contact')} description={t('Common.iDLoveTo')} />
       <div className='mt-24 grid gap-16 md:gap-10 lg:grid-cols-2'>
         <div className='grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2'>
           <div>
@@ -22,9 +17,7 @@ export const ContactTemplate = () => {
               <MailIcon />
             </div>
             <h3 className='mt-6 text-xl font-semibold'>Email</h3>
-            <p className='text-muted-foreground my-2.5'>
-              <Trans>I will always be ready to support you.</Trans>
-            </p>
+            <p className='text-muted-foreground my-2.5'>{t('Contact.iWillAlwaysBe')}</p>
             <NavigationLink className='text-primary font-medium' href={`mailto:${SITE_METADATA.email}`}>
               {SITE_METADATA.email}
             </NavigationLink>
@@ -33,12 +26,8 @@ export const ContactTemplate = () => {
             <div className='bg-primary/10 text-primary flex h-12 w-12 items-center justify-center rounded-full'>
               <PhoneIcon />
             </div>
-            <h3 className='mt-6 text-xl font-semibold'>
-              <Trans>Phone</Trans>
-            </h3>
-            <p className='text-muted-foreground my-2.5'>
-              <Trans>Mon-Fri from 8am to 5pm.</Trans>
-            </p>
+            <h3 className='mt-6 text-xl font-semibold'>{t('Contact.phone')}</h3>
+            <p className='text-muted-foreground my-2.5'>{t('Contact.monFriFrom8am')}</p>
             <NavigationLink className='text-primary font-medium' href={`tel:${SITE_METADATA.email}`}>
               +84 528-307-775
             </NavigationLink>
@@ -48,11 +37,9 @@ export const ContactTemplate = () => {
               <Facebook />
             </div>
             <h3 className='mt-6 text-xl font-semibold'>Facebook</h3>
-            <p className='text-muted-foreground my-2.5'>
-              <Trans>I will always be ready to support you.</Trans>
-            </p>
+            <p className='text-muted-foreground my-2.5'>{t('Contact.iWillAlwaysBe')}</p>
             <NavigationLink className='text-primary font-medium' href='#'>
-              <Trans>Start new chat</Trans>
+              {t('Contact.startNewChat')}
             </NavigationLink>
           </div>
           <div>
@@ -61,7 +48,7 @@ export const ContactTemplate = () => {
             </div>
             <h3 className='mt-6 text-xl font-semibold'>LinkedIn</h3>
             <NavigationLink href={SITE_METADATA.linkedIn} className='text-primary font-medium'>
-              <Trans>Hire me</Trans>
+              {t('Contact.hireMe')}
             </NavigationLink>
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 import type { Blog } from '@/utils/content'
 import { ArrowLeft, ArrowRight, LayoutGrid, List } from 'lucide-react'
-import { usePathname } from 'next/navigation'
+import { usePathname } from '@/i18n/navigation'
 import React, { useState } from 'react'
 import type { CoreContent } from '@/types/data'
 import {
@@ -16,8 +16,7 @@ import {
   TabsTrigger,
 } from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
-import { useLingui } from '@lingui/react'
-import { t, Trans } from '@lingui/macro'
+import { useTranslations } from 'next-intl'
 import { AppContextInterface, useApp } from '@/providers/app'
 import Image from 'next/image'
 
@@ -83,7 +82,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
 }
 
 export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: ListLayoutProps) {
-  const { i18n } = useLingui()
+  const t = useTranslations()
   const { postsView, setPostsView } = useApp()
   const [searchValue, setSearchValue] = useState('')
   const filteredBlogPosts = posts.filter((post) => {
@@ -102,30 +101,24 @@ export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: Li
         }}
       >
         <Header
-          title={t(i18n)`All posts`}
-          description={t(
-            i18n
-          )`I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title.`}
+          title={t('Blog.allPosts')}
+          description={t('Blog.iLikeToWrite')}
           className='border-b border-gray-200 dark:border-gray-700'
         >
           <>
             <SearchArticles
               className={'min-w-0 md:min-w-96'}
-              label={t(i18n)`Search articles`}
+              label={t('Blog.searchArticles')}
               onChange={(e) => setSearchValue(e.target.value)}
             />
             <TabsList>
               <TabsTrigger value='GRID'>
                 <LayoutGrid />
-                <span className='ml-2 hidden sm:block'>
-                  <Trans>Grid</Trans>
-                </span>
+                <span className='ml-2 hidden sm:block'>{t('Common.grid')}</span>
               </TabsTrigger>
               <TabsTrigger value='LIST'>
                 <List />
-                <span className='ml-2 hidden sm:block'>
-                  <Trans>List</Trans>
-                </span>
+                <span className='ml-2 hidden sm:block'>{t('Common.list')}</span>
               </TabsTrigger>
             </TabsList>
           </>
@@ -136,7 +129,7 @@ export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: Li
             <Image
               src={'/static/images/errors/empty.svg'}
               fill={true}
-              alt={t(i18n)`no post found`}
+              alt={t('Blog.noPostFound')}
               className={'object-contain'}
             />
           </AnimatedContent>

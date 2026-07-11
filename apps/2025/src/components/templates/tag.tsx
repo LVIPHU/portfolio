@@ -8,7 +8,7 @@ import { GridView, Header, ListView } from '@/components/organisms'
 import { AppContextInterface, useApp } from '@/providers/app'
 import { LayoutGrid, List } from 'lucide-react'
 import { slug } from 'github-slugger'
-import { Trans } from '@lingui/react/macro'
+import { useTranslations } from 'next-intl'
 
 interface ListLayoutProps {
   title: string
@@ -17,6 +17,7 @@ interface ListLayoutProps {
 }
 
 export function TagTemplate({ title, description, posts }: ListLayoutProps) {
+  const t = useTranslations()
   const { postsView, setPostsView } = useApp()
 
   return (
@@ -33,15 +34,11 @@ export function TagTemplate({ title, description, posts }: ListLayoutProps) {
             <TabsList>
               <TabsTrigger value='GRID'>
                 <LayoutGrid />
-                <span className='ml-2 hidden sm:block'>
-                  <Trans>Grid</Trans>
-                </span>
+                <span className='ml-2 hidden sm:block'>{t('Common.grid')}</span>
               </TabsTrigger>
               <TabsTrigger value='LIST'>
                 <List />
-                <span className='ml-2 hidden sm:block'>
-                  <Trans>List</Trans>
-                </span>
+                <span className='ml-2 hidden sm:block'>{t('Common.list')}</span>
               </TabsTrigger>
             </TabsList>
           </>

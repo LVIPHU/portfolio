@@ -1,11 +1,11 @@
 import { slug } from 'github-slugger'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import tagData from '@json/tag-data.json'
 import { getAllPosts, mapLocale } from '@/utils/content'
 import { TagTemplate } from '@/components/templates'
-import { getI18nInstance, PageLangParam } from '@/i18n'
+import { getTranslations } from 'next-intl/server'
 
 type TagPageParams = {
   params: Promise<{ tag: string; locale: string }>
@@ -14,8 +14,8 @@ type TagPageParams = {
 export async function generateMetadata(props: TagPageParams): Promise<Metadata> {
   const params = await props.params
   const tag = decodeURI(params.tag)
-  const i18n = await getI18nInstance(params.locale)
-  const siteTitle = i18n._(SITE_METADATA.title)
+  const t = await getTranslations()
+  const siteTitle = t('App.lươngVĩPhúS')
   return {
     title: tag,
     description: `${siteTitle} ${tag} tagged content`,
