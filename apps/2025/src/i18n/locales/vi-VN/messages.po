@@ -18,7 +18,7 @@ msgid "{category}"
 msgstr "{category}"
 
 #: src/app/[lang]/(page)/about/page.tsx:9
-#: src/components/organisms/navbar.tsx:67
+#: src/components/organisms/navbar.tsx:69
 #: src/components/templates/about.tsx:41
 msgid "About"
 msgstr "Giới thiệu"
@@ -28,7 +28,7 @@ msgid "All posts"
 msgstr "Tất cả bài viết"
 
 #: src/app/[lang]/(page)/blog/page.tsx:13
-#: src/components/organisms/navbar.tsx:43
+#: src/components/organisms/navbar.tsx:45
 msgid "Blog"
 msgstr "Blog"
 
@@ -37,7 +37,7 @@ msgid "Chat with me"
 msgstr "Trò chuyện với tôi"
 
 #: src/app/[lang]/(page)/contact/page.tsx:9
-#: src/components/organisms/navbar.tsx:92
+#: src/components/organisms/navbar.tsx:94
 #: src/components/templates/contact.tsx:15
 msgid "Contact"
 msgstr "Liên hệ"
@@ -77,7 +77,7 @@ msgstr "Xin chào! {0}"
 msgid "Hire me"
 msgstr "Thuê tôi"
 
-#: src/components/organisms/navbar.tsx:36
+#: src/components/organisms/navbar.tsx:38
 msgid "Home"
 msgstr "Trang chủ"
 
@@ -164,7 +164,7 @@ msgid "Phone Number"
 msgstr "Số điện thoại"
 
 #: src/app/[lang]/(page)/photos/page.tsx:9
-#: src/components/organisms/navbar.tsx:61
+#: src/components/organisms/navbar.tsx:63
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
 msgid "Photos"
@@ -175,17 +175,17 @@ msgid "Present"
 msgstr "Hiện tại"
 
 #: src/app/[lang]/(page)/projects/page.tsx:9
-#: src/components/organisms/navbar.tsx:55
+#: src/components/organisms/navbar.tsx:57
 #: src/components/templates/projects.tsx:15
 msgid "Projects"
 msgstr "Dự án"
 
-#: src/components/organisms/navbar.tsx:73
+#: src/components/organisms/navbar.tsx:75
 #: src/components/templates/about.tsx:61
 msgid "Resume"
 msgstr "Sơ yếu lý lịch"
 
-#: src/components/organisms/navbar.tsx:99
+#: src/components/organisms/navbar.tsx:101
 msgid "Search"
 msgstr "Tìm kiếm"
 
@@ -193,12 +193,12 @@ msgstr "Tìm kiếm"
 msgid "Search articles"
 msgstr "Tìm kiếm bài viết"
 
-#: src/components/molecules/locale-switch.tsx:39
+#: src/components/molecules/locale-switch.tsx:35
 msgid "Select a timezone"
 msgstr "Chọn múi giờ"
 
 #: src/components/molecules/setting.tsx:11
-#: src/components/organisms/navbar.tsx:105
+#: src/components/organisms/navbar.tsx:107
 msgid "Setting"
 msgstr "Cài đặt"
 
@@ -231,7 +231,7 @@ msgid "Submit"
 msgstr "Gửi"
 
 #: src/app/[lang]/(page)/tags/page.tsx:11
-#: src/components/organisms/navbar.tsx:49
+#: src/components/organisms/navbar.tsx:51
 msgid "Tags"
 msgstr "Tags"
 

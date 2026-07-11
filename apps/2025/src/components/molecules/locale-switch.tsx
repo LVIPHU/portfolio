@@ -6,15 +6,11 @@ import { Trans } from '@lingui/react/macro'
 import { usePathname, useRouter } from 'next/navigation'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/atoms'
 
-type LOCALES = 'vi-VN' | 'en-US' | 'ja-JP' | 'zh-TW' | 'zh-CN' | 'ko-KR'
+type LOCALES = 'vi-VN' | 'en-US'
 
 const languages = {
   'en-US': 'English',
   'vi-VN': 'Tiếng Việt',
-  'ja-JP': '日本語',
-  'zh-TW': '繁體中文',
-  'zh-CN': '简体中文',
-  'ko-KR': '한국어',
 } as const
 
 export function LocaleSwitch() {

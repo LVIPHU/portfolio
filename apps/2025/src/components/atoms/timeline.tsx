@@ -114,18 +114,6 @@ export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date;
       case 'vi-VN':
         duration = `${years} năm ${months} tháng`
         break
-      case 'ja-JP':
-        duration = `${years}年${months}ヶ月`
-        break
-      case 'zh-TW':
-        duration = `${years}年${months}個月`
-        break
-      case 'zh-CN':
-        duration = `${years}年${months}个月`
-        break
-      case 'ko-KR':
-        duration = `${years}년 ${months}개월`
-        break
       default:
         duration = `${years} ${years === 1 ? 'yr' : 'yrs'} ${months} ${months === 1 ? 'mo' : 'mos'}`
     }
@@ -136,18 +124,6 @@ export const TimelineItemDateRange = ({ startDate, endDate }: { startDate: Date;
         break
       case 'vi-VN':
         duration = `${months} tháng`
-        break
-      case 'ja-JP':
-        duration = `${months}ヶ月`
-        break
-      case 'zh-TW':
-        duration = `${months}個月`
-        break
-      case 'zh-CN':
-        duration = `${months}个月`
-        break
-      case 'ko-KR':
-        duration = `${months}개월`
         break
       default:
         duration = `${months} ${months === 1 ? 'mo' : 'mos'}`

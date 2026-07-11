@@ -1,7 +1,7 @@
 /** @type {import('@lingui/conf').LinguiConfig} */
 module.exports = {
   format: 'po',
-  locales: ['vi-VN', 'en-US', 'ja-JP', 'zh-TW', 'zh-CN', 'ko-KR'],
+  locales: ['vi-VN', 'en-US'],
   sourceLocale: 'en-US',
   fallbackLocales: {
     default: 'vi-VN',

@@ -18,7 +18,7 @@ msgid "{category}"
 msgstr "{category}"
 
 #: src/app/[lang]/(page)/about/page.tsx:9
-#: src/components/organisms/navbar.tsx:67
+#: src/components/organisms/navbar.tsx:69
 #: src/components/templates/about.tsx:41
 msgid "About"
 msgstr "About"
@@ -28,7 +28,7 @@ msgid "All posts"
 msgstr "All posts"
 
 #: src/app/[lang]/(page)/blog/page.tsx:13
-#: src/components/organisms/navbar.tsx:43
+#: src/components/organisms/navbar.tsx:45
 msgid "Blog"
 msgstr "Blog"
 
@@ -37,7 +37,7 @@ msgid "Chat with me"
 msgstr "Chat with me"
 
 #: src/app/[lang]/(page)/contact/page.tsx:9
-#: src/components/organisms/navbar.tsx:92
+#: src/components/organisms/navbar.tsx:94
 #: src/components/templates/contact.tsx:15
 msgid "Contact"
 msgstr "Contact"
@@ -77,7 +77,7 @@ msgstr "Hello! {0}"
 msgid "Hire me"
 msgstr "Hire me"
 
-#: src/components/organisms/navbar.tsx:36
+#: src/components/organisms/navbar.tsx:38
 msgid "Home"
 msgstr "Home"
 
@@ -164,7 +164,7 @@ msgid "Phone Number"
 msgstr "Phone Number"
 
 #: src/app/[lang]/(page)/photos/page.tsx:9
-#: src/components/organisms/navbar.tsx:61
+#: src/components/organisms/navbar.tsx:63
 #: src/components/templates/photos.tsx:235
 #: src/components/templates/photos.tsx:235
 msgid "Photos"
@@ -175,17 +175,17 @@ msgid "Present"
 msgstr "Present"
 
 #: src/app/[lang]/(page)/projects/page.tsx:9
-#: src/components/organisms/navbar.tsx:55
+#: src/components/organisms/navbar.tsx:57
 #: src/components/templates/projects.tsx:15
 msgid "Projects"
 msgstr "Projects"
 
-#: src/components/organisms/navbar.tsx:73
+#: src/components/organisms/navbar.tsx:75
 #: src/components/templates/about.tsx:61
 msgid "Resume"
 msgstr "Resume"
 
-#: src/components/organisms/navbar.tsx:99
+#: src/components/organisms/navbar.tsx:101
 msgid "Search"
 msgstr "Search"
 
@@ -193,12 +193,12 @@ msgstr "Search"
 msgid "Search articles"
 msgstr "Search articles"
 
-#: src/components/molecules/locale-switch.tsx:39
+#: src/components/molecules/locale-switch.tsx:35
 msgid "Select a timezone"
 msgstr "Select a timezone"
 
 #: src/components/molecules/setting.tsx:11
-#: src/components/organisms/navbar.tsx:105
+#: src/components/organisms/navbar.tsx:107
 msgid "Setting"
 msgstr "Setting"
 
@@ -231,7 +231,7 @@ msgid "Submit"
 msgstr "Submit"
 
 #: src/app/[lang]/(page)/tags/page.tsx:11
-#: src/components/organisms/navbar.tsx:49
+#: src/components/organisms/navbar.tsx:51
 msgid "Tags"
 msgstr "Tags"
 
