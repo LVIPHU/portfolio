@@ -1,6 +1,6 @@
 import { graphql, type GraphQlQueryResponseData } from '@octokit/graphql'
 import type { GithubRepository } from '@/types/github'
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { env } from '@env'
 
 const HISTORY_QUERY = `

@@ -1,17 +1,15 @@
 import '@/styles/main.css'
 import 'react-medium-image-zoom/dist/styles.css'
-import { msg } from '@lingui/core/macro'
 import { notFound } from 'next/navigation'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
-import { getI18nInstance } from '@/i18n'
 import ProviderRegistry from '@/providers'
 import { ReactNode } from 'react'
 import { Navbar } from '@/components/organisms'
 import { JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
 import { cn } from '@/utils'
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { KBarSearchProvider } from '@/components/organisms/search/kbar-provider'
 
 const FONT_PLAYPEN_SANS = Playpen_Sans({
@@ -37,9 +35,6 @@ const FONT_JETBRAINS_MONO = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
-/** KHUNG CHUYỂN TIẾP (M-09, gỡ ở plan C06-03): map locale mới → catalog Lingui cũ */
-const toLinguiLocale = (locale: string) => (locale === 'en' ? 'en-US' : 'vi-VN')
-
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
@@ -48,15 +43,14 @@ type Params = { params: Promise<{ locale: string }> }
 
 export async function generateMetadata(props: Params & { children: ReactNode; modal: ReactNode }) {
   const { locale } = await props.params
-  const i18n = await getI18nInstance(toLinguiLocale(locale))
+  // getTranslations({locale}) tường minh để generateMetadata không opt vào dynamic rendering
+  const t = await getTranslations({ locale })
 
-  const title = i18n._(msg`Lương Vĩ Phú's dev blog - portfolio`)
-  const description = i18n._(
-    msg`I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.`
-  )
+  const title = t('App.lươngVĩPhúS')
+  const description = t('App.iAmLươngVĩ')
 
   return {
-    metadataBase: new URL(SITE_METADATA.siteUrl),
+    metadataBase: new URL(SITE_METADATA.siteUrl ?? 'http://localhost:3001'),
     title: {
       default: title,
       template: `%s | ${title}`,
@@ -113,10 +107,9 @@ export default async function RootLayout({ children, modal, params }: Readonly<P
     >
       <body>
         <NextIntlClientProvider>
-          {/* ProviderRegistry (Lingui) giữ cho component CHƯA port — gỡ ở C06-03 */}
-          <ProviderRegistry linguiLocale={toLinguiLocale(locale)}>
+          <ProviderRegistry>
             <KBarSearchProvider configs={SITE_METADATA.search.kbarConfigs}>
-              <Navbar lang={locale} />
+              <Navbar />
               {children}
               {modal}
             </KBarSearchProvider>

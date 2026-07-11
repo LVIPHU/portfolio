@@ -3,7 +3,7 @@
 import type { BooleanString, InputPosition, Mapping } from '@giscus/react'
 import GiscusComponent from '@giscus/react'
 import { useTheme } from 'next-themes'
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 
 interface GiscusConfigs {
   themeURL: string

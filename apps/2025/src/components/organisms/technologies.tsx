@@ -1,5 +1,5 @@
 'use client'
-import { Trans } from '@lingui/react/macro'
+import { useTranslations } from 'next-intl'
 import {
   AnimatedContent,
   Button,
@@ -25,7 +25,7 @@ import {
   TooltipTrigger,
 } from '@/components/atoms'
 import { useState } from 'react'
-import { type Skill, SKILLS } from '@data/main'
+import { type Skill2025 as Skill, SKILLS_2025 as SKILLS } from '@portfolio/content/data2025'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 function filterSkillsData(skillsData: Skill[]) {
@@ -49,6 +49,7 @@ function filterSkillsData(skillsData: Skill[]) {
 }
 
 export const Technologies = () => {
+  const t = useTranslations()
   const filteredSkillsData = filterSkillsData(SKILLS)
   const categories = Object.keys(filteredSkillsData)
   const [tabIndex, setTabIndex] = useState(0)
@@ -76,7 +77,7 @@ export const Technologies = () => {
             'md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'
           }
         >
-          <Trans>Technologies I&#39;ve worked with</Trans>
+          {t('Technologies.technologiesIVeWorked')}
         </h3>
       </AnimatedContent>
       <TooltipProvider>
@@ -99,13 +100,9 @@ export const Technologies = () => {
                 <Card>
                   <CardHeader>
                     <AnimatedContent direction={'horizontal'}>
-                      <CardTitle>
-                        <Trans>{category}</Trans>
-                      </CardTitle>
+                      <CardTitle>{t('Technologies.msg', { category })}</CardTitle>
                       {category === 'Most Used' && (
-                        <CardDescription>
-                          <Trans>These are my most used technologies.</Trans>
-                        </CardDescription>
+                        <CardDescription>{t('Technologies.theseAreMyMost')}</CardDescription>
                       )}
                     </AnimatedContent>
                   </CardHeader>
@@ -137,9 +134,7 @@ export const Technologies = () => {
                     <CardFooter className='bg-muted/50 flex flex-row items-center justify-between border-t px-6 py-3'>
                       <div className='text-muted-foreground flex items-center text-xs'>
                         <span className='mx-1 inline-block h-3 w-3 rounded-full bg-amber-500'></span>
-                        <span>
-                          <Trans>Currently Learning</Trans>
-                        </span>
+                        <span>{t('Technologies.currentlyLearning')}</span>
                       </div>
                       <Pagination className='ml-auto mr-0 w-auto'>
                         <PaginationContent>

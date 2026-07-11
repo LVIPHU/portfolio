@@ -3,7 +3,7 @@ import { cn } from '@/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
 import { ProjectCard } from '@/components/molecules/project-card'
-import { type Project } from '@data/main'
+import { type Project2025 as Project } from '@portfolio/content/data2025'
 import { AnimatedContent } from '@/components/atoms'
 
 export const HoverEffect = ({ items, className }: { items: Project[]; className?: string }) => {

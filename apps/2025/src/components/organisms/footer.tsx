@@ -10,8 +10,8 @@ import {
   TooltipTrigger,
 } from '@/components/atoms'
 import { Dot } from 'lucide-react'
-import { type Skill, SKILLS } from '@data/main'
-import { SITE_METADATA } from '@data/site-metadata'
+import { type Skill2025 as Skill, SKILLS_2025 as SKILLS } from '@portfolio/content/data2025'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 
 const techs = ['typescript', 'nextjs', 'react', 'tailwindcss', 'shadcn']
 

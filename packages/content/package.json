@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./data2025": "./src/data2025.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

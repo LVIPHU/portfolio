@@ -1,4 +1,8 @@
-import { type Experience, EXPERIENCES, SKILLS } from '@data/main'
+import {
+  type Experience2025 as Experience,
+  EXPERIENCES_2025 as EXPERIENCES,
+  SKILLS_2025 as SKILLS,
+} from '@portfolio/content/data2025'
 import {
   AnimatedContent,
   Avatar,
@@ -25,15 +29,25 @@ import {
   TimelineItemDescription,
   TimelineItemSmallText,
 } from '@/components/atoms'
-import { Trans } from '@lingui/react/macro'
-import { useLingui } from '@lingui/react'
+import { useLocale, useTranslations } from 'next-intl'
+
+import type { Localized } from '@portfolio/content/data2025'
+
+/** Data giờ là Localized {vi,en} từ @portfolio/content — render theo locale hiện tại */
+type DataMsg = (message: Localized | string | undefined) => string
+const makeDataMsg =
+  (locale: 'vi' | 'en'): DataMsg =>
+  (message) => {
+    if (!message) return ''
+    if (typeof message === 'string') return message
+    return message[locale] ?? message.vi
+  }
 
 function TechnologyIcons({ technologies }: { technologies: string[] }) {
+  const t = useTranslations()
   return (
     <div className='flex flex-wrap items-center space-x-2 pt-1 text-xs'>
-      <span className='mr-2'>
-        <Trans>Technologies used</Trans>:
-      </span>
+      <span className='mr-2'>{t('Experience.technologiesUsed')}:</span>
       {technologies.map((tech) => {
         const skill = SKILLS.find((skill) => skill.id === tech)
         if (!skill) return null
@@ -43,20 +57,19 @@ function TechnologyIcons({ technologies }: { technologies: string[] }) {
   )
 }
 
-function createTimelineItems(experiences: Experience[]) {
-  const { i18n } = useLingui()
+function createTimelineItems(experiences: Experience[], dataMsg: DataMsg) {
   return experiences.map((experience) => ({
-    title: i18n._(experience.title),
+    title: dataMsg(experience.title),
     content: (
       <>
         <TimelineItemSmallText>
-          {i18n._(experience.roleType)} - {i18n._(experience.type)}
+          {dataMsg(experience.roleType)} - {dataMsg(experience.type)}
         </TimelineItemSmallText>
         <TimelineItemDateRange
           startDate={new Date(experience.startDate)}
           endDate={experience.endDate ? new Date(experience.endDate) : undefined}
         />
-        <TimelineItemDescription>{i18n._(experience.description)}</TimelineItemDescription>
+        <TimelineItemDescription>{dataMsg(experience.description)}</TimelineItemDescription>
         {experience.technologies && <TechnologyIcons technologies={experience.technologies} />}
       </>
     ),
@@ -66,12 +79,13 @@ function createTimelineItems(experiences: Experience[]) {
 }
 
 export function Experience() {
-  const { i18n } = useLingui()
+  const t = useTranslations()
+  const dataMsg = makeDataMsg(useLocale() as 'vi' | 'en')
   return (
     <Container className='w-full py-5 md:py-10'>
       <AnimatedContent direction={'horizontal'} reverse={true}>
         <h3 className='md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'>
-          <Trans>Experience</Trans>
+          {t('Experience.experience')}
         </h3>
       </AnimatedContent>
       <AnimatedContent className='mt-5'>
@@ -103,20 +117,8 @@ export function Experience() {
                     </Avatar>
                     <div className='space-y-1'>
                       <h4 className='text-sm font-semibold'>@{company.name}</h4>
-                      <h4 className='text-sm font-semibold'>
-                        {company.location
-                          ? typeof company.location === 'string'
-                            ? company.location
-                            : i18n._(company.location)
-                          : ''}
-                      </h4>
-                      <p className='text-sm'>
-                        {company.description
-                          ? typeof company.description === 'string'
-                            ? company.description
-                            : i18n._(company.description)
-                          : ''}
-                      </p>
+                      <h4 className='text-sm font-semibold'>{dataMsg(company.location)}</h4>
+                      <p className='text-sm'>{dataMsg(company.description)}</p>
                     </div>
                   </div>
                 </HoverCardContent>
@@ -137,17 +139,11 @@ export function Experience() {
                         <span className='px-0 text-2xl'>{company.name}</span>
                       </LinkPreview>
                     </CardTitle>
-                    <CardDescription>
-                      {company.description
-                        ? typeof company.description === 'string'
-                          ? company.description
-                          : i18n._(company.description)
-                        : ''}
-                    </CardDescription>
+                    <CardDescription>{dataMsg(company.description)}</CardDescription>
                   </AnimatedContent>
                 </CardHeader>
                 <CardContent>
-                  <Timeline data={createTimelineItems(company.items)} />
+                  <Timeline data={createTimelineItems(company.items, dataMsg)} />
                 </CardContent>
               </Card>
             </TabsContent>

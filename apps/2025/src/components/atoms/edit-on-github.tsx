@@ -1,4 +1,4 @@
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { NavigationLink } from '@/components/atoms/index'
 
 export function EditOnGithub({ filePath }: { filePath: string }) {

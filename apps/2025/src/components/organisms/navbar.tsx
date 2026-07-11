@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useCallback } from 'react'
-import { Trans } from '@lingui/react/macro'
+import { useTranslations } from 'next-intl'
 import { FloatingDock, Item } from '@/components/molecules'
 import {
   Book,
@@ -18,16 +18,18 @@ import {
   Tags,
 } from 'lucide-react'
 import { Setting } from '@/components/molecules'
-import { SITE_METADATA } from '@data/site-metadata'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { useKBar } from 'kbar'
 
 type Props = {
-  lang: string
+  /** Không còn dùng sau C6 — Link/pathname đã locale-aware qua @/i18n/navigation */
+  lang?: string
 }
 
 const ICON_CLASS = 'h-full w-full text-neutral-500 dark:text-neutral-300'
 
-export const Navbar = ({ lang }: Props) => {
+export const Navbar = (_props: Props) => {
+  const t = useTranslations()
   const { query } = useKBar()
   const toggleSearch = useCallback(() => query.toggle(), [query])
 
@@ -35,44 +37,44 @@ export const Navbar = ({ lang }: Props) => {
     return [
       {
         type: 'link',
-        title: <Trans>Home</Trans>,
+        title: t('Navbar.home'),
         icon: <House className={ICON_CLASS} />,
-        href: `/${lang}`,
+        href: '/',
       },
       null,
       {
         type: 'link',
-        title: <Trans>Blog</Trans>,
+        title: t('Common.blog'),
         icon: <Book className={ICON_CLASS} />,
-        href: `/${lang}/blog`,
+        href: '/blog',
       },
       {
         type: 'link',
-        title: <Trans>Tags</Trans>,
+        title: t('Common.tags'),
         icon: <Tags className={ICON_CLASS} />,
-        href: `/${lang}/tags`,
+        href: '/tags',
       },
       {
         type: 'link',
-        title: <Trans>Projects</Trans>,
+        title: t('Common.projects'),
         icon: <FolderGit className={ICON_CLASS} />,
-        href: `/${lang}/projects`,
+        href: '/projects',
       },
       {
         type: 'link',
-        title: <Trans>Photos</Trans>,
+        title: t('Common.photos'),
         icon: <GalleryHorizontal className={ICON_CLASS} />,
-        href: `/${lang}/photos`,
+        href: '/photos',
       },
       {
         type: 'link',
-        title: <Trans>About</Trans>,
+        title: t('Common.about'),
         icon: <Signature className={ICON_CLASS} />,
-        href: `/${lang}/about`,
+        href: '/about',
       },
       {
         type: 'link',
-        title: <Trans>Resume</Trans>,
+        title: t('Common.resume'),
         icon: <FileUser className={ICON_CLASS} />,
         href: SITE_METADATA.resume,
       },
@@ -91,25 +93,25 @@ export const Navbar = ({ lang }: Props) => {
       },
       {
         type: 'link',
-        title: <Trans>Contact</Trans>,
+        title: t('Common.contact'),
         icon: <Paperclip className={ICON_CLASS} />,
-        href: `/${lang}/contact`,
+        href: '/contact',
       },
       null,
       {
         type: 'action',
-        title: <Trans>Search</Trans>,
+        title: t('Navbar.search'),
         icon: <Command className={ICON_CLASS} />,
         onClick: toggleSearch,
       },
       {
         type: 'popover',
-        title: <Trans>Setting</Trans>,
+        title: t('Common.setting'),
         icon: <MonitorCog className={ICON_CLASS} />,
         content: <Setting />,
       },
     ]
-  }, [lang, toggleSearch])
+  }, [t, toggleSearch])
 
   return (
     <nav className={'fixed bottom-5 left-3 z-20 md:left-1/2 md:-translate-x-1/2'}>

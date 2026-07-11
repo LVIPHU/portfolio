@@ -1,47 +1,38 @@
 'use client'
-// this is a client component because it uses the `useState` hook
+// client component: đổi locale qua router của next-intl (D-10)
 
-import { useState } from 'react'
-import { Trans } from '@lingui/react/macro'
-import { usePathname, useRouter } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
+import { usePathname, useRouter } from '@/i18n/navigation'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/atoms'
 
-type LOCALES = 'vi-VN' | 'en-US'
-
 const languages = {
-  'en-US': 'English',
-  'vi-VN': 'Tiếng Việt',
+  vi: 'Tiếng Việt',
+  en: 'English',
 } as const
 
+type Locale = keyof typeof languages
+
 export function LocaleSwitch() {
+  const t = useTranslations()
+  const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
 
-  const [locale, setLocale] = useState<LOCALES>(pathname?.split('/')[1] as LOCALES)
-
   function handleChange(value: string) {
-    const locale = value as LOCALES
-
-    const pathNameWithoutLocale = pathname?.split('/')?.slice(2) ?? []
-    const newPath = `/${locale}/${pathNameWithoutLocale.join('/')}`
-
-    setLocale(locale)
-    router.push(newPath)
+    router.replace(pathname, { locale: value as Locale })
   }
 
   return (
-    <Select value={locale} defaultValue={locale} onValueChange={handleChange}>
+    <Select value={locale} onValueChange={handleChange}>
       <SelectTrigger>
-        <SelectValue placeholder={<Trans>Select a timezone</Trans>} />
+        <SelectValue placeholder={t('LocaleSwitch.selectATimezone')} />
       </SelectTrigger>
       <SelectContent>
-        {Object.keys(languages).map((locale) => {
-          return (
-            <SelectItem value={locale} key={locale}>
-              {languages[locale as keyof typeof languages]}
-            </SelectItem>
-          )
-        })}
+        {(Object.keys(languages) as Locale[]).map((value) => (
+          <SelectItem value={value} key={value}>
+            {languages[value]}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   )

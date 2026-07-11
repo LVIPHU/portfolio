@@ -8,7 +8,7 @@ import {
   useRegisterActions,
   type Action,
 } from 'kbar'
-import { Trans } from '@lingui/react/macro'
+import { useTranslations } from 'next-intl'
 
 export function KBarModal({ actions, isLoading }: { actions: Action[]; isLoading: boolean }) {
   useRegisterActions(actions, [actions])
@@ -54,6 +54,7 @@ export function KBarModal({ actions, isLoading }: { actions: Action[]; isLoading
 }
 
 function RenderResults() {
+  const t = useTranslations()
   const { results } = useMatches()
 
   if (results.length) {
@@ -104,7 +105,7 @@ function RenderResults() {
   } else {
     return (
       <div className='block border-t border-gray-100 px-4 py-8 text-center text-gray-400 dark:border-gray-800 dark:text-gray-600'>
-        <Trans>No results for your search...</Trans>
+        {t('KbarModal.noResultsForYour')}
       </div>
     )
   }

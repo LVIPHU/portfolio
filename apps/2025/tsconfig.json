@@ -11,7 +11,6 @@
     "paths": {
       "@/*": ["./src/*"],
       "@env": ["./env.mjs"],
-      "@data/*": ["./data/*"],
       "@json/*": ["./json/*"],
       "@public/*": ["./public/*"]
     },
