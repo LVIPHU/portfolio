@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { slug } from 'github-slugger'
 import matter from 'gray-matter'
 import readingTime from 'reading-time'
 import { postFrontmatterSchema } from './schema'
@@ -70,6 +71,7 @@ function toPost(parsed: ParsedFile): Post {
     layout: f.layout,
     canonicalUrl: f.canonicalUrl,
     path: `blog/${parsed.slug}`,
+    filePath: `blog/${parsed.slug}.${parsed.locale}.mdx`,
     readingTime: readingTime(content),
     content,
   }
@@ -130,9 +132,18 @@ export function getPostsByTag(tag: string, locale: Locale): PostMeta[] {
   return getAllPosts(locale).filter((p) => p.tags.includes(tag))
 }
 
-/** Record<tag, count> — shape của json/tag-data.json cũ (2025) */
+/**
+ * Record<slug(tag), count> — shape của json/tag-data.json cũ (2025):
+ * key SLUGIFY bằng github-slugger vì consumer dùng làm URL /tags/<slug>
+ * và so khớp bằng slug(t) (tags/[tag]/page + rss per-tag).
+ */
 export function getTagData(locale: Locale): Record<string, number> {
-  return Object.fromEntries(getAllTags(locale).map(({ tag, count }) => [tag, count]))
+  const counts = new Map<string, number>()
+  for (const { tag, count } of getAllTags(locale)) {
+    const key = slug(tag)
+    counts.set(key, (counts.get(key) ?? 0) + count)
+  }
+  return Object.fromEntries(counts)
 }
 
 /** Documents cho search (kbar) — shape khớp public/search.json cũ của 2025 */

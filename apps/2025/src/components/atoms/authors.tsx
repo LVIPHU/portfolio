@@ -1,4 +1,4 @@
-import type { Author } from '@contentlayer/generated'
+import type { Author } from '@/utils/content'
 import type { CoreContent } from '@/types/data'
 import { Image } from '@/components/atoms/image'
 import { NavigationLink } from '@/components/atoms/navigation-link'

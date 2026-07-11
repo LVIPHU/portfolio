@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { Blog } from '@contentlayer/generated'
+import type { BlogContent } from '@/utils/content'
 import type { StatsType } from '@/db/schema'
 import type { CoreContent } from '@/types/data'
 import { SITE_METADATA } from '@data/site-metadata'
@@ -7,15 +7,15 @@ import { Container, DiscussOnX, EditOnGithub } from '@/components/atoms'
 import { Banner, BlogMeta, Comments, PostTitle, ScrollButtons, TagsList } from '@/components/molecules'
 
 interface LayoutProps {
-  content: CoreContent<Blog>
+  content: BlogContent
   children: ReactNode
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
 }
 
 export function PostBannerTemplate({ content, children }: LayoutProps) {
-  const { slug, type, title, images, date, lastmod, readingTime, tags, filePath } = content
-  const postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
+  const { slug, title, images, date, lastmod, readingTime, tags, filePath } = content
+  const postUrl = `${SITE_METADATA.siteUrl}/blog/${slug}`
 
   return (
     <Container className='pt-4 lg:pt-12'>
@@ -30,7 +30,7 @@ export function PostBannerTemplate({ content, children }: LayoutProps) {
               <BlogMeta
                 date={date}
                 lastmod={lastmod}
-                type={type.toLowerCase() as StatsType}
+                type={'blog' as StatsType}
                 slug={slug}
                 readingTime={readingTime}
               />

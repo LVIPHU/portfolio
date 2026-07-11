@@ -1,4 +1,4 @@
-import type { Blog } from '@contentlayer/generated'
+import type { Blog } from '@/utils/content'
 import type { CoreContent } from '@/types/data'
 import { formatDate, playRandomNote } from '@/utils'
 import { Card, CardContent, CardFooter, CardHeader, GrowingUnderline, Image, NavigationLink } from '@/components/atoms'

@@ -1,7 +1,9 @@
+import 'dotenv/config'
 import path from 'path'
 import { mkdirSync, writeFileSync } from 'fs'
 import { slug } from 'github-slugger'
 import tagData from '@json/tag-data.json'
+import { getAllPosts, type PostMeta } from '@portfolio/content'
 import { sortPosts, escape } from '@/utils'
 import { env } from '@env'
 
@@ -18,13 +20,14 @@ const RSS_CONFIG = {
     'I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.',
 }
 
-import { type Blog } from '.contentlayer/generated'
-import { allBlogs } from '.contentlayer/generated/index.mjs'
-
-const blogs = allBlogs as unknown as Blog[]
+// Union 2 locale, dedupe theo path — 1 item mỗi slug như hệ cũ (C5-03, D-07)
+const seen = new Set<string>()
+const blogs = [...getAllPosts('vi'), ...getAllPosts('en')].filter((p) =>
+  seen.has(p.path) ? false : (seen.add(p.path), true)
+)
 const RSS_PAGE = 'feed.xml'
 
-function generateRssItem(item: Blog) {
+function generateRssItem(item: PostMeta) {
   const { siteUrl, email, author } = RSS_CONFIG
   return `
 		<item>
@@ -39,7 +42,7 @@ function generateRssItem(item: Blog) {
 	`
 }
 
-function generateRss(items: Blog[], page = RSS_PAGE) {
+function generateRss(items: PostMeta[], page = RSS_PAGE) {
   const { siteUrl, language, email, author, title, description } = RSS_CONFIG
   return `
 		<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

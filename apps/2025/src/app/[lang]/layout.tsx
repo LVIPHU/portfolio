@@ -39,7 +39,7 @@ export async function generateStaticParams() {
   return linguiConfig.locales.map((lang) => ({ lang }))
 }
 
-export async function generateMetadata(props: PageLangParam) {
+export async function generateMetadata(props: PageLangParam & { children: ReactNode; modal: ReactNode }) {
   const i18n = await getI18nInstance((await props.params).lang)
 
   const title = i18n._(msg`Lương Vĩ Phú's dev blog - portfolio`)

@@ -17,7 +17,7 @@
 			<description>JavaScript is a single-threaded programming language, so it can&#39;t run multiple things at the same time, Promise.all() actually runs promises concurrently, not in parallel!. Let&#39;s dive in to see how it works.</description>
 			<pubDate>Mon, 04 Sep 2023 00:00:00 GMT</pubDate>
 			<author>undefined (undefined)</author>
-			<category>javascript</category><category>promise</category><category>parallel</category><category>sequential</category><category>concurrently</category><category>english</category>
+			<category>javascript</category><category>promise</category><category>parallel</category><category>sequential</category><category>concurrently</category>
 		</item>
 	
 			</channel>

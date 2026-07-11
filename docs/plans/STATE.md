@@ -4,12 +4,12 @@
 
 Roadmap: `docs/plans/ROADMAP.md` (cập nhật 2026-07-11)
 **Giá trị lõi:** "Nâng 1 là nâng cho cả 2" — 3 package raw-TS dùng chung, 2 app khóa chung stack.
-**Đang tập trung:** C5 — bỏ Contentlayer2 (blocker #1 của Next 16), 4 plan
+**Đang tập trung:** C5 — plan 01+02 XONG (commit trên branch c5-drop-contentlayer), còn plan 03 (scripts json/rss/assets) + 04 (nhổ xác contentlayer)
 
 ## Vị trí hiện tại
 
 Phase: C4/13 đóng (C0…C4 ✅)
-Status: Sẵn sàng C5 (branch c5-drop-contentlayer). Main đã push tới `d899975`, 2 deploy Vercel READY (76084b7); deploy d899975 đang build.
+Status: Branch c5-drop-contentlayer đi trước main 2 commit (8c2d879, 11783fa) — CHƯA merge (D-13: merge khi plan 04 xanh). Main = c5dd2bf đã push.
 Hoạt động cuối: 2026-07-11 — C3 thi công + tự test browser (user ủy quyền), bắt & vá 2 bug khi test live
 
 Progress: [█████░░░░░░░░] 5/13 phase
@@ -36,11 +36,12 @@ Progress: [█████░░░░░░░░] 5/13 phase
 - Console error "script tag while rendering" MỌI trang 2026 (script init next-themes, dev-only React 19.2) — có từ trước C3, theo dõi khi C10 bật compiler.
 - Callout label mặc định tiếng Việt trên bài en (override được bằng prop title) — backlog i18n label.
 - KaTeX đã nối pipeline + CSS nhưng chưa bài nào có công thức — exercise ở C11.
-- `apps/2025` build từ PowerShell tới hết C5; `apps/2025/data/` READ-ONLY (xóa C5/C6).
+- `apps/2025` build từ PowerShell tới hết C5; `apps/2025/data/` READ-ONLY (blog/authors xóa ở C05-04).
+- MỚI (C5): pnpm `autoInstallPeers: false` — peer phải khai tường minh (shiki đã khai); facade 2 tầng content-core/content (client-safe vs fs) phải giữ từ nay; `transpilePackages: next-mdx-remote` + react pin 19.0.0 + next-mdx-remote v5 là tạm, gỡ ở C7.
 - `.claude/launch.json` đã tạo (web-2026:3000, web-2025:3001) — dev server chạy qua preview tool.
 
 ## Session Continuity
 
 Phiên cuối: 2026-07-11
-Dừng tại: C4 đóng + push; C5 chưa bắt đầu
+Dừng tại: C5-02 đóng — bài viết 2025 render qua @portfolio/mdx, dev sạch lỗi (xem 2 SUMMARY C05 — có hồ sơ săn bug pnpm-peers/RSC quan trọng)
 Kế tiếp: `phases/C05-2025-drop-contentlayer/C05-01-PLAN.md` trên branch riêng
