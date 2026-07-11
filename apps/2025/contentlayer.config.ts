@@ -1,8 +1,6 @@
 import 'dotenv/config'
 import type { ComputedFields } from 'contentlayer2/source-files'
 import { defineDocumentType, makeSource } from 'contentlayer2/source-files'
-import { writeFileSync } from 'fs'
-import { slug } from 'github-slugger'
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
 import path from 'path'
 import readingTime from 'reading-time'
@@ -28,19 +26,6 @@ import rehypePrismPlus from 'rehype-prism-plus'
 import { extractTocHeadings, remarkCodeTitles, remarkExtractFrontmatter, remarkImgToJsx } from '@/libs/remark'
 
 const root = process.cwd()
-const isProduction = process.env.NODE_ENV === 'production'
-
-// Bản tự chứa của 2 helper (bundle esbuild của contentlayer không resolve được
-// transitive deps của facade @/utils/content) — cả config này chết ở C5 plan 04.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function sortPosts(allBlogs: any[]) {
-  return allBlogs.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
-}
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function allCoreContent(contents: any[]) {
-  const core = contents.map(({ body: _b, _raw: _r, _id: _i, ...rest }) => rest)
-  return isProduction ? core.filter((c) => c.draft !== true) : core
-}
 
 // heroicon mini link
 const icon = fromHtmlIsomorphic(
@@ -70,35 +55,6 @@ const computedFields: ComputedFields = {
     resolve: (doc) => doc._raw.sourceFilePath,
   },
   toc: { type: 'json', resolve: (doc) => extractTocHeadings(doc.body.raw) },
-}
-
-/**
- * Count the occurrences of all tags across blog posts and write to json file
- */
-function createTagCount(documents: any) {
-  const tagCount: Record<string, number> = {}
-  documents.forEach((file: any) => {
-    if (file.tags && (!isProduction || file.draft !== true)) {
-      file.tags.forEach((tag: string) => {
-        const formattedTag = slug(tag)
-        if (formattedTag in tagCount) {
-          tagCount[formattedTag] += 1
-        } else {
-          tagCount[formattedTag] = 1
-        }
-      })
-    }
-  })
-  writeFileSync('./json/tag-data.json', JSON.stringify(tagCount))
-  console.log('🏷️. Tag list generated.')
-}
-
-function createSearchIndex(allBlogs: any) {
-  const searchDocsPath = CONTENTLAYER_CONFIG.searchDocumentsPath
-  if (searchDocsPath) {
-    writeFileSync(`public/${path.basename(searchDocsPath)}`, JSON.stringify(allCoreContent(sortPosts(allBlogs))))
-    console.log('🔍. Local search index generated.')
-  }
 }
 
 export const Blog = defineDocumentType(() => ({
@@ -190,11 +146,10 @@ export default makeSource({
       rehypePresetMinify,
     ],
   },
-  onSuccess: async (importData) => {
-    // @ts-ignore
-    const { allBlogs } = await importData()
-    createTagCount(allBlogs)
-    createSearchIndex(allBlogs)
+  // C5-03: onSuccess KHÔNG được ghi tag-data.json/search.json nữa — nguồn giờ là
+  // scripts/generate-content-json.ts (prebuild, đọc @portfolio/content); bản contentlayer
+  // đọc data/blog cũ sẽ GHI ĐÈ dữ liệu stale lên file fresh. Toàn bộ config chết ở C5-04.
+  onSuccess: async () => {
     console.log('✨. Content source generated successfully!')
   },
 })
