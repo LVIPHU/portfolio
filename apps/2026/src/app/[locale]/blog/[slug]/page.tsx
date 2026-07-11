@@ -20,7 +20,7 @@ export async function generateMetadata({
   const { locale, slug } = await params
   const post = getPost(slug, locale)
   if (!post) return {}
-  return { title: post.title, description: post.description }
+  return { title: post.title, description: post.summary }
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {

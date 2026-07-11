@@ -19,7 +19,7 @@ export function PostCard({ post, locale }: { post: PostMeta; locale: Locale }) {
       <h2 className='group-hover:text-primary mt-2 text-lg font-semibold'>
         <Link href={`/blog/${post.slug}`}>{post.title}</Link>
       </h2>
-      <p className='text-muted-foreground mt-1 text-sm'>{post.description}</p>
+      <p className='text-muted-foreground mt-1 text-sm'>{post.summary}</p>
     </article>
   )
 }
