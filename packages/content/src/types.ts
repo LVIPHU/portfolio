@@ -69,11 +69,39 @@ export interface PostMeta {
   slug: string
   locale: Locale
   title: string
-  description: string
+  summary: string
   date: string // "2026-07-01"
+  lastmod?: string
   tags: string[]
+  draft: boolean
+  images: string[]
+  authors: string[]
+  layout?: 'PostLayout' | 'PostSimple' | 'PostBanner'
+  canonicalUrl?: string
+  /** đường dẫn tương đối dạng blog/<slug> (tương thích shape cũ của 2025) */
+  path: string
+  readingTime: { text: string; minutes: number; time: number; words: number }
 }
 
 export interface Post extends PostMeta {
   content: string // MDX body
+}
+
+export interface Author {
+  slug: string
+  name: string
+  avatar?: string
+  occupation?: string
+  company?: string
+  email?: string
+  twitter?: string
+  x?: string
+  linkedin?: string
+  github?: string
+  content: string // MDX body (bio)
+}
+
+export interface TagCount {
+  tag: string
+  count: number
 }
