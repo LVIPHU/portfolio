@@ -1,8 +1,4 @@
+// C12 (D-05): hook dùng chung đã lên @portfolio/ui/hooks (bản ui giống hệt + 'use client')
+// → re-export từ đó, xóa bản trùng trong app. use-blog-stats ĐẶC THÙ app (DB) giữ local.
 export * from './use-blog-stats'
-export { useDebounceCallback } from '@portfolio/ui/hooks'
-export * from './use-drag-rotate'
-export * from './use-event-listener'
-export * from './use-isomorphic-layout-effect'
-export * from './use-media-query'
-export * from './use-unmount'
-export * from './use-window-size'
+export * from '@portfolio/ui/hooks'
