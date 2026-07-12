@@ -1,28 +1,23 @@
-import { AnimatePresence } from 'framer-motion'
+import type { CSSProperties } from 'react'
 import type { Blog } from '@/utils/content'
 import { PostCardListView } from '@/components/molecules'
 import type { CoreContent } from '@/types/data'
-import { AnimatedContent } from '@/components/atoms'
 
 type ListViewProps = {
   posts: CoreContent<Blog>[]
 }
 
+// C9 (D-03/D-04): gỡ lib animation cũ + AnimatedContent — stagger fade-in bằng CSS
+// (.fade-in-up + --i inline). Không còn exit animation (chủ đích D-04).
 export const ListView = (props: ListViewProps) => {
   const { posts } = props
   return (
     <ul className='grid gap-y-5 md:gap-y-10'>
-      {posts && (
-        <AnimatePresence>
-          {posts.map((post, idx) => (
-            <li key={post.path}>
-              <AnimatedContent delay={idx * 0.1}>
-                <PostCardListView post={post} />
-              </AnimatedContent>
-            </li>
-          ))}
-        </AnimatePresence>
-      )}
+      {posts?.map((post, idx) => (
+        <li key={post.path} className='fade-in-up' style={{ '--i': idx } as CSSProperties}>
+          <PostCardListView post={post} />
+        </li>
+      ))}
     </ul>
   )
 }
