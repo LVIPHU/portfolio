@@ -73,8 +73,6 @@ function createTimelineItems(experiences: Experience[], dataMsg: DataMsg) {
         {experience.technologies && <TechnologyIcons technologies={experience.technologies} />}
       </>
     ),
-    isActive: experience.active,
-    isActiveBullet: experience.active,
   }))
 }
 

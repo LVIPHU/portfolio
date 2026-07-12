@@ -16,9 +16,9 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
   const containerRef = useRef<HTMLDivElement>(null)
   const beamRef = useRef<HTMLDivElement>(null)
 
-  // C9 (M-02 #4): beam vẽ theo scroll bằng ScrollTrigger scrub (scaleY 0→1),
-  // thay useScroll+useTransform + đo height thủ công của framer.
-  useScrollProgress(containerRef, beamRef, { start: 'top 10%', end: 'bottom 50%' })
+  // C9 (M-02 #4): beam vẽ theo scroll (scaleY 0→1). useScrollProgress đo
+  // getBoundingClientRect live mỗi frame (mặc định top 10% → bottom 50%).
+  useScrollProgress(containerRef, beamRef)
 
   return (
     <div className={cn('w-full', className)} ref={containerRef}>
