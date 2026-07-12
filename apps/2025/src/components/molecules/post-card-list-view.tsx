@@ -33,7 +33,7 @@ export function PostCardListView({ post }: { post: PostWithAuthor }) {
 
   return (
     <article>
-      <Card className='flex flex-col gap-0 overflow-hidden p-0 shadow-none sm:flex-row'>
+      <Card className='flex max-w-2xl flex-col gap-0 overflow-hidden p-0 shadow-none sm:flex-row'>
         <NavigationLink href={`/blog/${slug}`} className='block w-full sm:w-1/3'>
           <Image
             src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
