@@ -35,9 +35,8 @@ export function PostCardListView({ post }: { post: PostWithAuthor }) {
     <article>
       <Card className='flex flex-col gap-0 overflow-hidden p-0 shadow-none'>
         <div className='flex flex-col sm:flex-row'>
-          {/* mobile: aspect-video (ảnh top); desktop: aspect-auto → link stretch theo chiều cao
-              nội dung, next/image fill lấp đầy (card full-width nhưng KHÔNG cao thêm theo bề ngang) */}
-          <NavigationLink href={`/blog/${slug}`} className='relative aspect-video w-full sm:aspect-auto sm:w-1/3'>
+          {/* ảnh giữ tỉ lệ 16:9 cố định (không kéo giãn theo chiều cao card) */}
+          <NavigationLink href={`/blog/${slug}`} className='relative aspect-video w-full self-start sm:w-1/3'>
             <NextImage
               src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
               alt={title}
