@@ -1,6 +1,7 @@
 'use client'
 
-import { Facebook, Link, Linkedin, Share2, XIcon } from 'lucide-react'
+import { Link, Share2, XIcon } from 'lucide-react'
+import { Facebook, Linkedin } from '@/utils'
 import { useState } from 'react'
 import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share'
 import {
@@ -65,13 +66,13 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
               url={postUrl}
               title={title}
             >
-              <Linkedin strokeWidth={1.5} size={18} />
+              <Linkedin strokeWidth={1.5} width={18} height={18} />
               <span>Share on LinkedIn</span>
             </LinkedinShareButton>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <FacebookShareButton className={'flex items-center gap-2 px-3 py-1 font-medium'} url={postUrl}>
-              <Facebook strokeWidth={1.5} size={18} />
+              <Facebook strokeWidth={1.5} width={18} height={18} />
               <span>Share on Facebook</span>
             </FacebookShareButton>
           </DropdownMenuItem>

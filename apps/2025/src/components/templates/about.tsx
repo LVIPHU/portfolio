@@ -13,7 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/atoms'
-import { Github, Linkedin } from 'lucide-react'
+import { Github, Linkedin } from '@/utils'
 import { Experience, GithubCal, Header, Technologies } from '@/components/organisms'
 import { useTranslations } from 'next-intl'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'

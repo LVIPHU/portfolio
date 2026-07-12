@@ -1,6 +1,7 @@
 import { ContactForm } from '@/components/molecules'
 import { Card, CardContent, Container, NavigationLink } from '@/components/atoms'
-import { Facebook, Linkedin, MailIcon, PhoneIcon } from 'lucide-react'
+import { MailIcon, PhoneIcon } from 'lucide-react'
+import { Facebook, Linkedin } from '@/utils'
 import { Header } from '@/components/organisms'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { useTranslations } from 'next-intl'

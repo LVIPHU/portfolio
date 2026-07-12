@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import { Button, NavigationLink, SocialIcons, TypeOfIconsMap } from '@/components/atoms'
-import { Eye, Github } from 'lucide-react'
+import { Eye } from 'lucide-react'
+import { Github } from '@/utils'
 import { type Project2025 as Project } from '@portfolio/content/data2025'
 import useSWR from 'swr'
 import { GithubRepository } from '@/types/github'

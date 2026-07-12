@@ -1,5 +1,5 @@
 'use client'
-import GitHubCalendar from 'react-github-calendar'
+import { GitHubCalendar } from 'react-github-calendar'
 import { useTheme } from 'next-themes'
 import { useTranslations } from 'next-intl'
 import { AnimatedContent, Container } from '@/components/atoms'

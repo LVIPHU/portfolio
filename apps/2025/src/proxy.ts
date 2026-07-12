@@ -1,7 +1,7 @@
 import createMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
 
-// Next 15.2 dùng convention middleware.ts; đổi tên proxy.ts ở C7 (D-07)
+// Convention Next 16: proxy.ts (khớp 2026)
 export default createMiddleware(routing)
 
 export const config = {
