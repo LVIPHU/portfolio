@@ -56,7 +56,7 @@ const securityHeaders = [
 // Next 16: object thuần (C7, D-04) — không còn reduce qua plugin wrapper
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@portfolio/content', '@portfolio/mdx'],
+  transpilePackages: ['@portfolio/content', '@portfolio/mdx', '@portfolio/ui'],
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   env: {
     version: version,

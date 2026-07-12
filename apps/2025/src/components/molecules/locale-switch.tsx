@@ -18,7 +18,9 @@ export function LocaleSwitch() {
   const router = useRouter()
   const pathname = usePathname()
 
-  function handleChange(value: string) {
+  // Base UI Select trả về string | null (khác Radix chỉ string)
+  function handleChange(value: string | null) {
+    if (!value) return
     router.replace(pathname, { locale: value as Locale })
   }
 

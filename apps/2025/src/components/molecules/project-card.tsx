@@ -55,19 +55,15 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         <div className='mt-auto flex items-center justify-between'>
           <div className='flex gap-3'>
             {url && (
-              <Button variant='default' className='rounded-full' asChild>
-                <NavigationLink href={url}>
-                  {t('ProjectCard.website')}
-                  <Eye className='ml-1 h-4 w-4' />
-                </NavigationLink>
+              <Button variant='default' className='rounded-full' render={<NavigationLink href={url} />}>
+                {t('ProjectCard.website')}
+                <Eye className='ml-1 h-4 w-4' />
               </Button>
             )}
             {href && (
-              <Button variant='outline' className='rounded-full shadow-none' asChild>
-                <NavigationLink href={href}>
-                  {t('ProjectCard.viewCode')}
-                  <Github className='ml-1 h-4 w-4' />
-                </NavigationLink>
+              <Button variant='outline' className='rounded-full shadow-none' render={<NavigationLink href={href} />}>
+                {t('ProjectCard.viewCode')}
+                <Github className='ml-1 h-4 w-4' />
               </Button>
             )}
           </div>

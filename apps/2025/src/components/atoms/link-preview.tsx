@@ -1,5 +1,7 @@
 'use client'
-import * as HoverCardPrimitive from '@radix-ui/react-hover-card'
+// C8 (D-10): Radix hover-card → PreviewCard của Base UI (giữ framer-motion,
+// port motion sang GSAP ở C9). PreviewCard = biến thể "link preview" của HoverCard.
+import { PreviewCard as PreviewCardPrimitive } from '@base-ui/react/preview-card'
 import Image from 'next/image'
 import { encode } from 'qss'
 import React from 'react'
@@ -82,68 +84,65 @@ export const LinkPreview = ({
         </div>
       ) : null}
 
-      <HoverCardPrimitive.Root
-        openDelay={50}
-        closeDelay={100}
-        onOpenChange={(open) => {
+      <PreviewCardPrimitive.Root
+        onOpenChange={(open: boolean) => {
           setOpen(open)
         }}
       >
-        <HoverCardPrimitive.Trigger
+        <PreviewCardPrimitive.Trigger
           onMouseMove={handleMouseMove}
           className={cn('text-black dark:text-white', className)}
           href={url}
         >
           {children}
-        </HoverCardPrimitive.Trigger>
+        </PreviewCardPrimitive.Trigger>
 
-        <HoverCardPrimitive.Content
-          className='[transform-origin:var(--radix-hover-card-content-transform-origin)]'
-          side='top'
-          align='center'
-          sideOffset={10}
-        >
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.6 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  transition: {
-                    type: 'spring',
-                    stiffness: 260,
-                    damping: 20,
-                  },
-                }}
-                exit={{ opacity: 0, y: 20, scale: 0.6 }}
-                className='rounded-xl shadow-xl'
-                style={{
-                  x: translateX,
-                }}
-              >
-                <NavigationLink
-                  href={url}
-                  style={{ fontSize: 0 }}
-                  className='block rounded-xl border-2 border-transparent bg-white p-1 shadow hover:border-neutral-200 dark:hover:border-neutral-800'
-                >
-                  <Image
-                    src={isStatic ? imageSrc : src}
-                    width={width}
-                    height={height}
-                    quality={quality}
-                    layout={layout}
-                    priority={true}
-                    className='rounded-lg'
-                    alt='preview image'
-                  />
-                </NavigationLink>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </HoverCardPrimitive.Content>
-      </HoverCardPrimitive.Root>
+        <PreviewCardPrimitive.Portal>
+          <PreviewCardPrimitive.Positioner side='top' align='center' sideOffset={10} className='isolate z-50'>
+            <PreviewCardPrimitive.Popup className='[transform-origin:var(--transform-origin)]'>
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.6 }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      transition: {
+                        type: 'spring',
+                        stiffness: 260,
+                        damping: 20,
+                      },
+                    }}
+                    exit={{ opacity: 0, y: 20, scale: 0.6 }}
+                    className='rounded-xl shadow-xl'
+                    style={{
+                      x: translateX,
+                    }}
+                  >
+                    <NavigationLink
+                      href={url}
+                      style={{ fontSize: 0 }}
+                      className='block rounded-xl border-2 border-transparent bg-white p-1 shadow hover:border-neutral-200 dark:hover:border-neutral-800'
+                    >
+                      <Image
+                        src={isStatic ? imageSrc : src}
+                        width={width}
+                        height={height}
+                        quality={quality}
+                        layout={layout}
+                        priority={true}
+                        className='rounded-lg'
+                        alt='preview image'
+                      />
+                    </NavigationLink>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </PreviewCardPrimitive.Popup>
+          </PreviewCardPrimitive.Positioner>
+        </PreviewCardPrimitive.Portal>
+      </PreviewCardPrimitive.Root>
     </>
   )
 }

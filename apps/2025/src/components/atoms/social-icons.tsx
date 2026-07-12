@@ -38,7 +38,7 @@ import {
 
 import { cn } from '@/utils'
 import { GitFork } from 'lucide-react'
-import { Button } from '@/components/atoms/button'
+import { Button } from '@portfolio/ui'
 import { NavigationLink } from '@/components/atoms/navigation-link'
 
 const iconsMap = {
@@ -125,12 +125,15 @@ export const SocialIcons = ({
 
   if (iconType === 'button') {
     return (
-      <Button variant={variant} size={!text ? 'icon' : 'default'} className={combinedParentClass} asChild>
-        <NavigationLink href={href} target={target}>
-          <span className='sr-only'>{kind}</span>
-          <SocialSvg className={combinedClass} strokeWidth={strokeWidth} />
-          {text}
-        </NavigationLink>
+      <Button
+        variant={variant}
+        size={!text ? 'icon' : 'default'}
+        className={combinedParentClass}
+        render={<NavigationLink href={href} target={target} />}
+      >
+        <span className='sr-only'>{kind}</span>
+        <SocialSvg className={combinedClass} strokeWidth={strokeWidth} />
+        {text}
       </Button>
     )
   }

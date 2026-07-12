@@ -4,15 +4,15 @@
 
 Roadmap: `docs/plans/ROADMAP.md` (cập nhật 2026-07-11)
 **Giá trị lõi:** "Nâng 1 là nâng cho cả 2" — 3 package raw-TS dùng chung, 2 app khóa chung stack.
-**Đang tập trung:** C7 ĐÓNG (2/2) → C8 (UI hợp nhất Base UI — shadcn CLI từng lệnh, 2025 bỏ Radix)
+**Đang tập trung:** C8 ĐÓNG (4/4) → C9 (motion → GSAP 3.15 + @gsap/react, primitives packages/ui/src/motion)
 
 ## Vị trí hiện tại
 
-Phase: C7/13 đóng (C0…C7 ✅)
-Status: C7 merge (`5718356`) + push — deploy Vercel đang build (C6 deploys đã READY, production C6 verified).
-Hoạt động cuối: 2026-07-11 — C3 thi công + tự test browser (user ủy quyền), bắt & vá 2 bug khi test live
+Phase: C8/13 đóng (C0…C8 ✅)
+Status: C8 merge + push (user duyệt mắt OK) — deploy Vercel đang build; C7 deploys (`5718356`, `9ab6912`) đã READY.
+Hoạt động cuối: 2026-07-12 — C8 thi công + tự test browser (contact modal/dropdown/form/dark mode OK), user duyệt mắt → merge
 
-Progress: [████████░░░░░] 8/13 phase
+Progress: [█████████░░░░] 9/13 phase
 
 ## Bối cảnh tích lũy
 
@@ -42,6 +42,7 @@ Progress: [████████░░░░░] 8/13 phase
 
 ## Session Continuity
 
-Phiên cuối: 2026-07-11
-Dừng tại: PHASE C7 ĐÓNG — 2 app khóa chung next 16.2.10/react 19.2.7/zod 4.4.3/tailwind 4.3.2/lucide 1.24; Turbopack build 33s; barrel export-star→named (bug ownKeys). Nợ smoke contact modal (desktop viewport) chuyển sang checkpoint C8.
-Kế tiếp: `phases/C05-2025-drop-contentlayer/C05-01-PLAN.md` trên branch riêng
+Phiên cuối: 2026-07-12
+Dừng tại: PHASE C8 ĐÓNG — packages/ui đủ 21 component Base UI (mỗi cái 1 lệnh shadcn CLI; form+drawer port tay); 2025 tiêu thụ qua shim atoms/index.ts (named exports), gỡ 18 gói (14 @radix-ui + vaul + cva/clsx/tailwind-merge), 0 asChild, 0 @radix-ui. Bug đã trị: shadcn sinh `@/` import → đổi tương đối (packages/ui self-contained, làm SAU mỗi add); base-nova form rỗng → port tay RHF; link-preview Radix→PreviewCard. cn 1 nguồn từ @portfolio/ui.
+Nợ C9: link-preview/timeline/animated-content còn framer-motion; drawer easing tự chế duyệt kỹ khi menu mobile. Nợ C12: design-sync re-sync (atoms shadcn rời app).
+Kế tiếp: `phases/C09-gsap-migration/C09-01-PLAN.md` trên branch c9-gsap

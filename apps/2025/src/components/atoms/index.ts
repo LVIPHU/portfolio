@@ -1,13 +1,24 @@
-export { AnimatedContent } from './animated-content'
-export { Authors } from './authors'
-export { Avatar, AvatarImage, AvatarFallback } from './avatar'
-export { Badge, badgeVariants } from './badge'
-export { Blur } from './blur'
-export { Boxes } from './boxes'
-export { Button, buttonVariants } from './button'
-export { Card, CardHeader, CardFooter, CardTitle, CardAction, CardDescription, CardContent } from './card'
-export { Container } from './container'
+// C8 (D-06): shim barrel — component shadcn-derived re-export từ @portfolio/ui
+// (nguồn UI chung duy nhất của repo), atoms đặc thù app (D-12) giữ file local.
+// Named exports bắt buộc: `export *` qua ranh giới 'use client' làm Turbopack vỡ
+// (bug ownKeys, xem C7-01). Organisms/templates vẫn import từ '@/components/atoms'.
+
+// ── shadcn-derived → @portfolio/ui ──
 export {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+  Badge,
+  badgeVariants,
+  Button,
+  buttonVariants,
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardAction,
+  CardDescription,
+  CardContent,
   Dialog,
   DialogClose,
   DialogContent,
@@ -18,9 +29,6 @@ export {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
-} from './dialog'
-export { DiscussOnX } from './discuss-on-x'
-export {
   Drawer,
   DrawerPortal,
   DrawerOverlay,
@@ -31,8 +39,6 @@ export {
   DrawerFooter,
   DrawerTitle,
   DrawerDescription,
-} from './drawer'
-export {
   DropdownMenu,
   DropdownMenuPortal,
   DropdownMenuTrigger,
@@ -48,22 +54,19 @@ export {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
-} from './dropdown-menu'
-export { EditOnGithub } from './edit-on-github'
-export { FadeContent } from './fade-content'
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField } from './form'
-export { GridBackground } from './grid-background'
-export { GritBackground } from './grit-background'
-export { GrowingUnderline } from './growing-underline'
-export { HoverCard, HoverCardTrigger, HoverCardContent } from './hover-card'
-export { Image, Zoom } from './image'
-export type { ImageProps } from './image'
-export { Input } from './input'
-export { Label } from './label'
-export { LinkPreview } from './link-preview'
-export { Logo } from './logo'
-export { NavigationLink } from './navigation-link'
-export {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+  Input,
+  Label,
   Pagination,
   PaginationContent,
   PaginationLink,
@@ -71,11 +74,11 @@ export {
   PaginationPrevious,
   PaginationNext,
   PaginationEllipsis,
-} from './pagination'
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from './popover'
-export { ScrollArea, ScrollBar } from './scroll-area'
-export { SearchArticles } from './search-articles'
-export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  ScrollArea,
+  ScrollBar,
   Select,
   SelectGroup,
   SelectValue,
@@ -86,12 +89,42 @@ export {
   SelectSeparator,
   SelectScrollUpButton,
   SelectScrollDownButton,
-} from './select'
-export { Separator } from './separator'
+  Separator,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  Textarea,
+  Toggle,
+  toggleVariants,
+  ToggleGroup,
+  ToggleGroupItem,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from '@portfolio/ui'
+
+// ── atoms đặc thù app (D-12) → file local ──
+export { AnimatedContent } from './animated-content'
+export { Authors } from './authors'
+export { Blur } from './blur'
+export { Boxes } from './boxes'
+export { Container } from './container'
+export { DiscussOnX } from './discuss-on-x'
+export { EditOnGithub } from './edit-on-github'
+export { FadeContent } from './fade-content'
+export { GridBackground } from './grid-background'
+export { GritBackground } from './grit-background'
+export { GrowingUnderline } from './growing-underline'
+export { Image, Zoom } from './image'
+export type { ImageProps } from './image'
+export { LinkPreview } from './link-preview'
+export { Logo } from './logo'
+export { NavigationLink } from './navigation-link'
+export { SearchArticles } from './search-articles'
 export { SocialIcons } from './social-icons'
 export type { TypeOfIconsMap } from './social-icons'
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs'
-export { Textarea } from './textarea'
 export {
   Timeline,
   TimelineItemTitle,
@@ -100,8 +133,5 @@ export {
   TimelineItemDateRange,
 } from './timeline'
 export { TableOfContents } from './toc'
-export { Toggle, toggleVariants } from './toggle'
-export { ToggleGroup, ToggleGroupItem } from './toggle-group'
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './tooltip'
 export { VideoCard } from './video-card'
 export { ViewsCounter } from './views-counter'

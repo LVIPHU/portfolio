@@ -99,13 +99,11 @@ export function Experience() {
               <HoverCard key={`trigger-${company.name}`}>
                 <TabsTrigger className='flex w-full text-left' value={company.name}>
                   <AnimatedContent className={'w-full'} delay={idx * 0.1} direction={'horizontal'} reverse={true}>
-                    <HoverCardTrigger asChild>
-                      <div className='flex w-full items-center justify-between'>
-                        <span>{company.name}</span>
-                        <span
-                          className={`mx-1 inline-block h-3 w-3 rounded-full ${company.active ? 'bg-amber-500' : ''}`}
-                        />
-                      </div>
+                    <HoverCardTrigger render={<div className='flex w-full items-center justify-between' />}>
+                      <span>{company.name}</span>
+                      <span
+                        className={`mx-1 inline-block h-3 w-3 rounded-full ${company.active ? 'bg-amber-500' : ''}`}
+                      />
                     </HoverCardTrigger>
                   </AnimatedContent>
                 </TabsTrigger>

@@ -1,8 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import * as LabelPrimitive from '@radix-ui/react-label'
-import { Slot } from '@radix-ui/react-slot'
+import { mergeProps } from '@base-ui/react/merge-props'
+import { useRender } from '@base-ui/react/use-render'
 import {
   Controller,
   FormProvider,
@@ -13,8 +13,12 @@ import {
   type FieldValues,
 } from 'react-hook-form'
 
-import { cn } from '@/utils/index'
-import { Label } from '@/components/atoms/label'
+import { cn } from '../lib/utils'
+import { Label } from './label'
+
+// C8 (D-05): base-nova KHÔNG kèm form (Base UI ưu tiên Field); port tay bản
+// react-hook-form của shadcn, react-hook-form là peerDependency. FormControl
+// dùng useRender của Base UI thay Radix Slot (giữ nguyên convention render prop).
 
 const Form = FormProvider
 
@@ -79,7 +83,7 @@ function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>) {
+function FormLabel({ className, ...props }: React.ComponentProps<typeof Label>) {
   const { error, formItemId } = useFormField()
 
   return (
@@ -93,18 +97,21 @@ function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPri
   )
 }
 
-function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
+function FormControl({ render, ...props }: useRender.ComponentProps<'div'>) {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
 
-  return (
-    <Slot
-      data-slot='form-control'
-      id={formItemId}
-      aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`}
-      aria-invalid={!!error}
-      {...props}
-    />
-  )
+  return useRender({
+    defaultTagName: 'div',
+    props: mergeProps<'div'>(
+      {
+        id: formItemId,
+        'aria-describedby': !error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`,
+        'aria-invalid': !!error,
+      },
+      props
+    ),
+    render,
+  })
 }
 
 function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
