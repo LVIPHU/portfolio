@@ -1,5 +1,5 @@
 export * from './use-blog-stats'
-export * from './use-debounce-callback'
+export { useDebounceCallback } from '@portfolio/ui/hooks'
 export * from './use-drag-rotate'
 export * from './use-event-listener'
 export * from './use-isomorphic-layout-effect'

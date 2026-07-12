@@ -9,14 +9,13 @@ import {
   FileUser,
   FolderGit,
   GalleryHorizontal,
-  Github,
   House,
-  Linkedin,
   MonitorCog,
   Paperclip,
   Signature,
   Tags,
 } from 'lucide-react'
+import { Github, Linkedin } from '@/utils'
 import { Setting } from '@/components/molecules'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { useKBar } from 'kbar'

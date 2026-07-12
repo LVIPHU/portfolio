@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { useDebounceCallback } from './use-debounce-callback'
+import { useDebounceCallback } from '@portfolio/ui/hooks'
 
 import { useEventListener } from './use-event-listener'
 
