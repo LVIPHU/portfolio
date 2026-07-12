@@ -3,8 +3,11 @@
 import dynamic from 'next/dynamic'
 import type { SandpackFileMap } from './create-file-map'
 
-// C11 (D-02 tầng 1 + D-06): sau ranh giới 'use client', dynamic ssr:false tách
-// bundle Sandpack (~200KB) khỏi SSR; skeleton giữ chiều cao ~420px chống CLS.
+// C11 (D-02 tầng 1 + D-06): next/dynamic ssr:false tách sandpack-root (+ sandpack-react)
+// thành CHUNK RIÊNG — bài KHÔNG dùng <Sandpack> không tải sandpack (defaultMdxComponents
+// tĩnh chỉ kéo file nhỏ này, phần nặng nằm sau dynamic). Cần sandpack-react trong
+// transpilePackages của app thì dynamic mới resolve dưới Turbopack (ESM thô làm promise treo).
+// Skeleton giữ ~420px chống CLS.
 const SandpackRoot = dynamic(() => import('./sandpack-root'), {
   ssr: false,
   loading: () => <SandpackSkeleton />,
