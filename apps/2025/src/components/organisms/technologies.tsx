@@ -1,7 +1,7 @@
 'use client'
 import { useTranslations } from 'next-intl'
 import {
-  AnimatedContent,
+  Reveal,
   Button,
   Card,
   CardContent,
@@ -71,7 +71,7 @@ export const Technologies = () => {
 
   return (
     <Container className={'py-5 md:py-10'}>
-      <AnimatedContent direction={'horizontal'} reverse={true}>
+      <Reveal direction={'horizontal'} reverse={true}>
         <h3
           className={
             'md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'
@@ -79,7 +79,7 @@ export const Technologies = () => {
         >
           {t('Technologies.technologiesIVeWorked')}
         </h3>
-      </AnimatedContent>
+      </Reveal>
       <TooltipProvider>
         <Tabs
           value={categories[tabIndex]}
@@ -99,15 +99,15 @@ export const Technologies = () => {
               <TabsContent key={'content-' + category} value={category}>
                 <Card>
                   <CardHeader>
-                    <AnimatedContent direction={'horizontal'}>
+                    <Reveal direction={'horizontal'}>
                       <CardTitle>{t('Technologies.msg', { category })}</CardTitle>
                       {category === 'Most Used' && (
                         <CardDescription>{t('Technologies.theseAreMyMost')}</CardDescription>
                       )}
-                    </AnimatedContent>
+                    </Reveal>
                   </CardHeader>
                   <CardContent>
-                    <AnimatedContent
+                    <Reveal
                       distance={20}
                       className='grid grid-cols-5 gap-4 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-10'
                     >
@@ -126,7 +126,7 @@ export const Technologies = () => {
                           </TooltipContent>
                         </Tooltip>
                       ))}
-                    </AnimatedContent>
+                    </Reveal>
                   </CardContent>
                   {category !== 'Most Used' && (
                     <CardFooter className='bg-muted/50 flex flex-row items-center justify-between border-t px-6 py-3'>

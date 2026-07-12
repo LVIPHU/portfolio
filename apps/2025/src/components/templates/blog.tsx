@@ -6,7 +6,7 @@ import { usePathname } from '@/i18n/navigation'
 import React, { useState } from 'react'
 import type { CoreContent } from '@/types/data'
 import {
-  AnimatedContent,
+  Reveal,
   Container,
   NavigationLink,
   SearchArticles,
@@ -125,14 +125,14 @@ export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: Li
         </Header>
 
         {!filteredBlogPosts.length ? (
-          <AnimatedContent className={'relative h-[50vh] w-full'}>
+          <Reveal className={'relative h-[50vh] w-full'}>
             <Image
               src={'/static/images/errors/empty.svg'}
               fill={true}
               alt={t('Blog.noPostFound')}
               className={'object-contain'}
             />
-          </AnimatedContent>
+          </Reveal>
         ) : (
           <>
             <TabsContent value='GRID'>

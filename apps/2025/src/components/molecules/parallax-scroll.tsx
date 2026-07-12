@@ -1,10 +1,9 @@
 'use client'
-import { useScroll, useTransform } from 'framer-motion'
-import { motion } from 'framer-motion'
 import { cn, imageDriveLoader } from '@/utils'
 import * as React from 'react'
 import { ImageProps } from 'next/image'
 import { Image, Zoom } from '@/components/atoms'
+import { ParallaxColumns } from '@portfolio/ui/motion'
 
 const ImageContainer = (props: ImageProps) => {
   const { alt, src, width = 1080, height = 1439, ...rest } = props
@@ -28,48 +27,40 @@ interface ParallaxScrollProps extends React.HTMLAttributes<HTMLDivElement> {
   images: ParallaxScrollImage[]
 }
 
-const ParallaxScroll = React.forwardRef<HTMLDivElement, ParallaxScrollProps>((props, ref) => {
-  const { images, className } = props
-  const { scrollYProgress } = useScroll({})
-
-  const translateFirst = useTransform(scrollYProgress, [0, 20], [0, -200])
-  const translateSecond = useTransform(scrollYProgress, [0, 20], [0, 200])
-  const translateThird = useTransform(scrollYProgress, [0, 20], [0, -200])
-
+// C9 (M-02 #5): 3 cột parallax bằng ParallaxColumns (ScrollTrigger scrub), thay
+// useScroll + useTransform của framer. Giữ nguyên markup ảnh 3 cột + Zoom.
+const ParallaxScroll = ({ images, className }: ParallaxScrollProps) => {
   const third = Math.ceil(images.length / 3)
-
   const firstPart = images.slice(0, third)
   const secondPart = images.slice(third, 2 * third)
   const thirdPart = images.slice(2 * third)
 
   return (
-    <div ref={ref} className={cn('grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3', className)}>
-      <ul className='grid gap-6'>
+    <ParallaxColumns className={cn('grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3', className)}>
+      <ul data-parallax-col className='grid gap-6'>
         {firstPart.map(({ src, id }) => (
-          <motion.li style={{ y: translateFirst }} key={'grid-1' + id}>
+          <li key={'grid-1' + id}>
             <ImageContainer src={src} alt={'thumbnail-' + id} />
-          </motion.li>
+          </li>
         ))}
       </ul>
-      <ul className='grid gap-6'>
+      <ul data-parallax-col className='grid gap-6'>
         {secondPart.map(({ src, id }) => (
-          <motion.li style={{ y: translateSecond }} key={'grid-2' + id}>
+          <li key={'grid-2' + id}>
             <ImageContainer src={src} alt={'thumbnail-' + id} />
-          </motion.li>
+          </li>
         ))}
       </ul>
-      <ul className='grid gap-6'>
+      <ul data-parallax-col className='grid gap-6'>
         {thirdPart.map(({ src, id }) => (
-          <motion.li style={{ y: translateThird }} key={'grid-3' + id}>
+          <li key={'grid-3' + id}>
             <ImageContainer src={src} alt={'thumbnail-' + id} />
-          </motion.li>
+          </li>
         ))}
       </ul>
-    </div>
+    </ParallaxColumns>
   )
-})
-
-ParallaxScroll.displayName = 'ParallaxScroll'
+}
 
 export { ParallaxScroll, ImageContainer }
 export type { ParallaxScrollImage }

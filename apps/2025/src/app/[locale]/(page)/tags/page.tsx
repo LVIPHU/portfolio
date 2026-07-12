@@ -1,6 +1,6 @@
 import tagData from '@json/tag-data.json'
 import { getTranslations } from 'next-intl/server'
-import { AnimatedContent, Badge, Container, NavigationLink } from '@/components/atoms'
+import { Reveal, Badge, Container, NavigationLink } from '@/components/atoms'
 import { slug } from 'github-slugger'
 
 export async function generateMetadata() {
@@ -30,7 +30,7 @@ export default async function Page() {
             const tagName = text.split(' ').join('-')
             return (
               <NavigationLink key={text} href={`/tags/${slug(text)}`}>
-                <AnimatedContent delay={idx * 0.1}>
+                <Reveal delay={idx * 0.1}>
                   <li
                     data-umami-event={`tag-${tagName}`}
                     className='flex items-center justify-between gap-2 rounded-md bg-black p-3 text-white dark:bg-white dark:text-black'
@@ -40,7 +40,7 @@ export default async function Page() {
                       {tagCounts[text]}
                     </Badge>
                   </li>
-                </AnimatedContent>
+                </Reveal>
               </NavigationLink>
             )
           })}

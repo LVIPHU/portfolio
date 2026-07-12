@@ -4,15 +4,15 @@
 
 Roadmap: `docs/plans/ROADMAP.md` (cập nhật 2026-07-11)
 **Giá trị lõi:** "Nâng 1 là nâng cho cả 2" — 3 package raw-TS dùng chung, 2 app khóa chung stack.
-**Đang tập trung:** C8 ĐÓNG (4/4) → C9 (motion → GSAP 3.15 + @gsap/react, primitives packages/ui/src/motion)
+**Đang tập trung:** C9 ĐÓNG (4/4) → C10 (React Compiler cả 2 app + eslint react-hooks flat config)
 
 ## Vị trí hiện tại
 
-Phase: C8/13 đóng (C0…C8 ✅)
-Status: C8 merge + push (user duyệt mắt OK) — deploy Vercel đang build; C7 deploys (`5718356`, `9ab6912`) đã READY.
-Hoạt động cuối: 2026-07-12 — C8 thi công + tự test browser (contact modal/dropdown/form/dark mode OK), user duyệt mắt → merge
+Phase: C9/13 đóng (C0…C9 ✅)
+Status: C9 merge + push (user duyệt mắt OK) — deploy Vercel đang build. NHỚ: C8 web-2025 deploy từng ERROR (cn kéo react vào tsx post-build) đã vá bằng subpath @portfolio/ui/utils (`9a006d0`).
+Hoạt động cuối: 2026-07-12 — C9 thi công + tự test browser (beam/parallax/hover/mobile-dock/leak-check OK), user duyệt mắt → merge
 
-Progress: [█████████░░░░] 9/13 phase
+Progress: [██████████░░░] 10/13 phase
 
 ## Bối cảnh tích lũy
 
@@ -43,6 +43,7 @@ Progress: [█████████░░░░] 9/13 phase
 ## Session Continuity
 
 Phiên cuối: 2026-07-12
-Dừng tại: PHASE C8 ĐÓNG — packages/ui đủ 21 component Base UI (mỗi cái 1 lệnh shadcn CLI; form+drawer port tay); 2025 tiêu thụ qua shim atoms/index.ts (named exports), gỡ 18 gói (14 @radix-ui + vaul + cva/clsx/tailwind-merge), 0 asChild, 0 @radix-ui. Bug đã trị: shadcn sinh `@/` import → đổi tương đối (packages/ui self-contained, làm SAU mỗi add); base-nova form rỗng → port tay RHF; link-preview Radix→PreviewCard. cn 1 nguồn từ @portfolio/ui.
-Nợ C9: link-preview/timeline/animated-content còn framer-motion; drawer easing tự chế duyệt kỹ khi menu mobile. Nợ C12: design-sync re-sync (atoms shadcn rời app).
-Kế tiếp: `phases/C09-gsap-migration/C09-01-PLAN.md` trên branch c9-gsap
+Dừng tại: PHASE C9 ĐÓNG — 9/9 file framer→GSAP/CSS; gỡ framer-motion+motion+@emotion; 5 primitive trong packages/ui/src/motion (Reveal, useScrollProgress, ParallaxColumns, HoverHighlight, useMagnify). Khuôn useGSAP{scope} tự cleanup (leak-check 10-nav sạch). Số magnify giữ đúng bản cũ. gsap+@gsap/react là dep trực tiếp cả packages/ui LẪN web-2025 (link-preview/floating-dock dùng trực tiếp). CSS-first: theme-switch + grid/list fade-in-up.
+Nợ C10: bật reactCompiler cả 2 app (theo dõi console error "script tag while rendering" của 2026). Nợ C12: fade-content.tsx mồ côi xóa; design-sync re-sync; đo bundle before/after GSAP.
+Kế tiếp: `phases/C10-react-compiler/C10-01-PLAN.md` trên branch c10-react-compiler
+Nợ desktop-only chưa mắt được trong pane (tích lũy): navbar/contact-modal desktop (C6/7/8), desktop dock magnify (C9) — user duyệt trên desktop thật/production.
