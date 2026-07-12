@@ -1,13 +1,18 @@
 'use client'
-// C8 (D-10): Radix hover-card → PreviewCard của Base UI (giữ framer-motion,
-// port motion sang GSAP ở C9). PreviewCard = biến thể "link preview" của HoverCard.
+// C9 (M-02 #7, D-05): Radix→PreviewCard đã làm ở C8; nay bỏ lib animation cũ —
+// follow chuột bằng gsap.quickTo (tween tái dùng trong 1 phiên hover, không alloc
+// mỗi event), enter/exit để Base UI + CSS transition (data-starting/ending-style)
+// quản (mượt hơn tự dựng state closing). PreviewCard = biến thể "link preview".
 import { PreviewCard as PreviewCardPrimitive } from '@base-ui/react/preview-card'
 import Image from 'next/image'
 import { encode } from 'qss'
 import React from 'react'
-import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 import { cn } from '@/utils'
 import { NavigationLink } from '@/components/atoms/navigation-link'
+
+gsap.registerPlugin(useGSAP)
 
 type LinkPreviewProps = {
   children: React.ReactNode
@@ -48,25 +53,29 @@ export const LinkPreview = ({
     src = imageSrc
   }
 
-  const [isOpen, setOpen] = React.useState(false)
-
   const [isMounted, setIsMounted] = React.useState(false)
 
   React.useEffect(() => {
     setIsMounted(true)
   }, [])
 
-  const springConfig = { stiffness: 100, damping: 15 }
-  const x = useMotionValue(0)
+  const followRef = React.useRef<HTMLDivElement>(null)
+  const xTo = React.useRef<((value: number) => void) | null>(null)
 
-  const translateX = useSpring(x, springConfig)
+  const { contextSafe } = useGSAP()
 
-  const handleMouseMove = (event: any) => {
-    const targetRect = event.target.getBoundingClientRect()
+  // D-05: quickTo tạo 1 lần mỗi phiên hover (reset khi đóng), handler chỉ gọi.
+  const handleMouseMove = contextSafe((event: React.MouseEvent) => {
+    if (!followRef.current) return
+    if (!xTo.current) {
+      xTo.current = gsap.quickTo(followRef.current, 'x', { duration: 0.3, ease: 'power3' })
+    }
+    const target = event.currentTarget as HTMLElement
+    const targetRect = target.getBoundingClientRect()
     const eventOffsetX = event.clientX - targetRect.left
-    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2 // Reduce the effect to make it subtle
-    x.set(offsetFromCenter)
-  }
+    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2
+    xTo.current(offsetFromCenter)
+  })
 
   return (
     <>
@@ -86,7 +95,7 @@ export const LinkPreview = ({
 
       <PreviewCardPrimitive.Root
         onOpenChange={(open: boolean) => {
-          setOpen(open)
+          if (!open) xTo.current = null
         }}
       >
         <PreviewCardPrimitive.Trigger
@@ -99,46 +108,25 @@ export const LinkPreview = ({
 
         <PreviewCardPrimitive.Portal>
           <PreviewCardPrimitive.Positioner side='top' align='center' sideOffset={10} className='isolate z-50'>
-            <PreviewCardPrimitive.Popup className='[transform-origin:var(--transform-origin)]'>
-              <AnimatePresence>
-                {isOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20, scale: 0.6 }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                      transition: {
-                        type: 'spring',
-                        stiffness: 260,
-                        damping: 20,
-                      },
-                    }}
-                    exit={{ opacity: 0, y: 20, scale: 0.6 }}
-                    className='rounded-xl shadow-xl'
-                    style={{
-                      x: translateX,
-                    }}
-                  >
-                    <NavigationLink
-                      href={url}
-                      style={{ fontSize: 0 }}
-                      className='block rounded-xl border-2 border-transparent bg-white p-1 shadow hover:border-neutral-200 dark:hover:border-neutral-800'
-                    >
-                      <Image
-                        src={isStatic ? imageSrc : src}
-                        width={width}
-                        height={height}
-                        quality={quality}
-                        layout={layout}
-                        priority={true}
-                        className='rounded-lg'
-                        alt='preview image'
-                      />
-                    </NavigationLink>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            <PreviewCardPrimitive.Popup className='origin-(--transform-origin) transition-[transform,opacity] duration-200 ease-out data-[ending-style]:scale-90 data-[starting-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0'>
+              <div ref={followRef} className='rounded-xl shadow-xl'>
+                <NavigationLink
+                  href={url}
+                  style={{ fontSize: 0 }}
+                  className='block rounded-xl border-2 border-transparent bg-white p-1 shadow hover:border-neutral-200 dark:hover:border-neutral-800'
+                >
+                  <Image
+                    src={isStatic ? imageSrc : src}
+                    width={width}
+                    height={height}
+                    quality={quality}
+                    layout={layout}
+                    priority={true}
+                    className='rounded-lg'
+                    alt='preview image'
+                  />
+                </NavigationLink>
+              </div>
             </PreviewCardPrimitive.Popup>
           </PreviewCardPrimitive.Positioner>
         </PreviewCardPrimitive.Portal>
