@@ -13,7 +13,6 @@ export type TocItem = {
 export type Toc = TocItem[]
 
 function remarkTocHeadings() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- vfile.data là bag tự do (như bản 2025)
   return (tree: Parent, file: any) => {
     const toc: Toc = []
     visit(tree, 'heading', (node: Parent & { depth?: number }) => {

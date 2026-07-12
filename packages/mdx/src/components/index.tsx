@@ -13,7 +13,6 @@ import { YouTube } from './youtube'
  * App override bằng next/image qua prop components của MDXContent.
  */
 function PlainImg(props: ComponentPropsWithoutRef<'img'>) {
-  // eslint-disable-next-line @next/next/no-img-element -- fallback framework-agnostic, app override next/image
   return <img loading='lazy' decoding='async' {...props} />
 }
 

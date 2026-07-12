@@ -21,7 +21,6 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
       <div className='mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>figure]:mb-4'>
         {gallery.map((item) => (
           <figure key={item.src} className='bg-card break-inside-avoid overflow-hidden rounded-xl border'>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={item.src} alt={item.alt} loading='lazy' className='w-full object-cover' />
             <figcaption className='flex items-baseline justify-between gap-2 p-3 text-sm'>
               <span>{t(item.caption, locale)}</span>

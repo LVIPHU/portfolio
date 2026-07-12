@@ -56,6 +56,8 @@ const securityHeaders = [
 // Next 16: object thuần (C7, D-04) — không còn reduce qua plugin wrapper
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // C10 (D-01): React Compiler stable trong Next 16 — memo tự động (babel pass).
+  reactCompiler: true,
   transpilePackages: ['@portfolio/content', '@portfolio/mdx', '@portfolio/ui'],
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   env: {

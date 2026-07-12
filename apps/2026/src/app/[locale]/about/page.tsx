@@ -26,7 +26,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       <aside className='flex flex-col gap-4'>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={profile.avatar} alt={profile.name} className='aspect-[4/5] w-full rounded-xl border object-cover' />
         <div className='bg-card rounded-xl border p-4 text-sm'>
           <h2 className='mb-3 font-semibold'>{tAbout('quickFacts')}</h2>
