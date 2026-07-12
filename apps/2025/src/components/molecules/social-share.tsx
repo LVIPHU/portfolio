@@ -37,15 +37,17 @@ export function SocialShare({ postUrl, filePath, title, className }: SocialButto
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          aria-label='More links'
-          className={cn('flex items-center gap-2 px-3 py-1 font-medium', className)}
-          data-umami-event='social-share'
-        >
-          <span>Share</span>
-          <Share2 strokeWidth={1.5} size={16} />
-        </Button>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            aria-label='More links'
+            className={cn('flex items-center gap-2 px-3 py-1 font-medium', className)}
+            data-umami-event='social-share'
+          />
+        }
+      >
+        <span>Share</span>
+        <Share2 strokeWidth={1.5} size={16} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56'>
         <DropdownMenuGroup>

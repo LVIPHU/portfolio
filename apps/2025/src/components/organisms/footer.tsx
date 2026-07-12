@@ -18,9 +18,7 @@ const techs = ['typescript', 'nextjs', 'react', 'tailwindcss', 'shadcn']
 const TooltipLink = ({ item }: { item: Skill }) => (
   <TooltipProvider>
     <Tooltip>
-      <TooltipTrigger asChild>
-        <SocialIcons kind={item.id} size={5} href={item.href} />
-      </TooltipTrigger>
+      <TooltipTrigger render={<SocialIcons kind={item.id} size={5} href={item.href} />} />
       <TooltipContent>
         <p>{item.name}</p>
       </TooltipContent>

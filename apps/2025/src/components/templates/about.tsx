@@ -58,10 +58,8 @@ export const AboutTemplate = () => {
               <NavigationLink key={idx} href={item.href} target={'_blank'}>
                 <TooltipProvider>
                   <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button className={'rounded-full'} variant='outline' size='icon'>
-                        {item.icon}
-                      </Button>
+                    <TooltipTrigger render={<Button className={'rounded-full'} variant='outline' size='icon' />}>
+                      {item.icon}
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>{item.title}</p>

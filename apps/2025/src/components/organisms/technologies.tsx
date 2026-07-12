@@ -113,15 +113,13 @@ export const Technologies = () => {
                     >
                       {filteredSkillsData[category].map((skill) => (
                         <Tooltip key={`${category}-icon-${skill.name}`}>
-                          <TooltipTrigger asChild>
-                            <NavigationLink className={'w-full'} href={skill.href}>
-                              <Button
-                                variant={'outline'}
-                                className={`h-14 w-full p-2 sm:p-2 ${skill.level === 'learning' ? 'border border-amber-500' : ''}`}
-                              >
-                                <SocialIcons className={'size-5 md:size-10'} kind={skill.id} iconType={'icon'} />
-                              </Button>
-                            </NavigationLink>
+                          <TooltipTrigger render={<NavigationLink className={'w-full'} href={skill.href} />}>
+                            <Button
+                              variant={'outline'}
+                              className={`h-14 w-full p-2 sm:p-2 ${skill.level === 'learning' ? 'border border-amber-500' : ''}`}
+                            >
+                              <SocialIcons className={'size-5 md:size-10'} kind={skill.id} iconType={'icon'} />
+                            </Button>
                           </TooltipTrigger>
                           <TooltipContent>
                             <p>{skill.name}</p>
