@@ -12,7 +12,7 @@ const ContentSecurityPolicy = `
   media-src 'self' http://localhost:3000 blob: data:;
   connect-src *;
   font-src 'self' fonts.gstatic.com;
-  frame-src giscus.app;
+  frame-src giscus.app *.codesandbox.io *.csb.app;
 `
 
 const securityHeaders = [
@@ -58,7 +58,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // C10 (D-01): React Compiler stable trong Next 16 — memo tự động (babel pass).
   reactCompiler: true,
-  transpilePackages: ['@portfolio/content', '@portfolio/mdx', '@portfolio/ui'],
+  transpilePackages: ['@portfolio/content', '@portfolio/mdx', '@portfolio/ui', '@codesandbox/sandpack-react'],
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   env: {
     version: version,

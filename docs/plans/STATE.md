@@ -4,15 +4,15 @@
 
 Roadmap: `docs/plans/ROADMAP.md` (cập nhật 2026-07-11)
 **Giá trị lõi:** "Nâng 1 là nâng cho cả 2" — 3 package raw-TS dùng chung, 2 app khóa chung stack.
-**Đang tập trung:** C10 ĐÓNG (1/1) → C11 (Sandpack playground trong bài viết, pin 2.20, lazy 2 tầng)
+**Đang tập trung:** C11 ĐÓNG (2/2) → C12 (CI ci-check 1 lệnh + dead-link crawler + dọn xác code + design-sync re-sync + docs) — PHASE CUỐI
 
 ## Vị trí hiện tại
 
-Phase: C10/13 đóng (C0…C10 ✅)
-Status: C10 merge + push (user duyệt OK) — deploy Vercel đang build. C9 (`d291646`) + C8 hotfix (`9a006d0`) đã READY production.
-Hoạt động cuối: 2026-07-12 — C10 bật React Compiler 2 app + eslint react-hooks flat root; tự test kbar OK → merge
+Phase: C11/13 đóng (C0…C11 ✅)
+Status: C11 merge + push (user duyệt OK) — deploy Vercel đang build. C10 (`5783d36`) đã READY production.
+Hoạt động cuối: 2026-07-12 — C11 Sandpack playground trong MDX (cả 2 app); trị bug Turbopack (sandpack-react cần transpilePackages); tự test render + code-split → merge
 
-Progress: [███████████░░] 11/13 phase
+Progress: [████████████░] 12/13 phase
 
 ## Bối cảnh tích lũy
 
@@ -43,7 +43,7 @@ Progress: [███████████░░] 11/13 phase
 ## Session Continuity
 
 Phiên cuối: 2026-07-12
-Dừng tại: PHASE C10 ĐÓNG — reactCompiler:true (top-level Next 16) cả 2 app + babel-plugin-react-compiler; eslint.config.mjs flat root (react-hooks v7 configs.flat['recommended-latest'] + @typescript-eslint/parser chỉ parse). kbar OK không cần opt-out. 3 rule v7 mới (refs/set-state-in-effect/immutability) hạ 'warn' (16 nợ) — rules-of-hooks/exhaustive-deps/compiler giữ error. Dọn eslint config + disable-directive chết thời C7. Build chậm hơn do babel (2026 28s, 2025 44s).
-Nợ C11: Sandpack pin 2.20, lazy 2 tầng, trong MDX bài viết. Nợ C12: 16 warning react-hooks refactor; gỡ useMemo/useCallback thủ công; fade-content.tsx; design-sync re-sync; ds-bundle/.ds-css dọn; đo bundle GSAP.
-Kế tiếp: `phases/C11-sandpack/` trên branch c11-sandpack
-Nợ desktop-only chưa mắt trong pane (tích lũy): navbar/contact-modal desktop (C6/7/8), desktop dock magnify (C9) — user duyệt trên desktop/production.
+Dừng tại: PHASE C11 ĐÓNG — <Sandpack> trong @portfolio/mdx (remark trích fence→files prop ở mdast trước rehype-pretty-code; server shim → next/dynamic ssr:false → SandpackProvider; theme CSS var). Bài demo playground-demo.{vi,en}. CSP 2025 frame-src += codesandbox/csb. BUG TURBOPACK TRỊ: sandpack-react ESM thô không eval client → dynamic promise treo → thêm @codesandbox/sandpack-react vào transpilePackages CẢ 2 app (giữ next/dynamic để code-split, import tĩnh làm mọi bài kéo bundle nặng). next+@types/mdast vào mdx devDep. pnpm-workspace es5-ext=false.
+Nợ C12 (phase cuối): ci-check 1 lệnh + dead-link crawler; dọn 16 warning react-hooks + useMemo/useCallback thủ công; xóa fade-content.tsx + back-to-posts dup; design-sync re-sync (atoms shadcn rời app); ds-bundle/.ds-css; đo bundle before/after GSAP; NavigationLink→i18n Link; cập nhật CLAUDE.md/README.
+Kế tiếp: `phases/C12-*/` trên branch c12-ci-cleanup
+Nợ desktop-only chưa mắt trong pane (tích lũy): navbar/contact-modal desktop (C6/7/8), desktop dock magnify (C9), sandpack chơi thử + dark-mode editor (C11) — user duyệt trên desktop/production.

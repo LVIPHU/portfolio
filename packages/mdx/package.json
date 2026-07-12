@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@codesandbox/sandpack-react": "~2.20.0",
     "github-slugger": "^2.0.0",
     "hast-util-from-html-isomorphic": "^2.0.0",
     "katex": "^0.16.21",
@@ -33,11 +34,13 @@
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
+    "@types/mdast": "^4.0.4",
     "@types/mdx": "^2.0.13",
     "@types/node": "^24.0.0",
     "@types/probe-image-size": "^7.2.5",
     "@types/react": "^19",
     "@types/unist": "^3.0.3",
+    "next": "16.2.10",
     "typescript": "^5.6.0"
   },
   "peerDependencies": {

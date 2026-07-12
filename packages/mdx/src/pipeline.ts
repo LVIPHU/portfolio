@@ -11,6 +11,7 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import { remarkCodeTitles } from './remark/code-titles'
 import { remarkImgToJsx } from './remark/img-to-jsx'
 import { remarkHeaderIds } from './remark/header-ids'
+import { remarkSandpackFiles } from './remark/sandpack-files'
 
 /**
  * Pipeline MDX dùng chung cho cả 2 app — pipeline as data (D-02):
@@ -33,6 +34,7 @@ const anchorIcon = fromHtmlIsomorphic(
 )
 
 export const remarkPlugins: PluggableList = [
+  remarkSandpackFiles, // chạy ĐẦU: gộp fence trong <Sandpack> thành prop files, xóa children trước khi highlight
   remarkGfm,
   remarkMath,
   remarkSmartypants,

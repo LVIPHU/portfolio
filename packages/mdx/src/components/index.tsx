@@ -6,6 +6,7 @@ import { Pre } from './pre'
 import { TableWrapper } from './table-wrapper'
 import { TerminalBlock } from './terminal-block'
 import { YouTube } from './youtube'
+import { Sandpack } from './sandpack'
 
 /**
  * Fallback img thuần cho cả cú pháp markdown lẫn tag <Image> do
@@ -25,7 +26,8 @@ export const defaultMdxComponents: MDXComponents = {
   Callout,
   TerminalBlock,
   YouTube,
+  Sandpack,
 }
 
-export { Callout, CodeTitle, Pre, TableWrapper, TerminalBlock, YouTube }
+export { Callout, CodeTitle, Pre, TableWrapper, TerminalBlock, YouTube, Sandpack }
 export type { CalloutProps, CalloutVariant } from './callout'

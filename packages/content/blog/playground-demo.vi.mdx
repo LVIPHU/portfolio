@@ -1,0 +1,61 @@
+---
+title: 'Code playground sống ngay trong bài viết'
+summary: 'Chèn trình soạn thảo chạy được vào blog bằng Sandpack — sửa code là thấy kết quả, không rời trang.'
+date: '2026-07-12'
+tags: ['react', 'sandpack']
+---
+
+Đọc về code thì tốt, nhưng **nghịch được** code còn tốt hơn. Bài này nhúng một playground React chạy trực tiếp trong trang — bạn sửa được và thấy kết quả ngay, không cần mở tab mới.
+
+## Thử ngay
+
+Bấm vào nút, rồi thử đổi số `1` trong `setCount(count + 1)` thành `2` xem sao:
+
+<Sandpack>
+
+```js App.js active
+import { useState } from 'react'
+import './styles.css'
+
+export default function App() {
+  const [count, setCount] = useState(0)
+  return (
+    <button className='counter' onClick={() => setCount(count + 1)}>
+      Đã bấm {count} lần
+    </button>
+  )
+}
+```
+
+```css styles.css hidden
+.counter {
+  font:
+    600 16px/1.4 system-ui,
+    sans-serif;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 9999px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+.counter:hover {
+  background: #1d4ed8;
+}
+```
+
+</Sandpack>
+
+Editor bên trái sửa được, preview bên phải cập nhật nóng. Theme của editor ăn theo màu của trang — bật dark mode thử xem.
+
+## Vẫn có code tĩnh như thường
+
+Những block code thông thường vẫn được tô màu qua pipeline cũ, không đổi:
+
+```ts
+function greet(name: string) {
+  return `Xin chào, ${name}!`
+}
+```
+
+Playground chỉ tải khi bạn cuộn tới gần nó, nên các trang khác không hề nặng thêm.

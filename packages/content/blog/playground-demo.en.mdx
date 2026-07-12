@@ -1,0 +1,61 @@
+---
+title: 'A live code playground right inside the post'
+summary: 'Embed a runnable editor into the blog with Sandpack — edit the code and see the result without leaving the page.'
+date: '2026-07-12'
+tags: ['react', 'sandpack']
+---
+
+Reading about code is fine, but **playing with it** is better. This post embeds a live React playground right in the page — you can edit it and see the result instantly, no new tab needed.
+
+## Try it
+
+Click the button, then try changing the `1` in `setCount(count + 1)` to `2`:
+
+<Sandpack>
+
+```js App.js active
+import { useState } from 'react'
+import './styles.css'
+
+export default function App() {
+  const [count, setCount] = useState(0)
+  return (
+    <button className='counter' onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </button>
+  )
+}
+```
+
+```css styles.css hidden
+.counter {
+  font:
+    600 16px/1.4 system-ui,
+    sans-serif;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 9999px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+.counter:hover {
+  background: #1d4ed8;
+}
+```
+
+</Sandpack>
+
+The editor on the left is editable, the preview on the right updates live. The editor theme follows the site's colors — try toggling dark mode.
+
+## Plain code still works
+
+Regular code blocks are still highlighted by the existing pipeline, unchanged:
+
+```ts
+function greet(name: string) {
+  return `Hello, ${name}!`
+}
+```
+
+The playground only loads once you scroll near it, so other pages stay light.
