@@ -43,7 +43,7 @@ export function PostCardListView({ post }: { post: PostWithAuthor }) {
             className='aspect-video w-full'
           />
         </NavigationLink>
-        <CardContent className='flex flex-1 flex-col gap-4 p-6'>
+        <CardContent className='flex flex-1 flex-col justify-between gap-4 p-6'>
           <div className='space-y-2'>
             <h4 className='text-2xl font-semibold tracking-tight'>
               <NavigationLink href={`/blog/${slug}`}>
