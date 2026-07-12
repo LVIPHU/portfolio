@@ -5,7 +5,11 @@ import { cn } from '@/utils'
 import dayjs from 'dayjs'
 import { useLocale, useTranslations } from 'next-intl'
 import { dayjsLocaleMap, dayjsLocales } from '@/libs/dayjs'
-import { Reveal, useScrollProgress } from '@portfolio/ui/motion'
+import { Reveal } from '@portfolio/ui/motion'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(useGSAP)
 
 interface TimelineEntry {
   title: string
@@ -15,17 +19,61 @@ interface TimelineEntry {
 export const Timeline = ({ data, className }: { data: TimelineEntry[]; className?: string }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const beamRef = useRef<HTMLDivElement>(null)
+  const dotRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  // C9 (M-02 #4): beam vẽ theo scroll (scaleY 0→1). useScrollProgress đo
-  // getBoundingClientRect live mỗi frame (mặc định top 10% → bottom 50%).
-  useScrollProgress(containerRef, beamRef)
+  // Beam + dot ĐỒNG BỘ theo "đường đọc" (giữa màn hình): progress = vị trí đường đọc trong
+  // timeline (0 đỉnh → 1 đáy). Beam scaleY = progress (mép dưới beam luôn nằm ở đường đọc);
+  // dot nào tâm đã qua đường đọc → data-active=true → chuyển màu cam. Đo live mỗi scroll
+  // (miễn nhiễm hydrate/layout-shift; xem verify-scroll-animation-gotcha).
+  useGSAP(
+    () => {
+      const container = containerRef.current
+      const beam = beamRef.current
+      if (!container || !beam) return
+
+      const setScaleY = gsap.quickSetter(beam, 'scaleY') as (v: number) => void
+      gsap.set(beam, { transformOrigin: 'top', scaleY: 0, opacity: 0 })
+
+      let lastOpaque = false
+      const update = () => {
+        const rect = container.getBoundingClientRect()
+        const vh = window.innerHeight || document.documentElement.clientHeight
+        const readLine = vh * 0.5
+        const progress = Math.min(1, Math.max(0, (readLine - rect.top) / (rect.height || 1)))
+        setScaleY(progress)
+        const opaque = progress > 0
+        if (opaque !== lastOpaque) {
+          gsap.set(beam, { opacity: opaque ? 1 : 0 })
+          lastOpaque = opaque
+        }
+        for (const dot of dotRefs.current) {
+          if (!dot) continue
+          const dr = dot.getBoundingClientRect()
+          dot.dataset.active = dr.top + dr.height / 2 <= readLine ? 'true' : 'false'
+        }
+      }
+
+      update()
+      window.addEventListener('scroll', update, { passive: true })
+      window.addEventListener('resize', update)
+      return () => {
+        window.removeEventListener('scroll', update)
+        window.removeEventListener('resize', update)
+      }
+    },
+    { scope: containerRef }
+  )
 
   return (
     <div className={cn('w-full', className)} ref={containerRef}>
       <div className='relative'>
         {data.map((item, idx) => (
           <div key={idx} className='flex justify-start pb-8'>
-            <TimelineItemBullet />
+            <TimelineItemBullet
+              ref={(el) => {
+                dotRefs.current[idx] = el
+              }}
+            />
             <Reveal direction={'horizontal'} delay={idx * 0.1} className='relative ml-5 w-full pl-6'>
               <TimelineItemTitle>{item.title}</TimelineItemTitle>
               {item.content}
@@ -44,13 +92,22 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
   )
 }
 
-const TimelineItemBullet = () => (
-  <div className='sticky top-40 z-10 flex items-center self-start'>
-    <div className='absolute -top-3.5 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-black'>
-      <div className='h-4 w-4 rounded-full border border-neutral-300 bg-neutral-200 p-2 dark:border-neutral-700 dark:bg-neutral-800' />
+// bullet canh thẳng tiêu đề (relative thay sticky — hết trôi khi cuộn). data-active bật khi
+// tâm dot qua đường đọc → dot chuyển cam.
+const TimelineItemBullet = React.forwardRef<HTMLDivElement>(function TimelineItemBullet(_, ref) {
+  return (
+    <div className='relative z-10 flex items-center self-start'>
+      <div
+        ref={ref}
+        data-active='false'
+        className='group/dot absolute -top-3.5 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-black'
+      >
+        <div className='size-4 rounded-full border border-neutral-300 bg-neutral-200 transition-colors duration-300 group-data-[active=true]/dot:border-amber-500 group-data-[active=true]/dot:bg-amber-500 dark:border-neutral-700 dark:bg-neutral-800' />
+      </div>
     </div>
-  </div>
-)
+  )
+})
+TimelineItemBullet.displayName = 'TimelineItemBullet'
 
 export const TimelineItemTitle = ({ children }: { children: React.ReactNode }) => {
   return <div className='mb-1 text-lg font-semibold leading-none'>{children}</div>
