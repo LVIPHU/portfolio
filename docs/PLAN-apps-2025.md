@@ -1,5 +1,7 @@
 # Kế hoạch: Đưa portfolio 2025 vào monorepo + nâng cấp công nghệ
 
+> ⚠️ **SUPERSEDED** — Giai đoạn B của file này đã được thay bằng bộ kế hoạch GSD trong `docs/plans/` (các phase C0–C12, đã hoàn thành). File giữ lại làm sử liệu; đừng dùng làm nguồn thi công. Điểm vào hiện tại: `docs/plans/STATE.md`.
+
 > **Chiến lược đã chốt:** move nguyên trạng cho xanh trước (Giai đoạn A), sau đó nâng cấp theo từng đợt có kiểm soát (Giai đoạn B). Mỗi đợt một commit, build xanh mới sang đợt kế — gặp lỗi luôn biết thủ phạm.
 
 **Phạm vi nâng cấp đã chốt:** Next 15→16 + React mới nhất · thay Contentlayer2 · thu gọn i18n còn vi+en · đồng bộ tooling với 2026 · motion → GSAP · tiếp thu công nghệ hay từ react.dev.

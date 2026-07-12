@@ -7,6 +7,8 @@
     "build": "turbo build",
     "typecheck": "turbo typecheck",
     "lint": "eslint .",
+    "check-links": "node scripts/check-dead-links.mjs",
+    "ci-check": "prettier --check . && turbo typecheck && turbo build && node scripts/check-dead-links.mjs",
     "dev:2025": "turbo dev --filter=web-2025",
     "dev:2026": "turbo dev --filter=web-2026",
     "prepare": "husky",
