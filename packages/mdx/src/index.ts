@@ -8,6 +8,7 @@ export {
   TableWrapper,
   TerminalBlock,
   YouTube,
+  Sandpack,
   type CalloutProps,
   type CalloutVariant,
 } from './components/index'
