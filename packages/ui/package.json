@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./utils": "./src/lib/utils.ts",
     "./hooks": "./src/hooks/index.ts",
     "./motion": "./src/motion/index.ts"
   },
