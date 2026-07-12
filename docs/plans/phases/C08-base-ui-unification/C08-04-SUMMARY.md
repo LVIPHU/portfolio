@@ -23,7 +23,7 @@ completed: 2026-07-12
 
 1. ✅ SC1: `grep -r @radix-ui apps/2025` = 0 (kể cả package.json + comment); `grep -rn asChild apps/2025/src` = 0 (từ 8b-1).
 2. ✅ SC2: self-test từng overlay (:3001, light + dark) — xem bảng dưới.
-3. ⏳ SC3 (D-13): chờ user nghiệm thu mắt trước khi merge — đã trình bằng chứng.
+3. ✅ SC3 (D-13): user duyệt mắt bằng chứng self-test → chọn "Merge + push + tiếp C9" (2026-07-12). Merge `2e0e77c`.
 
 ## Gỡ deps (18 gói khỏi web-2025)
 
