@@ -28,7 +28,7 @@ Bản roadmap này thay thế Giai đoạn B của `docs/PLAN-apps-2025.md` và 
 - [x] **Phase C4: 2025 thu gọn 6 locale → vi-VN + en-US** (`d899975` — gate grep/build/curl + tự test browser)
 - [x] **Phase C5: 2025 bỏ Contentlayer2** (blocker #1 CHẾT — build chạy từ Git Bash; merge `c957184`)
 - [x] **Phase C6: 2025 Lingui → next-intl + data chung** (blocker #2 CHẾT — merge `6ec2b20`)
-- [ ] **Phase C7: 2025 Next 16.2.10 + dep sweep toàn bộ**
+- [x] **Phase C7: 2025 Next 16.2.10 + dep sweep toàn bộ** (merge `5718356` — Turbopack 33s, 1 version/gói toàn repo)
 - [ ] **Phase C8: UI hợp nhất — full Base UI, 2025 bỏ Radix**
 - [ ] **Phase C9: motion → GSAP**
 - [ ] **Phase C10: React Compiler cả 2 app**
@@ -180,7 +180,7 @@ Thứ tự bắt buộc: C2 → C3 → C5 → C6 → C7 → C8 → C9 → C10 �
 | C4. trim locales      | 1/1            | ✅ Done     | 2026-07-11 (`d899975`)           |
 | C5. drop contentlayer | 4/4            | ✅ Done     | 2026-07-11 (merge `c957184`)     |
 | C6. next-intl         | 4/4            | ✅ Done     | 2026-07-12 (merge `6ec2b20`)     |
-| C7. next16 + sweep    | 0/2            | Not started | -                                |
+| C7. next16 + sweep    | 2/2            | ✅ Done     | 2026-07-12 (merge `5718356`)     |
 | C8. Base UI           | 0/4            | Not started | -                                |
 | C9. GSAP              | 0/4            | Not started | -                                |
 | C10. React Compiler   | 0/1            | Not started | -                                |
