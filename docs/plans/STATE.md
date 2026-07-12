@@ -4,15 +4,15 @@
 
 Roadmap: `docs/plans/ROADMAP.md` (cập nhật 2026-07-11)
 **Giá trị lõi:** "Nâng 1 là nâng cho cả 2" — 3 package raw-TS dùng chung, 2 app khóa chung stack.
-**Đang tập trung:** C11 ĐÓNG (2/2) → C12 (CI ci-check 1 lệnh + dead-link crawler + dọn xác code + design-sync re-sync + docs) — PHASE CUỐI
+**NÂNG CẤP C HOÀN THÀNH** ✅ — C0…C12 đóng (13/13). 3 package raw-TS dùng chung (content/ui/mdx), 2 app cùng stack Next 16.2 / React 19.2 (Turbopack + React Compiler) / Tailwind 4.3 / Base UI / GSAP / next-intl; gate `pnpm ci-check` + GitHub Actions; Sandpack playground; docs khớp.
 
 ## Vị trí hiện tại
 
-Phase: C11/13 đóng (C0…C11 ✅)
-Status: C11 merge + push (user duyệt OK) — deploy Vercel đang build. C10 (`5783d36`) đã READY production.
-Hoạt động cuối: 2026-07-12 — C11 Sandpack playground trong MDX (cả 2 app); trị bug Turbopack (sandpack-react cần transpilePackages); tự test render + code-split → merge
+Phase: C12/13 đóng — TOÀN BỘ ROADMAP XONG.
+Status: C12 merge (`bc9c07a`) + push — web-2025 & web-2026 production READY. Cả C0–C12 đã lên production.
+Hoạt động cuối: 2026-07-12 — C12 ci-check+crawler+GitHub Actions, dọn xác 10 phase, viết lại CLAUDE.md. design-sync re-sync = user chạy /design-sync (skill user-only).
 
-Progress: [████████████░] 12/13 phase
+Progress: [█████████████] 13/13 phase — HOÀN THÀNH
 
 ## Bối cảnh tích lũy
 
@@ -43,7 +43,9 @@ Progress: [████████████░] 12/13 phase
 ## Session Continuity
 
 Phiên cuối: 2026-07-12
-Dừng tại: PHASE C11 ĐÓNG — <Sandpack> trong @portfolio/mdx (remark trích fence→files prop ở mdast trước rehype-pretty-code; server shim → next/dynamic ssr:false → SandpackProvider; theme CSS var). Bài demo playground-demo.{vi,en}. CSP 2025 frame-src += codesandbox/csb. BUG TURBOPACK TRỊ: sandpack-react ESM thô không eval client → dynamic promise treo → thêm @codesandbox/sandpack-react vào transpilePackages CẢ 2 app (giữ next/dynamic để code-split, import tĩnh làm mọi bài kéo bundle nặng). next+@types/mdast vào mdx devDep. pnpm-workspace es5-ext=false.
-Nợ C12 (phase cuối): ci-check 1 lệnh + dead-link crawler; dọn 16 warning react-hooks + useMemo/useCallback thủ công; xóa fade-content.tsx + back-to-posts dup; design-sync re-sync (atoms shadcn rời app); ds-bundle/.ds-css; đo bundle before/after GSAP; NavigationLink→i18n Link; cập nhật CLAUDE.md/README.
-Kế tiếp: `phases/C12-*/` trên branch c12-ci-cleanup
-Nợ desktop-only chưa mắt trong pane (tích lũy): navbar/contact-modal desktop (C6/7/8), desktop dock magnify (C9), sandpack chơi thử + dark-mode editor (C11) — user duyệt trên desktop/production.
+Dừng tại: NÂNG CẤP C ĐÓNG SỔ (C0–C12). C12: ci-check (prettier+typecheck+build+dead-links) + crawler Node thuần + GitHub Actions; dọn xác (6 hook→@portfolio/ui, math.ts, back-to-posts dup, grid.svg, .ds-css); CLAUDE.md viết lại theo kiến trúc 3 package; PLAN-apps-2025 SUPERSEDED. Đã xóa .turbo 26GB (D: full).
+VIỆC CÒN CỦA USER (non-blocking):
+
+1. Chạy `/design-sync` re-sync — skill user-invocation-only, model không gọi được; auth OK. Skill sẽ reconcile componentSrcMap (22 atom shadcn đã dời @portfolio/ui + animated-content + back-to-posts đã xóa) + fix preview asChild→render + build + upload.
+2. Visual acceptance mắt: 2 app × 2 locale × 2 theme; các mục desktop-only pane không thấy: navbar/contact-modal desktop (C6/7/8), dock magnify (C9), sandpack chơi thử + dark editor (C11).
+   Backlog kỹ thuật: 16 warning react-hooks (refactor); gỡ useMemo/useCallback thủ công; đo bundle before/after GSAP; NavigationLink→i18n Link; pick messages 2025; ds-bundle dọn.

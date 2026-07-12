@@ -33,7 +33,7 @@ Bản roadmap này thay thế Giai đoạn B của `docs/PLAN-apps-2025.md` và 
 - [x] **Phase C9: motion → GSAP** (9/9 file port; framer-motion+motion+@emotion gỡ; primitives trong @portfolio/ui/motion)
 - [x] **Phase C10: React Compiler cả 2 app** (reactCompiler:true 2 app + eslint react-hooks flat root)
 - [x] **Phase C11: Sandpack playground** (<Sandpack> trong @portfolio/mdx, lazy code-split, bài demo song ngữ)
-- [ ] **Phase C12: CI + dọn dẹp + hậu kỳ design-sync**
+- [x] **Phase C12: CI + dọn dẹp + hậu kỳ design-sync** (ci-check + crawler + GitHub Actions; dọn xác; docs; design-sync re-sync = user chạy /design-sync)
 
 Thứ tự bắt buộc: C2 → C3 → C5 → C6 → C7 → C8 → C9 → C10 → C11 → C12; C4 chạy song song được miễn xong trước C6.
 
@@ -171,18 +171,18 @@ Thứ tự bắt buộc: C2 → C3 → C5 → C6 → C7 → C8 → C9 → C10 �
 
 ## Progress
 
-| Phase                 | Plans Complete | Status      | Completed                        |
-| --------------------- | -------------- | ----------- | -------------------------------- |
-| C0. Tooling           | 1/1            | ✅ Done     | 2026-07 (`9e0fdbd`, `0b070a2`)   |
-| C1. packages/ui init  | 1/1            | ✅ Done     | 2026-07 (`a1a323e`)              |
-| C2. content v2        | 3/3            | ✅ Done     | 2026-07-11 (`0f66153`…`40a7453`) |
-| C3. mdx               | 3/3            | ✅ Done     | 2026-07-11                       |
-| C4. trim locales      | 1/1            | ✅ Done     | 2026-07-11 (`d899975`)           |
-| C5. drop contentlayer | 4/4            | ✅ Done     | 2026-07-11 (merge `c957184`)     |
-| C6. next-intl         | 4/4            | ✅ Done     | 2026-07-12 (merge `6ec2b20`)     |
-| C7. next16 + sweep    | 2/2            | ✅ Done     | 2026-07-12 (merge `5718356`)     |
-| C8. Base UI           | 4/4            | ✅ Done     | 2026-07-12 (merge `2e0e77c`)     |
-| C9. GSAP              | 4/4            | ✅ Done     | 2026-07-12 (merge `b6e4a60`)     |
-| C10. React Compiler   | 1/1            | ✅ Done     | 2026-07-12 (merge `b8db58c`)     |
-| C11. Sandpack         | 2/2            | ✅ Done     | 2026-07-12 (merge `c6f6049`)     |
-| C12. CI + cleanup     | 0/3            | Not started | -                                |
+| Phase                 | Plans Complete | Status  | Completed                        |
+| --------------------- | -------------- | ------- | -------------------------------- |
+| C0. Tooling           | 1/1            | ✅ Done | 2026-07 (`9e0fdbd`, `0b070a2`)   |
+| C1. packages/ui init  | 1/1            | ✅ Done | 2026-07 (`a1a323e`)              |
+| C2. content v2        | 3/3            | ✅ Done | 2026-07-11 (`0f66153`…`40a7453`) |
+| C3. mdx               | 3/3            | ✅ Done | 2026-07-11                       |
+| C4. trim locales      | 1/1            | ✅ Done | 2026-07-11 (`d899975`)           |
+| C5. drop contentlayer | 4/4            | ✅ Done | 2026-07-11 (merge `c957184`)     |
+| C6. next-intl         | 4/4            | ✅ Done | 2026-07-12 (merge `6ec2b20`)     |
+| C7. next16 + sweep    | 2/2            | ✅ Done | 2026-07-12 (merge `5718356`)     |
+| C8. Base UI           | 4/4            | ✅ Done | 2026-07-12 (merge `2e0e77c`)     |
+| C9. GSAP              | 4/4            | ✅ Done | 2026-07-12 (merge `b6e4a60`)     |
+| C10. React Compiler   | 1/1            | ✅ Done | 2026-07-12 (merge `b8db58c`)     |
+| C11. Sandpack         | 2/2            | ✅ Done | 2026-07-12 (merge `c6f6049`)     |
+| C12. CI + cleanup     | 3/3            | ✅ Done | 2026-07-12 (merge `bc9c07a`)     |
