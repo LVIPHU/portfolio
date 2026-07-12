@@ -5,7 +5,15 @@
       "dependsOn": ["^build"],
       "env": ["DATABASE_URL", "GITHUB_API_TOKEN"],
       "passThroughEnv": ["NODE_ENV"],
-      "outputs": [".next/**", "!.next/cache/**", "public/feed.xml", "public/search.json", "public/tags/**"]
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "public/feed.xml",
+        "public/search.json",
+        "public/tags/**",
+        "public/content/**",
+        "json/tag-data.json"
+      ]
     }
   }
 }
