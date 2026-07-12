@@ -1,20 +1,10 @@
 'use client'
 
-import type { Blog } from '@/utils/content'
+import type { PostWithAuthor } from '@/utils/content'
 import { ArrowLeft, ArrowRight, LayoutGrid, List } from 'lucide-react'
-import { usePathname } from '@/i18n/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 import React, { useState } from 'react'
-import type { CoreContent } from '@/types/data'
-import {
-  Reveal,
-  Container,
-  NavigationLink,
-  SearchArticles,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/atoms'
+import { Reveal, Container, SearchArticles, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
 import { useTranslations } from 'next-intl'
 import { AppContextInterface, useApp } from '@/providers/app'
@@ -25,8 +15,8 @@ interface PaginationProps {
   currentPage: number
 }
 interface ListLayoutProps {
-  posts: CoreContent<Blog>[]
-  initialDisplayPosts?: CoreContent<Blog>[]
+  posts: PostWithAuthor[]
+  initialDisplayPosts?: PostWithAuthor[]
   pagination?: PaginationProps
 }
 
@@ -40,7 +30,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
     <div className='space-y-2 pb-8 pt-6 md:space-y-5'>
       <nav className='flex justify-between'>
         {prevPage ? (
-          <NavigationLink
+          <Link
             className='cursor-pointer'
             href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
             rel='prev'
@@ -49,7 +39,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
               <ArrowLeft className='h-4 w-4' />
               <span>Previous</span>
             </div>
-          </NavigationLink>
+          </Link>
         ) : (
           <button className='cursor-auto disabled:opacity-50' disabled={!prevPage}>
             <div className='inline-flex items-center gap-2'>
@@ -62,12 +52,12 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
           {currentPage} / {totalPages}
         </span>
         {nextPage ? (
-          <NavigationLink className='cursor-pointer' href={`/${basePath}/page/${currentPage + 1}`} rel='next'>
+          <Link className='cursor-pointer' href={`/${basePath}/page/${currentPage + 1}`} rel='next'>
             <div className='inline-flex items-center gap-2'>
               <span>Next</span>
               <ArrowRight className='h-4 w-4' />
             </div>
-          </NavigationLink>
+          </Link>
         ) : (
           <button className='cursor-auto disabled:opacity-50' disabled={!nextPage}>
             <div className='inline-flex items-center gap-2'>

@@ -2,8 +2,7 @@ import { slug } from 'github-slugger'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
-import tagData from '@json/tag-data.json'
-import { getAllPosts, mapLocale } from '@/utils/content'
+import { getPostsWithAuthors, getTagData, mapLocale } from '@/utils/content'
 import { TagTemplate } from '@/components/templates'
 import { getTranslations } from 'next-intl/server'
 
@@ -28,23 +27,22 @@ export async function generateMetadata(props: TagPageParams): Promise<Metadata> 
   }
 }
 
-export const generateStaticParams = async () => {
-  const tagCounts = tagData as Record<string, number>
-  const tagKeys = Object.keys(tagCounts)
-  return tagKeys.map((tag) => ({
+// Nguồn tag LIVE (getTagData key đã slugify) — bỏ snapshot json/tag-data.json (tránh nguồn-đôi lệch)
+export const generateStaticParams = async ({ params }: { params: { locale: string } }) => {
+  const tagCounts = getTagData(mapLocale(params.locale))
+  return Object.keys(tagCounts).map((tag) => ({
     tag: encodeURI(tag),
   }))
 }
 
 export default async function TagPage(props: TagPageParams) {
   const params = await props.params
+  const locale = mapLocale(params.locale)
   const tag = decodeURI(params.tag)
   // Capitalize first letter and convert space to dash
   const title = '#' + tag[0] + tag.split(' ').join('-').slice(1)
-  // so khớp theo slug(tag) như bản cũ — key trong tag-data.json là dạng slugified (D-06)
-  const filteredPosts = getAllPosts(mapLocale(params.locale)).filter((post) =>
-    post.tags.map((t) => slug(t)).includes(tag)
-  )
+  // so khớp theo slug(tag): key sidebar/URL đã slugify, tag bài thì raw → slug 2 phía
+  const filteredPosts = getPostsWithAuthors(locale).filter((post) => post.tags.map((t) => slug(t)).includes(tag))
   if (filteredPosts.length === 0) {
     return notFound()
   }
@@ -57,6 +55,7 @@ export default async function TagPage(props: TagPageParams) {
         </>
       }
       posts={filteredPosts}
+      tagCounts={getTagData(locale)}
     />
   )
 }

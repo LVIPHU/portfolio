@@ -11,8 +11,7 @@
         "public/feed.xml",
         "public/search.json",
         "public/tags/**",
-        "public/content/**",
-        "json/tag-data.json"
+        "public/content/**"
       ]
     }
   }

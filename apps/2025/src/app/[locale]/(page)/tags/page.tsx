@@ -1,7 +1,7 @@
-import tagData from '@json/tag-data.json'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Reveal, Badge, Container, NavigationLink } from '@/components/atoms'
 import { slug } from 'github-slugger'
+import { getTagData, mapLocale } from '@/utils/content'
 
 export async function generateMetadata() {
   const t = await getTranslations()
@@ -12,8 +12,10 @@ export async function generateMetadata() {
   }
 }
 
-export default async function Page() {
-  const tagCounts = tagData as Record<string, number>
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  setRequestLocale(locale)
+  const tagCounts = getTagData(mapLocale(locale))
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
   return (

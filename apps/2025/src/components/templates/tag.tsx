@@ -1,8 +1,6 @@
 'use client'
 
-import tagData from '@json/tag-data.json'
-import type { CoreContent } from '@/types/data'
-import type { Blog } from '@/utils/content'
+import type { PostWithAuthor } from '@/utils/content'
 import { Badge, Container, NavigationLink, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
 import { AppContextInterface, useApp } from '@/providers/app'
@@ -13,10 +11,11 @@ import { useTranslations } from 'next-intl'
 interface ListLayoutProps {
   title: string
   description: React.ReactNode
-  posts: CoreContent<Blog>[]
+  posts: PostWithAuthor[]
+  tagCounts: Record<string, number>
 }
 
-export function TagTemplate({ title, description, posts }: ListLayoutProps) {
+export function TagTemplate({ title, description, posts, tagCounts }: ListLayoutProps) {
   const t = useTranslations()
   const { postsView, setPostsView } = useApp()
 
@@ -44,7 +43,7 @@ export function TagTemplate({ title, description, posts }: ListLayoutProps) {
           </>
         </Header>
         <div className='relative flex flex-col items-start gap-12 lg:flex-row'>
-          <TagsList />
+          <TagsList tagCounts={tagCounts} />
           <div className='py-5 md:py-10'>
             <TabsContent value='GRID'>
               <GridView posts={posts} />
@@ -59,8 +58,7 @@ export function TagTemplate({ title, description, posts }: ListLayoutProps) {
   )
 }
 
-function TagsList() {
-  const tagCounts = tagData as Record<string, number>
+function TagsList({ tagCounts }: { tagCounts: Record<string, number> }) {
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
   return (

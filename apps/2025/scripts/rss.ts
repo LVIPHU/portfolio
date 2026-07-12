@@ -2,8 +2,7 @@ import 'dotenv/config'
 import path from 'path'
 import { mkdirSync, writeFileSync } from 'fs'
 import { slug } from 'github-slugger'
-import tagData from '@json/tag-data.json'
-import { getAllPosts, type PostMeta } from '@portfolio/content'
+import { getAllPosts, getTagData, type PostMeta } from '@portfolio/content'
 import { sortPosts, escape } from '@/utils'
 import { env } from '@env'
 
@@ -70,8 +69,9 @@ export async function generateRssFeed() {
   }
 
   if (publishPosts.length > 0) {
-    // RSS for tags
-    for (const tag of Object.keys(tagData)) {
+    // RSS for tags — key tag LIVE (union vi+en), thay snapshot json/tag-data.json
+    const tagKeys = new Set([...Object.keys(getTagData('vi')), ...Object.keys(getTagData('en'))])
+    for (const tag of tagKeys) {
       const filteredPosts = blogs.filter((p) => p.tags.map((t) => slug(t)).includes(tag))
       const rss = generateRss([...filteredPosts], `tags/${tag}/feed.xml`)
       const rssPath = path.join('public', 'tags', tag)
