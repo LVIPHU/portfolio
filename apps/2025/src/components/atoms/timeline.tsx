@@ -1,12 +1,11 @@
 'use client'
 import '@/libs/dayjs'
-import { useScroll, useTransform, motion } from 'framer-motion'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { cn } from '@/utils'
 import dayjs from 'dayjs'
 import { useLocale, useTranslations } from 'next-intl'
 import { dayjsLocaleMap, dayjsLocales } from '@/libs/dayjs'
-import { AnimatedContent } from '@/components/atoms/animated-content'
+import { Reveal, useScrollProgress } from '@portfolio/ui/motion'
 
 interface TimelineEntry {
   title: string
@@ -14,52 +13,30 @@ interface TimelineEntry {
 }
 
 export const Timeline = ({ data, className }: { data: TimelineEntry[]; className?: string }) => {
-  const wrapperRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const [height, setHeight] = useState(0)
+  const beamRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (!wrapperRef.current) return
-
-    const observer = new ResizeObserver(([entry]) => {
-      setHeight(entry.contentRect.height)
-    })
-
-    observer.observe(wrapperRef.current)
-    return () => observer.disconnect()
-  }, [])
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start 10%', 'end 50%'],
-  })
-
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height])
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1])
+  // C9 (M-02 #4): beam vẽ theo scroll bằng ScrollTrigger scrub (scaleY 0→1),
+  // thay useScroll+useTransform + đo height thủ công của framer.
+  useScrollProgress(containerRef, beamRef, { start: 'top 10%', end: 'bottom 50%' })
 
   return (
     <div className={cn('w-full', className)} ref={containerRef}>
-      <div ref={wrapperRef} className='relative'>
+      <div className='relative'>
         {data.map((item, idx) => (
           <div key={idx} className='flex justify-start pb-8'>
             <TimelineItemBullet />
-            <AnimatedContent direction={'horizontal'} delay={idx * 0.1} className='relative ml-5 w-full pl-6'>
+            <Reveal direction={'horizontal'} delay={idx * 0.1} className='relative ml-5 w-full pl-6'>
               <TimelineItemTitle>{item.title}</TimelineItemTitle>
               {item.content}
-            </AnimatedContent>
+            </Reveal>
           </div>
         ))}
 
-        <div
-          style={{ height: `${height}px` }}
-          className='absolute left-5 top-0 z-0 w-[2px] bg-gradient-to-b from-transparent via-neutral-200 to-transparent [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] dark:via-neutral-700'
-        >
-          <motion.div
-            style={{
-              height: heightTransform,
-              opacity: opacityTransform,
-            }}
-            className='w-full bg-gradient-to-t from-amber-500 via-orange-600 to-transparent'
+        <div className='absolute bottom-0 left-5 top-0 z-0 w-[2px] bg-gradient-to-b from-transparent via-neutral-200 to-transparent [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] dark:via-neutral-700'>
+          <div
+            ref={beamRef}
+            className='h-full w-full origin-top bg-gradient-to-t from-amber-500 via-orange-600 to-transparent'
           />
         </div>
       </div>

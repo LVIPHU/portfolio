@@ -4,7 +4,7 @@ import {
   SKILLS_2025 as SKILLS,
 } from '@portfolio/content/data2025'
 import {
-  AnimatedContent,
+  Reveal,
   Avatar,
   AvatarFallback,
   AvatarImage,
@@ -83,12 +83,12 @@ export function Experience() {
   const dataMsg = makeDataMsg(useLocale() as 'vi' | 'en')
   return (
     <Container className='w-full py-5 md:py-10'>
-      <AnimatedContent direction={'horizontal'} reverse={true}>
+      <Reveal direction={'horizontal'} reverse={true}>
         <h3 className='md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'>
           {t('Experience.experience')}
         </h3>
-      </AnimatedContent>
-      <AnimatedContent className='mt-5'>
+      </Reveal>
+      <Reveal className='mt-5'>
         <Tabs
           defaultValue={EXPERIENCES[0]?.name}
           className='flex flex-col md:flex-row md:space-x-4'
@@ -98,14 +98,14 @@ export function Experience() {
             {EXPERIENCES.map((company, idx) => (
               <HoverCard key={`trigger-${company.name}`}>
                 <TabsTrigger className='flex w-full text-left' value={company.name}>
-                  <AnimatedContent className={'w-full'} delay={idx * 0.1} direction={'horizontal'} reverse={true}>
+                  <Reveal className={'w-full'} delay={idx * 0.1} direction={'horizontal'} reverse={true}>
                     <HoverCardTrigger render={<div className='flex w-full items-center justify-between' />}>
                       <span>{company.name}</span>
                       <span
                         className={`mx-1 inline-block h-3 w-3 rounded-full ${company.active ? 'bg-amber-500' : ''}`}
                       />
                     </HoverCardTrigger>
-                  </AnimatedContent>
+                  </Reveal>
                 </TabsTrigger>
                 <HoverCardContent className='mt-3 w-96'>
                   <div className='flex justify-between space-x-4'>
@@ -131,14 +131,14 @@ export function Experience() {
             <TabsContent key={company.name} value={company.name} className='mt-4 w-full md:mt-0'>
               <Card key={`card-${company.name}`} className='border-none shadow-sm outline-none ring-0'>
                 <CardHeader>
-                  <AnimatedContent>
+                  <Reveal>
                     <CardTitle>
                       <LinkPreview url={company.url || '#'}>
                         <span className='px-0 text-2xl'>{company.name}</span>
                       </LinkPreview>
                     </CardTitle>
                     <CardDescription>{dataMsg(company.description)}</CardDescription>
-                  </AnimatedContent>
+                  </Reveal>
                 </CardHeader>
                 <CardContent>
                   <Timeline data={createTimelineItems(company.items, dataMsg)} />
@@ -147,7 +147,7 @@ export function Experience() {
             </TabsContent>
           ))}
         </Tabs>
-      </AnimatedContent>
+      </Reveal>
     </Container>
   )
 }

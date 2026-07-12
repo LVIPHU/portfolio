@@ -7,8 +7,8 @@ type ListViewProps = {
   posts: CoreContent<Blog>[]
 }
 
-// C9 (D-03/D-04): gỡ lib animation cũ + AnimatedContent — stagger fade-in bằng CSS
-// (.fade-in-up + --i inline). Không còn exit animation (chủ đích D-04).
+// C9 (D-03/D-04): stagger fade-in bằng CSS thuần (.fade-in-up + --i inline),
+// thay lib animation cũ. Không còn exit animation (chủ đích D-04).
 export const ListView = (props: ListViewProps) => {
   const { posts } = props
   return (

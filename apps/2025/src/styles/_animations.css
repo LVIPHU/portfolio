@@ -14,7 +14,7 @@
     animation: fade-in-scale 0.8s cubic-bezier(0, 0.71, 0.2, 1.01) 0.5s forwards;
   }
 
-  /* C9 (D-03): stagger fade-in cho grid/list-view — thay framer AnimatedContent.
+  /* C9 (D-03): stagger fade-in cho grid/list-view — thay atom scroll-in cũ.
      --i set inline theo index → delay xen kẽ 40ms. */
   @keyframes fade-in-up {
     from {

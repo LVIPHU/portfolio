@@ -2,7 +2,7 @@
 import { GitHubCalendar } from 'react-github-calendar'
 import { useTheme } from 'next-themes'
 import { useTranslations } from 'next-intl'
-import { AnimatedContent, Container } from '@/components/atoms'
+import { Reveal, Container } from '@/components/atoms'
 
 export function GithubCal() {
   const t = useTranslations()
@@ -12,16 +12,16 @@ export function GithubCal() {
 
   return (
     <Container className='w-full py-5 md:py-10'>
-      <AnimatedContent direction={'horizontal'} reverse={true}>
+      <Reveal direction={'horizontal'} reverse={true}>
         <h3 className='md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'>
           {t('GithubCal.workCalendar')}
         </h3>
-      </AnimatedContent>
-      <AnimatedContent>
+      </Reveal>
+      <Reveal>
         <div className='mt-5 flex w-full items-center justify-center'>
           <GitHubCalendar colorScheme={colorScheme} username='LVIPHU' showWeekdayLabels={true} />
         </div>
-      </AnimatedContent>
+      </Reveal>
     </Container>
   )
 }

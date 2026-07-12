@@ -106,7 +106,8 @@ export {
 } from '@portfolio/ui'
 
 // ── atoms đặc thù app (D-12) → file local ──
-export { AnimatedContent } from './animated-content'
+// C9: atom scroll-in cũ → Reveal (GSAP) trong @portfolio/ui/motion (D-09/D-10)
+export { Reveal } from '@portfolio/ui/motion'
 export { Authors } from './authors'
 export { Blur } from './blur'
 export { Boxes } from './boxes'
