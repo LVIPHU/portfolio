@@ -4,15 +4,15 @@
 
 Roadmap: `docs/plans/ROADMAP.md` (cập nhật 2026-07-11)
 **Giá trị lõi:** "Nâng 1 là nâng cho cả 2" — 3 package raw-TS dùng chung, 2 app khóa chung stack.
-**Đang tập trung:** C9 ĐÓNG (4/4) → C10 (React Compiler cả 2 app + eslint react-hooks flat config)
+**Đang tập trung:** C10 ĐÓNG (1/1) → C11 (Sandpack playground trong bài viết, pin 2.20, lazy 2 tầng)
 
 ## Vị trí hiện tại
 
-Phase: C9/13 đóng (C0…C9 ✅)
-Status: C9 merge + push (user duyệt mắt OK) — deploy Vercel đang build. NHỚ: C8 web-2025 deploy từng ERROR (cn kéo react vào tsx post-build) đã vá bằng subpath @portfolio/ui/utils (`9a006d0`).
-Hoạt động cuối: 2026-07-12 — C9 thi công + tự test browser (beam/parallax/hover/mobile-dock/leak-check OK), user duyệt mắt → merge
+Phase: C10/13 đóng (C0…C10 ✅)
+Status: C10 merge + push (user duyệt OK) — deploy Vercel đang build. C9 (`d291646`) + C8 hotfix (`9a006d0`) đã READY production.
+Hoạt động cuối: 2026-07-12 — C10 bật React Compiler 2 app + eslint react-hooks flat root; tự test kbar OK → merge
 
-Progress: [██████████░░░] 10/13 phase
+Progress: [███████████░░] 11/13 phase
 
 ## Bối cảnh tích lũy
 
@@ -43,7 +43,7 @@ Progress: [██████████░░░] 10/13 phase
 ## Session Continuity
 
 Phiên cuối: 2026-07-12
-Dừng tại: PHASE C9 ĐÓNG — 9/9 file framer→GSAP/CSS; gỡ framer-motion+motion+@emotion; 5 primitive trong packages/ui/src/motion (Reveal, useScrollProgress, ParallaxColumns, HoverHighlight, useMagnify). Khuôn useGSAP{scope} tự cleanup (leak-check 10-nav sạch). Số magnify giữ đúng bản cũ. gsap+@gsap/react là dep trực tiếp cả packages/ui LẪN web-2025 (link-preview/floating-dock dùng trực tiếp). CSS-first: theme-switch + grid/list fade-in-up.
-Nợ C10: bật reactCompiler cả 2 app (theo dõi console error "script tag while rendering" của 2026). Nợ C12: fade-content.tsx mồ côi xóa; design-sync re-sync; đo bundle before/after GSAP.
-Kế tiếp: `phases/C10-react-compiler/C10-01-PLAN.md` trên branch c10-react-compiler
-Nợ desktop-only chưa mắt được trong pane (tích lũy): navbar/contact-modal desktop (C6/7/8), desktop dock magnify (C9) — user duyệt trên desktop thật/production.
+Dừng tại: PHASE C10 ĐÓNG — reactCompiler:true (top-level Next 16) cả 2 app + babel-plugin-react-compiler; eslint.config.mjs flat root (react-hooks v7 configs.flat['recommended-latest'] + @typescript-eslint/parser chỉ parse). kbar OK không cần opt-out. 3 rule v7 mới (refs/set-state-in-effect/immutability) hạ 'warn' (16 nợ) — rules-of-hooks/exhaustive-deps/compiler giữ error. Dọn eslint config + disable-directive chết thời C7. Build chậm hơn do babel (2026 28s, 2025 44s).
+Nợ C11: Sandpack pin 2.20, lazy 2 tầng, trong MDX bài viết. Nợ C12: 16 warning react-hooks refactor; gỡ useMemo/useCallback thủ công; fade-content.tsx; design-sync re-sync; ds-bundle/.ds-css dọn; đo bundle GSAP.
+Kế tiếp: `phases/C11-sandpack/` trên branch c11-sandpack
+Nợ desktop-only chưa mắt trong pane (tích lũy): navbar/contact-modal desktop (C6/7/8), desktop dock magnify (C9) — user duyệt trên desktop/production.
