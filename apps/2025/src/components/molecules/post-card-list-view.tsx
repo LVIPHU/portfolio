@@ -1,47 +1,82 @@
-import type { Blog } from '@/utils/content'
-import type { CoreContent } from '@/types/data'
-import { formatDate } from '@/utils'
-import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
-import { Card, CardContent, CardHeader, GrowingUnderline, Image, NavigationLink } from '@/components/atoms'
-import { TagsList } from '@/components/molecules/tags'
-import { Calendar, ClockIcon } from 'lucide-react'
+'use client'
 
-export function PostCardListView({ post, loading }: { post: CoreContent<Blog>; loading?: 'lazy' | 'eager' }) {
-  const { slug, date, title, summary, tags, images, readingTime } = post
+import type { PostWithAuthor } from '@/utils/content'
+import { cn } from '@/utils'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  buttonVariants,
+  Card,
+  CardContent,
+  GrowingUnderline,
+  Image,
+  NavigationLink,
+} from '@/components/atoms'
+import { PostViews } from '@/components/atoms/post-views'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
+import { Clock, Eye } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
+function getInitials(name: string) {
+  return name
+    .split(' ')
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
+}
+
+export function PostCardListView({ post }: { post: PostWithAuthor }) {
+  const t = useTranslations()
+  const { slug, title, summary, images, readingTime, author } = post
+
   return (
     <article>
-      <Card className='flex flex-col overflow-hidden rounded-md border-none shadow-none sm:flex-row sm:items-center'>
-        <CardHeader className='w-full px-0 sm:w-56 sm:shrink-0 sm:p-0'>
-          <NavigationLink href={`/blog/${slug}`}>
-            <Image
-              src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
-              alt={title}
-              width={500}
-              height={500}
-              className='bg-muted aspect-video w-full rounded-lg sm:aspect-square'
-              loading={loading}
-            />
-          </NavigationLink>
-        </CardHeader>
-        <CardContent className='flex flex-col px-0 py-0 sm:px-6'>
-          <TagsList tags={tags} />
-          <h3 className='py-1 text-xl font-bold tracking-tight md:text-2xl'>
-            <NavigationLink href={`/blog/${slug}`} className='text-gray-900 dark:text-gray-100'>
-              <GrowingUnderline>{title}</GrowingUnderline>
+      <Card className='flex flex-col gap-0 overflow-hidden p-0 shadow-none sm:flex-row'>
+        <NavigationLink href={`/blog/${slug}`} className='block w-full sm:w-1/3'>
+          <Image
+            src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
+            alt={title}
+            width={600}
+            height={400}
+            className='aspect-video w-full'
+          />
+        </NavigationLink>
+        <CardContent className='flex flex-1 flex-col gap-4 p-6'>
+          <div className='space-y-2'>
+            <h4 className='text-2xl font-semibold tracking-tight'>
+              <NavigationLink href={`/blog/${slug}`}>
+                <GrowingUnderline>{title}</GrowingUnderline>
+              </NavigationLink>
+            </h4>
+            <p className='text-muted-foreground line-clamp-3 text-sm'>{summary}</p>
+          </div>
+          <div className='flex flex-col justify-between gap-4 md:flex-row md:items-center'>
+            {author && (
+              <div className='flex items-center gap-3'>
+                <Avatar>
+                  <AvatarImage src={author.avatar} alt={author.name} />
+                  <AvatarFallback>{getInitials(author.name)}</AvatarFallback>
+                </Avatar>
+                <div className='space-y-1'>
+                  <p className='text-sm font-medium leading-none'>{author.name}</p>
+                  <div className='text-muted-foreground flex items-center text-xs'>
+                    <Clock className='me-1 size-3' />
+                    {Math.ceil(readingTime.minutes)} {t('Blog.minRead')}
+                    <Eye className='me-1 ms-3 size-3' />
+                    <PostViews slug={slug} />
+                  </div>
+                </div>
+              </div>
+            )}
+            <NavigationLink
+              href={`/blog/${slug}`}
+              className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'w-full sm:w-auto')}
+            >
+              {t('Blog.readMore')}
             </NavigationLink>
-          </h3>
-          <p className='text-muted-foreground mt-2 line-clamp-2 text-ellipsis md:line-clamp-3'>{summary}</p>
-          <dl className='text-muted-foreground mt-4 flex items-center gap-6 text-sm font-medium'>
-            <dt className='sr-only'>Published on</dt>
-            <dd className='flex items-center gap-2'>
-              <ClockIcon className='size-4' />
-              <span>{Math.ceil(readingTime.minutes)} mins read</span>
-            </dd>
-            <div className='flex items-center gap-2'>
-              <Calendar className='size-4' />
-              <time dateTime={date}>{formatDate(date)}</time>
-            </div>
-          </dl>
+          </div>
         </CardContent>
       </Card>
     </article>

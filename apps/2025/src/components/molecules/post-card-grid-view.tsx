@@ -1,52 +1,88 @@
-import type { Blog } from '@/utils/content'
-import type { CoreContent } from '@/types/data'
-import { formatDate, playRandomNote } from '@/utils'
-import { Card, CardContent, CardFooter, CardHeader, GrowingUnderline, Image, NavigationLink } from '@/components/atoms'
+'use client'
+
+import type { PostWithAuthor } from '@/utils/content'
+import { cn, playRandomNote } from '@/utils'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Badge,
+  buttonVariants,
+  Card,
+  CardContent,
+  GrowingUnderline,
+  Image,
+  NavigationLink,
+} from '@/components/atoms'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
-import { Calendar, ClockIcon } from 'lucide-react'
-import { TagsList } from '@/components/molecules/tags'
+import { Clock } from 'lucide-react'
+import { slug as slugify } from 'github-slugger'
+import { useTranslations } from 'next-intl'
 
-export function PostCardGridView({ post }: { post: CoreContent<Blog> }) {
-  const { path, date, title, tags, images, readingTime } = post
+function getInitials(name: string) {
+  return name
+    .split(' ')
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
+}
 
-  const handleClick = () => {
-    playRandomNote()
-  }
+export function PostCardGridView({ post }: { post: PostWithAuthor }) {
+  const t = useTranslations()
+  const { path, title, summary, tags, images, readingTime, author } = post
 
   return (
-    <article className={'h-full'} onClick={handleClick}>
-      <Card className='flex h-full flex-col shadow-none'>
-        <CardHeader className='p-2'>
-          <NavigationLink href={`/${path}`}>
-            <Image
-              src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
-              alt={title}
-              width={600}
-              height={400}
-              className='aspect-video h-full w-full rounded-xl shadow-2xl'
-            />
-          </NavigationLink>
-        </CardHeader>
-        <CardContent className='py-5'>
-          <TagsList tags={tags} />
-          <h3 className='mt-4 text-[1.35rem] font-semibold tracking-tight'>
+    <article className='h-full' onClick={() => playRandomNote()}>
+      <Card className='flex h-full flex-col gap-0 overflow-hidden p-0 shadow-none'>
+        <NavigationLink href={`/${path}`}>
+          <Image
+            src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
+            alt={title}
+            width={600}
+            height={400}
+            className='aspect-video w-full'
+          />
+        </NavigationLink>
+        <CardContent className='flex flex-1 flex-col space-y-4 p-6'>
+          <div className='flex items-start justify-between gap-2'>
+            {tags?.[0] ? (
+              <NavigationLink href={`/tags/${slugify(tags[0])}`}>
+                <Badge variant='secondary'>{tags[0]}</Badge>
+              </NavigationLink>
+            ) : (
+              <span />
+            )}
+            <div className='text-muted-foreground flex shrink-0 items-center text-xs'>
+              <Clock className='me-1 size-3' />
+              {Math.ceil(readingTime.minutes)} {t('Blog.minRead')}
+            </div>
+          </div>
+          <h4 className='text-xl font-semibold tracking-tight'>
             <NavigationLink href={`/${path}`}>
               <GrowingUnderline>{title}</GrowingUnderline>
             </NavigationLink>
-          </h3>
+          </h4>
+          <p className='text-muted-foreground line-clamp-3 text-sm'>{summary}</p>
+          {author && (
+            <div className='mt-auto flex items-center gap-3 pt-2'>
+              <Avatar>
+                <AvatarImage src={author.avatar} alt={author.name} />
+                <AvatarFallback>{getInitials(author.name)}</AvatarFallback>
+              </Avatar>
+              <div className='space-y-1'>
+                <p className='text-sm font-medium leading-none'>{author.name}</p>
+                <p className='text-muted-foreground text-xs'>{author.occupation ?? t('Blog.author')}</p>
+              </div>
+            </div>
+          )}
+          <NavigationLink
+            href={`/${path}`}
+            className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'w-full')}
+          >
+            {t('Blog.readMore')}
+          </NavigationLink>
         </CardContent>
-        <CardFooter className='mt-auto flex items-center justify-between'>
-          <div className='flex items-center gap-2'>
-            <Calendar className='size-4' />
-            <time dateTime={date} className='text-muted-foreground text-sm'>
-              {formatDate(date)}
-            </time>
-          </div>
-          <div className='flex items-center gap-2'>
-            <ClockIcon className='size-4' />
-            <span className='text-muted-foreground text-sm'>{Math.ceil(readingTime.minutes)} mins read</span>
-          </div>
-        </CardFooter>
       </Card>
     </article>
   )

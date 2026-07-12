@@ -1,4 +1,4 @@
-import { getAllPosts, mapLocale } from '@/utils/content'
+import { getPostsWithAuthors, mapLocale } from '@/utils/content'
 import { POSTS_PER_PAGE } from '@/constants/post'
 import { BlogTemplate } from '@/components/templates'
 import { getTranslations } from 'next-intl/server'
@@ -19,7 +19,8 @@ type PageBlogParam = {
 export default async function BlogPage(props: PageBlogParam) {
   const params = await props.params
   // getAllPosts đã sort + lọc draft + bỏ content (per-locale, fallback slug thiếu — D-04)
-  const posts = getAllPosts(mapLocale(params.locale))
+  // + enrich author cho card grid/list
+  const posts = getPostsWithAuthors(mapLocale(params.locale))
   const pageNumber = parseInt(params.page as string) || 1
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE)
 

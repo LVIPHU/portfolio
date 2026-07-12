@@ -15,7 +15,11 @@
     "allPosts": "Tất cả bài viết",
     "iLikeToWrite": "Tôi thích viết về những gì tôi quan tâm. Bạn sẽ tìm thấy sự kết hợp giữa các bài viết về phát triển web, tin tức công nghệ và những suy nghĩ ngẫu nhiên từ cuộc sống của tôi. Sử dụng thanh tìm kiếm bên dưới để lọc theo tiêu đề.",
     "noPostFound": "không tìm thấy bài viết",
-    "searchArticles": "Tìm kiếm bài viết"
+    "searchArticles": "Tìm kiếm bài viết",
+    "readMore": "Đọc tiếp",
+    "minRead": "phút đọc",
+    "views": "lượt xem",
+    "author": "Tác giả"
   },
   "Common": {
     "about": "Giới thiệu",

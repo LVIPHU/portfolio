@@ -15,7 +15,11 @@
     "allPosts": "All posts",
     "iLikeToWrite": "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title.",
     "noPostFound": "no post found",
-    "searchArticles": "Search articles"
+    "searchArticles": "Search articles",
+    "readMore": "Read More",
+    "minRead": "min read",
+    "views": "views",
+    "author": "Author"
   },
   "Common": {
     "about": "About",

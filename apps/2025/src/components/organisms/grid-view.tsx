@@ -1,10 +1,9 @@
 import type { CSSProperties } from 'react'
-import type { CoreContent } from '@/types/data'
-import type { Blog } from '@/utils/content'
+import type { PostWithAuthor } from '@/utils/content'
 import { PostCardGridView } from '@/components/molecules'
 
 type ListViewProps = {
-  posts: CoreContent<Blog>[]
+  posts: PostWithAuthor[]
 }
 
 // C9 (D-03/D-04): stagger fade-in bằng CSS thuần (.fade-in-up + --i inline),

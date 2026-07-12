@@ -16,6 +16,8 @@ export type Blog = Post
 export type CoreContent<T> = Omit<T, 'content'>
 /** content prop của 3 template post-*: meta + toc do page tính */
 export type BlogContent = CoreContent<Blog> & { toc: Toc }
+/** post kèm tác giả đã resolve (server enrich) cho card grid/list — author client-safe (đã bỏ content) */
+export type PostWithAuthor = CoreContent<Blog> & { author: CoreContent<Author> | null }
 
 /** Map segment URL [lang] (Lingui, còn tới C6) → locale của @portfolio/content */
 export function mapLocale(lang: string): 'vi' | 'en' {
