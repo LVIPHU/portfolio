@@ -16,7 +16,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: L
   const posts = getAllPosts(locale)
 
   return (
-    <div className='mx-auto max-w-3xl'>
+    <div>
       <div className='flex items-baseline justify-between gap-4'>
         <div>
           <h1 className='text-3xl font-bold tracking-tight'>{t('title')}</h1>

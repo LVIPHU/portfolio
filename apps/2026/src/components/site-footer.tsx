@@ -7,7 +7,7 @@ export async function SiteFooter() {
 
   return (
     <footer className='border-t'>
-      <div className='text-muted-foreground mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm sm:flex-row'>
+      <div className='text-muted-foreground mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm sm:flex-row sm:px-6 xl:px-12'>
         <p>
           © {year} {profile.name}. {t('rights')}
         </p>

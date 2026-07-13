@@ -16,7 +16,7 @@ export default async function ResumePage({ params }: { params: Promise<{ locale:
   const tResume = await getTranslations('resume')
 
   return (
-    <div className='mx-auto max-w-3xl'>
+    <div>
       <div className='flex items-center justify-between gap-4'>
         <h1 className='text-3xl font-bold tracking-tight'>{tResume('title')}</h1>
         <a href='/resume.pdf' download className={buttonVariants({ variant: 'outline', size: 'sm' })}>

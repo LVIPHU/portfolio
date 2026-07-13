@@ -31,7 +31,7 @@ export function SiteNav({ name }: { name: string }) {
 
   return (
     <header className='bg-background/80 sticky top-0 z-50 border-b backdrop-blur'>
-      <div className='mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-4'>
+      <div className='mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 xl:px-12'>
         <Link href='/' className='font-semibold tracking-tight'>
           {name}
         </Link>

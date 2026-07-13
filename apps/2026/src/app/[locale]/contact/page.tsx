@@ -15,7 +15,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   const t = await getTranslations('contact')
 
   return (
-    <div className='mx-auto max-w-xl py-8 text-center'>
+    <div className='py-8 text-center'>
       <h1 className='text-3xl font-bold tracking-tight'>{t('title')}</h1>
       <p className='text-muted-foreground mt-3'>{t('description')}</p>
 

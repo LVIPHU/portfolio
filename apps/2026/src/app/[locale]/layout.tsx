@@ -40,7 +40,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <ThemeProvider>
             <SiteNav name={profile.name} />
-            <main className='mx-auto w-full max-w-5xl flex-1 px-4 py-10'>{children}</main>
+            <main className='mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:px-6 xl:px-12'>{children}</main>
             <SiteFooter />
           </ThemeProvider>
         </NextIntlClientProvider>

@@ -15,7 +15,7 @@ export default async function TagsPage({ params }: { params: Promise<{ locale: L
   const tags = getAllTags(locale)
 
   return (
-    <div className='mx-auto max-w-3xl'>
+    <div>
       <h1 className='text-3xl font-bold tracking-tight'>{t('title')}</h1>
       <p className='text-muted-foreground mt-2'>{t('description')}</p>
 

@@ -32,7 +32,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   if (!post) notFound()
 
   return (
-    <article className='mx-auto max-w-3xl'>
+    <article>
       <Link
         href='/blog'
         className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm'

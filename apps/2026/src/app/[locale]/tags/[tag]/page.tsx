@@ -28,7 +28,7 @@ export default async function TagPage({ params }: { params: Promise<{ locale: Lo
   const posts = getPostsByTag(tag, locale)
 
   return (
-    <div className='mx-auto max-w-3xl'>
+    <div>
       <Link
         href='/tags'
         className='text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm'
