@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useEffect, useMemo, useRef } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
 import { useControls } from 'leva'
-import { Color, MathUtils, Vector2 } from 'three'
+import { Color, MathUtils, Vector2, type ShaderMaterial } from 'three'
 
 // Starfield nền (port cơ chế particles của lenis-website):
 // - simplex noise theo uTime * speed → hạt trôi lơ lửng
@@ -49,6 +49,7 @@ attribute float scale;
 
 uniform float uTime;
 uniform float uScroll;
+uniform float uParallax;
 uniform vec2 uResolution;
 
 void main() {
@@ -60,7 +61,8 @@ void main() {
 
   float depth = (1.0 / - (viewMatrix * modelPosition).z);
 
-  modelPosition.y += uScroll * depth * 100.;
+  // parallax theo scroll (lenis để cứng 100.; tách thành uniform để chỉnh được mức trôi)
+  modelPosition.y += uScroll * depth * uParallax;
   modelPosition.y = mod(modelPosition.y, uResolution.y) - uResolution.y/2.;
 
   vec4 viewPosition = viewMatrix * modelPosition;
@@ -83,10 +85,14 @@ void main() {
 `
 
 export function Stars({ depth = 500 }: { depth?: number }) {
-  const { count, size, scale, color } = useControls('stars', {
+  const { count, size, scale, drift, parallax, color } = useControls('stars', {
     count: { value: 100, min: 0, max: 500, step: 10 },
     size: { value: 150, min: 10, max: 400, step: 10 },
     scale: { value: 500, min: 0, max: 1000, step: 10 },
+    // tốc độ trôi lơ lửng (lenis: 0.2). Để cao thì drift át hẳn chuyển động theo scroll.
+    drift: { value: 0.05, min: 0, max: 0.4, step: 0.01 },
+    // hệ số parallax (lenis để cứng 100 → sao chỉ dịch ~10% quãng cuộn, rất khó thấy)
+    parallax: { value: 400, min: 0, max: 1200, step: 20 },
     color: '#FFE1BE', // amber nhạt theo brand
   })
 
@@ -109,38 +115,116 @@ export function Stars({ depth = 500 }: { depth?: number }) {
     [count, size]
   )
 
-  const speeds = useMemo(() => Float32Array.from(Array.from({ length: count }, () => Math.random() * 0.2)), [count])
+  const speeds = useMemo(
+    () => Float32Array.from(Array.from({ length: count }, () => Math.random() * drift)),
+    [count, drift]
+  )
 
   const scales = useMemo(
     () => Float32Array.from(Array.from({ length: count }, () => Math.random() * scale)),
     [count, scale]
   )
 
-  const uniforms = useMemo(
+  // Giá trị khởi tạo cho lúc dựng material (three CLONE object này khi tạo material).
+  const initialUniforms = useMemo(
     () => ({
       uTime: { value: 0 },
       uScroll: { value: 0 },
+      uParallax: { value: 400 },
       uColor: { value: new Color('#FFE1BE') },
       uResolution: { value: new Vector2(1, 1) },
     }),
     []
   )
 
+  // BẮT BUỘC đi qua ref: three clone object uniforms khi dựng ShaderMaterial, nên
+  // mutate object memo ở trên KHÔNG bao giờ tới GPU (đo được: material.uTime kẹt 0 →
+  // sao đứng im hoàn toàn). Lenis gốc cũng giữ ref tới material vì lý do này.
+  const material = useRef<ShaderMaterial>(null)
+  const setUniform = (key: string, value: number) => {
+    const u = material.current?.uniforms
+    if (u?.[key]) u[key].value = value
+  }
+
   useEffect(() => {
-    uniforms.uColor.value = new Color(color)
-  }, [uniforms, color])
+    const u = material.current?.uniforms
+    if (u) u.uColor.value = new Color(color)
+  }, [color])
+
+  useEffect(() => {
+    setUniform('uParallax', parallax)
+  }, [parallax])
+
+  // Nguồn scroll: listener 'scroll' thuần (Lenis cuộn native nên scrollY là giá trị đã
+  // mượt). KHÔNG dùng useLenis ở đây — r3f là reconciler riêng, context của ReactLenis
+  // không xuyên qua <Canvas>. Dùng event thay vì đọc trong useFrame để giá trị vẫn đúng
+  // kể cả khi rAF bị treo, và để đo được bằng script.
+  useEffect(() => {
+    const onScroll = () => setUniform('uScroll', window.scrollY)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Debug (?debug): __starsDbg() xem uniform thật; __starsProbe(scroll) render 1 frame
+  // với giá trị scroll cho trước rồi đo TÂM SÁNG của starfield — cách kiểm chứng parallax
+  // không phụ thuộc việc trình duyệt có đang vẽ frame hay không (chính nó đã bắt được lỗi
+  // uniforms bị three clone, khiến sao đứng im hoàn toàn).
+  const { gl, scene, camera } = useThree()
+  useEffect(() => {
+    if (!new URLSearchParams(window.location.search).has('debug')) return
+    const w = window as unknown as {
+      __starsDbg?: () => unknown
+      __starsProbe?: (s: number) => unknown
+    }
+    w.__starsDbg = () => {
+      const u = material.current?.uniforms
+      return {
+        uScroll: u?.uScroll.value,
+        scrollY: window.scrollY,
+        uParallax: u?.uParallax.value,
+        uResolution: u ? [u.uResolution.value.x, u.uResolution.value.y] : null,
+        uTime: u?.uTime.value,
+      }
+    }
+    w.__starsProbe = (scrollValue: number) => {
+      setUniform('uScroll', scrollValue)
+      gl.render(scene, camera)
+      const ctx = gl.getContext()
+      const W = gl.domElement.width
+      const H = gl.domElement.height
+      const buf = new Uint8Array(W * H * 4)
+      ctx.readPixels(0, 0, W, H, ctx.RGBA, ctx.UNSIGNED_BYTE, buf)
+      let sum = 0
+      let weighted = 0
+      let lit = 0
+      for (let i = 0; i < W * H; i++) {
+        const a = buf[i * 4 + 3]
+        if (a > 12) {
+          sum += a
+          weighted += a * Math.floor(i / W)
+          lit++
+        }
+      }
+      return { scroll: scrollValue, litPixels: lit, centroidY: sum ? +(weighted / sum).toFixed(1) : null }
+    }
+    return () => {
+      delete w.__starsDbg
+      delete w.__starsProbe
+    }
+  }, [gl, scene, camera])
 
   useFrame(({ clock, viewport }) => {
-    uniforms.uTime.value = clock.elapsedTime
-    // scroll px của trang (Lenis cuộn native scroll nên scrollY chính là giá trị smooth)
-    uniforms.uScroll.value = window.scrollY
+    const u = material.current?.uniforms
+    if (!u) return
+    u.uTime.value = clock.elapsedTime
     // cập nhật mỗi frame — chống kẹt giá trị khởi tạo khi canvas fixed đo trễ lúc mount
-    uniforms.uResolution.value.set(viewport.width, viewport.height)
+    u.uResolution.value.set(viewport.width, viewport.height)
   })
 
   return (
     // key: đổi tham số leva → dựng lại geometry (bufferAttribute không update args tại chỗ)
-    <points key={`${count}-${size}-${scale}`}>
+    <points key={`${count}-${size}-${scale}-${drift}`}>
       <bufferGeometry>
         <bufferAttribute attach='attributes-position' args={[positions, 3]} />
         <bufferAttribute attach='attributes-noise' args={[noise, 3]} />
@@ -149,11 +233,12 @@ export function Stars({ depth = 500 }: { depth?: number }) {
         <bufferAttribute attach='attributes-scale' args={[scales, 1]} />
       </bufferGeometry>
       <shaderMaterial
+        ref={material}
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         transparent
         depthWrite={false}
-        uniforms={uniforms}
+        uniforms={initialUniforms}
       />
     </points>
   )
