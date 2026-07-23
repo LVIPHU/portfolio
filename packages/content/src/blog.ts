@@ -16,12 +16,15 @@ export function contentDir(): string {
   const fromEnv = process.env.PORTFOLIO_CONTENT_DIR
   if (fromEnv) return fromEnv
 
-  const candidates = [
-    path.join(process.cwd(), '..', '..', 'packages', 'content'),
-    path.join(process.cwd(), 'packages', 'content'),
-  ]
-  for (const dir of candidates) {
-    if (fs.existsSync(dir)) return dir
+  // Đi ngược từ cwd lên gốc ổ đĩa tìm packages/content — cwd khác nhau giữa
+  // app (apps/<version>), repo root, và worker của Next (vd generate-params).
+  let dir = process.cwd()
+  for (let i = 0; i < 8; i++) {
+    const candidate = path.join(dir, 'packages', 'content')
+    if (fs.existsSync(candidate)) return candidate
+    const parent = path.dirname(dir)
+    if (parent === dir) break
+    dir = parent
   }
   throw new Error('Không tìm thấy packages/content. Set PORTFOLIO_CONTENT_DIR trỏ tới packages/content.')
 }

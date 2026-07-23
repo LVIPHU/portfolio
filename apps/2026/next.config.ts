@@ -6,6 +6,10 @@ const withNextIntl = createNextIntlPlugin()
 
 const repoRoot = path.join(__dirname, '..', '..')
 
+// Worker generate-params của Next dev có cwd khác app → blog.ts không đoán được
+// packages/content từ cwd. Set env chính thức (blog.ts ưu tiên biến này).
+process.env.PORTFOLIO_CONTENT_DIR ??= path.join(repoRoot, 'packages', 'content')
+
 const config: NextConfig = {
   // C10 (D-01): React Compiler stable trong Next 16 — memo tự động (babel pass).
   reactCompiler: true,
