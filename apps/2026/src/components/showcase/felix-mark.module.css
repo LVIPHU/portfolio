@@ -1,0 +1,40 @@
+/* Wordmark hero 2 lớp — port cấu trúc <Title> của lenis (components/intro/index.js):
+   lớp FLX ở trên, lớp EI ngay dưới; khi intro kết thúc, EI trồi lên đúng 100% chiều
+   cao của chính nó → chồng khít lớp trên thành chữ hoàn chỉnh.
+   Mặc định là ĐÃ GHÉP để trang không chạy intro (mobile, điều hướng SPA) vẫn đúng. */
+
+.mark {
+  /* block bắt buộc: span inline không nhận aspect-ratio → khối cao 0, chữ biến mất */
+  display: block;
+  position: relative;
+  width: 100%;
+  /* khớp FELIX_VIEWBOX → layout chỉ chiếm chiều cao MỘT dòng chữ dù có 2 lớp */
+  aspect-ratio: 1360 / 357;
+  margin: 0;
+  line-height: 0;
+}
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ei {
+  top: 100%;
+  transform: translate3d(0, -100%, 0); /* đã ghép */
+}
+
+/* đang chạy intro: E/I nằm chờ ở dòng dưới */
+:global(html.intro-running) .ei {
+  transform: none;
+}
+
+/* intro báo xong phần chữ → trồi lên ghép, đúng nhịp lenis (1500ms ease-out-expo) */
+:global(html.intro-running.intro-out) .ei {
+  transform: translate3d(0, -100%, 0);
+  transition: transform 1500ms var(--ease-out-expo);
+}

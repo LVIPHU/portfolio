@@ -6,6 +6,7 @@ import { AppearTitle } from '@/components/showcase/effects/appear-title'
 import { Marquee } from '@/components/showcase/effects/marquee'
 import { ListItem } from '@/components/showcase/effects/list-item'
 import { PostRow } from '@/components/post-row'
+import { FelixHeroMark } from '@/components/showcase/felix-mark'
 import { formatDate, t } from '@/lib/utils'
 
 export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -20,7 +21,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       {/* Hero */}
       <section className='flex min-h-[70svh] flex-col justify-center py-8'>
         <p className='p-s text-muted-foreground'>{tHome('greeting')}</p>
-        <h1 className='h1 mt-3'>{profile.name}</h1>
+        {/* Wordmark FELIX (blackletter) — tên đầy đủ vẫn ở nav/footer/metadata */}
+        <h1 className='mt-3 block w-full'>
+          <FelixHeroMark fill='var(--primary)' label={profile.name} />
+        </h1>
         <p className='h3 text-primary mt-4'>{t(profile.title, locale)}</p>
         <p className='p text-muted-foreground mt-6 max-w-xl'>{t(profile.tagline, locale)}</p>
         <div className='mt-10 flex flex-wrap gap-3'>

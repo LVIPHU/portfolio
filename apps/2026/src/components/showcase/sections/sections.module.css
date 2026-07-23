@@ -15,6 +15,14 @@
 .heroRole {
   margin-top: 0.25em;
 }
+
+/* Wordmark FELIX chiếm trọn bề ngang; cấu trúc 2 lớp + hoạt cảnh ghép nằm trong
+   FelixHeroMark (felix-mark.module.css) */
+.heroMark {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
 .heroBottom {
   display: flex;
   flex-direction: column;

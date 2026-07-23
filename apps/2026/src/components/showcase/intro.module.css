@@ -1,0 +1,76 @@
+/* Intro overlay — port cơ chế của lenis (components/intro/intro.module.scss):
+   nền phủ toàn màn, chữ trượt từ dưới lên theo stagger --index, rồi cả tấm
+   trượt lên trên để lộ trang. Timing giữ nguyên: 1500ms ease-out-expo,
+   delay 75ms mỗi ký tự, chờ 1000ms trước khi bắt đầu. */
+
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: var(--color-primary, rgb(255, 201, 122));
+  overflow: hidden;
+  /* padding dọc của .inner — dùng lại trong công thức ghép chữ ở .translate */
+  --intro-pad: calc(((30 * 100) / var(--device-width)) * 1vw);
+}
+
+/* Bỏ qua intro bằng CSS THUẦN (không script, không class trên <html> — class đó bị
+   React hydration xoá mất): mobile như lenis, và tôn trọng reduced-motion.
+   Overlay vẫn nằm trong HTML server trả về nên không bao giờ chớp. */
+@media (max-width: 799.98px) {
+  .wrapper {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wrapper {
+    display: none;
+  }
+}
+
+.wrapper.out {
+  transform: translate3d(0, -100%, 0);
+  transition: transform 1500ms var(--ease-out-expo);
+  transition-delay: 1500ms;
+}
+
+.inner {
+  height: 100%;
+  padding: var(--intro-pad) calc(((32.5 * 100) / var(--device-width)) * 1vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* khối chữ trượt xuống theo sau khi intro kết thúc (như .relative của lenis) */
+.inner.relative {
+  transform: translate3d(0, calc(((850 * 100) / var(--device-height)) * 1vh), 0);
+  transition: transform 1500ms var(--ease-out-expo);
+  transition-delay: 1500ms;
+}
+
+/* trạng thái ẩn ban đầu của từng ký tự */
+.start {
+  transform: translate3d(0, calc(var(--index) * 5% + 100%), 0);
+}
+
+/* ký tự trượt vào, so le theo --index */
+.show {
+  transform: translate3d(0, 0, 0);
+  transition: transform 1500ms var(--ease-out-expo);
+  transition-delay: calc(var(--index) * 75ms);
+}
+
+.mark {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Lớp E/I trồi lên CHỒNG KHÍT lớp trên → chữ hoàn chỉnh (pha .translate của lenis).
+   Hai lớp đang cách nhau cả chiều cao màn hình do .inner dùng space-between, nên quãng
+   phải đi = 100vh − 2×padding − chiều cao lớp; translate % lấy theo chính lớp đó (100%).
+   Hero phía sau ghép cùng nhịp nhờ class html.intro-out. */
+.translate {
+  transform: translate3d(0, calc(-100vh + 2 * var(--intro-pad) + 100%), 0);
+  transition: transform 1500ms var(--ease-out-expo);
+}

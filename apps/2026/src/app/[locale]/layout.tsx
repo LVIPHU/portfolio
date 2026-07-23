@@ -5,6 +5,7 @@ import { setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SmoothScroll } from '@/components/smooth-scroll'
+import { Intro } from '@/components/showcase/intro'
 import { anton, roboto } from '@/lib/fonts'
 import { profile } from '@portfolio/content'
 import '../globals.css'
@@ -41,7 +42,12 @@ export default async function LocaleLayout({
         <link rel='stylesheet' href='https://api.fontshare.com/v2/css?f[]=panchang@700&display=swap' />
         <NextIntlClientProvider>
           <ThemeProvider>
-            <SmoothScroll>{children}</SmoothScroll>
+            <SmoothScroll>
+              {/* Intro đặt ở layout GỐC (không phải layout từng nhóm route): mount đúng
+                  1 lần mỗi lần tải trang thật, điều hướng SPA trong site không phát lại. */}
+              <Intro />
+              {children}
+            </SmoothScroll>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

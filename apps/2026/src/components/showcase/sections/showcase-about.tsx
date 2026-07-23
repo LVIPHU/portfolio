@@ -9,6 +9,7 @@ import { Card } from '../effects/card'
 import { ZoomSection } from './zoom-section'
 import { FeatureCards } from './feature-cards'
 import { ProjectsSection } from './projects-section'
+import { FelixHeroMark } from '../felix-mark'
 import { Link } from '@/i18n/navigation'
 import s from './sections.module.css'
 
@@ -44,7 +45,10 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
       {/* HERO */}
       <section data-earth-step='0' className={s.hero}>
         <div className={s.heroTop}>
-          <h1 className='h1'>{content.name}</h1>
+          {/* Wordmark FELIX (blackletter) thay dòng tên — tên đầy đủ vẫn ở nav/footer/metadata */}
+          <h1 className={s.heroMark}>
+            <FelixHeroMark fill='var(--color-primary)' label={content.name} />
+          </h1>
           <h2 className={`h3 contrast ${s.heroRole}`}>{content.role}</h2>
         </div>
         <div className={s.heroBottom}>
