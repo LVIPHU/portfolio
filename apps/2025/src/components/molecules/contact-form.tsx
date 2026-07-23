@@ -2,7 +2,11 @@
 
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+// standardSchemaResolver thay zodResolver: @hookform/resolvers/zod import 'zod/v4/core'
+// nhưng KHÔNG khai báo zod là dependency/peer → dưới layout pnpm cô lập của Vercel
+// Turbopack không resolve được (local hoisted node_modules che mất). zod v4 đã implement
+// Standard Schema nên resolver này dùng thẳng schema, không import subpath zod nào.
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema'
 import { z } from 'zod'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import {
@@ -31,7 +35,7 @@ export const ContactForm = () => {
   type FormValues = z.infer<typeof schema>
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(schema),
+    resolver: standardSchemaResolver(schema),
     defaultValues: { firstName: '', lastName: '', email: '', subject: '', message: '' },
   })
 
