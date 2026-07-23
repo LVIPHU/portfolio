@@ -1,6 +1,7 @@
 import { setRequestLocale } from 'next-intl/server'
 import { SiteNav } from '@/components/site-nav'
 import { SiteFooter } from '@/components/site-footer'
+import { StarsBackground } from '@/components/three/stars-background'
 import { profile } from '@portfolio/content'
 
 // Chrome portfolio (nav + khung + footer) cho tất cả trang thường.
@@ -22,6 +23,7 @@ export default async function MainLayout({
 
   return (
     <>
+      <StarsBackground />
       <SiteNav name={profile.name} />
       <main className='w-full flex-1 py-10' style={{ paddingInline: 'var(--safe)' }}>
         {children}
