@@ -31,19 +31,19 @@ export function SiteNav({ name }: { name: string }) {
 
   return (
     <header className='bg-background/80 sticky top-0 z-50 border-b backdrop-blur'>
-      <div className='mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 xl:px-12'>
-        <Link href='/' className='font-semibold tracking-tight'>
+      <div className='flex h-14 w-full items-center justify-between gap-4' style={{ paddingInline: 'var(--safe)' }}>
+        <Link href='/' className='p-s hover:text-primary transition-colors'>
           {name}
         </Link>
 
-        <nav className='hidden items-center gap-1 md:flex'>
+        <nav className='hidden items-center gap-5 md:flex'>
           {items.map((item) => (
             <Link
               key={item.key}
               href={item.href}
               className={cn(
-                'rounded-md px-3 py-1.5 text-sm transition-colors',
-                isActive(item.href) ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:text-foreground'
+                'p-xs transition-colors',
+                isActive(item.href) ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
               )}
             >
               {t(item.key)}
@@ -67,16 +67,13 @@ export function SiteNav({ name }: { name: string }) {
       </div>
 
       {open && (
-        <nav className='border-t px-4 py-2 md:hidden'>
+        <nav className='border-t py-2 md:hidden' style={{ paddingInline: 'var(--safe)' }}>
           {items.map((item) => (
             <Link
               key={item.key}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={cn(
-                'block rounded-md px-3 py-2 text-sm',
-                isActive(item.href) ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'
-              )}
+              className={cn('p-s block py-3', isActive(item.href) ? 'text-primary' : 'text-muted-foreground')}
             >
               {t(item.key)}
             </Link>

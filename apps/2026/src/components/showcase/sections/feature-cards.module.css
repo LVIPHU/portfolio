@@ -1,0 +1,40 @@
+.features {
+  height: 1600vh;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  padding: var(--layout-margin);
+}
+
+.card {
+  position: absolute;
+  will-change: transform;
+  transition:
+    opacity 1.2s var(--ease-out-expo),
+    transform 1.2s var(--ease-out-expo);
+}
+
+.card:not(.current) {
+  transform: translate3d(100%, 100%, 0);
+  opacity: 0;
+}
+
+@media (max-width: 799.98px) {
+  .card {
+    --card-size: calc(((343 * 100) / var(--device-width)) * 1vw);
+    top: calc((100vh - var(--card-size) - 2 * var(--layout-margin)) / 8 * var(--i, 0));
+    left: calc((100vw - var(--card-size) - 2 * var(--layout-margin)) / 8 * var(--i, 0));
+  }
+}
+
+@media (min-width: 800px) {
+  .card {
+    --card-size: calc((4 * var(--column-width)) + (3 * var(--gap)));
+    top: calc((100vh - var(--card-size) - 2 * var(--layout-margin)) / 8 * var(--i, 0));
+    left: calc((100vw - var(--card-size) - 2 * var(--layout-margin)) / 8 * var(--i, 0));
+  }
+}

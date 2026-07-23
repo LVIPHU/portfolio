@@ -7,11 +7,14 @@ export async function SiteFooter() {
 
   return (
     <footer className='border-t'>
-      <div className='text-muted-foreground mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm sm:flex-row sm:px-6 xl:px-12'>
-        <p>
+      <div
+        className='text-muted-foreground flex w-full flex-col items-center justify-between gap-2 py-6 sm:flex-row'
+        style={{ paddingInline: 'var(--safe)' }}
+      >
+        <p className='p-xs'>
           © {year} {profile.name}. {t('rights')}
         </p>
-        <p>{t('builtWith')}</p>
+        <p className='p-xs'>{t('builtWith')}</p>
       </div>
     </footer>
   )

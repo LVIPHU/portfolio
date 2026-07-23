@@ -1,0 +1,23 @@
+/* Reveal "trồi lên từ mask" khi cuộn tới (port ý tưởng appear-title, dạng block-clip
+   để tránh phụ thuộc GSAP SplitText). */
+.title {
+  display: inline-block;
+  overflow: hidden;
+  /* chừa chỗ trên/dưới cho dấu tiếng Việt (Anton line-height chặt), bù lại bằng margin âm
+     để không đổi vị trí layout */
+  padding-top: 0.22em;
+  padding-bottom: 0.14em;
+  margin-top: -0.22em;
+  margin-bottom: -0.14em;
+  vertical-align: top;
+}
+
+.inner {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 1.2s var(--ease-out-expo);
+}
+
+.title.visible .inner {
+  transform: translateY(0);
+}

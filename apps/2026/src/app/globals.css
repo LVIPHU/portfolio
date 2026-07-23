@@ -6,49 +6,99 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ==========================================================================
+   Palette thương hiệu: đen / off-white #EFEFEF / amber rgb(255,201,122) / grey #B0B0B0
+   ========================================================================== */
+
 :root {
-  --background: oklch(0.99 0.002 90);
-  --foreground: oklch(0.2 0.01 270);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.01 270);
-  --muted: oklch(0.96 0.005 270);
-  --muted-foreground: oklch(0.5 0.015 270);
-  --primary: oklch(0.55 0.2 275);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.95 0.01 275);
-  --secondary-foreground: oklch(0.3 0.05 275);
-  --accent: oklch(0.94 0.02 275);
-  --accent-foreground: oklch(0.3 0.05 275);
-  --border: oklch(0.91 0.005 270);
-  --ring: oklch(0.55 0.2 275);
-  --input: oklch(0.91 0.005 270);
+  /* light */
+  --background: rgb(239 239 239);
+  --foreground: rgb(0 0 0);
+  --card: rgb(247 247 247);
+  --card-foreground: rgb(0 0 0);
+  --muted: rgb(224 224 224);
+  --muted-foreground: rgb(92 92 92);
+  --primary: rgb(178 116 24); /* amber đậm cho nền sáng (đảm bảo tương phản chữ) */
+  --primary-foreground: rgb(239 239 239);
+  --secondary: rgb(224 224 224);
+  --secondary-foreground: rgb(0 0 0);
+  --accent: rgb(255 233 202);
+  --accent-foreground: rgb(90 60 10);
+  --border: rgb(205 205 205);
+  --ring: rgb(178 116 24);
+  --input: rgb(205 205 205);
   --destructive: oklch(0.58 0.22 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.01 270);
+  --destructive-foreground: rgb(239 239 239);
+  --popover: rgb(247 247 247);
+  --popover-foreground: rgb(0 0 0);
   --radius: 0.625rem;
+
+  /* bridge cho component showcase dùng ngoài .showcase-root (theo next-themes) */
+  --theme-primary: var(--background);
+  --theme-secondary: var(--foreground);
+  --theme-contrast: var(--primary);
+  --theme-primary-transparent: rgba(239, 239, 239, 0);
+
+  /* ---- design tokens dùng chung toàn site (vw-scaling, base mobile 375) ---- */
+  --device-width: 375;
+  --device-height: 650;
+  --columns: 6;
+  --gap: calc(((24 * 100) / var(--device-width)) * 1vw);
+  --safe: calc(((16 * 100) / var(--device-width)) * 1vw);
+  --layout-width: calc(100vw - (2 * var(--safe)));
+  --column-width: calc((var(--layout-width) - (var(--columns) - 1) * var(--gap)) / var(--columns));
+  --layout-margin: var(--safe);
+  --layout-columns-gap: var(--gap);
+  --layout-column-width: var(--column-width);
+  --header-height: calc(((58 * 100) / var(--device-width)) * 1vw);
+
+  --color-grey: rgb(176, 176, 176);
+
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-gleasing: cubic-bezier(0.4, 0, 0, 1);
+
+  /* fallback fonts (next/font ghi đè khi .variable có mặt trên body) */
+  --font-anton: 'Anton', sans-serif;
+  --font-panchang: 'Panchang', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
+}
+
+@media (min-width: 800px) {
+  :root {
+    /* desktop design comp = 1440 */
+    --device-width: 1440;
+    --device-height: 816;
+    --columns: 12;
+    --safe: calc(((40 * 100) / var(--device-width)) * 1vw);
+    --header-height: calc(((98 * 100) / var(--device-width)) * 1vw);
+  }
 }
 
 .dark {
-  --background: oklch(0.16 0.01 270);
-  --foreground: oklch(0.93 0.005 270);
-  --card: oklch(0.2 0.012 270);
-  --card-foreground: oklch(0.93 0.005 270);
-  --muted: oklch(0.24 0.012 270);
-  --muted-foreground: oklch(0.68 0.015 270);
-  --primary: oklch(0.72 0.16 275);
-  --primary-foreground: oklch(0.16 0.01 270);
-  --secondary: oklch(0.26 0.02 275);
-  --secondary-foreground: oklch(0.9 0.01 275);
-  --accent: oklch(0.28 0.03 275);
-  --accent-foreground: oklch(0.9 0.01 275);
-  --border: oklch(0.28 0.012 270);
-  --ring: oklch(0.72 0.16 275);
-  --input: oklch(0.3 0.012 270);
+  --background: rgb(0 0 0);
+  --foreground: rgb(239 239 239);
+  --card: rgb(14 14 14);
+  --card-foreground: rgb(239 239 239);
+  --muted: rgb(26 26 26);
+  --muted-foreground: rgb(176 176 176);
+  --primary: rgb(255 201 122); /* amber thương hiệu */
+  --primary-foreground: rgb(0 0 0);
+  --secondary: rgb(26 26 26);
+  --secondary-foreground: rgb(239 239 239);
+  --accent: rgb(40 33 22);
+  --accent-foreground: rgb(255 201 122);
+  --border: rgb(42 42 42);
+  --ring: rgb(255 201 122);
+  --input: rgb(48 48 48);
   --destructive: oklch(0.65 0.2 25);
-  --destructive-foreground: oklch(0.16 0.01 270);
-  --popover: oklch(0.2 0.012 270);
-  --popover-foreground: oklch(0.93 0.005 270);
+  --destructive-foreground: rgb(0 0 0);
+  --popover: rgb(14 14 14);
+  --popover-foreground: rgb(239 239 239);
+
+  --theme-primary-transparent: rgba(0, 0, 0, 0);
 }
 
 @theme inline {
@@ -75,6 +125,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -84,5 +135,155 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-anton);
+    text-transform: uppercase;
+  }
+  ::selection {
+    background-color: var(--theme-contrast);
+    color: var(--theme-primary);
+  }
+}
+
+/* ==========================================================================
+   Typography utilities (vw-scaling) — dùng được ở MỌI trang
+   ========================================================================== */
+
+.h1 {
+  font-family: var(--font-anton);
+  font-weight: 400;
+  line-height: 95%;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-size: calc(((56 * 100) / var(--device-width)) * 1vw);
+}
+.h2 {
+  font-family: var(--font-anton);
+  font-weight: 400;
+  line-height: 100%;
+  text-transform: uppercase;
+  font-size: calc(((56 * 100) / var(--device-width)) * 1vw);
+}
+.h3 {
+  font-family: var(--font-panchang);
+  font-weight: 700;
+  line-height: 90%;
+  text-transform: uppercase;
+  font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
+}
+.h4 {
+  font-family: var(--font-panchang);
+  font-weight: 700;
+  line-height: 100%;
+  text-transform: uppercase;
+  font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
+}
+.p-l {
+  font-family: var(--font-roboto);
+  font-weight: 500;
+  line-height: 100%;
+  font-size: calc(((32 * 100) / var(--device-width)) * 1vw);
+}
+.p {
+  font-family: var(--font-roboto);
+  font-weight: 500;
+  line-height: 125%;
+  font-size: calc(((16 * 100) / var(--device-width)) * 1vw);
+}
+.p-s {
+  font-family: var(--font-roboto);
+  font-weight: 900;
+  line-height: 100%;
+  text-transform: uppercase;
+  font-size: calc(((14 * 100) / var(--device-width)) * 1vw);
+}
+.p-xs {
+  font-family: var(--font-roboto);
+  font-weight: 900;
+  line-height: 100%;
+  text-transform: uppercase;
+  font-size: calc(((12 * 100) / var(--device-width)) * 1vw);
+}
+
+@media (min-width: 800px) {
+  .h1 {
+    font-size: calc(((160 * 100) / var(--device-width)) * 1vw);
+  }
+  .h2 {
+    font-size: calc(((96 * 100) / var(--device-width)) * 1vw);
+    line-height: 90%;
+  }
+  .h3 {
+    font-size: calc(((52 * 100) / var(--device-width)) * 1vw);
+  }
+  .h4 {
+    font-size: calc(((28 * 100) / var(--device-width)) * 1vw);
+  }
+  .p-l {
+    font-size: calc(((64 * 100) / var(--device-width)) * 1vw);
+  }
+  .p {
+    font-size: calc(((18 * 100) / var(--device-width)) * 1vw);
+    line-height: 133%;
+  }
+  .p-s {
+    font-size: calc(((14 * 100) / var(--device-width)) * 1vw);
+  }
+  .p-xs {
+    font-size: calc(((12 * 100) / var(--device-width)) * 1vw);
+    line-height: 113%;
+  }
+}
+
+/* .vh modifier — heading tính theo device-height (zoom/footer showcase) */
+.h1.vh {
+  font-size: calc(((56 * 100) / var(--device-height)) * 1vh);
+}
+.h2.vh {
+  font-size: calc(((56 * 100) / var(--device-height)) * 1vh);
+}
+.h3.vh {
+  font-size: calc(((20 * 100) / var(--device-height)) * 1vh);
+}
+@media (min-width: 800px) {
+  .h1.vh {
+    font-size: calc(((160 * 100) / var(--device-height)) * 1vh);
+  }
+  .h2.vh {
+    font-size: calc(((96 * 100) / var(--device-height)) * 1vh);
+  }
+  .h3.vh {
+    font-size: calc(((52 * 100) / var(--device-height)) * 1vh);
+  }
+}
+
+/* helpers */
+.grey {
+  color: var(--color-grey);
+}
+.contrast {
+  color: var(--theme-contrast);
+}
+.semi-bold {
+  font-weight: 600;
+}
+
+/* CHỈ ẩn ở breakpoint tương ứng — không set display ở trạng thái hiện
+   (nếu không sẽ đè display:flex của component). */
+@media (max-width: 799.98px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+@media (min-width: 800px) {
+  .mobile-only {
+    display: none !important;
   }
 }

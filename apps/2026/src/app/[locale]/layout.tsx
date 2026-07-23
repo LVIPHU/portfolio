@@ -4,8 +4,8 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { ThemeProvider } from '@/components/theme-provider'
-import { SiteNav } from '@/components/site-nav'
-import { SiteFooter } from '@/components/site-footer'
+import { SmoothScroll } from '@/components/smooth-scroll'
+import { anton, roboto } from '@/lib/fonts'
 import { profile } from '@portfolio/content'
 import '../globals.css'
 
@@ -36,12 +36,12 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className='flex min-h-screen flex-col antialiased'>
+      <body className={`${anton.variable} ${roboto.variable} flex min-h-screen flex-col antialiased`}>
+        {/* Panchang (h3/h4) qua Fontshare — React tự hoist <link> lên head */}
+        <link rel='stylesheet' href='https://api.fontshare.com/v2/css?f[]=panchang@700&display=swap' />
         <NextIntlClientProvider>
           <ThemeProvider>
-            <SiteNav name={profile.name} />
-            <main className='mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:px-6 xl:px-12'>{children}</main>
-            <SiteFooter />
+            <SmoothScroll>{children}</SmoothScroll>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

@@ -1,0 +1,36 @@
+.inner {
+  overflow: hidden;
+  display: flex;
+}
+
+.overflow {
+  display: flex;
+}
+
+.overflow > * {
+  flex-shrink: 0;
+}
+
+@media (min-width: 800px) {
+  .inner {
+    position: sticky;
+    --height: calc(((440 * 100) / var(--device-width)) * 1vw);
+    top: calc((100vh - var(--height)) / 2);
+  }
+}
+
+@media (max-width: 799.98px) {
+  .inner {
+    width: 100%;
+  }
+  .cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .cards > * {
+    margin-bottom: calc(((32 * 100) / var(--device-width)) * 1vw);
+  }
+}

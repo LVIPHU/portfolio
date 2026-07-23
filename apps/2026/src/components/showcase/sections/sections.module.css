@@ -1,0 +1,303 @@
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--safe);
+  padding-top: calc(var(--header-height) + var(--safe));
+}
+.heroTop {
+  display: flex;
+  flex-direction: column;
+}
+.heroRole {
+  margin-top: 0.25em;
+}
+.heroBottom {
+  display: flex;
+  flex-direction: column;
+  gap: calc(((32 * 100) / var(--device-width)) * 1vw);
+}
+@media (min-width: 800px) {
+  .heroBottom {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+.heroDesc {
+  max-width: 40ch;
+}
+.heroCta {
+  display: flex;
+  gap: calc(((16 * 100) / var(--device-width)) * 1vw);
+  flex-wrap: wrap;
+}
+
+/* scroll hint (desktop) */
+.scrollHint {
+  display: none;
+}
+@media (min-width: 800px) {
+  .scrollHint {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+  }
+  .scrollHint::before {
+    content: '';
+    display: block;
+    width: 2px;
+    height: calc(((40 * 100) / var(--device-width)) * 1vw);
+    background-color: var(--color-primary);
+    transform-origin: top;
+    animation: scrollbar 2.4s var(--ease-in-out-quad) infinite;
+  }
+}
+@keyframes scrollbar {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* ============ primary button ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-roboto);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 200%;
+  padding: 0 calc(((16 * 100) / var(--device-width)) * 1vw);
+  border: 1px solid var(--color-primary);
+  color: var(--theme-secondary);
+  transition:
+    background-color 0.4s var(--ease-out-expo),
+    color 0.4s var(--ease-out-expo);
+  font-size: calc(((14 * 100) / var(--device-width)) * 1vw);
+}
+@media (min-width: 800px) {
+  .btn {
+    font-size: calc(((14 * 100) / var(--device-width)) * 1vw);
+  }
+}
+@media (hover: hover) {
+  .btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-black);
+  }
+}
+.btnFilled {
+  background-color: var(--color-primary);
+  color: var(--color-black);
+}
+
+/* ============ ABOUT (why) ============ */
+.about {
+  padding: var(--safe);
+  padding-block: calc(((96 * 100) / var(--device-width)) * 1vw);
+}
+@media (min-width: 800px) {
+  .about {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gap);
+    align-items: start;
+  }
+  .aboutSticky {
+    grid-column: 3 / span 4;
+    position: sticky;
+    top: 33%;
+    border-left: 4px solid var(--theme-contrast);
+    padding-left: var(--gap);
+  }
+  .aboutFeatures {
+    grid-column: 7 / -1;
+  }
+}
+.aboutFeature p + p {
+  margin-top: 0.9em;
+}
+.aboutFeature + .aboutFeature {
+  margin-top: calc(((120 * 100) / var(--device-width)) * 1vw);
+}
+@media (min-width: 800px) {
+  .aboutFeature + .aboutFeature {
+    margin-top: calc(((280 * 100) / var(--device-width)) * 1vw);
+  }
+}
+.aboutFeatureTitle {
+  color: var(--theme-contrast);
+  margin-bottom: 0.5em;
+}
+
+/* ============ SKILLS (horizontal rail) ============ */
+/* LƯU Ý: không đặt overflow:hidden ở đây — ancestor overflow!=visible sẽ phá position:sticky
+   của .inner bên trong HorizontalSlides (cards không pin, nhìn như "scroll chết").
+   Clip ngang đã do .inner (overflow:hidden) tự lo. */
+.skills {
+  padding-block: calc(((64 * 100) / var(--device-width)) * 1vw);
+}
+.skillsHead {
+  padding-inline: var(--safe);
+  margin-bottom: calc(((40 * 100) / var(--device-width)) * 1vw);
+}
+
+/* ============ ZOOM / STATEMENT (1000vh sticky zoom + wipe + flip theme) ============ */
+.solution {
+  position: relative;
+  color: var(--color-white);
+  height: 500vh;
+  /* tham số thẩm mỹ đoạn "phóng to nét sổ chữ T" — chỉnh nhanh bằng DevTools khi cuộn thật */
+  /* chữ gốc to (h2 vh) + scale nhỏ → ít phóng đại → nét (cùng kích thước cuối với h3vh×22) */
+  --zoom-scale-max: 14;
+  --zoom-origin-x: 62.7%; /* TÂM nét sổ trái chữ N (nội suy từ đo thực tế) — nét ôm đúng tim màn hình */
+  --zoom-origin-y: 52%; /* giữa chiều cao chữ hoa */
+}
+@media (min-width: 800px) {
+  .solution {
+    height: 1000vh;
+    --zoom-scale-max: 12;
+  }
+}
+.solutionInner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.solutionInner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-white);
+  transform: scaleX(var(--progress2, 0));
+  transform-origin: center;
+  z-index: 2;
+}
+.zoom {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 12vh var(--safe);
+  text-align: center;
+  transform: scale(calc(1 + var(--progress1, 0) * 3));
+  transform-origin: center;
+  /* không will-change — tránh khoá raster chữ ở cỡ nhỏ (xem ghi chú ở .zoomEnter) */
+}
+.zoomFirst {
+  transform: translateY(calc(var(--progress1, 0) * -100%));
+}
+/* Chữ để "bay xuyên qua": XÁM (không phải màu brand) để nét chữ chìm vào nền,
+   nhường sân khấu cho wipe trắng; origin neo vào chữ T + drift lên vùng dưới xà
+   ngang T; phai dần đúng nhịp wipe nở → không còn mảng nét chữ trơ lại. */
+/* marker vô hình đánh dấu "gần cuối đoạn zoom" cho keyframe Earth */
+.zoomEarthMarker {
+  position: absolute;
+  bottom: 100vh;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* Chữ để "phóng to xuyên qua": ghim nét sổ TRÁI chữ N vào đúng tim màn hình
+   (translate bù đúng bằng origin-x). Màu TRẮNG CỐ ĐỊNH như lenis — cảm giác
+   "xám rồi trắng dần" đến từ opacity fade-in trên nền đen. Scale dùng biến
+   EASED (p1²): nửa đầu chậm rãi, dồn tốc về cuối; nét sổ thành vạch trắng
+   đỉnh→đáy giữa màn, wipe trắng nở tiếp từ chính vạch đó. */
+.zoomEnter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: var(--color-white);
+  opacity: min(1, calc(var(--progress1, 0) * 2.2));
+  transform: translate(calc(var(--zoom-origin-x, 62.7%) * -1), -50%)
+    scale(calc(var(--progress1e, 0) * var(--zoom-scale-max, 12)));
+  transform-origin: var(--zoom-origin-x, 62.7%) var(--zoom-origin-y, 52%);
+  /* KHÔNG will-change: transform! (lenis gốc cũng comment out) — will-change ép rasterize
+     chữ 1 lần ở cỡ nhỏ rồi phóng bitmap → vỡ/mờ. Bỏ đi để browser re-rasterize theo scale. */
+}
+
+/* ============ FEATURING (intro trước feature-cards) ============ */
+.featuring {
+  position: relative;
+}
+.featuring::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(((150 * 100) / var(--device-width)) * 1vw);
+  background: linear-gradient(to bottom, var(--theme-primary), var(--theme-primary-transparent));
+  pointer-events: none;
+}
+.featuringIntro {
+  padding: var(--safe);
+  padding-block: calc(((96 * 100) / var(--device-width)) * 1vw);
+  max-width: 24ch;
+}
+
+/* ============ PROJECTS (in-use list) ============ */
+.projects {
+  padding: var(--safe);
+  padding-block: calc(((96 * 100) / var(--device-width)) * 1vw);
+}
+@media (min-width: 800px) {
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gap);
+    align-items: start;
+  }
+  .projectsHead {
+    grid-column: 1 / span 5;
+  }
+  .projectsList {
+    grid-column: 6 / -1;
+  }
+}
+.projectsHead {
+  margin-bottom: calc(((32 * 100) / var(--device-width)) * 1vw);
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--safe);
+  padding-top: calc(((96 * 100) / var(--device-width)) * 1vw);
+}
+.footerCta {
+  margin-top: calc(((32 * 100) / var(--device-width)) * 1vw);
+}
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: calc(((48 * 100) / var(--device-width)) * 1vw);
+}
+.footerLinks {
+  display: flex;
+  gap: calc(((24 * 100) / var(--device-width)) * 1vw);
+  flex-wrap: wrap;
+}
