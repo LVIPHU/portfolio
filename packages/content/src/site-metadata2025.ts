@@ -19,7 +19,10 @@ export interface SiteMetadata2025 {
   siteRepo: string
   siteLogo: string
   socialBanner: string
-  email: string | undefined
+  email: string
+  phone: string
+  phoneHref: string
+  location: string
   github: string
   facebook: string
   linkedIn: string
@@ -68,7 +71,10 @@ export const SITE_METADATA_2025: SiteMetadata2025 = {
   siteRepo: 'https://github.com/LVIPHU/portfolio',
   siteLogo: `/static/images/logo.jpg`,
   socialBanner: `/static/images/twitter-card.jpg`,
-  email: process.env.email,
+  email: process.env.email ?? 'luongviphu0403@gmail.com',
+  phone: '+84 528-307-775',
+  phoneHref: 'tel:+84528307775',
+  location: 'Vietnam',
   github: 'https://github.com/LVIPHU',
   facebook: 'https://www.facebook.com/phuphu.phang.54',
   linkedIn: 'https://www.linkedin.com/in/luong-vi-phu',

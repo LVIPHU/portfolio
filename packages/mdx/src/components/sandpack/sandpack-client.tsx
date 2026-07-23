@@ -26,7 +26,7 @@ function SandpackSkeleton() {
 
 export function SandpackClient({ files }: { files: SandpackFileMap }) {
   return (
-    <div className='my-4' data-sandpack>
+    <div className='my-4' data-sandpack data-lenis-prevent>
       <SandpackRoot files={files} />
     </div>
   )

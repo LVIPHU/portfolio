@@ -7,9 +7,19 @@
 				<language>vi-VN</language>
 				<managingEditor>undefined (undefined)</managingEditor>
 				<webMaster>undefined (undefined)</webMaster>
-				<lastBuildDate>Mon, 06 Jul 2026 00:00:00 GMT</lastBuildDate>
+				<lastBuildDate>Sun, 12 Jul 2026 00:00:00 GMT</lastBuildDate>
 				<atom:link href="http://localhost:3001/feed.xml" rel="self" type="application/rss+xml"/>
 				
+		<item>
+			<guid>http://localhost:3001/blog/playground-demo</guid>
+			<title>Code playground sống ngay trong bài viết</title>
+			<link>http://localhost:3001/blog/playground-demo</link>
+			<description>Chèn trình soạn thảo chạy được vào blog bằng Sandpack — sửa code là thấy kết quả, không rời trang.</description>
+			<pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
+			<author>undefined (undefined)</author>
+			<category>react</category><category>sandpack</category>
+		</item>
+	
 		<item>
 			<guid>http://localhost:3001/blog/portfolio-monorepo</guid>
 			<title>Xây dựng portfolio bằng monorepo</title>
@@ -47,7 +57,7 @@
 			<description>In this article we introduce adding images in the tailwind starter blog and the benefits and limitations of the next/image component.</description>
 			<pubDate>Wed, 11 Nov 2020 00:00:00 GMT</pubDate>
 			<author>undefined (undefined)</author>
-			<category>next js</category><category>guide</category>
+			<category>nextjs</category><category>guide</category>
 		</item>
 	
 		<item>

@@ -19,10 +19,12 @@ export function Modal({
   children,
   title,
   description,
+  className,
 }: {
   children: React.ReactNode
   title?: string
   description?: string
+  className?: string
 }) {
   const router = useRouter()
   const isDesktop = useMediaQuery('(min-width: 1024px)')
@@ -34,7 +36,7 @@ export function Modal({
   if (isDesktop) {
     return (
       <Dialog defaultOpen={true} onOpenChange={onDismiss}>
-        <DialogContent>
+        <DialogContent className={className}>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>

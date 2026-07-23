@@ -40,14 +40,31 @@
     "iWillAlwaysBe": "I will always be ready to support you.",
     "monFriFrom8am": "Mon-Fri from 8am to 5pm.",
     "phone": "Phone",
-    "startNewChat": "Start new chat"
+    "startNewChat": "Start new chat",
+    "contactMe": "Contact Me",
+    "subtitle": "Have a project in mind or just want to say hello? I'd love to hear from you.",
+    "contactInformation": "Contact Information",
+    "contactInfoDesc": "Feel free to reach out through any of these channels.",
+    "connect": "Connect",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "locationLabel": "Location"
   },
   "ContactForm": {
     "firstName": "First name",
     "lastName": "Last name",
     "message": "Message",
     "phoneNumber": "Phone Number",
-    "submit": "Submit"
+    "submit": "Submit",
+    "subject": "Subject",
+    "sendMessage": "Send Message",
+    "required": "Please fill out this field.",
+    "invalidEmail": "Invalid email address.",
+    "firstNamePlaceholder": "Your first name",
+    "lastNamePlaceholder": "Your last name",
+    "emailPlaceholder": "Your email address",
+    "subjectPlaceholder": "What's this regarding?",
+    "messagePlaceholder": "Your message"
   },
   "ContactModal": {
     "chatWithMe": "Chat with me"

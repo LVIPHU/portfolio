@@ -40,14 +40,31 @@
     "iWillAlwaysBe": "Tôi sẽ luôn sẵn sàng hỗ trợ bạn.",
     "monFriFrom8am": "Từ thứ Hai đến thứ Sáu, từ 8 giờ sáng đến 5 giờ chiều.",
     "phone": "Điện thoại",
-    "startNewChat": "Bắt đầu cuộc trò chuyện mới"
+    "startNewChat": "Bắt đầu cuộc trò chuyện mới",
+    "contactMe": "Liên hệ với tôi",
+    "subtitle": "Bạn có dự án trong đầu hay chỉ muốn chào hỏi? Tôi rất mong nhận được tin từ bạn.",
+    "contactInformation": "Thông tin liên hệ",
+    "contactInfoDesc": "Liên hệ với tôi qua bất kỳ kênh nào dưới đây.",
+    "connect": "Kết nối",
+    "emailLabel": "Email",
+    "phoneLabel": "Điện thoại",
+    "locationLabel": "Địa điểm"
   },
   "ContactForm": {
     "firstName": "Tên",
     "lastName": "Họ",
     "message": "Lời nhắn",
     "phoneNumber": "Số điện thoại",
-    "submit": "Gửi"
+    "submit": "Gửi",
+    "subject": "Chủ đề",
+    "sendMessage": "Gửi tin nhắn",
+    "required": "Vui lòng điền vào trường này.",
+    "invalidEmail": "Email không hợp lệ.",
+    "firstNamePlaceholder": "Tên của bạn",
+    "lastNamePlaceholder": "Họ của bạn",
+    "emailPlaceholder": "Địa chỉ email của bạn",
+    "subjectPlaceholder": "Bạn muốn trao đổi về điều gì?",
+    "messagePlaceholder": "Lời nhắn của bạn"
   },
   "ContactModal": {
     "chatWithMe": "Trò chuyện với tôi"
