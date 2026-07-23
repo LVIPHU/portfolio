@@ -18,14 +18,17 @@
   --card-foreground: rgb(0 0 0);
   --muted: rgb(224 224 224);
   --muted-foreground: rgb(92 92 92);
-  --primary: rgb(178 116 24); /* amber đậm cho nền sáng (đảm bảo tương phản chữ) */
-  --primary-foreground: rgb(239 239 239);
+  /* MỘT màu chủ đạo duy nhất cho cả site, khớp đúng --color-primary của showcase
+     (.showcase-root ở theme.css) — trước đây light dùng nâu rgb(178,116,24) nên
+     các trang (main) lệch tông hẳn so với /about. */
+  --primary: rgb(255 201 122);
+  --primary-foreground: rgb(0 0 0);
   --secondary: rgb(224 224 224);
   --secondary-foreground: rgb(0 0 0);
   --accent: rgb(255 233 202);
   --accent-foreground: rgb(90 60 10);
   --border: rgb(205 205 205);
-  --ring: rgb(178 116 24);
+  --ring: rgb(255 201 122);
   --input: rgb(205 205 205);
   --destructive: oklch(0.58 0.22 25);
   --destructive-foreground: rgb(239 239 239);
