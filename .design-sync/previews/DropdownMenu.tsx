@@ -3,6 +3,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -10,29 +11,36 @@ import {
   DropdownMenuTrigger,
 } from 'web-2025'
 
-// Trạng thái MỞ (export đầu = primaryStory) — menu hành động của một bài viết.
+// packages/ui = Base UI (dùng chung 2025 + 2026): Label/CheckboxItem BẮT BUỘC nằm trong
+// <DropdownMenuGroup> — nếu không: "MenuGroupContext is missing" → card rỗng (khác Radix
+// cũ không đòi Group). defaultOpen để nội dung hiện sẵn; Content portal ra body nên config
+// đặt cardMode:single.
 export const PostActionsMenu = () => (
   <div style={{ display: 'flex', justifyContent: 'center', paddingTop: 24, minHeight: 380 }}>
-    <DropdownMenu open>
-      <DropdownMenuTrigger asChild>
-        <Button variant='outline'>Tùy chọn bài viết</Button>
-      </DropdownMenuTrigger>
+    <DropdownMenu defaultOpen>
+      <DropdownMenuTrigger render={<Button variant='outline'>Tùy chọn bài viết</Button>} />
       <DropdownMenuContent align='start' style={{ width: 224 }}>
-        <DropdownMenuLabel>Hành động</DropdownMenuLabel>
-        <DropdownMenuItem>
-          Sao chép link
-          <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>Chia sẻ</DropdownMenuItem>
-        <DropdownMenuItem>Chỉnh sửa</DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Hành động</DropdownMenuLabel>
+          <DropdownMenuItem>
+            Sao chép link
+            <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
+          </DropdownMenuItem>
+          <DropdownMenuItem>Chia sẻ</DropdownMenuItem>
+          <DropdownMenuItem>Chỉnh sửa</DropdownMenuItem>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem checked>Hiện mục lục</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem>Ghim lên đầu trang</DropdownMenuCheckboxItem>
+        <DropdownMenuGroup>
+          <DropdownMenuCheckboxItem checked>Hiện mục lục</DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem>Ghim lên đầu trang</DropdownMenuCheckboxItem>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant='destructive'>
-          Xóa bài viết
-          <DropdownMenuShortcut>⌫</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuItem variant='destructive'>
+            Xóa bài viết
+            <DropdownMenuShortcut>⌫</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   </div>

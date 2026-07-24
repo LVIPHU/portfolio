@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "jsxFactory": "globalThis.React.createElement",
+    "jsxFragmentFactory": "globalThis.React.Fragment",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "baseUrl": "../apps/2026",
+    "paths": {
+      "next/image": ["../../.design-sync/shims/next-image.tsx"],
+      "next/link": ["../../.design-sync/shims/next-link.tsx"],
+      "next/navigation": ["../../.design-sync/shims/next-navigation.ts"],
+      "web-2025": ["./.design-sync.entry.tsx"],
+      "web-2026": ["./.design-sync.entry.tsx"],
+      "@/lib/utils": ["./src/lib/utils.ts"],
+      "@/*": ["./src/*"]
+    }
+  }
+}

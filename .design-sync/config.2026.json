@@ -1,0 +1,75 @@
+{
+  "projectId": "dc0c0939-0f5c-4409-87d4-2a38ca0d3b5e",
+  "shape": "package",
+  "pkg": "web-2026",
+  "globalName": "Web2026UI",
+  "entry": "apps/2026/.design-sync.entry.tsx",
+  "srcDir": "src/components",
+  "tsconfig": "../../.design-sync/tsconfig.dsync.2026.json",
+  "cssEntry": ".ds-css/css2026.css",
+  "buildCmd": "node .design-sync/gen-entry-2026.mjs && node .design-sync/refresh-css-2026.mjs",
+  "provider": {
+    "component": "DsTheme2026"
+  },
+  "componentSrcMap": {
+    "Avatar": "../../packages/ui/src/components/avatar.tsx",
+    "Badge": "../../packages/ui/src/components/badge.tsx",
+    "Button": "../../packages/ui/src/components/button.tsx",
+    "Card": "../../packages/ui/src/components/card.tsx",
+    "Dialog": "../../packages/ui/src/components/dialog.tsx",
+    "Drawer": "../../packages/ui/src/components/drawer.tsx",
+    "DropdownMenu": "../../packages/ui/src/components/dropdown-menu.tsx",
+    "Form": "../../packages/ui/src/components/form.tsx",
+    "HoverCard": "../../packages/ui/src/components/hover-card.tsx",
+    "Input": "../../packages/ui/src/components/input.tsx",
+    "Label": "../../packages/ui/src/components/label.tsx",
+    "Pagination": "../../packages/ui/src/components/pagination.tsx",
+    "Popover": "../../packages/ui/src/components/popover.tsx",
+    "ScrollArea": "../../packages/ui/src/components/scroll-area.tsx",
+    "Select": "../../packages/ui/src/components/select.tsx",
+    "Separator": "../../packages/ui/src/components/separator.tsx",
+    "Tabs": "../../packages/ui/src/components/tabs.tsx",
+    "Textarea": "../../packages/ui/src/components/textarea.tsx",
+    "ToggleGroup": "../../packages/ui/src/components/toggle-group.tsx",
+    "Toggle": "../../packages/ui/src/components/toggle.tsx",
+    "Tooltip": "../../packages/ui/src/components/tooltip.tsx",
+    "FelixHeroMark": "src/components/showcase/felix-mark.tsx",
+    "ListItem": "src/components/showcase/effects/list-item.tsx",
+    "Marquee": "src/components/showcase/effects/marquee.tsx",
+    "AppearTitle": "src/components/showcase/effects/appear-title.tsx",
+    "ShowcaseCard": "src/components/showcase/effects/card.tsx"
+  },
+  "overrides": {
+    "Dialog": {
+      "cardMode": "single",
+      "primaryStory": "DeletePostConfirm"
+    },
+    "Drawer": {
+      "cardMode": "single",
+      "primaryStory": "ShareArticleDrawer"
+    },
+    "HoverCard": {
+      "cardMode": "single",
+      "primaryStory": "AuthorProfileCard"
+    },
+    "Popover": {
+      "cardMode": "single",
+      "primaryStory": "SharePostPopover"
+    },
+    "Select": {
+      "cardMode": "single",
+      "primaryStory": "OpenLanguagePicker"
+    },
+    "Tooltip": {
+      "cardMode": "single",
+      "primaryStory": "SaveArticleTooltip"
+    },
+    "DropdownMenu": {
+      "cardMode": "single",
+      "primaryStory": "PostActionsMenu"
+    },
+    "ShowcaseCard": {
+      "cardMode": "column"
+    }
+  }
+}
