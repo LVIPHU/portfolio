@@ -7,6 +7,8 @@ import { Marquee } from '@/components/showcase/effects/marquee'
 import { ListItem } from '@/components/showcase/effects/list-item'
 import { PostRow } from '@/components/post-row'
 import { FelixHeroMark } from '@/components/showcase/felix-mark'
+import { Intro } from '@/components/showcase/intro'
+import { EarthBackground } from '@/components/three/earth-background'
 import { formatDate, t } from '@/lib/utils'
 
 export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -18,28 +20,43 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
 
   return (
     <div className='flex flex-col gap-24'>
-      {/* Hero */}
-      <section className='flex min-h-[70svh] flex-col justify-center py-8'>
-        <p className='p-s text-muted-foreground'>{tHome('greeting')}</p>
+      {/* Intro chỉ ở trang chủ (và /about bên showcase) — không phải mọi route */}
+      <Intro />
+      {/* Trái Đất đậu góc phải-dưới hero (pose y hệt /about), mờ dần khi cuộn qua hero.
+          withStars/withLeva=false vì layout (main) đã có canvas sao + panel Leva riêng. */}
+      <EarthBackground variant='hero' withStars={false} withLeva={false} />
+      {/* Hero full-bleed: phá lề của <main> để bắt đầu ngay đỉnh viewport, rồi tự đặt
+          lề bằng token wordmark → chữ FELIX nằm chồng khít vị trí chữ trong tấm intro.
+          Wordmark ở trên, phần còn lại dồn xuống đáy (bố cục lenis). */}
+      <section
+        className='flex h-[100svh] flex-col justify-between'
+        style={{
+          marginTop: 'calc(-1 * var(--spacing) * 10)',
+          marginInline: 'calc(-1 * var(--safe))',
+          padding: 'var(--wordmark-top) var(--wordmark-inset)',
+        }}
+      >
         {/* Wordmark FELIX (blackletter) — tên đầy đủ vẫn ở nav/footer/metadata */}
-        <h1 className='mt-3 block w-full'>
+        <h1 className='block w-full'>
           <FelixHeroMark fill='var(--primary)' label={profile.name} />
         </h1>
-        <p className='h3 text-primary mt-4'>{t(profile.title, locale)}</p>
-        <p className='p text-muted-foreground mt-6 max-w-xl'>{t(profile.tagline, locale)}</p>
-        <div className='mt-10 flex flex-wrap gap-3'>
-          <Link
-            href='/projects'
-            className='p-s bg-primary text-primary-foreground inline-flex items-center gap-2 px-5 py-3 transition-opacity hover:opacity-80'
-          >
-            {tHome('viewProjects')} <ArrowRight className='h-4 w-4' />
-          </Link>
-          <Link
-            href='/contact'
-            className='p-s border-primary text-foreground hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2 border px-5 py-3 transition-colors'
-          >
-            {tHome('contactMe')}
-          </Link>
+        <div>
+          <p className='h3 text-primary'>{t(profile.title, locale)}</p>
+          <p className='p text-muted-foreground mt-6 max-w-xl'>{t(profile.tagline, locale)}</p>
+          <div className='mt-10 flex flex-wrap gap-3'>
+            <Link
+              href='/projects'
+              className='p-s bg-primary text-primary-foreground inline-flex items-center gap-2 px-5 py-3 transition-opacity hover:opacity-80'
+            >
+              {tHome('viewProjects')} <ArrowRight className='h-4 w-4' />
+            </Link>
+            <Link
+              href='/contact'
+              className='p-s border-primary text-foreground hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2 border px-5 py-3 transition-colors'
+            >
+              {tHome('contactMe')}
+            </Link>
+          </div>
         </div>
       </section>
 

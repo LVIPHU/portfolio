@@ -125,13 +125,14 @@ export function Stars({ depth = 500 }: { depth?: number }) {
     [count, scale]
   )
 
-  // Giá trị khởi tạo cho lúc dựng material (three CLONE object này khi tạo material).
+  // Giá trị khởi tạo cho lúc dựng material — chỉ là khung; giá trị thật do useFrame
+  // ghi mỗi frame (three CLONE object này khi tạo material nên đừng mutate nó).
   const initialUniforms = useMemo(
     () => ({
       uTime: { value: 0 },
       uScroll: { value: 0 },
-      uParallax: { value: 400 },
-      uColor: { value: new Color('#FFE1BE') },
+      uParallax: { value: 0 },
+      uColor: { value: new Color('#000') },
       uResolution: { value: new Vector2(1, 1) },
     }),
     []
@@ -146,21 +147,16 @@ export function Stars({ depth = 500 }: { depth?: number }) {
     if (u?.[key]) u[key].value = value
   }
 
-  useEffect(() => {
-    const u = material.current?.uniforms
-    if (u) u.uColor.value = new Color(color)
-  }, [color])
+  const colorObj = useMemo(() => new Color(color), [color])
 
+  // Nguồn scroll: listener 'scroll' thuần ghi vào ref (Lenis cuộn native nên scrollY
+  // là giá trị đã mượt). KHÔNG dùng useLenis ở đây — r3f là reconciler riêng, context
+  // của ReactLenis không xuyên qua <Canvas>.
+  const scrollRef = useRef(0)
   useEffect(() => {
-    setUniform('uParallax', parallax)
-  }, [parallax])
-
-  // Nguồn scroll: listener 'scroll' thuần (Lenis cuộn native nên scrollY là giá trị đã
-  // mượt). KHÔNG dùng useLenis ở đây — r3f là reconciler riêng, context của ReactLenis
-  // không xuyên qua <Canvas>. Dùng event thay vì đọc trong useFrame để giá trị vẫn đúng
-  // kể cả khi rAF bị treo, và để đo được bằng script.
-  useEffect(() => {
-    const onScroll = () => setUniform('uScroll', window.scrollY)
+    const onScroll = () => {
+      scrollRef.current = window.scrollY
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -188,6 +184,9 @@ export function Stars({ depth = 500 }: { depth?: number }) {
       }
     }
     w.__starsProbe = (scrollValue: number) => {
+      // ghi cả ref lẫn uniform: useFrame sẽ ghi đè từ ref ở frame sau, còn render
+      // thủ công ngay dưới đây dùng giá trị vừa set
+      scrollRef.current = scrollValue
       setUniform('uScroll', scrollValue)
       gl.render(scene, camera)
       const ctx = gl.getContext()
@@ -214,10 +213,17 @@ export function Stars({ depth = 500 }: { depth?: number }) {
     }
   }, [gl, scene, camera])
 
+  // MỌI uniform đồng bộ tại đây, mỗi frame — một nguồn duy nhất. Lý do quan trọng:
+  // đổi count/size/scale/drift (leva) làm <points> remount theo key → material MỚI
+  // clone từ initialUniforms; nếu đồng bộ bằng effect theo dep [color]/[parallax] thì
+  // effect không re-run (dep không đổi) → material mới kẹt giá trị khởi tạo.
   useFrame(({ clock, viewport }) => {
     const u = material.current?.uniforms
     if (!u) return
     u.uTime.value = clock.elapsedTime
+    u.uScroll.value = scrollRef.current
+    u.uParallax.value = parallax
+    u.uColor.value.copy(colorObj)
     // cập nhật mỗi frame — chống kẹt giá trị khởi tạo khi canvas fixed đo trễ lúc mount
     u.uResolution.value.set(viewport.width, viewport.height)
   })

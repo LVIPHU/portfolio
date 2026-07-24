@@ -9,7 +9,7 @@
   position: relative;
   width: 100%;
   /* khớp FELIX_VIEWBOX → layout chỉ chiếm chiều cao MỘT dòng chữ dù có 2 lớp */
-  aspect-ratio: 1360 / 357;
+  aspect-ratio: 1401 / 368;
   margin: 0;
   line-height: 0;
 }
@@ -23,18 +23,23 @@
   height: auto;
 }
 
+/* Trạng thái NGHỈ (không có intro): E/I chồng khít lớp trên bằng top:0 — KHÔNG dùng
+   transform. transform 3D ở trạng thái nghỉ ép tạo compositing layer vĩnh viễn: trên
+   màn DPI lẻ (125%) layer bị raster ở độ phân giải thấp rồi phóng lên → riêng E/I rỗ
+   viền, còn F/L/X nét. Ngoài ra top:100% + translate(-100%) là hai phép làm tròn độc
+   lập (theo .mark và theo <svg>) nên còn lệch sub-pixel. */
 .ei {
-  top: 100%;
-  transform: translate3d(0, -100%, 0); /* đã ghép */
+  top: 0;
 }
 
-/* đang chạy intro: E/I nằm chờ ở dòng dưới */
+/* Đang chạy intro: E/I nằm chờ ở dòng dưới (đây là lúc DUY NHẤT cần transform) */
 :global(html.intro-running) .ei {
-  transform: none;
+  top: 100%;
 }
 
-/* intro báo xong phần chữ → trồi lên ghép, đúng nhịp lenis (1500ms ease-out-expo) */
+/* intro báo xong phần chữ → trồi lên ghép, đúng nhịp lenis */
 :global(html.intro-running.intro-out) .ei {
+  top: 100%;
   transform: translate3d(0, -100%, 0);
-  transition: transform 1500ms var(--ease-out-expo);
+  transition: transform var(--intro-dur, 1500ms) var(--ease-out-expo);
 }

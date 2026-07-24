@@ -9,8 +9,6 @@
   z-index: 1000;
   background-color: var(--color-primary, rgb(255, 201, 122));
   overflow: hidden;
-  /* padding dọc của .inner — dùng lại trong công thức ghép chữ ở .translate */
-  --intro-pad: calc(((30 * 100) / var(--device-width)) * 1vw);
 }
 
 /* Bỏ qua intro bằng CSS THUẦN (không script, không class trên <html> — class đó bị
@@ -29,23 +27,27 @@
 
 .wrapper.out {
   transform: translate3d(0, -100%, 0);
-  transition: transform 1500ms var(--ease-out-expo);
-  transition-delay: 1500ms;
+  transition: transform var(--intro-dur, 1500ms) var(--ease-out-expo);
+  transition-delay: var(--intro-dur, 1500ms);
 }
 
 .inner {
   height: 100%;
-  padding: var(--intro-pad) calc(((32.5 * 100) / var(--device-width)) * 1vw);
+  /* CÙNG token với hero 2 trang (globals.css) → chữ intro và chữ hero chồng khít */
+  padding: var(--wordmark-top) var(--wordmark-inset);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-/* khối chữ trượt xuống theo sau khi intro kết thúc (như .relative của lenis) */
+/* Khối chữ trượt XUỐNG đúng 100vh trong khi tấm phủ trượt LÊN 100vh → hai chuyển
+   động triệt tiêu nhau, chữ đứng yên tuyệt đối còn tấm amber rời đi (ý đồ của lenis:
+   $desktop-height của họ = 850 nên desktop-vh(850px) ≡ 100vh; bản port từng giữ hằng
+   850 với --device-height 816 nên chữ trôi thừa 34px đúng lúc reveal). */
 .inner.relative {
-  transform: translate3d(0, calc(((850 * 100) / var(--device-height)) * 1vh), 0);
-  transition: transform 1500ms var(--ease-out-expo);
-  transition-delay: 1500ms;
+  transform: translate3d(0, 100vh, 0);
+  transition: transform var(--intro-dur, 1500ms) var(--ease-out-expo);
+  transition-delay: var(--intro-dur, 1500ms);
 }
 
 /* trạng thái ẩn ban đầu của từng ký tự */
@@ -56,7 +58,7 @@
 /* ký tự trượt vào, so le theo --index */
 .show {
   transform: translate3d(0, 0, 0);
-  transition: transform 1500ms var(--ease-out-expo);
+  transition: transform var(--intro-dur, 1500ms) var(--ease-out-expo);
   transition-delay: calc(var(--index) * 75ms);
 }
 
@@ -71,6 +73,6 @@
    phải đi = 100vh − 2×padding − chiều cao lớp; translate % lấy theo chính lớp đó (100%).
    Hero phía sau ghép cùng nhịp nhờ class html.intro-out. */
 .translate {
-  transform: translate3d(0, calc(-100vh + 2 * var(--intro-pad) + 100%), 0);
-  transition: transform 1500ms var(--ease-out-expo);
+  transform: translate3d(0, calc(-100vh + 2 * var(--wordmark-top) + 100%), 0);
+  transition: transform var(--intro-dur, 1500ms) var(--ease-out-expo);
 }

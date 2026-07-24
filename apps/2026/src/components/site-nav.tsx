@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Menu, X } from 'lucide-react'
 import { Link, usePathname } from '@/i18n/navigation'
@@ -23,6 +23,20 @@ export function SiteNav({ name }: { name: string }) {
   const t = useTranslations('nav')
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const isHome = pathname === '/'
+
+  // Trang chủ: hero là wordmark FELIX chiếm trọn đỉnh màn hình, phải khớp chồng khít
+  // với chữ trong tấm intro → nav không được chiếm chỗ lẫn che chữ. Nav trốn lên trên
+  // khi đang ở đỉnh trang và trượt vào khi bắt đầu cuộn (CSS chỉ áp từ 800px trở lên —
+  // mobile không có intro, mà ẩn nav ở mobile thì không mở được menu).
+  useEffect(() => {
+    if (!isHome) return
+    const onScroll = () => setScrolled(window.scrollY > 80)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [isHome])
 
   function isActive(href: string) {
     if (href === '/') return pathname === '/'
@@ -30,7 +44,14 @@ export function SiteNav({ name }: { name: string }) {
   }
 
   return (
-    <header className='bg-background/80 sticky top-0 z-50 border-b backdrop-blur'>
+    <header
+      data-home={isHome || undefined}
+      data-hidden={(isHome && !scrolled) || undefined}
+      className={cn(
+        'bg-background/80 z-50 border-b backdrop-blur',
+        isHome ? 'sticky top-0 min-[800px]:fixed min-[800px]:inset-x-0' : 'sticky top-0'
+      )}
+    >
       <div className='flex h-14 w-full items-center justify-between gap-4' style={{ paddingInline: 'var(--safe)' }}>
         <Link href='/' className='p-s hover:text-primary transition-colors'>
           {name}

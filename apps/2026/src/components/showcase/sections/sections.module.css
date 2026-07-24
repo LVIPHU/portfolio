@@ -1,12 +1,13 @@
 /* ============ HERO ============ */
+/* Lề trên/ngang lấy đúng token wordmark → chữ FELIX của hero nằm CHỒNG KHÍT vị trí
+   chữ trong tấm intro (showcase không render nav nên không phải trừ --header-height). */
 .hero {
   position: relative;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--safe);
-  padding-top: calc(var(--header-height) + var(--safe));
+  padding: var(--wordmark-top) var(--wordmark-inset) var(--safe);
 }
 .heroTop {
   display: flex;
