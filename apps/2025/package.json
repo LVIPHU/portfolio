@@ -16,7 +16,7 @@
     "db:init": "npm run db:generate && npm run db:push",
     "db:studio": "npx drizzle-kit studio --port 8088",
     "typecheck": "tsc --noEmit",
-    "predev": "node scripts/sync-content-assets.mjs && tsx scripts/generate-content-json.ts",
+    "predev": "node scripts/clean-dev-cache.mjs && node scripts/sync-content-assets.mjs && tsx scripts/generate-content-json.ts",
     "prebuild": "node scripts/sync-content-assets.mjs && tsx scripts/generate-content-json.ts"
   },
   "dependencies": {

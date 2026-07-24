@@ -22,6 +22,9 @@ ds-bundle/
 .design-sync/node_modules
 apps/2025/.design-sync.entry.tsx
 apps/2025/.ds-css/
+apps/2026/.design-sync.entry.tsx
+apps/2026/.ds-css/
+ds-bundle-2026/
 
 # misc
 .DS_Store
@@ -34,3 +37,4 @@ apps/2025/.ds-css/
 !.env.example
 
 .vercel
+.next-build/

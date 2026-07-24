@@ -55,6 +55,10 @@ const securityHeaders = [
 
 // Next 16: object thuần (C7, D-04) — không còn reduce qua plugin wrapper
 const nextConfig: NextConfig = {
+  // Build LOCAL ghi ra .next-build, không đụng .next của dev server. Chỉ dùng .next-build
+  // khi CHẮC CHẮN build local (NODE_ENV=production và không CI/Vercel); mọi trường hợp
+  // khác → .next. Fail-safe về .next để không bao giờ ghi nhầm chỗ làm hỏng deploy Vercel.
+  distDir: process.env.NODE_ENV === 'production' && !process.env.VERCEL && !process.env.CI ? '.next-build' : '.next',
   reactStrictMode: true,
   // C10 (D-01): React Compiler stable trong Next 16 — memo tự động (babel pass).
   reactCompiler: true,
