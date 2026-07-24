@@ -1,38 +1,38 @@
 /* Phần scoped riêng cho trang showcase (.showcase-root).
-   Tokens chung + typography (vw-scaling) đã chuyển GLOBAL vào app/globals.css. */
+   Tokens chung + typography (vw-scaling) đã chuyển GLOBAL vào app/globals.css.
+   Màu ở đây CHỈ tham chiếu palette token (--color-*) — đổi brand thì đổi một chỗ
+   trong globals.css, không sửa file này. */
 
 .showcase-root {
-  --color-black: rgb(0, 0, 0);
-  --color-black-transparent: rgba(0, 0, 0, 0);
-  --color-white: rgb(239, 239, 239);
-  --color-white-transparent: rgba(239, 239, 239, 0);
-  --color-primary: rgb(255, 201, 122);
-  --color-primary-transparent: rgba(255, 201, 122, 0);
+  /* alias giữ tương thích với các module cũ dùng --color-primary */
+  --color-primary: var(--color-amber);
+  --color-primary-transparent: var(--color-amber-transparent);
 
   font-family: var(--font-roboto);
 }
 
-/* themes (scoped) — flip 4 var + set chữ. Nền để trên layer .showcase-bg (sau canvas Earth).
-   Ghi đè bridge --theme-* toàn cục cho phần showcase (zoom flip dark→light). */
+/* themes (scoped) — bộ ba primary/secondary/contrast kiểu _themes.scss của lenis.
+   Nền để trên layer .showcase-bg (sau canvas Earth); ghi đè bridge --theme-* toàn cục
+   cho phần showcase (zoom flip dark→light). */
 .showcase-root[data-theme='light'] {
-  --theme-primary: rgb(239, 239, 239);
-  --theme-secondary: rgb(0, 0, 0);
-  --theme-contrast: rgb(255, 201, 122);
-  --theme-primary-transparent: rgba(239, 239, 239, 0);
+  --theme-primary: var(--color-white);
+  --theme-secondary: var(--color-black);
+  --theme-contrast: var(--color-amber);
+  --theme-primary-transparent: var(--color-white-transparent);
   color: var(--theme-secondary);
 }
 .showcase-root[data-theme='dark'] {
-  --theme-primary: rgb(0, 0, 0);
-  --theme-secondary: rgb(239, 239, 239);
-  --theme-contrast: rgb(255, 201, 122);
-  --theme-primary-transparent: rgba(0, 0, 0, 0);
+  --theme-primary: var(--color-black);
+  --theme-secondary: var(--color-white);
+  --theme-contrast: var(--color-amber);
+  --theme-primary-transparent: var(--color-black-transparent);
   color: var(--theme-secondary);
 }
 .showcase-root[data-theme='contrast'] {
-  --theme-primary: rgb(255, 201, 122);
-  --theme-secondary: rgb(0, 0, 0);
-  --theme-contrast: rgb(239, 239, 239);
-  --theme-primary-transparent: rgba(255, 201, 122, 0);
+  --theme-primary: var(--color-amber);
+  --theme-secondary: var(--color-black);
+  --theme-contrast: var(--color-white);
+  --theme-primary-transparent: var(--color-amber-transparent);
   color: var(--theme-secondary);
 }
 
