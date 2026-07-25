@@ -19,8 +19,10 @@
 //     texture vẫn mượn từ GLB nên không thêm file ảnh nào.
 //   • Bỏ tầng khí quyển (nhìn từ không gian không thấy) và bỏ wireframe mode.
 //
-// themeMix tự đọc từ .showcase-root[data-theme] → không cần sửa earth-canvas cho theme.
-// Đèn: xem handoff/earth-canvas.lights.patch.md (3 giá trị leva).
+// themeMix tự đọc: ưu tiên .showcase-root[data-theme] (/about), nếu trang không có thì
+// theo class của next-themes trên <html> (trang chủ) → không cần sửa earth-canvas cho theme.
+// Đèn nằm ở earth-canvas.tsx (leva 'earth'): ambient 0.40 / key 0.90 / fill 0.38 — key 1.1
+// làm cháy vùng sáng của vàng kim.
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useGLTF, useTexture } from '@react-three/drei'
