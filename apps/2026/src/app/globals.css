@@ -45,6 +45,9 @@
      phải lật sang bản đậm ở light để chữ nhỏ/UI còn đọc được. Đây đúng cách lenis làm:
      số 01–07 của họ dùng thẳng pink thương hiệu trên nền sáng (1.78:1) vì là trang trí. */
   --theme-display: var(--color-gold);
+  /* Xám phụ THEO THEME. --color-grey (#B0B0B0) chỉ đúng trên nền đen (9.68:1); trên nền
+     sáng nó rơi xuống 1.89:1, thua cả ngưỡng 3:1 của chữ lớn. */
+  --theme-grey: rgb(92, 92, 92);
   --theme-primary-transparent: rgba(239, 239, 239, 0);
 
   /* ---- design tokens dùng chung toàn site (vw-scaling, base mobile 375) ---- */
@@ -167,6 +170,7 @@
   --popover: rgb(14 14 14);
   --popover-foreground: rgb(239 239 239);
 
+  --theme-grey: var(--color-grey);
   --theme-primary-transparent: rgba(0, 0, 0, 0);
 }
 
@@ -370,7 +374,10 @@
 
 /* helpers */
 .grey {
-  color: var(--color-grey);
+  /* --theme-grey chứ không phải --color-grey: xám cố định chỉ đọc được trên nền tối.
+     Showcase lật data-theme độc lập với class dark/light của <html> nên token này được
+     khai lại trong showcase/theme.css cho từng theme. */
+  color: var(--theme-grey);
 }
 .contrast {
   color: var(--theme-contrast);

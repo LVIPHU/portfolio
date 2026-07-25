@@ -14,7 +14,10 @@
   width: 100%;
   height: calc(((4 * 100) / var(--device-width)) * 1vw);
   min-height: 3px;
-  background-color: var(--color-primary);
+  /* --theme-contrast chứ KHÔNG phải --color-primary — cùng lý do đã sửa ở cursor.module.css:
+     theme.css ghim --color-primary cứng bằng gold, không lật theo data-theme, nên trên nửa
+     light của /about thanh cuộn chỉ đạt 1.69:1 và tan vào nền. */
+  background-color: var(--theme-contrast);
   transform: scaleX(0);
   transform-origin: 0 50%;
 }

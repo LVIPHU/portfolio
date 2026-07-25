@@ -60,7 +60,7 @@
     display: block;
     width: 2px;
     height: calc(((40 * 100) / var(--device-width)) * 1vw);
-    background-color: var(--color-primary);
+    background-color: var(--theme-contrast);
     transform-origin: top;
     animation: scrollbar 2.4s var(--ease-in-out-quad) infinite;
   }
@@ -85,7 +85,7 @@
   text-transform: uppercase;
   line-height: 200%;
   padding: 0 calc(((16 * 100) / var(--device-width)) * 1vw);
-  border: 1px solid var(--color-primary);
+  border: 1px solid var(--theme-contrast);
   color: var(--theme-secondary);
   transition:
     background-color 0.4s var(--ease-out-expo),
@@ -99,17 +99,20 @@
 }
 @media (hover: hover) {
   .btn:hover {
-    background-color: var(--color-primary);
-    color: var(--color-black);
+    background-color: var(--theme-contrast);
+    color: var(--theme-primary);
   }
 }
 /* .btn.btnFilled chứ KHÔNG phải .btnFilled: theme.css có `.showcase-root a { color: inherit }`
    với specificity (0,1,1), thắng một class đơn (0,1,0) — nên chữ đen ở đây trước giờ chưa
    bao giờ được áp, nút ra chữ TRẮNG trên nền gold (tương phản 1.04, gần như vô hình).
-   Hai class = (0,2,0) mới thắng được. */
+   Hai class = (0,2,0) mới thắng được.
+   Nền + chữ phải đi CẶP theo theme: --theme-contrast không cùng độ sáng ở hai theme
+   (dark #DFB454, light #8F6200) nên chữ đen cứng sẽ tụt xuống 3.92:1 ở light.
+     light: #EFEFEF trên #8F6200 = 4.66:1  |  dark: #000 trên #DFB454 = 10.79:1 */
 .btn.btnFilled {
-  background-color: var(--color-primary);
-  color: var(--color-black);
+  background-color: var(--theme-contrast);
+  color: var(--theme-primary);
 }
 
 /* ============ ABOUT (why) ============ */
