@@ -124,9 +124,9 @@ function Earth({ pose, fade }: { pose: MutableRefObject<Pose>; fade: MutableRefO
       rotateSpeed: { value: 0.1, min: 0, max: 1, step: 0.01 },
       // đèn TRẮNG ẤM chỉ để tạo khối — màu amber do lục địa/rim tự phát sáng lo;
       // đèn amber đậm + ambient cao là nguyên nhân quả cầu từng bị "cam đặc"
-      ambient: { value: 0.35, min: 0, max: 3, step: 0.05 },
-      keyIntensity: { value: 1.1, min: 0, max: 5, step: 0.1 },
-      fillIntensity: { value: 0.35, min: 0, max: 3, step: 0.05 },
+      ambient: { value: 0.4, min: 0, max: 3, step: 0.05 },
+      keyIntensity: { value: 0.9, min: 0, max: 5, step: 0.1 },
+      fillIntensity: { value: 0.38, min: 0, max: 3, step: 0.05 },
       lightColor: '#FFF3E2',
     }
   )
