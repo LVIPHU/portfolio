@@ -6,7 +6,10 @@ export default function NotFound() {
 
   return (
     <div className='flex min-h-[70svh] flex-col items-center justify-center gap-6 py-24 text-center'>
-      <p className='h1 text-primary'>404</p>
+      {/* 404 cỡ h1 = trang trí, dùng gold thương hiệu thay vì bản đậm */}
+      <p className='h1' style={{ color: 'var(--theme-display)' }}>
+        404
+      </p>
       <h1 className='h3'>{t('title')}</h1>
       <p className='p text-muted-foreground'>{t('description')}</p>
       <Link

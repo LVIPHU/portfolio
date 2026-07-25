@@ -28,7 +28,7 @@ export function ZoomSection({ first, enter, second }: { first: string; enter: st
     if (root) root.setAttribute('data-theme', p2 >= 1 ? 'light' : 'dark')
   })
 
-  // Nhấn amber vào TỪ CUỐI của dòng đầu (chữ zoom giữ màu xám để wipe trắng là nhân vật chính)
+  // Nhấn gold vào TỪ CUỐI của dòng đầu (chữ zoom giữ màu xám để wipe trắng là nhân vật chính)
   const lastSpace = first.trim().lastIndexOf(' ')
   const firstHead = lastSpace > 0 ? first.trim().slice(0, lastSpace) : ''
   const firstAccent = lastSpace > 0 ? first.trim().slice(lastSpace + 1) : first.trim()

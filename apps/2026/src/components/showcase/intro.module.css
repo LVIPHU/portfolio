@@ -7,7 +7,7 @@
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background-color: var(--color-primary, rgb(255, 201, 122));
+  background-color: var(--color-primary, rgb(223, 180, 84));
   overflow: hidden;
 }
 
@@ -41,7 +41,7 @@
 }
 
 /* Khối chữ trượt XUỐNG đúng 100vh trong khi tấm phủ trượt LÊN 100vh → hai chuyển
-   động triệt tiêu nhau, chữ đứng yên tuyệt đối còn tấm amber rời đi (ý đồ của lenis:
+   động triệt tiêu nhau, chữ đứng yên tuyệt đối còn tấm gold rời đi (ý đồ của lenis:
    $desktop-height của họ = 850 nên desktop-vh(850px) ≡ 100vh; bản port từng giữ hằng
    850 với --device-height 816 nên chữ trôi thừa 34px đúng lúc reveal). */
 .inner.relative {

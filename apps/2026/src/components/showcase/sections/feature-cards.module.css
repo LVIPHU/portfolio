@@ -10,6 +10,23 @@
   padding: var(--layout-margin);
 }
 
+/* Neo thị giác cho mảng card (lenis: aside.title). Mobile căn phải trên đầu, desktop ghim
+   góc phải-trên. z-index để nằm trên các card fan-in; .sticky đã overflow:hidden. */
+.title {
+  position: relative;
+  z-index: 1;
+  text-align: end;
+  padding-bottom: var(--layout-margin);
+}
+
+@media (min-width: 800px) {
+  .title {
+    position: absolute;
+    right: var(--layout-margin);
+    padding: 0;
+  }
+}
+
 .card {
   position: absolute;
   will-change: transform;

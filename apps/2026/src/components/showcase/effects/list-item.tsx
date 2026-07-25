@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 import s from './list-item.module.css'
 
 // Port components/list-item: hàng dự án (title + source + mũi tên), reveal theo `visible` (parent),
-// hover fill hồng. Mũi tên = SVG chéo generic.
+// hover fill gold (chữ lật sang đen, xem list-item.module.css). Mũi tên = SVG chéo generic.
 export function ListItem({
   title,
   source,

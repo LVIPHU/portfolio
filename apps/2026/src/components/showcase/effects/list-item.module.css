@@ -10,6 +10,8 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  /* đổi màu cùng nhịp với tấm fill trượt lên (.item::before, 600ms) */
+  transition: color 600ms var(--ease-out-expo);
 }
 
 .item::after {
@@ -118,6 +120,15 @@
   .item:hover::before {
     transform: scaleY(1);
     transform-origin: bottom;
+  }
+  /* Tấm fill là --theme-contrast (gold) — SÁNG ở CẢ dark lẫn light theme, nên chữ phải
+     ĐEN ở cả hai. Vì vậy dùng thẳng --color-black: bộ ba --theme-* không có ô "màu chữ
+     nằm trên nền contrast", lấy --theme-primary sẽ ra TRẮNG ở light theme.
+     Đặt trên .inner (div) chứ không trên .item: .item là <a>, mà theme.css có
+     `.showcase-root a { color: inherit }` với specificity (0,1,1) sẽ đè mất.
+     Mũi tên dùng stroke="currentColor" nên ăn theo luôn. */
+  .item:hover .inner {
+    color: var(--color-black);
   }
   .item:hover .title {
     transform: translateX(calc(((16 * 100) / var(--device-width)) * 1vw));

@@ -38,10 +38,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       >
         {/* Wordmark FELIX (blackletter) — tên đầy đủ vẫn ở nav/footer/metadata */}
         <h1 className='block w-full'>
-          <FelixHeroMark fill='var(--primary)' label={profile.name} />
+          {/* --theme-display: gold thương hiệu ở CẢ hai theme. --primary phải lật sang
+              bản đậm ở light cho chữ nhỏ đọc được, dùng nó ở đây thì wordmark ra nâu. */}
+          <FelixHeroMark fill='var(--theme-display)' label={profile.name} />
         </h1>
         <div>
-          <p className='h3 text-primary'>{t(profile.title, locale)}</p>
+          <p className='h3' style={{ color: 'var(--theme-display)' }}>
+            {t(profile.title, locale)}
+          </p>
           <p className='p text-muted-foreground mt-6 max-w-xl'>{t(profile.tagline, locale)}</p>
           <div className='mt-10 flex flex-wrap gap-3'>
             <Link

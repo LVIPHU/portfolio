@@ -29,6 +29,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       ? { first: 'Biến ý tưởng', enter: 'thành', second: 'sản phẩm' }
       : { first: 'Turn ideas', enter: 'into', second: 'products' },
     featuringIntro: t(profile.bio[0], locale),
+    featuringTitle: (vi ? ['Mình quan tâm', 'điều gì'] : ['What I care', 'about']) as [string, string],
     featuringItems: vi
       ? [
           'Code sạch',

@@ -18,10 +18,16 @@
   position: absolute;
   transform: translate(-50%, -50%);
   border-radius: 100%;
-  border: 2px solid var(--color-primary);
+  /* --theme-contrast chứ KHÔNG phải --color-primary: theme.css gán --color-primary cứng
+     bằng gold thương hiệu, không đổi theo data-theme. Ở nửa light của /about, gold trên
+     nền #EFEFEF chỉ ~1.03:1 → vòng con trỏ tan vào nền, mà con trỏ native thì đã bị ẩn
+     (html.has-custom-cursor) → người dùng mất hẳn con trỏ trên ~1600vh nội dung.
+     --theme-contrast tự lật sang bản đậm #8F6200 ở light, giữ #DFB454 ở dark. */
+  border: 2px solid var(--theme-contrast);
   width: 40px;
   height: 40px;
-  opacity: 0.6;
+  /* 0.6 làm vòng nhạt thêm một nấc nữa; 0.85 đủ để đạt ngưỡng non-text 3:1 */
+  opacity: 0.85;
   transition: transform 600ms var(--ease-out-expo);
 }
 .cursor.pointer {

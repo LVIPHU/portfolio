@@ -103,7 +103,11 @@
     color: var(--color-black);
   }
 }
-.btnFilled {
+/* .btn.btnFilled chứ KHÔNG phải .btnFilled: theme.css có `.showcase-root a { color: inherit }`
+   với specificity (0,1,1), thắng một class đơn (0,1,0) — nên chữ đen ở đây trước giờ chưa
+   bao giờ được áp, nút ra chữ TRẮNG trên nền gold (tương phản 1.04, gần như vô hình).
+   Hai class = (0,2,0) mới thắng được. */
+.btn.btnFilled {
   background-color: var(--color-primary);
   color: var(--color-black);
 }

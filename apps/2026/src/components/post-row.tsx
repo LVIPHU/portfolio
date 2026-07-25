@@ -1,6 +1,6 @@
 import { Link } from '@/i18n/navigation'
 
-// Hàng bài viết kiểu showcase (border-dưới, hover amber) — dùng ở home + blog list.
+// Hàng bài viết kiểu showcase (border-dưới, hover gold) — dùng ở home + blog list.
 export function PostRow({
   slug,
   title,

@@ -5,11 +5,11 @@ import { useLenis } from 'lenis/react'
 import { FelixFLX, FelixEI } from './felix-mark'
 import s from './intro.module.css'
 
-// Intro kiểu lenis: tấm phủ amber, chữ FELIX đen trượt lên so le, E/I trồi lên ghép
+// Intro kiểu lenis: tấm phủ gold, chữ FELIX đen trượt lên so le, E/I trồi lên ghép
 // vào F-L-X thành chữ hoàn chỉnh, rồi cả tấm trượt khỏi màn hình.
 //
 // QUAN TRỌNG — overlay nằm NGAY TRONG HTML server trả về (không chờ hydrate): nếu chỉ
-// mount sau khi client chạy thì người dùng thấy nội dung trang trước rồi tấm amber mới
+// mount sau khi client chạy thì người dùng thấy nội dung trang trước rồi tấm gold mới
 // nhảy vào. Việc bỏ qua (mobile / reduced-motion) do CSS lo — KHÔNG dùng class trên
 // <html> trước paint vì React hydration xoá sạch class gắn kiểu đó.
 //

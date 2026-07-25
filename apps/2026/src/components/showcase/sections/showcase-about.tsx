@@ -27,6 +27,8 @@ export type AboutContent = {
   statement: { first: string; enter: string; second: string }
   featuringIntro: string
   featuringItems: string[]
+  /* [dòng 1, dòng 2] — dòng 2 render màu grey, kiểu title của lenis */
+  featuringTitle: [string, string]
   projectsHeading: string
   projects: { title: string; source: string; href: string }[]
   footerHeading: string
@@ -47,7 +49,7 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
         <div className={s.heroTop}>
           {/* Wordmark FELIX (blackletter) thay dòng tên — tên đầy đủ vẫn ở nav/footer/metadata */}
           <h1 className={s.heroMark}>
-            <FelixHeroMark fill='var(--color-primary)' label={content.name} />
+            <FelixHeroMark fill='var(--theme-display)' label={content.name} />
           </h1>
           <h2 className={`h3 contrast ${s.heroRole}`}>{content.role}</h2>
         </div>
@@ -109,7 +111,7 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
       {/* FEATURING (data-earth-step=5 — step 4 là marker cuối zoom) */}
       <section data-earth-step='5' data-theme='light' className={s.featuring}>
         <p className={`p-l ${s.featuringIntro}`}>{content.featuringIntro}</p>
-        <FeatureCards items={content.featuringItems} />
+        <FeatureCards items={content.featuringItems} title={content.featuringTitle} />
       </section>
 
       {/* PROJECTS (data-earth-step=6) */}
