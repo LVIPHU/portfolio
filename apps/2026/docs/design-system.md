@@ -1,7 +1,7 @@
 # Design System — Portfolio 2026 (phong cách lenis.dev)
 
 Hệ thiết kế của web-2026, port từ kiến trúc token của lenis-website (darkroom.engineering)
-sang CSS thuần + Tailwind v4, thay palette pink của lenis bằng **amber thương hiệu**.
+sang CSS thuần + Tailwind v4, thay palette pink của lenis bằng **gold thương hiệu**.
 Nguồn sự thật: `src/app/globals.css` (token toàn cục) + `src/components/showcase/theme.css`
 (theme bộ ba scoped cho showcase).
 
@@ -20,26 +20,45 @@ Nguồn sự thật: `src/app/globals.css` (token toàn cục) + `src/components
 
 ## Palette
 
-| Token           | Giá trị            | Vai trò                                            |
-| --------------- | ------------------ | -------------------------------------------------- |
-| `--color-black` | `rgb(0 0 0)`       | nền dark (mặc định)                                |
-| `--color-white` | `rgb(239 239 239)` | chữ trên dark / nền light — KHÔNG dùng trắng thuần |
-| `--color-grey`  | `rgb(176 176 176)` | chữ phụ, meta                                      |
-| `--color-amber` | `rgb(255 201 122)` | contrast thương hiệu (vai trò "pink" của lenis)    |
+| Token               | Giá trị            | Vai trò                                            |
+| ------------------- | ------------------ | -------------------------------------------------- |
+| `--color-black`     | `rgb(0 0 0)`       | nền dark (mặc định)                                |
+| `--color-white`     | `rgb(239 239 239)` | chữ trên dark / nền light — KHÔNG dùng trắng thuần |
+| `--color-grey`      | `rgb(176 176 176)` | chữ phụ, meta                                      |
+| `--color-gold`      | `rgb(223 180 84)`  | contrast thương hiệu (vai trò "pink" của lenis)    |
+| `--color-gold-deep` | `rgb(143 98 0)`    | bản đậm — CHỈ dùng ở light theme cho chữ/UI        |
 
 Mỗi màu có biến `-transparent` (alpha 0) cho gradient fade trên Safari.
-Light theme dùng amber đậm `rgb(178 116 24)` cho `--primary` (bản sáng của amber chỉ đạt
-~1.3:1 trên nền off-white — cấm dùng làm chữ trên nền sáng).
+Gold thương hiệu `#DFB454` = **bản sinh đôi cảm nhận của pink lenis**. Đổi `#FF98A2`
+sang OKLCH được L=0.789 / C=0.124 / H=14°; giữ nguyên L và C, chỉ xoay hue sang vàng.
+Nhờ vậy nó hành xử gần trùng khít lenis: **10.79** trên đen (pink 10.27) và **1.69**
+trên `#EFEFEF` (pink 1.78).
+
+Vật liệu quả cầu Earth **cố ý KHÁC**: giữ `#D4AF37` để còn chất kim loại/kintsugi. Đừng
+đồng bộ hai giá trị này.
+
+Light theme dùng gold ĐẬM `rgb(143 98 0)` cho `--primary` — cùng hue 41° với gold thương
+hiệu, bão hoà 100% (nên vẫn ra vàng, không ngả olive), đạt **4.66:1** trên nền off-white
+(WCAG AA cho chữ thường). Gold thương hiệu chỉ đạt 1.69:1 nên cấm dùng làm chữ nhỏ trên
+nền sáng — y như pink của lenis, vốn cũng không đọc được ở đó.
 
 ## Theme (bộ ba, kiểu lenis)
 
-| Theme             | primary (nền) | secondary (chữ) | contrast (nhấn) |
-| ----------------- | ------------- | --------------- | --------------- |
-| `dark` (mặc định) | black         | white           | amber           |
-| `light`           | white         | black           | amber           |
-| `contrast`        | amber         | black           | white           |
+| Theme             | primary (nền) | secondary (chữ) | contrast (nhấn) | display (trang trí) |
+| ----------------- | ------------- | --------------- | --------------- | ------------------- |
+| `dark` (mặc định) | black         | white           | gold            | gold                |
+| `light`           | white         | black           | **gold đậm**    | gold                |
+| `contrast`        | gold          | black           | white           | white               |
 
 Showcase: đặt `data-theme` trên `.showcase-root`. Selection luôn: nền contrast, chữ primary.
+
+**`--theme-contrast` vs `--theme-display`** — hai vai trò khác nhau, đừng lẫn:
+
+- `--theme-contrast`: chữ nhỏ, link, nút, nav, `::selection`, viền con trỏ. **Phải đọc
+  được**, nên ở light theme nó lật sang bản đậm.
+- `--theme-display`: chữ TRANG TRÍ cỡ lớn (wordmark FELIX, số 01–09 của FeatureCards, số
+  404). **Luôn là gold thương hiệu ở cả hai theme** để nhìn đâu cũng ra một màu. Chấp nhận
+  1.69:1 trên nền sáng vì là trang trí — đây đúng điều lenis làm với số 01–07 của họ.
 
 ## Typography
 
@@ -97,5 +116,7 @@ out-expo, đổi nền theme 0.6s out-expo.
 - Không px tĩnh cho kích thước/spacing (trừ border 1–4px).
 - Không cubic-bezier viết tay — dùng token.
 - Không trắng `#fff` thuần — luôn `--color-white` (#EFEFEF).
-- Không amber sáng làm chữ trên nền sáng (tương phản ~1.3:1).
+- Không gold thương hiệu làm chữ NHỎ trên nền sáng (1.69:1) — dùng `--primary` của light.
+  Chữ trang trí ≥40px thì dùng `--theme-display`, được phép.
+- Không một màu nào nổi tốt trên CẢ hai nền: giới hạn cân bằng tối đa là **4.27:1**.
 - Không gọi màu palette trực tiếp trong component showcase — đi qua `--theme-*`.

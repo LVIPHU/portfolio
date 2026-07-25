@@ -5,8 +5,8 @@
 
 .showcase-root {
   /* alias giữ tương thích với các module cũ dùng --color-primary */
-  --color-primary: var(--color-amber);
-  --color-primary-transparent: var(--color-amber-transparent);
+  --color-primary: var(--color-gold);
+  --color-primary-transparent: var(--color-gold-transparent);
 
   font-family: var(--font-roboto);
 }
@@ -17,22 +17,30 @@
 .showcase-root[data-theme='light'] {
   --theme-primary: var(--color-white);
   --theme-secondary: var(--color-black);
-  --theme-contrast: var(--color-amber);
+  /* gold ĐẬM, không phải gold pastel: nền light là --color-white (#EFEFEF), gold pastel
+     trên đó chỉ 1.04:1 → số 01–09 của FeatureCards, gạch .aboutSticky, ::selection và
+     vòng con trỏ đều biến mất. Dark theme (dưới) vẫn dùng bản pastel, 17.6:1. */
+  --theme-contrast: var(--color-gold-deep);
+  /* trang trí cỡ lớn: giữ NGUYÊN gold thương hiệu để đồng bộ với dark theme */
+  --theme-display: var(--color-gold);
   --theme-primary-transparent: var(--color-white-transparent);
   color: var(--theme-secondary);
 }
 .showcase-root[data-theme='dark'] {
   --theme-primary: var(--color-black);
   --theme-secondary: var(--color-white);
-  --theme-contrast: var(--color-amber);
+  --theme-contrast: var(--color-gold);
+  --theme-display: var(--color-gold);
   --theme-primary-transparent: var(--color-black-transparent);
   color: var(--theme-secondary);
 }
 .showcase-root[data-theme='contrast'] {
-  --theme-primary: var(--color-amber);
+  --theme-primary: var(--color-gold);
   --theme-secondary: var(--color-black);
   --theme-contrast: var(--color-white);
-  --theme-primary-transparent: var(--color-amber-transparent);
+  /* theme này lấy gold LÀM NỀN nên trang trí phải là trắng, không thì gold chồng gold */
+  --theme-display: var(--color-white);
+  --theme-primary-transparent: var(--color-gold-transparent);
   color: var(--theme-secondary);
 }
 
