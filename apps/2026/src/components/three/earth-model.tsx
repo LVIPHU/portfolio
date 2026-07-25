@@ -260,7 +260,11 @@ export function EarthModel(props: ThreeElements['group']) {
 
   const { land, glow, relief, night, metal, low, high, waterGain, oceanSink, cloudDim, rimStrength, rimPow, opacity } =
     useControls('earth material', {
-      land: '#FFC97A',
+      // Màu GỐC vật liệu, CỐ Ý khác --color-gold (#DFB454) của site: Earth giữ chất kim
+      // loại/kintsugi, còn token UI đi theo công thức pastel của lenis. Ngoài ra đèn +
+      // specular + glow còn nâng màu này lên ~#D6BF66 lúc render, nên đồng bộ token vào
+      // đây sẽ làm quả cầu sáng thêm một nấc nữa. Đừng "sửa cho khớp".
+      land: '#D4AF37',
       glow: { value: 0.42, min: 0, max: 1.5, step: 0.01 },
       relief: { value: 5, min: 0, max: 12, step: 0.5 },
       night: { value: 0.9, min: 0, max: 2, step: 0.05 },
@@ -336,7 +340,7 @@ export function EarthModel(props: ThreeElements['group']) {
 
   const uniformsRef = useRef({
     uOcean: { value: new Color('#101012') },
-    uLand: { value: new Color('#FFC97A') },
+    uLand: { value: new Color('#D4AF37') },
     uLandDeep: { value: new Color('#8a5b22') },
     uLow: { value: 0.12 },
     uHigh: { value: 0.55 },
@@ -346,7 +350,7 @@ export function EarthModel(props: ThreeElements['group']) {
     uGlow: { value: 0.42 },
     uRimStrength: { value: 0.28 },
     uRimPow: { value: 5.0 },
-    uRimColor: { value: new Color('#FFC97A') },
+    uRimColor: { value: new Color('#D4AF37') },
     uNight: { value: 0.9 },
     uNightColor: { value: new Color('#ffd489') },
     uNightMap: { value: null as Texture | null },

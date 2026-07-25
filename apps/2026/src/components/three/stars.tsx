@@ -81,11 +81,21 @@ void main() {
   float strength = 0.05 / distanceToCenter - 0.1;
 
   gl_FragColor = vec4(uColor, strength);
+
+  // BẮT BUỘC với ShaderMaterial thô: three (r152+) đưa new Color('#DFB454') về không gian
+  // LINEAR, còn canvas thì đọc theo sRGB. Ghi thẳng gl_FragColor sẽ hiện ra rgb(255,226,130)
+  // — đậm và ngả cam hơn hẳn màu khai báo (đo khớp từng kênh). MeshStandardMaterial không
+  // dính vì three tự chèn chunk này; ShaderMaterial thì phải tự thêm.
+  #include <colorspace_fragment>
 }
 `
 
 export function Stars({ depth = 500 }: { depth?: number }) {
   const { count, size, scale, drift, parallax, color } = useControls('stars', {
+    // 100 = ĐÚNG số lenis dùng. Đừng nhìn `count = 1000` ở khai báo Particles trong
+    // webgl/index.js:35 — đó chỉ là default của tham số, không bao giờ được dùng.
+    // Nơi gọi thật (webgl/index.js:526) truyền count=100, scale=500, size=150, depth=500,
+    // tức trùng khít bộ số ở file này.
     count: { value: 100, min: 0, max: 500, step: 10 },
     size: { value: 150, min: 10, max: 400, step: 10 },
     scale: { value: 500, min: 0, max: 1000, step: 10 },
@@ -93,7 +103,12 @@ export function Stars({ depth = 500 }: { depth?: number }) {
     drift: { value: 0.05, min: 0, max: 0.4, step: 0.01 },
     // hệ số parallax (lenis để cứng 100 → sao chỉ dịch ~10% quãng cuộn, rất khó thấy)
     parallax: { value: 400, min: 0, max: 1200, step: 20 },
-    color: '#FFE1BE', // amber nhạt theo brand
+    // Sao PHẢI nhạt hơn màu thương hiệu, đúng cách lenis làm (brand #FF98A2 L80% →
+    // particles #FFCFCE L90%). Lý do là toán học: quá nửa diện tích mỗi ngôi sao nằm ở
+    // alpha thấp (đo được: trung vị 14/255), mà màu hiện ra = màu × alpha. Dùng thẳng
+    // brand #DFB454 (luminance 0.46) thì trung vị ra rgb(12,10,5) — gần như đen.
+    // #F0D9A8 giữ nguyên hue 41° của brand, đẩy lightness 60% → 80%.
+    color: '#F0D9A8',
   })
 
   // Sinh vị trí trong khung CỐ ĐỊNH đủ lớn (không phụ thuộc viewport lúc mount —
