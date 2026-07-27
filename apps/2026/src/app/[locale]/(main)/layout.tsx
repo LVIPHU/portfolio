@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
-import { SiteNav } from '@/components/site-nav'
-import { SiteFooter } from '@/components/site-footer'
+import { SiteNav } from '@/components/chrome/site-nav'
+import { SiteFooter } from '@/components/chrome/site-footer'
 import { StarsBackground } from '@/components/three/stars-background'
 import { profile } from '@portfolio/content'
 

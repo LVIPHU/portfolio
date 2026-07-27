@@ -133,10 +133,25 @@ out-expo, đổi nền theme 0.6s out-expo.
 
 ## Thành phần đặc trưng
 
+Component xếp theo MỐI QUAN TÂM, không theo trang dùng nó:
+
+| Thư mục                | Chứa gì                                                  | Ghi chú                                                                            |
+| ---------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `components/brand/`    | FelixHeroMark, Intro                                     | nhận diện thương hiệu; Intro giao tiếp bằng class `html.intro-running`/`intro-out` |
+| `components/effects/`  | AppearTitle, Card, HorizontalSlides, ListItem, Marquee   | hiệu ứng dùng chung, KHÔNG phụ thuộc `.showcase-root`                              |
+| `components/scroll/`   | SmoothScroll, Scrollbar, GsapSync                        | cụm Lenis; cả ba phải là hậu duệ của `<ReactLenis root>`                           |
+| `components/chrome/`   | SiteNav, SiteFooter, LocaleSwitcher, ThemeToggle, Cursor | khung site, chạy toàn bộ route                                                     |
+| `components/showcase/` | theme.css + các section của `/about`                     | CHỈ chỗ này mới được phụ thuộc `.showcase-root`                                    |
+
+Vì sao hiệu ứng dùng chung được: `globals.css` khai đủ cả năm token `--theme-*` ngay ở `:root`
+làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên component render ngoài
+`.showcase-root` vẫn có màu đúng theo next-themes.
+
 - **FelixHeroMark** — wordmark FELIX (Cloister Black → SVG, viewBox `0 0 1401 368`), fill
   `var(--theme-contrast)`; vị trí khớp intro qua `--wordmark-top/-inset` (30 / 32.5 trên comp 1440).
-- **Marquee / ListItem / AppearTitle / ShowcaseCard** — hiệu ứng showcase thuần CSS;
-  ListItem cần `visible`, AppearTitle tự reveal bằng IntersectionObserver.
+- **Marquee / ListItem / AppearTitle / Card** — hiệu ứng thuần CSS; ListItem cần `visible`,
+  AppearTitle tự reveal bằng IntersectionObserver. (Registry design-sync publish `Card` dưới tên
+  `ShowcaseCard` để không đè `Card` của `packages/ui` — tên lịch sử, đừng đổi.)
 - **Nav** — cao `--header-height` (58 → 98), tự ẩn ở đỉnh trang chủ, trượt vào khi cuộn.
 
 ## Cấm kỵ

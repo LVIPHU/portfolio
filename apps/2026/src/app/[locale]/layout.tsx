@@ -4,8 +4,9 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { ThemeProvider } from '@/components/theme-provider'
-import { SmoothScroll } from '@/components/smooth-scroll'
-import { Scrollbar } from '@/components/showcase/scrollbar'
+import { SmoothScroll } from '@/components/scroll/smooth-scroll'
+import { Scrollbar } from '@/components/scroll/scrollbar'
+import { Cursor } from '@/components/chrome/cursor'
 import { anton, panchang, roboto } from '@/lib/fonts'
 import { profile } from '@portfolio/content'
 import '../globals.css'
@@ -54,6 +55,10 @@ export default async function LocaleLayout({
                   Phải nằm TRONG SmoothScroll vì component đọc tiến độ qua useLenis. */}
               <Scrollbar />
               {children}
+              {/* Con trỏ tuỳ biến chạy toàn site. Luật ẩn con trỏ native nằm ở globals.css
+                  (ngoài @layer) chứ không còn trong showcase/theme.css — file đó chỉ nạp ở
+                  route (showcase) nên luật cũ không với tới các trang khác. */}
+              <Cursor />
             </SmoothScroll>
           </ThemeProvider>
         </NextIntlClientProvider>

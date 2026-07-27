@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ListItem } from '../effects/list-item'
-import { AppearTitle } from '../effects/appear-title'
+import { ListItem } from '@/components/effects/list-item'
+import { AppearTitle } from '@/components/effects/appear-title'
 import s from './sections.module.css'
 
 // Port .in-use: danh sách dự án reveal khi cuộn tới (IntersectionObserver → ListItem visible).

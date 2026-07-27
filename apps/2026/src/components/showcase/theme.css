@@ -62,10 +62,5 @@
   text-decoration: none;
 }
 
-/* ẩn con trỏ native khi custom cursor bật (chỉ thiết bị có hover) */
-@media (hover: hover) {
-  html.has-custom-cursor .showcase-root,
-  html.has-custom-cursor .showcase-root * {
-    cursor: none;
-  }
-}
+/* Luật ẩn con trỏ native đã chuyển sang globals.css: Cursor giờ chạy TOÀN SITE nên luật
+   không được bó trong .showcase-root nữa (và file này chỉ nạp ở route (showcase)). */

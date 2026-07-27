@@ -3,7 +3,7 @@ import { Download } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { resume, type Locale } from '@portfolio/content'
 import { Badge } from '@portfolio/ui'
-import { AppearTitle } from '@/components/showcase/effects/appear-title'
+import { AppearTitle } from '@/components/effects/appear-title'
 import { formatMonth, t } from '@/lib/utils'
 
 export async function generateMetadata(): Promise<Metadata> {

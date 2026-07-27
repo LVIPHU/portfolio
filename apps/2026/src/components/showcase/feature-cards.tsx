@@ -3,8 +3,8 @@
 import { useRef, useState, type CSSProperties } from 'react'
 import { useLenis } from 'lenis/react'
 import { clsx } from 'clsx'
-import { AppearTitle } from '../effects/appear-title'
-import { Card } from '../effects/card'
+import { AppearTitle } from '@/components/effects/appear-title'
+import { Card } from '@/components/effects/card'
 import s from './feature-cards.module.css'
 
 // Port components/feature-cards: section cao 1600vh, sticky 100vh, các card fan-in chéo theo scroll.

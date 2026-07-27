@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getAllPosts, type Locale } from '@portfolio/content'
 import { Link } from '@/i18n/navigation'
-import { AppearTitle } from '@/components/showcase/effects/appear-title'
+import { AppearTitle } from '@/components/effects/appear-title'
 import { PostRow } from '@/components/post-row'
 import { formatDate } from '@/lib/utils'
 

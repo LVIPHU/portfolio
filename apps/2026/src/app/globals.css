@@ -393,6 +393,19 @@
   font-weight: 600;
 }
 
+/* Ẩn con trỏ native khi custom cursor bật (chỉ thiết bị có hover). Trước đây luật này nằm
+   trong showcase/theme.css bó theo .showcase-root, nên Cursor chỉ đúng ở /about; giờ Cursor
+   mount ở layout gốc nên luật phải toàn cục.
+   ĐẶT NGOÀI @layer — KHÔNG nhét vào @layer base: rule không thuộc layer nào thì thắng mọi rule
+   CÓ layer, mà cursor-pointer của Tailwind nằm ở @layer utilities. Nhét vào base là mọi link
+   lại hiện con trỏ bàn tay, tức con trỏ native không bao giờ bị ẩn. */
+@media (hover: hover) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none;
+  }
+}
+
 /* CHỈ ẩn ở breakpoint tương ứng — không set display ở trạng thái hiện
    (nếu không sẽ đè display:flex của component). */
 /* Nav trang chủ trốn lên khi đang ở đỉnh (chỗ wordmark FELIX ngự trị), trượt vào khi

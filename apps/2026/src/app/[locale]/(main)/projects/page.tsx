@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { projects, type Locale } from '@portfolio/content'
-import { AppearTitle } from '@/components/showcase/effects/appear-title'
+import { AppearTitle } from '@/components/effects/appear-title'
 import { t } from '@/lib/utils'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {

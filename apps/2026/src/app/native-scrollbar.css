@@ -1,4 +1,4 @@
-/* Thanh cuộn GỐC của trình duyệt (khác với thanh tiến độ ở components/showcase/scrollbar.tsx).
+/* Thanh cuộn GỐC của trình duyệt (khác với thanh tiến độ ở components/scroll/scrollbar.tsx).
    Mục tiêu: BỎ máng nền và hai nút mũi tên, chỉ chừa con trượt.
 
    VÌ SAO PHẢI TÁCH RA FILE RIÊNG, không viết trong globals.css:

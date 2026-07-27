@@ -3,12 +3,18 @@
 // Khác gen-entry.mjs (2025) ở 3 điểm:
 //  1. Nguồn chính là packages/ui (design system dùng chung) — QUÉT tự động, nên thêm
 //     component mới vào packages/ui là tự xuất hiện.
-//  2. Phần của riêng app 2026 dùng ALLOWLIST tường minh, KHÔNG quét cả thư mục: showcase/
-//     có nhiều component bám cứng lenis/gsap và three/ dùng WebGL+leva — kéo vào là chết
+//  2. Phần của riêng app 2026 dùng ALLOWLIST tường minh, KHÔNG quét cả thư mục: scroll/ và
+//     showcase/ có component bám cứng lenis/gsap, three/ dùng WebGL+leva — kéo vào là chết
 //     bundle IIFE hoặc ra card trống (xem NOTES: đây đúng lý do 2025 không dùng chế độ
-//     synth mặc định).
-//  3. Xử lý trùng tên: `Card` có ở CẢ packages/ui (shadcn) lẫn showcase/effects → bản
-//     showcase được đổi tên thành ShowcaseCard, nếu không hai cái đè nhau trong registry.
+//     synth mặc định). Chỉ effects/ và brand/ là thuần React+CSS nên được vào.
+//  3. Xử lý trùng tên: `Card` có ở CẢ packages/ui (shadcn) lẫn components/effects → bản của
+//     app được đổi tên thành ShowcaseCard, nếu không hai cái đè nhau trong registry. Tên
+//     "Showcase..." là TÊN LỊCH SỬ có từ hồi component còn nằm trong showcase/ — nó đã được
+//     publish trong registry nên ĐỪNG đổi, đổi là breaking change với bản đã phát hành.
+//
+// CẢNH BÁO: danh sách dưới đây là chuỗi literal, script KHÔNG kiểm tra đường dẫn có tồn tại,
+// và file này nằm NGOÀI build graph nên `pnpm ci-check` không bao giờ bắt được đường dẫn sai.
+// Dời file component thì phải sửa cả đây lẫn config.2026.json rồi sinh lại.
 //
 // Đường dẫn trong entry là TƯƠNG ĐỐI so với vị trí entry (apps/2026/).
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -20,12 +26,12 @@ const UI_DIR = join(ROOT, 'packages/ui/src/components')
 // Component riêng của 2026: chỉ những thứ thuần React/CSS (đã kiểm: chỉ import
 // react + clsx + *.module.css). Mọi thứ chạm lenis/gsap/three/leva CỐ TÌNH bị loại.
 const APP_EXPORTS = [
-  { from: './src/components/showcase/felix-mark', named: null },
-  { from: './src/components/showcase/effects/list-item', named: null },
-  { from: './src/components/showcase/effects/marquee', named: null },
-  { from: './src/components/showcase/effects/appear-title', named: null },
-  // đổi tên để không đè Card của packages/ui
-  { from: './src/components/showcase/effects/card', named: '{ Card as ShowcaseCard }' },
+  { from: './src/components/brand/felix-mark', named: null },
+  { from: './src/components/effects/list-item', named: null },
+  { from: './src/components/effects/marquee', named: null },
+  { from: './src/components/effects/appear-title', named: null },
+  // đổi tên để không đè Card của packages/ui — xem ghi chú về tên lịch sử ở đầu file
+  { from: './src/components/effects/card', named: '{ Card as ShowcaseCard }' },
 ]
 
 const lines = [

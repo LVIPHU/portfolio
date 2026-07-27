@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { setRequestLocale } from 'next-intl/server'
 import { profile, resume, featuredProjects, type Locale } from '@portfolio/content'
 import { t } from '@/lib/utils'
-import { ShowcaseAbout, type AboutContent } from '@/components/showcase/sections/showcase-about'
+import { ShowcaseAbout, type AboutContent } from '@/components/showcase/showcase-about'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params

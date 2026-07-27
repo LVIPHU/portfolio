@@ -2,15 +2,14 @@
 
 import { useEffect, useState, type CSSProperties } from 'react'
 import { ArrowRight, Mail } from 'lucide-react'
-import { GsapSync } from '../gsap-sync'
 import { EarthBackground } from '@/components/three/earth-background'
-import { AppearTitle } from '../effects/appear-title'
-import { HorizontalSlides } from '../effects/horizontal-slides'
-import { Card } from '../effects/card'
+import { AppearTitle } from '@/components/effects/appear-title'
+import { HorizontalSlides } from '@/components/effects/horizontal-slides'
+import { Card } from '@/components/effects/card'
 import { ZoomSection } from './zoom-section'
 import { FeatureCards } from './feature-cards'
 import { ProjectsSection } from './projects-section'
-import { FelixHeroMark } from '../felix-mark'
+import { FelixHeroMark } from '@/components/brand/felix-mark'
 import { Link } from '@/i18n/navigation'
 import s from './sections.module.css'
 
@@ -54,7 +53,7 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
 
   return (
     <>
-      <GsapSync />
+      {/* GsapSync đã chuyển lên (showcase)/layout.tsx — hạ tầng thuộc về layout, không phải page */}
       <EarthBackground />
 
       {/* HERO */}

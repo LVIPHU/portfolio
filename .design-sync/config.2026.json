@@ -33,11 +33,11 @@
     "ToggleGroup": "../../packages/ui/src/components/toggle-group.tsx",
     "Toggle": "../../packages/ui/src/components/toggle.tsx",
     "Tooltip": "../../packages/ui/src/components/tooltip.tsx",
-    "FelixHeroMark": "src/components/showcase/felix-mark.tsx",
-    "ListItem": "src/components/showcase/effects/list-item.tsx",
-    "Marquee": "src/components/showcase/effects/marquee.tsx",
-    "AppearTitle": "src/components/showcase/effects/appear-title.tsx",
-    "ShowcaseCard": "src/components/showcase/effects/card.tsx"
+    "FelixHeroMark": "src/components/brand/felix-mark.tsx",
+    "ListItem": "src/components/effects/list-item.tsx",
+    "Marquee": "src/components/effects/marquee.tsx",
+    "AppearTitle": "src/components/effects/appear-title.tsx",
+    "ShowcaseCard": "src/components/effects/card.tsx"
   },
   "overrides": {
     "Dialog": {
