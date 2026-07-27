@@ -143,8 +143,11 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
       {/* ZOOM / STATEMENT (data-earth-step=3) */}
       <ZoomSection {...content.statement} />
 
-      {/* FEATURING (data-earth-step=5 — step 4 là marker cuối zoom) */}
-      <section data-earth-step='5' data-theme='light' className={s.featuring}>
+      {/* FEATURING (data-earth-step=5 — step 4 là marker cuối zoom).
+          KHÔNG đặt data-theme ở đây: theme.css chỉ định nghĩa `.showcase-root[data-theme=…]`
+          nên thuộc tính trên section/footer không khớp selector nào. Việc lật sang light do
+          ZoomSection làm — nó setAttribute lên chính .showcase-root khi zoom chạy xong. */}
+      <section data-earth-step='5' className={s.featuring}>
         <p className={`p-l ${s.featuringIntro}`}>{content.featuringIntro}</p>
         <FeatureCards items={content.featuringItems} title={content.featuringTitle} />
       </section>
@@ -153,7 +156,7 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
       <ProjectsSection heading={content.projectsHeading} projects={content.projects} />
 
       {/* FOOTER (data-earth-step=7) */}
-      <footer data-earth-step='7' data-theme='light' className={s.footer}>
+      <footer data-earth-step='7' className={s.footer}>
         <div>
           <h2 className='h1 vh'>{content.footerHeading}</h2>
           {/* Chữ BẮT BUỘC bọc trong .btnLabel: .btn::before là absolute z-index auto nên nó
