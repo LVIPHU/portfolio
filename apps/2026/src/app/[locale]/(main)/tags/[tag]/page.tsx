@@ -33,6 +33,7 @@ export default async function TagPage({ params }: { params: Promise<{ locale: Lo
       <Link href='/tags' className='p-s text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5'>
         <ArrowLeft className='h-4 w-4' /> {t('allTags')}
       </Link>
+      {/* Nằm trong .h2 (56→96px comp) = chữ trình bày, gold được cấp phép ở cả hai theme */}
       <h1 className='h2 mt-8'>
         {t('postsTaggedWith')} <span className='text-primary'>#{tag}</span>
       </h1>

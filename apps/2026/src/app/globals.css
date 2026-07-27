@@ -18,17 +18,22 @@
   --card-foreground: rgb(0 0 0);
   --muted: rgb(224 224 224);
   --muted-foreground: rgb(92 92 92);
-  /* Light: PHẢI dùng gold ĐẬM — gold thương hiệu rgb(223,180,84) trên nền off-white chỉ
-     đạt 1.69:1, mọi text-primary + wordmark FELIX gần như tàng hình. Bản đậm giữ NGUYÊN
-     hue 41° VÀ bão hoà 100%, đạt 4.66:1 = WCAG AA cho chữ thường. */
-  --primary: rgb(143 98 0);
-  --primary-foreground: rgb(239 239 239);
+  /* MỘT gold duy nhất cho CẢ hai theme — không có bản đậm, y như lenis chỉ có một #FF98A2.
+     Gold đọc được không nhờ đổi sắc độ mà nhờ GIỚI HẠN CHỖ DÙNG: nền / viền-gạch / chữ
+     trình bày ≥56px comp. Chữ nằm TRÊN nền gold LUÔN là đen (10.79:1) — đúng cách lenis
+     làm ở button.module.scss:15. Xem "Giấy phép dùng gold" trong docs/design-system.md. */
+  --primary: rgb(223 180 84);
+  --primary-foreground: rgb(0 0 0);
   --secondary: rgb(224 224 224);
   --secondary-foreground: rgb(0 0 0);
-  --accent: rgb(255 233 202);
-  --accent-foreground: rgb(90 60 10);
+  /* Trung tính, KHÔNG gold: cặp accent cũ (#FFE9CA / rgb(90,60,10)) là sắc gold đậm thứ ba
+     trong repo. Chỉ dropdown/select của packages/ui + surface3 của Sandpack đọc nó. */
+  --accent: rgb(224 224 224);
+  --accent-foreground: rgb(0 0 0);
   --border: rgb(205 205 205);
-  --ring: rgb(143 98 0);
+  /* Vòng focus KHÔNG dùng gold ở light: gold trên #EFEFEF chỉ 1.69:1, vòng focus gần như
+     tàng hình. Dark giữ gold (10.79:1 trên đen). */
+  --ring: rgb(0 0 0);
   --input: rgb(205 205 205);
   --destructive: oklch(0.58 0.22 25);
   --destructive-foreground: rgb(239 239 239);
@@ -40,11 +45,9 @@
   --theme-primary: var(--background);
   --theme-secondary: var(--foreground);
   --theme-contrast: var(--primary);
-  /* Nhấn cho chữ TRANG TRÍ cỡ lớn (số 01–09 của FeatureCards…): luôn là gold thương hiệu
-     ở CẢ hai theme, nên nhìn đâu cũng ra một màu. Khác --theme-contrast ở chỗ cái kia
-     phải lật sang bản đậm ở light để chữ nhỏ/UI còn đọc được. Đây đúng cách lenis làm:
-     số 01–07 của họ dùng thẳng pink thương hiệu trên nền sáng (1.78:1) vì là trang trí. */
-  --theme-display: var(--color-gold);
+  /* Màu nhấn cho MDX (icon copy, token cú pháp Sandpack): chữ nhỏ nên không được là gold ở
+     light. packages/mdx fallback về --color-primary nên apps/2025 không đổi gì. */
+  --mdx-accent: var(--foreground);
   /* Xám phụ THEO THEME. --color-grey (#B0B0B0) chỉ đúng trên nền đen (9.68:1); trên nền
      sáng nó rơi xuống 1.89:1, thua cả ngưỡng 3:1 của chữ lớn. */
   --theme-grey: rgb(92, 92, 92);
@@ -87,10 +90,6 @@
      CỐ Ý khác màu vật liệu quả cầu Earth (#D4AF37) — Earth giữ chất kim loại/kintsugi. */
   --color-gold: rgb(223, 180, 84); /* #DFB454 — OKLCH L.789 C.124 H41 */
   --color-gold-transparent: rgba(223, 180, 84, 0);
-  /* Bản ĐẬM cùng hue 41°, bão hoà 100% (vẫn ra vàng, không ngả olive). Bắt buộc có vì
-     gold thương hiệu trên nền #EFEFEF chỉ đạt 1.69:1 — y như pink của lenis, vốn cũng
-     KHÔNG đọc được trên nền sáng. Bản này đạt 4.66:1 = WCAG AA cho chữ thường. */
-  --color-gold-deep: rgb(143, 98, 0); /* #8F6200 — AA trên #EFEFEF */
 
   /* nhịp intro FELIX — dùng ở intro.module.css + felix-mark.module.css; các timer
      JS trong intro.tsx (1000/2900/4600ms) cộng tay từ số này, đổi thì đổi cả hai */
@@ -156,12 +155,12 @@
   --card-foreground: rgb(239 239 239);
   --muted: rgb(26 26 26);
   --muted-foreground: rgb(176 176 176);
-  --primary: rgb(223 180 84); /* gold thương hiệu — sinh đôi cảm nhận của pink lenis */
+  --primary: rgb(223 180 84); /* cùng MỘT gold với :root — không lật theo theme nữa */
   --primary-foreground: rgb(0 0 0);
   --secondary: rgb(26 26 26);
   --secondary-foreground: rgb(239 239 239);
-  --accent: rgb(40 33 22);
-  --accent-foreground: rgb(223 180 84);
+  --accent: rgb(26 26 26);
+  --accent-foreground: rgb(239 239 239);
   --border: rgb(42 42 42);
   --ring: rgb(223 180 84);
   --input: rgb(48 48 48);
@@ -172,6 +171,8 @@
 
   --theme-grey: var(--color-grey);
   --theme-primary-transparent: rgba(0, 0, 0, 0);
+  /* Trên nền đen gold đạt 10.79:1 nên chữ nhấn cỡ nhỏ vẫn được phép là gold ở dark. */
+  --mdx-accent: var(--primary);
 }
 
 @theme inline {
@@ -205,6 +206,8 @@
   * {
     border-color: var(--color-border);
   }
+  /* Thanh cuộn gốc KHÔNG khai được ở file này — Lightning CSS của Tailwind v4 cắt bỏ
+     scrollbar-width/scrollbar-color. Xem native-scrollbar.css. */
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -219,9 +222,11 @@
     font-family: var(--font-anton);
     text-transform: uppercase;
   }
+  /* Chữ trên nền gold là ĐEN CỨNG, không lấy --theme-primary. Đây chính là chỗ lenis sai
+     (global.scss:64): light theme của họ ra #EFEFEF trên pink = 1.78:1. Đừng chép lỗi đó. */
   ::selection {
     background-color: var(--theme-contrast);
-    color: var(--theme-primary);
+    color: var(--color-black);
   }
 }
 
@@ -379,6 +384,8 @@
      khai lại trong showcase/theme.css cho từng theme. */
   color: var(--theme-grey);
 }
+/* CHỈ dùng cho chữ TRÌNH BÀY ≥56px comp (.h1/.h2/.p-l). Từ .h3 trở xuống trên nền sáng gold
+   chỉ 1.69:1 — để chữ thừa kế --theme-secondary và chuyển tín hiệu sang gạch/viền gold. */
 .contrast {
   color: var(--theme-contrast);
 }

@@ -38,12 +38,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       >
         {/* Wordmark FELIX (blackletter) — tên đầy đủ vẫn ở nav/footer/metadata */}
         <h1 className='block w-full'>
-          {/* --theme-display: gold thương hiệu ở CẢ hai theme. --primary phải lật sang
-              bản đậm ở light cho chữ nhỏ đọc được, dùng nó ở đây thì wordmark ra nâu. */}
-          <FelixHeroMark fill='var(--theme-display)' label={profile.name} />
+          {/* Wordmark 160px = chữ trình bày, gold được cấp phép ở cả hai theme. */}
+          <FelixHeroMark fill='var(--theme-contrast)' label={profile.name} />
         </h1>
         <div>
-          <p className='h3' style={{ color: 'var(--theme-display)' }}>
+          {/* Ngoại lệ có chủ đích: .h3 chỉ 20px comp ở mobile (1.69:1 trên nền sáng), nhưng
+              dòng này đi CẶP với wordmark ngay trên nó — tách màu là gãy cặp. Cùng loại
+              ngoại lệ với thanh cuộn 1.78:1 của lenis. */}
+          <p className='h3' style={{ color: 'var(--theme-contrast)' }}>
             {t(profile.title, locale)}
           </p>
           <p className='p text-muted-foreground mt-6 max-w-xl'>{t(profile.tagline, locale)}</p>
@@ -70,6 +72,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           {techs.map((tech) => (
             <span key={tech} className='h3 text-muted-foreground mx-6 whitespace-nowrap'>
               {tech}
+              {/* Dấu phân cách = chrome thuần nhịp, không mang thông tin → giữ gold cả hai theme */}
               <span className='text-primary mx-6'>·</span>
             </span>
           ))}
@@ -82,7 +85,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           <h2 className='h2'>
             <AppearTitle>{tHome('featuredProjects')}</AppearTitle>
           </h2>
-          <Link href='/projects' className='p-s text-primary hover:underline'>
+          <Link href='/projects' className='p-s dark:text-primary hover:underline'>
             {tHome('viewAll')} →
           </Link>
         </div>
@@ -106,7 +109,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
           <h2 className='h2'>
             <AppearTitle>{tHome('latestPosts')}</AppearTitle>
           </h2>
-          <Link href='/blog' className='p-s text-primary hover:underline'>
+          <Link href='/blog' className='p-s dark:text-primary hover:underline'>
             {tHome('viewAll')} →
           </Link>
         </div>

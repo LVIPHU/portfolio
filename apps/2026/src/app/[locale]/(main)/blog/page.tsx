@@ -24,7 +24,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: L
         </h1>
         <div className='mt-4 flex flex-wrap items-baseline justify-between gap-4'>
           <p className='p text-muted-foreground max-w-xl'>{t('description')}</p>
-          <Link href='/tags' className='p-s text-primary shrink-0 hover:underline'>
+          <Link href='/tags' className='p-s dark:text-primary shrink-0 hover:underline'>
             {t('allTags')} →
           </Link>
         </div>

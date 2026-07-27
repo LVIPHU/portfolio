@@ -28,10 +28,9 @@
   /* Anton, KHÔNG để thừa kế: .showcase-root đặt font-family Roboto nên số sẽ ra Roboto 400
      (mảnh, tròn) thay vì khối đặc như lenis — lenis đặt Anton ở html nên .number tự thừa kế. */
   font-family: var(--font-anton);
-  /* --theme-display, KHÔNG phải --theme-contrast: số 96px là chữ trang trí, cần ĐỒNG BỘ
-     một sắc gold ở cả hai theme hơn là cần đạt ngưỡng đọc. --theme-contrast phải lật sang
-     bản đậm ở light nên số sẽ ra nâu, lệch hẳn màu thương hiệu. */
-  color: var(--theme-display);
+  /* Số 56→96px comp = chữ trình bày, gold được cấp phép ở mọi theme — đúng case số 01–07
+     96px trên nền sáng (1.78:1) của lenis. */
+  color: var(--theme-contrast);
   line-height: 90%;
   font-size: calc(((56 * 100) / var(--device-width)) * 1vw);
 }

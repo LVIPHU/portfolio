@@ -121,16 +121,14 @@
     transform: scaleY(1);
     transform-origin: bottom;
   }
-  /* Tấm fill là --theme-contrast, mà token này KHÔNG cùng độ sáng ở hai theme: dark thì
-     gold #DFB454, light thì gold ĐẬM #8F6200. Nên màu chữ phải là --theme-primary (nền
-     của theme) chứ không phải đen cứng — đen trên #8F6200 chỉ 3.92:1.
-       light: #EFEFEF trên #8F6200 = 4.66:1
-       dark : #000000 trên #DFB454 = 10.79:1
+  /* Chữ trên tấm fill gold là ĐEN CỨNG, không lấy --theme-primary: --theme-contrast giờ là
+     MỘT gold ở mọi theme nên --theme-primary trên nền đó ra #EFEFEF/#EFEFEF = 1.69:1.
+       light 10.79:1  |  dark 10.79:1  |  contrast (#000 trên #EFEFEF) 18.10:1
      Đặt trên .inner (div) chứ không trên .item: .item là <a>, mà theme.css có
      `.showcase-root a { color: inherit }` với specificity (0,1,1) sẽ đè mất.
      Mũi tên dùng stroke="currentColor" nên ăn theo luôn. */
   .item:hover .inner {
-    color: var(--theme-primary);
+    color: var(--color-black);
   }
   .item:hover .title {
     transform: translateX(calc(((16 * 100) / var(--device-width)) * 1vw));

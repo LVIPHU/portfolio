@@ -1,6 +1,7 @@
 import { Link } from '@/i18n/navigation'
 
-// Hàng bài viết kiểu showcase (border-dưới, hover gold) — dùng ở home + blog list.
+// Hàng bài viết kiểu showcase — dùng ở home + blog list. Hover đổi màu VIỀN (gold được cấp
+// phép làm gạch ở mọi theme); tiêu đề 20px chỉ hoá gold ở dark, light giữ chữ đen.
 export function PostRow({
   slug,
   title,
@@ -15,10 +16,10 @@ export function PostRow({
   return (
     <Link
       href={`/blog/${slug}`}
-      className='group flex flex-col justify-between gap-1 border-b py-5 sm:flex-row sm:items-baseline'
+      className='hover:border-primary group flex flex-col justify-between gap-1 border-b py-5 transition-colors sm:flex-row sm:items-baseline'
     >
       <span className='flex flex-col gap-1'>
-        <span className='group-hover:text-primary text-xl font-medium transition-colors sm:text-2xl'>{title}</span>
+        <span className='dark:group-hover:text-primary text-xl font-medium transition-colors sm:text-2xl'>{title}</span>
         {summary && <span className='p text-muted-foreground'>{summary}</span>}
       </span>
       <span className='p-xs text-muted-foreground shrink-0'>{date}</span>

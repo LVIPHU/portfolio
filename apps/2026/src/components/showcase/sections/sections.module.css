@@ -15,6 +15,10 @@
 }
 .heroRole {
   margin-top: 0.25em;
+  /* Canh đúng kiểu .sub của lenis (home.module.scss: `text-align: end` + grid-column 6/span 7):
+     dồn phải NHƯNG dừng ở mép phải khung nội dung, tức thẳng hàng với mép phải wordmark.
+     KHÔNG kéo margin âm ra ngoài lề — làm thế chữ tràn khỏi mép màn và gãy hệ lưới. */
+  text-align: right;
 }
 
 /* Wordmark FELIX chiếm trọn bề ngang; cấu trúc 2 lớp + hoạt cảnh ghép nằm trong
@@ -29,20 +33,54 @@
   flex-direction: column;
   gap: calc(((32 * 100) / var(--device-width)) * 1vw);
 }
-@media (min-width: 800px) {
-  .heroBottom {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-}
 .heroDesc {
   max-width: 40ch;
+  /* Chữ này nằm ĐÈ lên quả cầu Earth đang quay: nền dưới nó đổi liên tục giữa biển #101012
+     (17.9:1, đọc tốt) và lục địa gold #DFB454 (1.69:1, chìm nghỉm).
+     ĐÃ THỬ mix-blend-mode: difference — bỏ. Nó đạt 5.09:1 nhưng luôn trả về MÀU BÙ của nền,
+     mà bù của gold bắt buộc là navy rgb(16,59,155): lạc khỏi bảng màu, và không tham số nào
+     chỉnh được. Nó còn có vùng mù ở nền ≈ rgb(120) (nửa độ sáng chữ) — đúng dải mà vệt phản
+     quang của biển quét qua, chỗ đó chữ biến mất sạch.
+     Cách dùng ở đây: giữ chữ TRẮNG nguyên, chỉ dựng quầng tối sát viền glyph để tạo tương
+     phản CỤC BỘ. Trên nền đen quầng vô hình; trên gold nó kéo vùng sát chữ xuống ~rgb(22,18,8)
+     nên trắng-trên-quầng đạt ~16:1, không phụ thuộc nền dưới là gì. Ba lớp blur chồng nhau
+     cho chuyển mượt thay vì viền cứng — cùng kỹ thuật phụ đề video. */
+  text-shadow:
+    0 0 2px rgba(0, 0, 0, 0.95),
+    0 0 6px rgba(0, 0, 0, 0.85),
+    0 0 16px rgba(0, 0, 0, 0.6);
 }
 .heroCta {
   display: flex;
   gap: calc(((16 * 100) / var(--device-width)) * 1vw);
   flex-wrap: wrap;
+}
+/* Desktop: LƯỚI 12 CỘT, không phải space-between. Đây là điểm lệch gốc so với lenis —
+   `.bottom` của họ (home.module.scss) đặt từng khối vào cột cố định, nhờ vậy mô tả không
+   trôi lửng lơ giữa màn và hai nút không bị dồn cụm sát mép phải:
+     scroll-hint 1/span 2 · description 3/span 3 · cta 7/10 và 10/-1.
+   Khối này PHẢI đứng sau các rule gốc ở trên: media query không cộng thêm specificity nên
+   rule nào viết sau thì thắng. */
+@media (min-width: 800px) {
+  .heroBottom {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+    gap: var(--gap);
+    align-items: end;
+    padding-bottom: calc(((40 * 100) / var(--device-width)) * 1vw);
+  }
+  .heroDesc {
+    grid-column: 3 / span 3;
+    max-width: none;
+  }
+  /* Hai nút chiếm cột 7→12, chia đôi đều — mỗi nút rộng 3 cột nên to đúng như lenis,
+     chứ không phải co lại vừa chữ. */
+  .heroCta {
+    grid-column: 7 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap);
+  }
 }
 
 /* scroll hint (desktop) */
@@ -52,67 +90,191 @@
 @media (min-width: 800px) {
   .scrollHint {
     display: flex;
-    align-items: center;
-    gap: 0.75em;
+    grid-column: 1 / span 2;
+    position: relative;
+    /* lenis: vạch bám mép trái khối, chữ lùi vào 16px comp — không phải gap giữa hai item */
+    padding-left: calc(((16 * 100) / var(--device-width)) * 1vw);
+    transition:
+      opacity 0.6s var(--ease-in-out-quad),
+      transform 0.6s var(--ease-in-out-quad);
   }
+  /* Cuộn qua 10px là gợi ý trốn đi — mờ dần + trôi xuống 20%, và DỪNG luôn animation vạch
+     (lenis: `.hide { opacity: 0; transform: translateY(20%) }` + `::before` paused). */
+  .scrollHintHidden {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+  .scrollHintHidden::before {
+    animation-play-state: paused;
+  }
+  /* Anton 24px comp, không phải .p-s Roboto 14 — đây là cỡ chữ thật của .scroll-hint .text
+     bên lenis, và là lý do "SCROLL TO EXPLORE" của họ đọc ra khối cao chứ không lí nhí. */
+  .scrollHintText {
+    font-family: var(--font-anton);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 100%;
+    font-size: calc(((24 * 100) / var(--device-width)) * 1vw);
+  }
+  /* Vạch cao TRỌN khối chữ (height:100%) thay vì 40px cứng — hai dòng Anton cao bao nhiêu
+     thì vạch bấy nhiêu, đúng cách lenis dựng ::before của .scroll-hint. */
   .scrollHint::before {
     content: '';
-    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 2px;
-    height: calc(((40 * 100) / var(--device-width)) * 1vw);
+    height: 100%;
     background-color: var(--theme-contrast);
-    transform-origin: top;
-    animation: scrollbar 2.4s var(--ease-in-out-quad) infinite;
+    /* Nhịp ĐÚNG của lenis: trạng thái gốc là scale(0) — vạch nở ra rồi tóp lại về KHÔNG ở
+       CẢ hai chiều, không phải chỉ co giãn chiều dài. Cơ chế nằm ở chỗ @keyframes chỉ khai
+       mốc 50%: 0% và 100% lấy nguyên transform gốc (scale(0)), còn 50% là scaleY(1.5) —
+       mà scaleY() để scaleX ngầm = 1, nên bề ngang chạy 0 → 1 → 0 theo.
+       transform-origin 50% 0 = nở từ đỉnh xuống, bề ngang nở đối xứng quanh trục giữa. */
+    transform-origin: 50% 0;
+    transform: scale(0);
+    animation: scrollbar 4s infinite;
   }
 }
 @keyframes scrollbar {
-  0%,
-  100% {
-    transform: scaleY(0.4);
-  }
   50% {
-    transform: scaleY(1);
+    transform: scaleY(1.5);
   }
 }
 
-/* ============ primary button ============ */
+/* ============ primary button (port .button của lenis) ============
+   Cấu trúc: [ô icon vuông] [nhãn căn giữa phần còn lại], bọc trong viên thuốc bo tròn.
+   Chiều cao nút do Ô ICON quyết định (48px comp), KHÔNG phải do line-height của chữ —
+   đó là lý do nút lenis cao và bè chứ không mảnh như nút chỉ có padding.
+   Nền nghỉ và lớp wipe khi hover là hai pseudo-element chồng nhau, đúng ::before/::after
+   của lenis; chữ và icon đội z-index 10 để luôn nằm trên cả hai. */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.6em;
   font-family: var(--font-roboto);
   font-weight: 900;
   text-transform: uppercase;
   line-height: 200%;
-  padding: 0 calc(((16 * 100) / var(--device-width)) * 1vw);
   border: 1px solid var(--theme-contrast);
-  color: var(--theme-secondary);
-  transition:
-    background-color 0.4s var(--ease-out-expo),
-    color 0.4s var(--ease-out-expo);
-  font-size: calc(((14 * 100) / var(--device-width)) * 1vw);
+  /* KHÔNG phải viên thuốc. Nút lenis là chữ nhật bo VỪA — bán kính ~25% chiều cao (12px comp
+     trên nút cao 48px comp), bằng đúng bán kính của ô icon nên hai hình khớp ngôn ngữ nhau.
+     Bo tròn tuyệt đối (9999px) làm đầu phải thành nửa hình tròn và bóp méo góc trái ô icon. */
+  --btn-radius: calc(((12 * 100) / var(--device-width)) * 1vw);
+  border-radius: var(--btn-radius);
+  /* Cắt lớp wipe theo đúng đường bo — thiếu nó thì vệt hover tràn ra góc vuông */
+  overflow: hidden;
+  font-size: calc(((16 * 100) / var(--device-width)) * 1vw);
 }
-@media (min-width: 800px) {
-  .btn {
-    font-size: calc(((14 * 100) / var(--device-width)) * 1vw);
-  }
+/* ::before = nền nghỉ (gold). ::after = vệt phủ khi hover. */
+.btn::before,
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.btn::before {
+  background-color: var(--theme-contrast);
+}
+/* Nghỉ: dẹt ở ĐỈNH. Hover (dưới): đổi origin sang bottom rồi mới nở → vệt MỌC LÊN TỪ ĐÁY.
+   transform-origin không nằm trong transition nên nó đổi tức thì; nhờ đó lượt vào quét lên,
+   lượt ra tóp lên đỉnh — luôn cùng một hướng. Đây là chi tiết dễ bỏ sót nhất của lenis. */
+.btn::after {
+  background-color: var(--theme-secondary);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.btnIcon {
+  position: relative;
+  z-index: 10;
+  flex: 0 0 auto;
+  aspect-ratio: 1 / 1;
+  width: calc(((48 * 100) / var(--device-width)) * 1vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Ô icon nghịch màu với thân nút: nền theme (đen ở dark / trắng ở light), viền gold.
+     Nhờ cặp --theme-primary/secondary nên nó tự đúng ở cả hai theme, không cần hardcode. */
+  background-color: var(--theme-primary);
+  color: var(--theme-secondary);
+  border: 1px solid var(--theme-contrast);
+  /* Cùng bán kính với thân nút để hai hình khớp nhau khi overflow:hidden cắt góc trái */
+  border-radius: var(--btn-radius);
+  transition: border-color 0.6s var(--ease-out-expo);
+}
+.btnIcon svg {
+  width: calc(((22 * 100) / var(--device-width)) * 1vw);
+  height: calc(((22 * 100) / var(--device-width)) * 1vw);
+}
+/* Nhãn là HAI bản chồng nhau tráo chỗ, không phải một bản đổi màu (.text của lenis). */
+.btnLabel {
+  position: relative;
+  z-index: 10;
+  flex-grow: 1;
+  align-self: stretch;
+}
+.btnLabelVisible,
+.btnLabelHidden {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 calc(((24 * 100) / var(--device-width)) * 1vw);
+}
+.btnLabelVisible {
+  position: relative;
+  transform: scaleY(1);
+  transform-origin: bottom;
+  transition:
+    transform 0.6s var(--ease-out-expo),
+    opacity 0.6s var(--ease-out-expo);
+}
+.btnLabelHidden {
+  position: absolute;
+  inset: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  opacity: 0;
+  transition:
+    transform 0.6s var(--ease-out-expo),
+    opacity 0.4s var(--ease-out-expo);
 }
 @media (hover: hover) {
-  .btn:hover {
-    background-color: var(--theme-contrast);
+  /* Cả ba đều lật origin: vệt phủ mọc lên từ đáy, bản nhãn đang hiện bị ép dẹt LÊN đỉnh,
+     bản dự bị mọc LÊN từ đáy. Ba chuyển động cùng chiều nên đọc ra một cú quét duy nhất. */
+  .btn:hover::after {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  .btn:hover .btnLabelVisible {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+  }
+  .btn:hover .btnLabelHidden {
+    transform: scaleY(1);
+    transform-origin: bottom;
+    opacity: 1;
+  }
+  .btn:hover .btnIcon {
+    border-color: var(--theme-secondary);
+  }
+  /* Ba class để chắc chắn thắng .btn.btnFilled (0,2,0) bên dưới, không phụ thuộc thứ tự.
+     Ở dark --theme-primary trùng --color-black nên không đổi gì; ở light nó lật sang trắng
+     để đọc được trên vệt phủ đen. */
+  .btn.btnFilled:hover {
     color: var(--theme-primary);
   }
 }
 /* .btn.btnFilled chứ KHÔNG phải .btnFilled: theme.css có `.showcase-root a { color: inherit }`
-   với specificity (0,1,1), thắng một class đơn (0,1,0) — nên chữ đen ở đây trước giờ chưa
-   bao giờ được áp, nút ra chữ TRẮNG trên nền gold (tương phản 1.04, gần như vô hình).
-   Hai class = (0,2,0) mới thắng được.
-   Nền + chữ phải đi CẶP theo theme: --theme-contrast không cùng độ sáng ở hai theme
-   (dark #DFB454, light #8F6200) nên chữ đen cứng sẽ tụt xuống 3.92:1 ở light.
-     light: #EFEFEF trên #8F6200 = 4.66:1  |  dark: #000 trên #DFB454 = 10.79:1 */
+   với specificity (0,1,1), thắng một class đơn (0,1,0). Hai class = (0,2,0) mới thắng được.
+   Chữ trên nền gold là ĐEN CỨNG, không lấy --theme-primary — đúng cách lenis làm ở
+   button.module.scss:15. --theme-contrast là MỘT gold ở mọi theme nên --theme-primary trên
+   nền đó sẽ ra #EFEFEF/#EFEFEF = 1.69:1.
+     light 10.79:1  |  dark 10.79:1  |  contrast (#000 trên #EFEFEF) 18.10:1 */
 .btn.btnFilled {
-  background-color: var(--theme-contrast);
-  color: var(--theme-primary);
+  color: var(--color-black);
 }
 
 /* ============ ABOUT (why) ============ */
@@ -149,11 +311,6 @@
     margin-top: calc(((280 * 100) / var(--device-width)) * 1vw);
   }
 }
-.aboutFeatureTitle {
-  color: var(--theme-contrast);
-  margin-bottom: 0.5em;
-}
-
 /* ============ SKILLS (horizontal rail) ============ */
 /* LƯU Ý: không đặt overflow:hidden ở đây — ancestor overflow!=visible sẽ phá position:sticky
    của .inner bên trong HorizontalSlides (cards không pin, nhìn như "scroll chết").

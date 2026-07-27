@@ -18,11 +18,10 @@
   position: absolute;
   transform: translate(-50%, -50%);
   border-radius: 100%;
-  /* --theme-contrast chứ KHÔNG phải --color-primary: theme.css gán --color-primary cứng
-     bằng gold thương hiệu, không đổi theo data-theme. Ở nửa light của /about, gold trên
-     nền #EFEFEF chỉ ~1.03:1 → vòng con trỏ tan vào nền, mà con trỏ native thì đã bị ẩn
-     (html.has-custom-cursor) → người dùng mất hẳn con trỏ trên ~1600vh nội dung.
-     --theme-contrast tự lật sang bản đậm #8F6200 ở light, giữ #DFB454 ở dark. */
+  /* Vòng con trỏ = chrome trang trí nên gold được cấp phép ở cả hai theme (đúng loại với
+     vòng con trỏ pink 1.78:1 của lenis). Ở nửa light của /about gold chỉ ~1.69:1 trên
+     #EFEFEF; bù lại bằng opacity 0.85 + viền 2px, và vị trí con trỏ còn được báo bằng
+     chuyển động chứ không chỉ bằng màu. */
   border: 2px solid var(--theme-contrast);
   width: 40px;
   height: 40px;

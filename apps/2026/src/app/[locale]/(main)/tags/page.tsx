@@ -29,7 +29,7 @@ export default async function TagsPage({ params }: { params: Promise<{ locale: L
           <Link
             key={tag}
             href={`/tags/${tag}`}
-            className='p-s hover:border-primary hover:text-primary border px-4 py-2.5 transition-colors'
+            className='p-s hover:border-primary dark:hover:text-primary border px-4 py-2.5 transition-colors'
           >
             #{tag} <span className='text-muted-foreground'>· {t('postCount', { count })}</span>
           </Link>

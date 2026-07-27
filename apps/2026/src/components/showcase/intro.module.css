@@ -7,10 +7,9 @@
   position: fixed;
   inset: 0;
   z-index: 1000;
-  /* --color-gold, KHÔNG phải --color-primary: trang chủ mount <Intro /> NGOÀI .showcase-root,
-     nên bí danh của theme.css không tới; globals.css lại có `--color-primary: var(--primary)`
-     trong @theme inline, khiến tấm phủ ra NÂU #8F6200 ở light theme. Tấm phủ là trang trí
-     brand nên phải gold ở cả hai theme (chữ FELIX đen trên gold = 10.79:1). */
+  /* Gọi thẳng --color-gold vì trang chủ mount <Intro /> NGOÀI .showcase-root nên
+     --theme-contrast của showcase không tới. Tấm phủ là nền brand, chữ FELIX đen trên
+     gold = 10.79:1. */
   background-color: var(--color-gold);
   overflow: hidden;
 }

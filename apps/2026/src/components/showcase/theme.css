@@ -3,11 +3,9 @@
    Màu ở đây CHỈ tham chiếu palette token (--color-*) — đổi brand thì đổi một chỗ
    trong globals.css, không sửa file này. */
 
-/* KHÔNG khai lại --color-primary ở đây. Bí danh cũ ghim CỨNG bằng gold nên không lật theo
-   data-theme, và đó chính là nguồn của loạt lỗi "gold tan vào nền sáng" (con trỏ, thanh
-   cuộn, vạch scroll-hint, viền nút). Ngoài .showcase-root nó còn rơi về var(--primary)
-   của @theme inline — hai nghĩa khác nhau cho cùng một tên. Dùng --theme-contrast
-   (chữ/UI cần đọc) hoặc --theme-display (trang trí cỡ lớn). */
+/* KHÔNG khai lại --color-primary ở đây: ngoài .showcase-root nó rơi về var(--primary) của
+   @theme inline — hai nghĩa khác nhau cho cùng một tên. Màu nhấn duy nhất là
+   --theme-contrast. */
 .showcase-root {
   font-family: var(--font-roboto);
 }
@@ -18,12 +16,9 @@
 .showcase-root[data-theme='light'] {
   --theme-primary: var(--color-white);
   --theme-secondary: var(--color-black);
-  /* gold ĐẬM, không phải gold pastel: nền light là --color-white (#EFEFEF), gold pastel
-     trên đó chỉ 1.04:1 → số 01–09 của FeatureCards, gạch .aboutSticky, ::selection và
-     vòng con trỏ đều biến mất. Dark theme (dưới) vẫn dùng bản pastel, 17.6:1. */
-  --theme-contrast: var(--color-gold-deep);
-  /* trang trí cỡ lớn: giữ NGUYÊN gold thương hiệu để đồng bộ với dark theme */
-  --theme-display: var(--color-gold);
+  /* MỘT gold cho cả ba theme, đúng cách lenis dùng #FF98A2 ở cả light lẫn dark. Đọc được là
+     nhờ GIỚI HẠN CHỖ DÙNG (nền / viền-gạch / chữ ≥56px comp), không phải nhờ đổi sắc độ. */
+  --theme-contrast: var(--color-gold);
   --theme-grey: rgb(92, 92, 92);
   --theme-primary-transparent: var(--color-white-transparent);
   color: var(--theme-secondary);
@@ -32,7 +27,6 @@
   --theme-primary: var(--color-black);
   --theme-secondary: var(--color-white);
   --theme-contrast: var(--color-gold);
-  --theme-display: var(--color-gold);
   --theme-grey: var(--color-grey);
   --theme-primary-transparent: var(--color-black-transparent);
   color: var(--theme-secondary);
@@ -40,17 +34,18 @@
 .showcase-root[data-theme='contrast'] {
   --theme-primary: var(--color-gold);
   --theme-secondary: var(--color-black);
+  /* theme này lấy gold LÀM NỀN nên màu nhấn phải là trắng, không thì gold chồng gold */
   --theme-contrast: var(--color-white);
-  /* theme này lấy gold LÀM NỀN nên trang trí phải là trắng, không thì gold chồng gold */
-  --theme-display: var(--color-white);
   --theme-grey: rgb(92, 92, 92);
   --theme-primary-transparent: var(--color-gold-transparent);
   color: var(--theme-secondary);
 }
 
+/* Chữ trên nền nhấn là ĐEN CỨNG ở cả ba theme: đen trên gold 10.79:1, đen trên #EFEFEF
+   (theme contrast) 18.10:1. --theme-primary sẽ ra #EFEFEF trên gold = 1.69:1. */
 .showcase-root ::selection {
   background-color: var(--theme-contrast);
-  color: var(--theme-primary, #000);
+  color: var(--color-black);
 }
 
 /* nền full-bleed nằm SAU canvas Earth (z-10) để Earth hiện; sections để trong suốt */

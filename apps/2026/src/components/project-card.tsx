@@ -39,7 +39,7 @@ export function ProjectCard({
                 href={project.links.demo}
                 target='_blank'
                 rel='noreferrer'
-                className='text-primary inline-flex items-center gap-1 hover:underline'
+                className='dark:text-primary inline-flex items-center gap-1 hover:underline'
               >
                 <ExternalLink className='h-3.5 w-3.5' /> {demoLabel}
               </a>
@@ -49,7 +49,7 @@ export function ProjectCard({
                 href={project.links.source}
                 target='_blank'
                 rel='noreferrer'
-                className='text-primary inline-flex items-center gap-1 hover:underline'
+                className='dark:text-primary inline-flex items-center gap-1 hover:underline'
               >
                 <Code className='h-3.5 w-3.5' /> {sourceLabel}
               </a>

@@ -1,5 +1,4 @@
 import { Cursor } from '@/components/showcase/cursor'
-import { Scrollbar } from '@/components/showcase/scrollbar'
 import { Intro } from '@/components/showcase/intro'
 import '@/components/showcase/theme.css'
 
@@ -11,7 +10,7 @@ export default function ShowcaseLayout({ children }: { children: React.ReactNode
     <div className='showcase-root w-full' data-theme='dark'>
       <Intro />
       <div className='showcase-bg' aria-hidden />
-      <Scrollbar />
+      {/* Scrollbar đã chuyển lên [locale]/layout.tsx để chạy toàn site, đúng như lenis */}
       {children}
       <Cursor />
     </div>

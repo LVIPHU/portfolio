@@ -20,13 +20,12 @@ Nguồn sự thật: `src/app/globals.css` (token toàn cục) + `src/components
 
 ## Palette
 
-| Token               | Giá trị            | Vai trò                                            |
-| ------------------- | ------------------ | -------------------------------------------------- |
-| `--color-black`     | `rgb(0 0 0)`       | nền dark (mặc định)                                |
-| `--color-white`     | `rgb(239 239 239)` | chữ trên dark / nền light — KHÔNG dùng trắng thuần |
-| `--color-grey`      | `rgb(176 176 176)` | chữ phụ, meta                                      |
-| `--color-gold`      | `rgb(223 180 84)`  | contrast thương hiệu (vai trò "pink" của lenis)    |
-| `--color-gold-deep` | `rgb(143 98 0)`    | bản đậm — CHỈ dùng ở light theme cho chữ/UI        |
+| Token           | Giá trị            | Vai trò                                            |
+| --------------- | ------------------ | -------------------------------------------------- |
+| `--color-black` | `rgb(0 0 0)`       | nền dark (mặc định)                                |
+| `--color-white` | `rgb(239 239 239)` | chữ trên dark / nền light — KHÔNG dùng trắng thuần |
+| `--color-grey`  | `rgb(176 176 176)` | chữ phụ, meta                                      |
+| `--color-gold`  | `rgb(223 180 84)`  | contrast thương hiệu (vai trò "pink" của lenis)    |
 
 Mỗi màu có biến `-transparent` (alpha 0) cho gradient fade trên Safari.
 Gold thương hiệu `#DFB454` = **bản sinh đôi cảm nhận của pink lenis**. Đổi `#FF98A2`
@@ -37,28 +36,57 @@ trên `#EFEFEF` (pink 1.78).
 Vật liệu quả cầu Earth **cố ý KHÁC**: giữ `#D4AF37` để còn chất kim loại/kintsugi. Đừng
 đồng bộ hai giá trị này.
 
-Light theme dùng gold ĐẬM `rgb(143 98 0)` cho `--primary` — cùng hue 41° với gold thương
-hiệu, bão hoà 100% (nên vẫn ra vàng, không ngả olive), đạt **4.66:1** trên nền off-white
-(WCAG AA cho chữ thường). Gold thương hiệu chỉ đạt 1.69:1 nên cấm dùng làm chữ nhỏ trên
-nền sáng — y như pink của lenis, vốn cũng không đọc được ở đó.
+**MỘT gold duy nhất cho mọi theme** — `--primary` không lật màu nữa, y như lenis chỉ có một
+`#FF98A2` và KHÔNG có bản đậm. Gold đọc được không phải nhờ đổi sắc độ mà nhờ **giới hạn chỗ
+được dùng** (xem "Giấy phép dùng gold"). Chữ nằm TRÊN nền gold luôn là **đen cứng**
+(`var(--color-black)`, 10.79:1) — không lấy `--theme-primary`.
+
+> Không màu nào nổi tốt trên CẢ `#000` lẫn `#EFEFEF`: giới hạn cân bằng tối đa là **4.27:1**,
+> vẫn dưới ngưỡng AA 4.5. Nên bài toán chỉ giải được bằng vai trò, không bằng sắc độ.
 
 ## Theme (bộ ba, kiểu lenis)
 
-| Theme             | primary (nền) | secondary (chữ) | contrast (nhấn) | display (trang trí) |
-| ----------------- | ------------- | --------------- | --------------- | ------------------- |
-| `dark` (mặc định) | black         | white           | gold            | gold                |
-| `light`           | white         | black           | **gold đậm**    | gold                |
-| `contrast`        | gold          | black           | white           | white               |
+Đúng **ba** token, không hơn: `--theme-primary` (nền), `--theme-secondary` (chữ),
+`--theme-contrast` (nhấn) — bằng đúng bộ của lenis.
 
-Showcase: đặt `data-theme` trên `.showcase-root`. Selection luôn: nền contrast, chữ primary.
+| Theme             | primary (nền) | secondary (chữ) | contrast (nhấn) |
+| ----------------- | ------------- | --------------- | --------------- |
+| `dark` (mặc định) | black         | white           | gold            |
+| `light`           | white         | black           | gold            |
+| `contrast`        | gold          | black           | white           |
 
-**`--theme-contrast` vs `--theme-display`** — hai vai trò khác nhau, đừng lẫn:
+Showcase: đặt `data-theme` trên `.showcase-root`. Selection: nền contrast, chữ **đen cứng**
+(không phải primary — lenis sai đúng chỗ này ở `global.scss:64`).
 
-- `--theme-contrast`: chữ nhỏ, link, nút, nav, `::selection`, viền con trỏ. **Phải đọc
-  được**, nên ở light theme nó lật sang bản đậm.
-- `--theme-display`: chữ TRANG TRÍ cỡ lớn (wordmark FELIX, số 01–09 của FeatureCards, số
-  404). **Luôn là gold thương hiệu ở cả hai theme** để nhìn đâu cũng ra một màu. Chấp nhận
-  1.69:1 trên nền sáng vì là trang trí — đây đúng điều lenis làm với số 01–07 của họ.
+## Giấy phép dùng gold
+
+Gold được phép ở đâu, và ở đâu thì không:
+
+| Vai trò                                                                         | Nền sáng | Cụ thể                                                             |
+| ------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------ |
+| **NỀN** (kèm chữ **đen cứng** bên trên)                                         | ✅       | nút, chip locale đang bật, tấm hover ListItem, `::selection`       |
+| **VIỀN / GẠCH 1–4px**, gạch chân, thanh cuộn, vòng con trỏ, chấm timeline       | ✅       | chrome không mang thông tin                                        |
+| **CHỮ TRÌNH BÀY** ≥56px comp mobile / ≥64px comp desktop                        | ✅       | `.h1`, `.h2`, `.p-l`, số 01–09 của Card, wordmark FELIX            |
+| **CHỮ NHỎ** — `.h3` trở xuống, `.p`, `.p-s`, `.p-xs`, mọi `text-*` của Tailwind | ❌       | thừa kế `--theme-secondary` / `text-foreground`; dark dùng `dark:` |
+
+Dark theme được nới: trên nền đen gold đạt 10.79:1 nên chữ nhỏ **vẫn** được là gold, khai
+bằng biến thể `dark:` (`h3 dark:text-primary`, `p-s hover:underline dark:text-primary`).
+Light thì **đổi tín hiệu chứ không bỏ tín hiệu**: chữ về đen, gold chuyển thành **gạch** —
+`hover:underline`, `border-b-2 border-primary` (nav ngang), `border-l-2 border-primary`
+(nav dọc), `hover:border-primary` (hàng list/card).
+
+Ngưỡng tính theo **px trên comp**, không phải px render. Mọi class đều tụt cỡ quanh mốc
+800px do scale theo vw (`.h3` render 42.6px ở 799px nhưng chỉ 28.9px ở 800px) — lenis cũng
+vậy. **Đừng chặn gold bằng media query**: nó sẽ bôi gold vào đúng cỡ chữ nhỏ hơn.
+
+Ngoại lệ đã cân nhắc (chrome trang trí, chấp nhận 1.69:1 ở light — cùng loại với thanh cuộn
+1.78:1 của lenis): dấu `·` phân cách marquee, chấm timeline ở `/resume`, vòng con trỏ, thanh
+cuộn showcase, vạch scroll-hint, và **dòng vai trò hero** (`.h3`, đi cặp với wordmark 160px
+ngay trên nó).
+
+Ngoài DOM còn `--mdx-accent`: chữ/icon nhỏ của `@portfolio/mdx` (nút copy, token cú pháp
+Sandpack) đi qua biến này thay vì `--color-primary`, light → `--foreground`, dark →
+`--primary`. `apps/2025` không khai nên rơi về `--color-primary` của nó, không đổi gì.
 
 ## Typography
 
@@ -106,7 +134,7 @@ out-expo, đổi nền theme 0.6s out-expo.
 ## Thành phần đặc trưng
 
 - **FelixHeroMark** — wordmark FELIX (Cloister Black → SVG, viewBox `0 0 1401 368`), fill
-  `var(--primary)`; vị trí khớp intro qua `--wordmark-top/-inset` (30 / 32.5 trên comp 1440).
+  `var(--theme-contrast)`; vị trí khớp intro qua `--wordmark-top/-inset` (30 / 32.5 trên comp 1440).
 - **Marquee / ListItem / AppearTitle / ShowcaseCard** — hiệu ứng showcase thuần CSS;
   ListItem cần `visible`, AppearTitle tự reveal bằng IntersectionObserver.
 - **Nav** — cao `--header-height` (58 → 98), tự ẩn ở đỉnh trang chủ, trượt vào khi cuộn.
@@ -116,7 +144,11 @@ out-expo, đổi nền theme 0.6s out-expo.
 - Không px tĩnh cho kích thước/spacing (trừ border 1–4px).
 - Không cubic-bezier viết tay — dùng token.
 - Không trắng `#fff` thuần — luôn `--color-white` (#EFEFEF).
-- Không gold thương hiệu làm chữ NHỎ trên nền sáng (1.69:1) — dùng `--primary` của light.
-  Chữ trang trí ≥40px thì dùng `--theme-display`, được phép.
-- Không một màu nào nổi tốt trên CẢ hai nền: giới hạn cân bằng tối đa là **4.27:1**.
+- Không gold làm chữ NHỎ (`.h3` trở xuống) trên nền sáng — 1.69:1. Đổi tín hiệu sang gạch
+  gold (`underline` / `border-*-primary`) và để chữ thừa kế màu foreground.
+- Không đặt `--theme-primary` làm màu chữ trên nền gold — dùng `var(--color-black)`.
+- **Không thêm biến thể gold thứ hai.** Một gold. Chỗ nào không đọc được thì đổi **vai trò**
+  của gold, không đổi màu gold.
 - Không gọi màu palette trực tiếp trong component showcase — đi qua `--theme-*`.
+- Không khai token màu ở `packages/ui` — nguồn sự thật duy nhất là `src/app/globals.css` của
+  app này (`packages/ui/components.json` đã trỏ thẳng vào đó cho shadcn CLI).

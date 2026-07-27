@@ -1,6 +1,7 @@
 'use client'
 
-import type { CSSProperties } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
+import { ArrowRight, Mail } from 'lucide-react'
 import { GsapSync } from '../gsap-sync'
 import { EarthBackground } from '@/components/three/earth-background'
 import { AppearTitle } from '../effects/appear-title'
@@ -39,6 +40,18 @@ export type AboutContent = {
 }
 
 export function ShowcaseAbout({ content }: { content: AboutContent }) {
+  // Gợi ý cuộn trốn đi ngay khi người dùng bắt đầu cuộn — lenis dùng `setHasScrolled(scroll > 10)`
+  // trong useScroll (pages/home/index.js:120). Dùng listener THUẦN thay vì useLenis cho khớp
+  // earth-canvas: không phụ thuộc context ReactLenis, và lenis chạy native scroll nên
+  // window.scrollY vẫn đúng. setState với cùng giá trị thì React bail out, không re-render.
+  const [hasScrolled, setHasScrolled] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setHasScrolled(window.scrollY > 10)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
     <>
       <GsapSync />
@@ -49,25 +62,47 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
         <div className={s.heroTop}>
           {/* Wordmark FELIX (blackletter) thay dòng tên — tên đầy đủ vẫn ở nav/footer/metadata */}
           <h1 className={s.heroMark}>
-            <FelixHeroMark fill='var(--theme-display)' label={content.name} />
+            <FelixHeroMark fill='var(--theme-contrast)' label={content.name} />
           </h1>
-          <h2 className={`h3 contrast ${s.heroRole}`}>{content.role}</h2>
+          {/* Bỏ .contrast → thừa kế --theme-secondary (trắng ở dark). Cũng đúng luật cấp phép
+              gold: .h3 chỉ 20px comp ở mobile nên không được là gold trên nền sáng. */}
+          <h2 className={`h3 ${s.heroRole}`}>{content.role}</h2>
         </div>
         <div className={s.heroBottom}>
-          <div className={s.scrollHint}>
-            <span className='p-s'>
+          <div className={`${s.scrollHint} ${hasScrolled ? s.scrollHintHidden : ''}`}>
+            <span className={s.scrollHintText}>
               {content.scrollLabel[0]}
               <br />
               {content.scrollLabel[1]}
             </span>
           </div>
           <p className={`p-s ${s.heroDesc}`}>{content.tagline}</p>
+          {/* Cấu trúc .button của lenis: ô icon vuông bám mép trái (chính nó định chiều cao
+              nút), nhãn căn giữa phần còn lại. Nhãn phải nhân ĐÔI — hover tráo hai bản chứ
+              không đổi màu một bản. Bản dự bị aria-hidden để screen reader chỉ đọc một lần.
+              Cả hai nút đều ĐẶC: lenis không phân cấp primary/secondary ở hero. */}
           <div className={s.heroCta}>
             <Link href='/projects' className={`${s.btn} ${s.btnFilled}`}>
-              {content.ctaProjects}
+              <span className={s.btnIcon} aria-hidden>
+                <ArrowRight />
+              </span>
+              <span className={s.btnLabel}>
+                <span className={s.btnLabelVisible}>{content.ctaProjects}</span>
+                <span className={s.btnLabelHidden} aria-hidden>
+                  {content.ctaProjects}
+                </span>
+              </span>
             </Link>
-            <Link href='/contact' className={s.btn}>
-              {content.ctaContact}
+            <Link href='/contact' className={`${s.btn} ${s.btnFilled}`}>
+              <span className={s.btnIcon} aria-hidden>
+                <Mail />
+              </span>
+              <span className={s.btnLabel}>
+                <span className={s.btnLabelVisible}>{content.ctaContact}</span>
+                <span className={s.btnLabelHidden} aria-hidden>
+                  {content.ctaContact}
+                </span>
+              </span>
             </Link>
           </div>
         </div>
@@ -121,8 +156,18 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
       <footer data-earth-step='7' data-theme='light' className={s.footer}>
         <div>
           <h2 className='h1 vh'>{content.footerHeading}</h2>
+          {/* Chữ BẮT BUỘC bọc trong .btnLabel: .btn::before là absolute z-index auto nên nó
+              nằm trên lớp text thường của chính element — text trần sẽ bị nền gold phủ mất. */}
           <Link href='/contact' className={`${s.btn} ${s.btnFilled} ${s.footerCta}`}>
-            {content.ctaFooter}
+            <span className={s.btnIcon} aria-hidden>
+              <Mail />
+            </span>
+            <span className={s.btnLabel}>
+              <span className={s.btnLabelVisible}>{content.ctaFooter}</span>
+              <span className={s.btnLabelHidden} aria-hidden>
+                {content.ctaFooter}
+              </span>
+            </span>
           </Link>
         </div>
         <div className={s.footerBottom}>

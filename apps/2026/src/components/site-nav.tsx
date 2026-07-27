@@ -53,7 +53,9 @@ export function SiteNav({ name }: { name: string }) {
       )}
     >
       <div className='flex h-14 w-full items-center justify-between gap-4' style={{ paddingInline: 'var(--safe)' }}>
-        <Link href='/' className='p-s hover:text-primary transition-colors'>
+        {/* Gold KHÔNG được làm chữ nhỏ trên nền sáng (1.69:1) — light dùng gạch chân, dark
+            giữ gold vì trên nền đen gold đạt 10.79:1. */}
+        <Link href='/' className='p-s dark:hover:text-primary underline-offset-4 transition-colors hover:underline'>
           {name}
         </Link>
 
@@ -63,8 +65,10 @@ export function SiteNav({ name }: { name: string }) {
               key={item.key}
               href={item.href}
               className={cn(
-                'p-xs transition-colors',
-                isActive(item.href) ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+                'p-xs border-b-2 pb-1 transition-colors',
+                isActive(item.href)
+                  ? 'text-foreground border-primary dark:text-primary'
+                  : 'text-muted-foreground hover:text-foreground border-transparent'
               )}
             >
               {t(item.key)}
@@ -94,7 +98,12 @@ export function SiteNav({ name }: { name: string }) {
               key={item.key}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={cn('p-s block py-3', isActive(item.href) ? 'text-primary' : 'text-muted-foreground')}
+              className={cn(
+                'p-s block border-l-2 py-3 pl-3',
+                isActive(item.href)
+                  ? 'text-foreground border-primary dark:text-primary'
+                  : 'text-muted-foreground border-transparent'
+              )}
             >
               {t(item.key)}
             </Link>

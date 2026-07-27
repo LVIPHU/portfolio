@@ -32,10 +32,11 @@ export default async function ResumePage({ params }: { params: Promise<{ locale:
 
       {/* Experience */}
       <section className='mt-10'>
-        <h2 className='h3 text-primary'>{tResume('experience')}</h2>
+        <h2 className='h3 dark:text-primary'>{tResume('experience')}</h2>
         <div className='mt-4 space-y-6 border-l pl-6'>
           {resume.experience.map((item, i) => (
             <div key={i} className='relative'>
+              {/* Chấm 10px = chrome; vị trí mốc còn được báo bằng border-l nên không phụ thuộc màu */}
               <span className='bg-primary absolute -left-[1.85rem] top-1.5 h-2.5 w-2.5 rounded-full' />
               <p className='text-muted-foreground text-sm'>
                 {formatMonth(item.start, locale)} — {item.end ? formatMonth(item.end, locale) : tResume('present')}
@@ -55,7 +56,7 @@ export default async function ResumePage({ params }: { params: Promise<{ locale:
 
       {/* Education */}
       <section className='mt-14'>
-        <h2 className='h3 text-primary'>{tResume('education')}</h2>
+        <h2 className='h3 dark:text-primary'>{tResume('education')}</h2>
         <div className='mt-4'>
           {resume.education.map((item, i) => (
             <div key={i} className='border-b py-5'>
@@ -73,7 +74,7 @@ export default async function ResumePage({ params }: { params: Promise<{ locale:
 
       {/* Skills */}
       <section className='mt-14'>
-        <h2 className='h3 text-primary'>{tResume('skills')}</h2>
+        <h2 className='h3 dark:text-primary'>{tResume('skills')}</h2>
         <div className='mt-4 space-y-4'>
           {resume.skills.map((group, i) => (
             <div key={i}>

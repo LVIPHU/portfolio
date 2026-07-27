@@ -31,7 +31,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       <p className='p-xs text-muted-foreground mt-3'>{profile.email}</p>
 
       <div className='mt-16'>
-        <h2 className='h3 text-primary'>{t('findMeOn')}</h2>
+        <h2 className='h3 dark:text-primary'>{t('findMeOn')}</h2>
         <div className='mt-6 max-w-2xl'>
           {profile.socials.map((social, i) => (
             <ListItem

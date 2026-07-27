@@ -1,0 +1,57 @@
+/* Thanh cuộn GỐC của trình duyệt (khác với thanh tiến độ ở components/showcase/scrollbar.tsx).
+   Mục tiêu: BỎ máng nền và hai nút mũi tên, chỉ chừa con trượt.
+
+   VÌ SAO PHẢI TÁCH RA FILE RIÊNG, không viết trong globals.css:
+   Lightning CSS — trình biên dịch của Tailwind v4 — CẮT BỎ scrollbar-width/scrollbar-color khi
+   xử lý file có `@import 'tailwindcss'`, vì mục tiêu trình duyệt mặc định của Tailwind là
+   Chrome 111 / Safari 16.4 trong khi hai thuộc tính này cần Chrome 121 / Safari 18.2.
+   Kiểm chứng: cùng luật đó đặt trong globals.css thì biến mất khỏi CSS đã build, đặt trong file
+   CSS thuần thì còn nguyên. File này KHÔNG đi qua pipeline Tailwind nên giữ được.
+
+   VÌ SAO CHIA HAI NHÁNH @supports:
+   Bộ thuộc tính chuẩn (scrollbar-width/color) KHÔNG có cách nào ẩn nút mũi tên — chỉ nhóm
+   ::-webkit-scrollbar-* làm được. Mà Chrome lại BỎ QUA toàn bộ nhóm webkit nếu scrollbar-width
+   được đặt. Đo được: chỉ webkit → máng 5px; thêm scrollbar-width:thin → về 10px, luật webkit
+   mất tác dụng hoàn toàn. Nên hai cơ chế loại trừ nhau, phải tách theo trình duyệt.
+   Firefox không hiểu ::-webkit-scrollbar nên `selector(::-webkit-scrollbar)` trả false ở đó và
+   true ở Chromium — dùng chính điều này làm điều kiện, không cần hack -moz-. */
+
+/* Firefox: không bỏ được nút mũi tên, nhưng thanh `thin` của nó vốn đã không có nút. */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--background);
+  }
+}
+
+/* Chromium/Safari: toàn quyền. */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+/* Máng nền trong suốt = ĐÚNG BẰNG màu nền trang, không phải một lựa chọn khác.
+   Máng cuộn nằm NGOÀI initial containing block, nên lớp phủ .showcase-bg (position:fixed;
+   inset:0) không với tới đó — thứ lộ ra qua máng trong suốt là nền canvas do body truyền lên,
+   tức đúng var(--background). Để trong suốt thì trình duyệt khỏi phải tô một dải đặc mỗi
+   frame cuộn, mà kết quả nhìn không khác gì. */
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+/* hai nút mũi tên trên/dưới */
+::-webkit-scrollbar-button {
+  display: none;
+}
+/* con trượt: thứ DUY NHẤT còn hiện, lấy gold thương hiệu (--primary).
+   LƯU Ý ĐÁNH ĐỔI đã cân nhắc và chấp nhận: gold trên nền dark đạt 10.79:1 (rất rõ), nhưng ở
+   LIGHT theme gold trên #EFEFEF chỉ 1.69:1 — con trượt sẽ rất khó thấy. Site mặc định dark
+   (theme-provider defaultTheme='dark') nên đây là nhánh thiểu số. Muốn ưu tiên đọc được hơn
+   thương hiệu thì đổi --primary thành --muted-foreground (4.66:1 ở light).
+   Hover đổi sang --foreground để vẫn có phản hồi mà không phải sinh thêm một sắc gold thứ hai. */
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--foreground);
+}
