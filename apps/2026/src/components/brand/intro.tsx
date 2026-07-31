@@ -45,7 +45,16 @@ export function Intro() {
     setPlaying(true)
     document.documentElement.classList.add('intro-running')
     const id = setTimeout(() => setIsLoaded(true), 1000)
-    return () => clearTimeout(id)
+    return () => {
+      clearTimeout(id)
+      // Unmount TRƯỚC khi release() kịp chạy (vd nhấn Back giữa intro): transitionEnd không
+      // bao giờ bắn vì wrapper đã unmount, timer 4600ms thì bị clear — không còn đường nào
+      // gỡ class. Mà hasPlayedThisLoad chặn mọi lần mount sau đụng vào classList, nên class
+      // kẹt là kẹt CẢ SESSION: BackgroundCanvas đọc intro-running sẽ ghim frameloop='never'
+      // vĩnh viễn (Earth + sao đứng im trên mọi route, chỉ hard reload mới cứu). Gỡ ở đây
+      // là chốt an toàn cuối; chạy sau release() thì chỉ là no-op.
+      document.documentElement.classList.remove('intro-running', 'intro-out')
+    }
   }, [])
 
   // khoá scroll suốt intro — không khoá nữa nếu release đã chạy trước khi lenis kịp đến

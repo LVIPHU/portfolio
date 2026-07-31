@@ -46,8 +46,12 @@
   --theme-secondary: var(--foreground);
   --theme-contrast: var(--primary);
   /* Màu nhấn cho MDX (icon copy, token cú pháp Sandpack): chữ nhỏ nên không được là gold ở
-     light. packages/mdx fallback về --color-primary nên apps/2025 không đổi gì. */
-  --mdx-accent: var(--foreground);
+     light (1.69:1). Nhưng cũng KHÔNG được là var(--foreground) — syntax highlighting cần một
+     hue TÁCH ĐƯỢC khỏi chữ thường, không chỉ tách khỏi nền: keyword/tag/string của Sandpack
+     đều ăn token này, trùng foreground là code còn đúng hai màu (ultrareview bug_002).
+     Xanh navy đậm ~5.4:1 trên #EFEFEF, không đụng luật "không thêm biến thể gold thứ hai".
+     packages/mdx fallback về --color-primary nên apps/2025 không đổi gì. */
+  --mdx-accent: oklch(0.42 0.13 250);
   /* Xám phụ THEO THEME. --color-grey (#B0B0B0) chỉ đúng trên nền đen (9.68:1); trên nền
      sáng nó rơi xuống 1.89:1, thua cả ngưỡng 3:1 của chữ lớn. */
   --theme-grey: rgb(92, 92, 92);

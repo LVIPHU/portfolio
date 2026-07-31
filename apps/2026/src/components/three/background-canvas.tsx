@@ -12,8 +12,9 @@ import { Canvas } from '@react-three/fiber'
 // frameloop="never" (components/webgl/index.js:551) và tự đẩy render bằng RAF riêng.
 //
 // Theo dõi qua class trên <html> thay vì truyền state: Intro và BackgroundCanvas là hai
-// nhánh rời nhau, còn class 'intro-running' thì Intro đã đặt sẵn và tự gỡ (kèm timer dự
-// phòng) nên không sợ kẹt frameloop vĩnh viễn.
+// nhánh rời nhau. Class 'intro-running' được gỡ qua BA đường — transitionEnd, timer dự phòng
+// 4600ms, và cleanup unmount của Intro (bắt buộc: hai đường đầu đều chết nếu người dùng nhấn
+// Back giữa intro, mà class kẹt thì frameloop ghim 'never' cả session — ultrareview bug_003).
 function useIntroRunning() {
   const [running, setRunning] = useState(false)
 
