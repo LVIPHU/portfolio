@@ -46,7 +46,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <div className='flex gap-1.5'>
             {post.tags.map((tag) => (
               <Link key={tag} href={`/tags/${tag}`}>
-                <Badge variant='outline' className='hover:border-primary hover:text-primary uppercase'>
+                <Badge variant='outline' className='hover:border-primary dark:hover:text-primary uppercase'>
                   {tag}
                 </Badge>
               </Link>

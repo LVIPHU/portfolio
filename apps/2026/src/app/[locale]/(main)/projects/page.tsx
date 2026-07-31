@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { projects, type Locale } from '@portfolio/content'
-import { AppearTitle } from '@/components/showcase/effects/appear-title'
+import { AppearTitle } from '@/components/effects/appear-title'
 import { t } from '@/lib/utils'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
@@ -24,11 +24,13 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
         <p className='p text-muted-foreground mt-4 max-w-xl'>{tP('description')}</p>
       </header>
 
+      {/* Tín hiệu hover ở light là VIỀN gold (vai trò được cấp phép); chữ h3 chỉ 20px comp ở
+          mobile nên không được là gold trên nền sáng. */}
       <div className='mt-6'>
         {sorted.map((project) => (
-          <div key={project.slug} className='group border-b py-8'>
+          <div key={project.slug} className='hover:border-primary group border-b py-8 transition-colors'>
             <div className='flex flex-col justify-between gap-2 sm:flex-row sm:items-baseline'>
-              <h2 className='h3 group-hover:text-primary transition-colors'>{project.name}</h2>
+              <h2 className='h3 dark:group-hover:text-primary transition-colors'>{project.name}</h2>
               <span className='p-xs text-muted-foreground'>{project.year}</span>
             </div>
             <p className='p text-muted-foreground mt-3 max-w-2xl'>{t(project.description, locale)}</p>
@@ -40,7 +42,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
                     href={project.links.demo}
                     target='_blank'
                     rel='noreferrer'
-                    className='p-s text-primary hover:underline'
+                    className='p-s dark:text-primary hover:underline'
                   >
                     {tP('demo')} ↗
                   </a>
@@ -50,7 +52,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
                     href={project.links.source}
                     target='_blank'
                     rel='noreferrer'
-                    className='p-s text-primary hover:underline'
+                    className='p-s dark:text-primary hover:underline'
                   >
                     {tP('source')} ↗
                   </a>

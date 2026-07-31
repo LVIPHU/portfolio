@@ -6,8 +6,8 @@ export default function NotFound() {
 
   return (
     <div className='flex min-h-[70svh] flex-col items-center justify-center gap-6 py-24 text-center'>
-      {/* 404 cỡ h1 = trang trí, dùng gold thương hiệu thay vì bản đậm */}
-      <p className='h1' style={{ color: 'var(--theme-display)' }}>
+      {/* 404 cỡ h1 (56→160px comp) = chữ trình bày, gold được cấp phép */}
+      <p className='h1' style={{ color: 'var(--theme-contrast)' }}>
         404
       </p>
       <h1 className='h3'>{t('title')}</h1>

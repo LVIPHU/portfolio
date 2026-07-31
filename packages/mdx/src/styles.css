@@ -123,8 +123,11 @@
   width: 1rem;
   height: 1rem;
 }
+/* --mdx-accent: app override để chữ/icon NHỎ không dính màu nhấn khó đọc trên nền của nó
+   (web-2026 dùng gold #DFB454, chỉ 1.69:1 trên nền sáng). App nào không khai thì rơi về
+   --color-primary y như trước. */
 .mdx-copy-button[data-copied='true'] {
-  color: var(--color-primary);
+  color: var(--mdx-accent, var(--color-primary));
 }
 
 /* ---------- Anchor heading (rehype-autolink prepend) ---------- */

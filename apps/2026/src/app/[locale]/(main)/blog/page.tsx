@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getAllPosts, type Locale } from '@portfolio/content'
 import { Link } from '@/i18n/navigation'
-import { AppearTitle } from '@/components/showcase/effects/appear-title'
+import { AppearTitle } from '@/components/effects/appear-title'
 import { PostRow } from '@/components/post-row'
 import { formatDate } from '@/lib/utils'
 
@@ -24,7 +24,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: L
         </h1>
         <div className='mt-4 flex flex-wrap items-baseline justify-between gap-4'>
           <p className='p text-muted-foreground max-w-xl'>{t('description')}</p>
-          <Link href='/tags' className='p-s text-primary shrink-0 hover:underline'>
+          <Link href='/tags' className='p-s dark:text-primary shrink-0 hover:underline'>
             {t('allTags')} →
           </Link>
         </div>

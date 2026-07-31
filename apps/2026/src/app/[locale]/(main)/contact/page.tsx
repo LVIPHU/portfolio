@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { Mail } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { profile, type Locale } from '@portfolio/content'
-import { AppearTitle } from '@/components/showcase/effects/appear-title'
-import { ListItem } from '@/components/showcase/effects/list-item'
+import { AppearTitle } from '@/components/effects/appear-title'
+import { ListItem } from '@/components/effects/list-item'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
@@ -31,7 +31,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       <p className='p-xs text-muted-foreground mt-3'>{profile.email}</p>
 
       <div className='mt-16'>
-        <h2 className='h3 text-primary'>{t('findMeOn')}</h2>
+        <h2 className='h3 dark:text-primary'>{t('findMeOn')}</h2>
         <div className='mt-6 max-w-2xl'>
           {profile.socials.map((social, i) => (
             <ListItem

@@ -14,7 +14,16 @@ import { Stars } from './stars'
 // opacity = độ hiện (mặc định 1).
 type Step = { position: [number, number]; scale: number; rotationY: number; opacity?: number }
 const STEPS: Step[] = [
-  { position: [0.38, -0.35], scale: 2.4, rotationY: 0 }, // 0 hero — 1/3 cầu góc phải-dưới
+  // 0 hero — ĐÚNG NỬA cầu nhô lên từ đáy. Camera orthographic zoom 1 nên scale = BÁN KÍNH
+  // px thật (sphereGeometry r=100): 3.0 → bán kính 300px. Tâm nằm ở (0.5+x)*W theo chiều
+  // ngang và (0.5+|y|)*H tính từ đỉnh màn.
+  //   y = -0.50 là con số ĐẶC BIỆT: tâm rơi đúng vào mép dưới viewport nên phần lọt vào màn
+  //     luôn là chính xác một nửa cầu, ở MỌI chiều cao màn — không phải canh lại theo từng
+  //     viewport như các mốc -0.72 / -0.66 trước đó.
+  //   x = -0.22 → ở viewport 1907px tâm nằm x=534, vành cầu rộng nhất trải 234→834. Chữ
+  //     "CUỘN / KHÁM PHÁ" (cột 1-2) kết thúc ~x=195 nên vẫn thoát. Dòng mô tả (355→775) thì
+  //     nằm trên vành cầu — chấp nhận, vì nửa cầu bắt buộc chiếm hết dải đó.
+  { position: [-0.22, -0.5], scale: 3.0, rotationY: 0 },
   { position: [-0.5, 0.15], scale: 3.0, rotationY: 0.5 }, // 1 about — nửa cầu lớn bên trái
   { position: [0.0, 0.0], scale: 0.9, rotationY: 1.0 }, // 2 skills — nhỏ giữa (nghỉ nhịp)
   { position: [0.0, 0.25], scale: 0.5, rotationY: 1.6, opacity: 0 }, // 3 zoom-start — MỜ DẦN suốt đoạn scroll ngang, mất hẳn đúng lúc rail kết thúc
@@ -39,14 +48,27 @@ function useSectionPose(enabled: boolean): MutableRefObject<Pose> {
 
   useEffect(() => {
     if (!enabled) return
-    const update = () => {
+
+    // TÁCH đo DOM khỏi tính toán. Bản trước gọi querySelectorAll + getBoundingClientRect cho
+    // MỌI sự kiện scroll — đo được bằng cách hook Element.prototype: 10 lần buộc layout đồng bộ
+    // mỗi sự kiện. Lenis bắn scroll theo nhịp frame nên chi phí đó nằm thẳng trên đường tới hạn
+    // và làm cuộn nặng tay. Mốc section chỉ đổi khi LAYOUT đổi, không đổi khi cuộn — nên cache.
+    let tops: number[] = []
+    let docEnd = 0
+
+    const measure = () => {
       const sections = ([...document.querySelectorAll('[data-earth-step]')] as HTMLElement[]).sort(
         (a, b) => Number(a.dataset.earthStep) - Number(b.dataset.earthStep)
       )
-      if (!sections.length) return
       const y = window.scrollY
-      const tops = sections.map((s) => s.getBoundingClientRect().top + y)
-      const docEnd = document.documentElement.scrollHeight - window.innerHeight
+      tops = sections.map((s) => s.getBoundingClientRect().top + y)
+      docEnd = document.documentElement.scrollHeight - window.innerHeight
+    }
+
+    // Chỉ toán học. Ngoài window.scrollY (đọc rẻ) thì KHÔNG chạm DOM.
+    const update = () => {
+      if (!tops.length) return
+      const y = window.scrollY
 
       // pair i: tops[i] → tops[i+1] (threshold = mép trên section chạm mép trên viewport)
       let i = tops.findIndex((t) => y < t) - 1
@@ -58,14 +80,26 @@ function useSectionPose(enabled: boolean): MutableRefObject<Pose> {
       pose.current = { i, p }
     }
 
-    update()
+    const remeasure = () => {
+      measure()
+      update()
+    }
+
+    remeasure()
     window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
+    window.addEventListener('resize', remeasure)
+    // Ảnh/font tải xong hay section co giãn thì chiều cao tài liệu đổi mà KHÔNG có sự kiện
+    // resize nào — đây là lý do bản cũ phải đo live. ResizeObserver giữ nguyên tính đúng đắn
+    // đó mà không phải trả giá mỗi frame.
+    const ro = new ResizeObserver(remeasure)
+    ro.observe(document.documentElement)
+
     return () => {
       window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
+      window.removeEventListener('resize', remeasure)
+      ro.disconnect()
     }
-  }, [])
+  }, [enabled])
 
   return pose
 }

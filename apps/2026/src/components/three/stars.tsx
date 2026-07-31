@@ -103,12 +103,13 @@ export function Stars({ depth = 500 }: { depth?: number }) {
     drift: { value: 0.05, min: 0, max: 0.4, step: 0.01 },
     // hệ số parallax (lenis để cứng 100 → sao chỉ dịch ~10% quãng cuộn, rất khó thấy)
     parallax: { value: 400, min: 0, max: 1200, step: 20 },
-    // Sao PHẢI nhạt hơn màu thương hiệu, đúng cách lenis làm (brand #FF98A2 L80% →
-    // particles #FFCFCE L90%). Lý do là toán học: quá nửa diện tích mỗi ngôi sao nằm ở
-    // alpha thấp (đo được: trung vị 14/255), mà màu hiện ra = màu × alpha. Dùng thẳng
-    // brand #DFB454 (luminance 0.46) thì trung vị ra rgb(12,10,5) — gần như đen.
-    // #F0D9A8 giữ nguyên hue 41° của brand, đẩy lightness 60% → 80%.
-    color: '#F0D9A8',
+    // Gold thương hiệu, theo yêu cầu gộp về MỘT màu.
+    // CẢNH BÁO đo được trước đó: quá nửa diện tích mỗi ngôi sao nằm ở alpha thấp (trung vị
+    // 14/255), mà màu hiện ra = màu × alpha — nên #DFB454 (luminance 0.46) cho trung vị
+    // ≈ rgb(12,10,5), sao tối đi rõ so với bản #F0D9A8 cũ (hue 41° y hệt, lightness 80%).
+    // lenis cũng không dùng brand color cho particle (#FF98A2 → #FFCFCE). Nếu thấy trời sao
+    // mờ quá thì đổi lại '#F0D9A8'.
+    color: '#DFB454',
   })
 
   // Sinh vị trí trong khung CỐ ĐỊNH đủ lớn (không phụ thuộc viewport lúc mount —
