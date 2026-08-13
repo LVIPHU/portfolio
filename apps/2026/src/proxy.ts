@@ -1,10 +1,8 @@
-import createMiddleware from 'next-intl/middleware'
-import { routing } from './i18n/routing'
+import createIntlMiddleware from '@portfolio/i18n/middleware'
 
-// Next.js 16: file convention là proxy.ts (thay cho middleware.ts)
-export default createMiddleware(routing)
+export default createIntlMiddleware
 
+// Matcher phải là object literal tại đây — Next parse tĩnh lúc build (không import từ package).
 export const config = {
-  // Match mọi path trừ /api, /_next, /_vercel và file tĩnh (có dấu chấm)
   matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
 }

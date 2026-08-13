@@ -22,7 +22,13 @@ const config: NextConfig = {
   reactCompiler: true,
   // C11: sandpack-react cần transpile (ESM không chạy thẳng qua Turbopack — client
   // component không hydrate nếu để nguyên; đã kiểm chứng trên 2025).
-  transpilePackages: ['@portfolio/content', '@portfolio/ui', '@portfolio/mdx', '@codesandbox/sandpack-react'],
+  transpilePackages: [
+    '@portfolio/content',
+    '@portfolio/ui',
+    '@portfolio/mdx',
+    '@portfolio/i18n',
+    '@codesandbox/sandpack-react',
+  ],
   // Monorepo: chỉ rõ workspace root để Turbopack không phải đoán (cần cho vercel build)
   outputFileTracingRoot: repoRoot,
   turbopack: {

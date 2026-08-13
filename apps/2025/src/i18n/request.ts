@@ -1,13 +1,4 @@
-import { getRequestConfig } from 'next-intl/server'
-import { hasLocale } from 'next-intl'
-import { routing } from './routing'
+import { createAppRequestConfig } from '@portfolio/i18n/request'
+import type { Locale } from '@portfolio/i18n/locales'
 
-export default getRequestConfig(async ({ requestLocale }) => {
-  const requested = await requestLocale
-  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale
-
-  return {
-    locale,
-    messages: (await import(`../../messages/${locale}.json`)).default,
-  }
-})
+export default createAppRequestConfig(async (locale: Locale) => (await import(`../../messages/${locale}.json`)).default)

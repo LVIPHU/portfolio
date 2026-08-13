@@ -62,7 +62,13 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // C10 (D-01): React Compiler stable trong Next 16 — memo tự động (babel pass).
   reactCompiler: true,
-  transpilePackages: ['@portfolio/content', '@portfolio/mdx', '@portfolio/ui', '@codesandbox/sandpack-react'],
+  transpilePackages: [
+    '@portfolio/content',
+    '@portfolio/mdx',
+    '@portfolio/ui',
+    '@portfolio/i18n',
+    '@codesandbox/sandpack-react',
+  ],
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   env: {
     version: version,

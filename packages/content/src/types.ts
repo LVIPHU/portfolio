@@ -1,4 +1,6 @@
-export type Locale = 'vi' | 'en'
+import type { Locale } from '@portfolio/i18n/locales'
+
+export type { Locale }
 
 /** Chuỗi song ngữ — mọi text hiển thị đều dùng dạng này */
 export type Localized = Record<Locale, string>

@@ -13,6 +13,7 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@portfolio/content": "workspace:*",
+    "@portfolio/i18n": "workspace:*",
     "@portfolio/mdx": "workspace:*",
     "@portfolio/ui": "workspace:*",
     "@react-three/drei": "^10.7.7",
