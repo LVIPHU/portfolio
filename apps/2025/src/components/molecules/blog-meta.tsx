@@ -1,6 +1,6 @@
 import type readingTime from 'reading-time'
-import type { StatsType } from '@/db/schema'
-import { formatDate, getTimeAgo } from '@/utils'
+import type { StatsType } from '@portfolio/service'
+import { formatDate, getTimeAgo } from '@portfolio/utils'
 import { ViewsCounter } from '@/components/atoms'
 
 type BlogMetaProps = {

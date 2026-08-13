@@ -13,7 +13,7 @@ import {
   DrawerTitle,
 } from '@/components/atoms'
 import { useRouter } from 'next/navigation'
-import { useMediaQuery } from '@/hooks'
+import { useMediaQuery } from '@portfolio/hooks'
 
 export function Modal({
   children,

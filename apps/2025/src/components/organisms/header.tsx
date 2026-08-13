@@ -1,5 +1,5 @@
 import { Separator } from '@/components/atoms'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 
 type Props = {
   title: string

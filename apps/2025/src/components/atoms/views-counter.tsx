@@ -1,7 +1,7 @@
 'use client'
 
-import type { StatsType } from '@/db/schema'
-import { useBlogStats, useUpdateBlogStats } from '@/hooks'
+import type { StatsType } from '@portfolio/service'
+import { useBlogStats, useUpdateBlogStats } from '@portfolio/service/stats/hooks'
 import { useEffect } from 'react'
 
 export function ViewsCounter({ type, slug, className }: { type: StatsType; slug: string; className?: string }) {

@@ -13,9 +13,12 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@portfolio/content": "workspace:*",
+    "@portfolio/hooks": "workspace:*",
     "@portfolio/i18n": "workspace:*",
     "@portfolio/mdx": "workspace:*",
+    "@portfolio/service": "workspace:*",
     "@portfolio/ui": "workspace:*",
+    "@portfolio/utils": "workspace:*",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "class-variance-authority": "^0.7.1",
@@ -32,7 +35,6 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "stats.js": "^0.17.0",
-    "tailwind-merge": "^3.0.0",
     "three": "^0.182.0"
   },
   "devDependencies": {

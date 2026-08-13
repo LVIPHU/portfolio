@@ -67,6 +67,9 @@ const nextConfig: NextConfig = {
     '@portfolio/mdx',
     '@portfolio/ui',
     '@portfolio/i18n',
+    '@portfolio/service',
+    '@portfolio/utils',
+    '@portfolio/hooks',
     '@codesandbox/sandpack-react',
   ],
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
@@ -76,6 +79,7 @@ const nextConfig: NextConfig = {
     email: author.email,
   },
   images: {
+    qualities: [75, 100],
     remotePatterns: [
       {
         protocol: 'https',

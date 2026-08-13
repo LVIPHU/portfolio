@@ -1,5 +1,6 @@
 'use client'
-import { cn, imageDriveLoader } from '@/utils'
+import { cn } from '@portfolio/utils'
+import { imageDriveLoader } from '@/utils'
 import * as React from 'react'
 import { ImageProps } from 'next/image'
 import { Image, Zoom } from '@/components/atoms'

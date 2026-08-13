@@ -1,6 +1,5 @@
 import { createStatsHandlers } from '@portfolio/service/stats/handlers'
-import { env } from '@env'
 
 export const { GET, POST } = createStatsHandlers({
-  databaseUrl: env.DATABASE_URL,
+  databaseUrl: process.env.DATABASE_URL,
 })

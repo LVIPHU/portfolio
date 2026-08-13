@@ -7,7 +7,8 @@ import { ListItem } from '@/components/effects/list-item'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
-  return { title: locale === 'vi' ? 'Liên hệ' : 'Contact' }
+  const tMeta = await getTranslations({ locale, namespace: 'contact' })
+  return { title: tMeta('title') }
 }
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: Locale }> }) {

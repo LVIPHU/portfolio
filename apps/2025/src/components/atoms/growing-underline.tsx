@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 
 export function GrowingUnderline({
   as: Component = 'span',

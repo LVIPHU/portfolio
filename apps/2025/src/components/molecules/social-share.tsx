@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
   EditOnGithub,
 } from '@/components/atoms'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 
 type SocialButtonsProps = {
   postUrl: string

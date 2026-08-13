@@ -1,4 +1,5 @@
-import { capitalize, cn, kebabCaseToPlainText } from '@/utils'
+import { cn } from '@portfolio/utils'
+import { capitalize, kebabCaseToPlainText } from '@portfolio/utils'
 import { GritBackground, GrowingUnderline, Image, NavigationLink, Zoom } from '@/components/atoms'
 
 export function Banner({ banner, className }: { banner: string; className?: string }) {

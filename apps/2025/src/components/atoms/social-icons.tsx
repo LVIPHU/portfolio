@@ -36,7 +36,7 @@ import {
   LogoLight,
 } from '@/utils'
 
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 import { GitFork } from 'lucide-react'
 import { Button } from '@portfolio/ui'
 import { NavigationLink } from '@/components/atoms/navigation-link'

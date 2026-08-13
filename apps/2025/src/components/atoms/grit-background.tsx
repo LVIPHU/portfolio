@@ -1,4 +1,4 @@
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 
 export function GritBackground({ className }: { className?: string }) {
   return (

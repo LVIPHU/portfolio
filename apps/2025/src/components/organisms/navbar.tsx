@@ -21,7 +21,7 @@ import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025
 import { useKBar } from 'kbar'
 
 type Props = {
-  /** Không còn dùng sau C6 — Link/pathname đã locale-aware qua @/i18n/navigation */
+  /** Không còn dùng sau C6 — Link/pathname đã locale-aware qua @portfolio/i18n/navigation */
   lang?: string
 }
 

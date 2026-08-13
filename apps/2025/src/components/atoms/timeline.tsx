@@ -1,7 +1,7 @@
 'use client'
 import '@/libs/dayjs'
 import React, { useRef } from 'react'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 import dayjs from 'dayjs'
 import { useLocale, useTranslations } from 'next-intl'
 import { dayjsLocaleMap, dayjsLocales } from '@/libs/dayjs'

@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getAllTags, type Locale } from '@portfolio/content'
-import { Link } from '@/i18n/navigation'
+import { Link } from '@portfolio/i18n/navigation'
 import { AppearTitle } from '@/components/effects/appear-title'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
-  return { title: locale === 'vi' ? 'Tag' : 'Tags' }
+  const tMeta = await getTranslations({ locale, namespace: 'tags' })
+  return { title: tMeta('title') }
 }
 
 export default async function TagsPage({ params }: { params: Promise<{ locale: Locale }> }) {

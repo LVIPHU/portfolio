@@ -1,6 +1,6 @@
 'use client'
 
-import { useBlogStats } from '@/hooks'
+import { useBlogStats } from '@portfolio/service/stats/hooks'
 
 // Hiển thị lượt xem CHỈ-ĐỌC cho card danh sách: dùng useBlogStats (GET /api/stats) —
 // KHÔNG tái dùng ViewsCounter vì component đó POST +1 view mỗi lần mount (sẽ thổi phồng

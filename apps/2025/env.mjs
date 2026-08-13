@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { config } from 'dotenv'
 import { resolve } from 'path'
 
-// Load .env.local when not running in Next.js (e.g., drizzle-kit, scripts)
+// Load .env.local when not running in Next.js (e.g. scripts)
 if (typeof window === 'undefined' && !process.env.NEXT_RUNTIME) {
   config({ path: resolve(process.cwd(), '.env.local') })
 }

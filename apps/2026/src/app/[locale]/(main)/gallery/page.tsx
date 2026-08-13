@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { gallery, type Locale } from '@portfolio/content'
 import { AppearTitle } from '@/components/effects/appear-title'
-import { t } from '@/lib/utils'
-
+import { t } from '@/utils/format'
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
-  return { title: locale === 'vi' ? 'Ảnh' : 'Gallery' }
+  const tMeta = await getTranslations({ locale, namespace: 'gallery' })
+  return { title: tMeta('title') }
 }
 
 export default async function GalleryPage({ params }: { params: Promise<{ locale: Locale }> }) {

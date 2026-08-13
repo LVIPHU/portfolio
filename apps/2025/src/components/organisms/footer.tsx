@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 import {
   Container,
   Separator,

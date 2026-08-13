@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useMediaQuery } from '@portfolio/ui/hooks'
+import { useMediaQuery } from '@portfolio/hooks'
 import { useDebug } from './use-debug'
 
 // Canvas + Leva panel không SSR được → dynamic ssr:false.

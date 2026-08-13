@@ -5,8 +5,6 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./utils": "./src/lib/utils.ts",
-    "./hooks": "./src/hooks/index.ts",
     "./motion": "./src/motion/index.ts"
   },
   "scripts": {
@@ -15,15 +13,12 @@
   "dependencies": {
     "@base-ui/react": "^1.6.0",
     "@gsap/react": "^2.1.2",
+    "@portfolio/utils": "workspace:*",
     "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
     "gsap": "^3.15.0",
-    "lodash.debounce": "^4.0.8",
-    "lucide-react": "^1.24.0",
-    "tailwind-merge": "^3.6.0"
+    "lucide-react": "^1.24.0"
   },
   "devDependencies": {
-    "@types/lodash.debounce": "^4.0.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "react-hook-form": "^7.81.0",

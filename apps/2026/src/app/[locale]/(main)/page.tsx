@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { featuredProjects, getAllPosts, profile, resume, type Locale } from '@portfolio/content'
-import { Link } from '@/i18n/navigation'
+import { Link } from '@portfolio/i18n/navigation'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { Marquee } from '@/components/effects/marquee'
 import { ListItem } from '@/components/effects/list-item'
@@ -9,8 +9,7 @@ import { PostRow } from '@/components/post-row'
 import { FelixHeroMark } from '@/components/brand/felix-mark'
 import { Intro } from '@/components/brand/intro'
 import { EarthBackground } from '@/components/three/earth-background'
-import { formatDate, t } from '@/lib/utils'
-
+import { formatDate, t } from '@/utils/format'
 export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params
   setRequestLocale(locale)

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { Author, BlogContent } from '@/utils/content'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import type { CoreContent } from '@/types/data'
-import type { StatsType } from '@/db/schema'
+import type { StatsType } from '@portfolio/service'
 import { Container, Separator, TableOfContents } from '@/components/atoms'
 import {
   Banner,

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { BlogContent } from '@/utils/content'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import type { CoreContent } from '@/types/data'
-import type { StatsType } from '@/db/schema'
+import type { StatsType } from '@portfolio/service'
 import { Container, Separator } from '@/components/atoms'
 import { BlogMeta, Comments, PostTitle, ScrollButtons, TagsList } from '@/components/molecules'
 

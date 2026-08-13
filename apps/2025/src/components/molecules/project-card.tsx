@@ -7,7 +7,7 @@ import { Github } from '@/utils'
 import { type Project2025 as Project } from '@portfolio/content/data2025'
 import useSWR from 'swr'
 import { GithubRepository } from '@/types/github'
-import { fetcher } from '@/utils'
+import { fetcher } from '@portfolio/utils'
 import { useLocale, useTranslations } from 'next-intl'
 
 interface ProjectCardProps {

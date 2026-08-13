@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 
-import { cn } from '../lib/utils'
+import { cn } from '@portfolio/utils'
 
 // C8 (D-04): registry Base UI không có drawer/vaul → port tay trên Dialog của
 // @base-ui/react + trượt từ đáy bằng transform/transition (data-starting-style/

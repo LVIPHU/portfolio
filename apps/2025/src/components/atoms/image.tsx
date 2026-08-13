@@ -5,7 +5,7 @@ import NextImage from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import ReactMediumImageZoom, { type UncontrolledProps } from 'react-medium-image-zoom'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 
 const loadedImages: string[] = []
 

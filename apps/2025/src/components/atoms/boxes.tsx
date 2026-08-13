@@ -1,7 +1,8 @@
 'use client'
 import React, { CSSProperties, memo, useRef, useState, useMemo, useEffect, useLayoutEffect } from 'react'
-import { cn, initAudio, playRandomNote } from '@/utils'
-import { useDragRotate } from '@/hooks'
+import { cn } from '@portfolio/utils'
+import { initAudio, playRandomNote } from '@/utils'
+import { useDragRotate } from '@portfolio/hooks'
 import { BREAKPOINTS, COLORS, TOTAL_GRID } from '@/constants/boxes'
 
 type Color = (typeof COLORS)[number]

@@ -10,7 +10,7 @@ import { ZoomSection } from './zoom-section'
 import { FeatureCards } from './feature-cards'
 import { ProjectsSection } from './projects-section'
 import { FelixHeroMark } from '@/components/brand/felix-mark'
-import { Link } from '@/i18n/navigation'
+import { Link } from '@portfolio/i18n/navigation'
 import s from './sections.module.css'
 
 export type AboutContent = {

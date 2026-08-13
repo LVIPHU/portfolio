@@ -1,7 +1,8 @@
 'use client'
 
 import type { PostWithAuthor } from '@/utils/content'
-import { cn, playRandomNote } from '@/utils'
+import { cn } from '@portfolio/utils'
+import { playRandomNote } from '@/utils'
 import {
   Avatar,
   AvatarFallback,

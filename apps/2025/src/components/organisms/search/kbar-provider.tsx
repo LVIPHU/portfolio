@@ -5,7 +5,7 @@ import { KBarProvider } from 'kbar'
 import { useRouter } from 'next/navigation.js'
 import { useState, type ReactNode, useEffect } from 'react'
 import type { CoreContent, MDXDocument } from '@/types/data'
-import { formatDate } from '@/utils'
+import { formatDate } from '@portfolio/utils'
 import { KBarModal } from './kbar-modal'
 
 export interface KBarSearchProps {

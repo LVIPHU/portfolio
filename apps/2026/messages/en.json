@@ -26,6 +26,33 @@
     "location": "Location",
     "email": "Email"
   },
+  "showcase": {
+    "aboutHeading": "About me",
+    "scrollLabel": ["scroll", "to explore"],
+    "ctaProjects": "View projects",
+    "ctaContact": "Contact",
+    "skillsHeading": "What I work with",
+    "statement": {
+      "first": "Turn ideas",
+      "enter": "into",
+      "second": "products"
+    },
+    "featuringTitle": ["What I care", "about"],
+    "featuringItems": [
+      "Clean code",
+      "Performance",
+      "User experience",
+      "Maintainable",
+      "Responsive",
+      "Attention to detail",
+      "Testing",
+      "Accessibility",
+      "Modern stack"
+    ],
+    "projectsHeading": "Projects",
+    "footerHeading": "Let's build something",
+    "ctaFooter": "Get in touch"
+  },
   "projects": {
     "title": "Projects",
     "description": "Things I've built and am building.",

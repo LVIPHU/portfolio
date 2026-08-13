@@ -1,6 +1,7 @@
 import { env } from '@env'
 import type { Author, Post, PostMeta } from '@portfolio/content'
 import type { Toc } from '@portfolio/mdx'
+import { omit } from '@portfolio/utils'
 
 /**
  * Tầng THUẦN của eo biển content (C5): type + helper không đụng fs —
@@ -25,34 +26,6 @@ export function mapLocale(lang: string): 'vi' | 'en' {
 }
 
 const isProduction = env.NEXT_PUBLIC_NODE_ENV === 'production'
-
-export function dateSortDesc(a: string, b: string) {
-  if (a > b) return -1
-  if (a < b) return 1
-  return 0
-}
-
-export function sortPosts<T extends { date: string }>(allBlogs: T[], dateKey: keyof T & string = 'date' as never) {
-  return allBlogs.sort((a, b) => dateSortDesc(String(a[dateKey]), String(b[dateKey])))
-}
-
-export const omit = <Obj, Keys extends keyof Obj>(obj: Obj, keys: Keys[]): Omit<Obj, Keys> => {
-  const result = Object.assign({}, obj)
-  keys.forEach((key) => {
-    delete result[key]
-  })
-  return result
-}
-
-export const pick = <Obj, Keys extends keyof Obj>(obj: Obj, keys: Keys[]): Pick<Obj, Keys> => {
-  return keys.reduce(
-    (acc, key) => {
-      acc[key] = obj[key]
-      return acc
-    },
-    {} as Pick<Obj, Keys>
-  )
-}
 
 /** Generic không ràng buộc — dùng được cho mọi shape doc (cũ lẫn Post mới) */
 export function coreContent<T>(content: T): CoreContent<T> {

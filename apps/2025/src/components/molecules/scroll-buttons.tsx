@@ -2,7 +2,7 @@
 
 import { ChevronsUp, MessageSquareText } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 
 export function ScrollButtons() {
   const [show, setShow] = useState(false)

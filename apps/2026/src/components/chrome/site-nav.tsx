@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Menu, X } from 'lucide-react'
-import { Link, usePathname } from '@/i18n/navigation'
+import { Link, usePathname } from '@portfolio/i18n/navigation'
 import { LocaleSwitcher } from '@/components/chrome/locale-switcher'
 import { ThemeToggle } from '@/components/chrome/theme-toggle'
 import { Button } from '@portfolio/ui'
-import { cn } from '@/lib/utils'
+import { cn } from '@portfolio/utils'
 
 const items = [
   { href: '/', key: 'home' },

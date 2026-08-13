@@ -3,8 +3,8 @@
 import { useEffect } from 'react'
 import { ReactLenis, useLenis } from 'lenis/react'
 import 'lenis/dist/lenis.css'
-import { useMediaQuery } from '@portfolio/ui/hooks'
-import { usePathname } from '@/i18n/navigation'
+import { useMediaQuery } from '@portfolio/hooks'
+import { usePathname } from '@portfolio/i18n/navigation'
 
 // module scope = identity ổn định, ReactLenis không re-init mỗi render (kể cả React Compiler)
 const lenisOptions = {

@@ -4,7 +4,7 @@ import { useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
-import { cn } from '../lib/utils'
+import { cn } from '@portfolio/utils'
 
 gsap.registerPlugin(useGSAP)
 

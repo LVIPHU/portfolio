@@ -3,7 +3,7 @@ import path from 'path'
 import { mkdirSync, writeFileSync } from 'fs'
 import { slug } from 'github-slugger'
 import { getAllPosts, getTagData, type PostMeta } from '@portfolio/content'
-import { sortPosts, escape } from '@/utils'
+import { escape, sortPosts } from '@portfolio/utils'
 import { env } from '@env'
 
 // Extract only non-macro fields needed for RSS generation

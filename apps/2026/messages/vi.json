@@ -26,6 +26,33 @@
     "location": "Nơi ở",
     "email": "Email"
   },
+  "showcase": {
+    "aboutHeading": "Về mình",
+    "scrollLabel": ["cuộn", "khám phá"],
+    "ctaProjects": "Xem dự án",
+    "ctaContact": "Liên hệ",
+    "skillsHeading": "Mình dùng gì",
+    "statement": {
+      "first": "Biến ý tưởng",
+      "enter": "thành",
+      "second": "sản phẩm"
+    },
+    "featuringTitle": ["Mình quan tâm", "điều gì"],
+    "featuringItems": [
+      "Code sạch",
+      "Hiệu năng",
+      "Trải nghiệm",
+      "Dễ bảo trì",
+      "Responsive",
+      "Chi tiết",
+      "Kiểm thử",
+      "Khả dụng",
+      "Hiện đại"
+    ],
+    "projectsHeading": "Dự án",
+    "footerHeading": "Cùng tạo điều gì đó",
+    "ctaFooter": "Liên hệ với mình"
+  },
   "projects": {
     "title": "Dự án",
     "description": "Những thứ mình đã và đang xây dựng.",

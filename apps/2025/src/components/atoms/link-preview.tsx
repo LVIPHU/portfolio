@@ -9,7 +9,7 @@ import { encode } from 'qss'
 import React from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 import { NavigationLink } from '@/components/atoms/navigation-link'
 
 gsap.registerPlugin(useGSAP)

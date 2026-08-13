@@ -1,5 +1,5 @@
 'use client'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 import { ProjectCard } from '@/components/molecules/project-card'
 import { type Project2025 as Project } from '@portfolio/content/data2025'
 import { Reveal } from '@/components/atoms'

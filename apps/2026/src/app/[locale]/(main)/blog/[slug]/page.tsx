@@ -5,10 +5,9 @@ import { ArrowLeft } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { MDXContent } from '@portfolio/mdx'
 import { getAllSlugs, getPost, type Locale } from '@portfolio/content'
-import { Link } from '@/i18n/navigation'
+import { Link } from '@portfolio/i18n/navigation'
 import { Badge } from '@portfolio/ui'
-import { formatDate } from '@/lib/utils'
-
+import { formatDate } from '@/utils/format'
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }))
 }

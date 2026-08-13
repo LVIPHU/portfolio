@@ -2,10 +2,9 @@ import type { Metadata } from 'next'
 import { ArrowLeft } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getAllTags, getPostsByTag, type Locale } from '@portfolio/content'
-import { Link } from '@/i18n/navigation'
+import { Link } from '@portfolio/i18n/navigation'
 import { PostRow } from '@/components/post-row'
-import { formatDate } from '@/lib/utils'
-
+import { formatDate } from '@/utils/format'
 export function generateStaticParams() {
   // Union tag của cả 2 locale
   const tags = new Set([...getAllTags('vi').map(({ tag }) => tag), ...getAllTags('en').map(({ tag }) => tag)])

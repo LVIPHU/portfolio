@@ -1,6 +1,6 @@
 import { Search } from 'lucide-react'
 import type { ChangeEventHandler } from 'react'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 
 export function SearchArticles({
   onChange,

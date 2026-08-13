@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getAllPosts, type Locale } from '@portfolio/content'
-import { Link } from '@/i18n/navigation'
+import { Link } from '@portfolio/i18n/navigation'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { PostRow } from '@/components/post-row'
-import { formatDate } from '@/lib/utils'
-
-export async function generateMetadata(): Promise<Metadata> {
-  return { title: 'Blog' }
+import { formatDate } from '@/utils/format'
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+  const { locale } = await params
+  const tMeta = await getTranslations({ locale, namespace: 'blog' })
+  return { title: tMeta('title') }
 }
 
 export default async function BlogPage({ params }: { params: Promise<{ locale: Locale }> }) {

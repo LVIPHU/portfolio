@@ -27,6 +27,9 @@ const config: NextConfig = {
     '@portfolio/ui',
     '@portfolio/mdx',
     '@portfolio/i18n',
+    '@portfolio/service',
+    '@portfolio/utils',
+    '@portfolio/hooks',
     '@codesandbox/sandpack-react',
   ],
   // Monorepo: chỉ rõ workspace root để Turbopack không phải đoán (cần cho vercel build)

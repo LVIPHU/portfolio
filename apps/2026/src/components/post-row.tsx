@@ -1,4 +1,4 @@
-import { Link } from '@/i18n/navigation'
+import { Link } from '@portfolio/i18n/navigation'
 
 // Hàng bài viết kiểu showcase — dùng ở home + blog list. Hover đổi màu VIỀN (gold được cấp
 // phép làm gạch ở mọi theme); tiêu đề 20px chỉ hoá gold ở dark, light giữ chữ đen.

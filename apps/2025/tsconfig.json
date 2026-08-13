@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
@@ -12,10 +11,11 @@
       "@/*": ["./src/*"],
       "@env": ["./env.mjs"],
       "@json/*": ["./json/*"],
-      "@public/*": ["./public/*"]
-    },
-    "typeRoots": ["./src/types", "./node_modules/@types"]
+      "@public/*": ["./public/*"],
+      "@portfolio/service": ["../../packages/service/src/index.ts"],
+      "@portfolio/service/*": ["../../packages/service/src/*"]
+    }
   },
-  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

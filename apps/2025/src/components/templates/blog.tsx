@@ -2,7 +2,7 @@
 
 import type { PostWithAuthor } from '@/utils/content'
 import { ArrowLeft, ArrowRight, LayoutGrid, List } from 'lucide-react'
-import { Link, usePathname } from '@/i18n/navigation'
+import { Link, usePathname } from '@portfolio/i18n/navigation'
 import React, { useState } from 'react'
 import { Reveal, Container, SearchArticles, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'

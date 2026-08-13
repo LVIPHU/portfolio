@@ -1,5 +1,5 @@
 'use client'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 import { memo, useState, type CSSProperties, type ReactNode } from 'react'
 import { PanelBottomClose, PanelBottomOpen } from 'lucide-react'
 import { NavigationLink, Popover, PopoverContent, PopoverTrigger, Separator } from '@/components/atoms'

@@ -1,6 +1,6 @@
 import { ChevronRight } from 'lucide-react'
 import { NavigationLink } from '@/components/atoms/navigation-link'
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 
 type TocItem = {
   value: string

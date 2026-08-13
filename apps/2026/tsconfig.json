@@ -8,7 +8,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@portfolio/service": ["../../packages/service/src/index.ts"],
+      "@portfolio/service/*": ["../../packages/service/src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],

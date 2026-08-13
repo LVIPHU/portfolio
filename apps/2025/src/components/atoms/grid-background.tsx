@@ -1,4 +1,4 @@
-import { cn } from '@/utils'
+import { cn } from '@portfolio/utils'
 
 // SVG inline thay import qua @svgr/webpack (C7, D-05 — Turbopack không có webpack rule).
 // Nguồn: public/static/images/backgrounds/grid.svg (pattern 72×56 + 2 rect nhấn).

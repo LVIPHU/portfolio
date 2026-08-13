@@ -2,8 +2,7 @@ import { Code, ExternalLink } from 'lucide-react'
 import type { Locale, Project } from '@portfolio/content'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@portfolio/ui'
 import { Badge } from '@portfolio/ui'
-import { t } from '@/lib/utils'
-
+import { t } from '@/utils/format'
 export function ProjectCard({
   project,
   locale,

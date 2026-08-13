@@ -1,8 +1,7 @@
 import type { Locale, PostMeta } from '@portfolio/content'
-import { Link } from '@/i18n/navigation'
+import { Link } from '@portfolio/i18n/navigation'
 import { Badge } from '@portfolio/ui'
-import { formatDate } from '@/lib/utils'
-
+import { formatDate } from '@/utils/format'
 export function PostCard({ post, locale }: { post: PostMeta; locale: Locale }) {
   return (
     <article className='bg-card hover:border-primary group rounded-xl border p-6 transition-colors'>

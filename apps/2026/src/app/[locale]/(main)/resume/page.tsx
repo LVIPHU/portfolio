@@ -4,10 +4,11 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { resume, type Locale } from '@portfolio/content'
 import { Badge } from '@portfolio/ui'
 import { AppearTitle } from '@/components/effects/appear-title'
-import { formatMonth, t } from '@/lib/utils'
-
-export async function generateMetadata(): Promise<Metadata> {
-  return { title: 'Resume' }
+import { formatMonth, t } from '@/utils/format'
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+  const { locale } = await params
+  const tMeta = await getTranslations({ locale, namespace: 'resume' })
+  return { title: tMeta('title') }
 }
 
 export default async function ResumePage({ params }: { params: Promise<{ locale: Locale }> }) {
