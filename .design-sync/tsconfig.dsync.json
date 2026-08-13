@@ -6,7 +6,6 @@
     "jsxFragmentFactory": "globalThis.React.Fragment",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "baseUrl": "../apps/2025",
     "paths": {
       "next/image": ["../../.design-sync/shims/next-image.tsx"],
       "next/link": ["../../.design-sync/shims/next-link.tsx"],
@@ -17,15 +16,17 @@
       "@lingui/react/macro": ["../../.design-sync/shims/lingui-react-macro.tsx"],
       "@lingui/react": ["../../.design-sync/shims/lingui-react.tsx"],
       "@/utils": ["../../.design-sync/shims/utils-barrel.ts"],
-      "@/hooks": ["./src/hooks/index.ts"],
-      "@/constants": ["./src/constants/index.ts"],
+      "@/hooks": ["../../packages/hooks/src/index.ts"],
+      "@portfolio/hooks": ["../../packages/hooks/src/index.ts"],
+      "@portfolio/utils": ["../../packages/utils/src/index.ts"],
+      "@/constants": ["../apps/2025/src/constants/index.ts"],
       "@/components/atoms": ["../../.design-sync/.cache/atoms-barrel-safe.ts"],
-      "@/components/molecules": ["./src/components/molecules/index.ts"],
-      "@/*": ["./src/*"],
+      "@/components/molecules": ["../apps/2025/src/components/molecules/index.ts"],
+      "@/*": ["../apps/2025/src/*"],
       "@data/site-metadata": ["../../.design-sync/shims/site-metadata.ts"],
-      "@data/*": ["./data/*"],
-      "@json/*": ["./json/*"],
-      "@public/*": ["./public/*"]
+      "@data/*": ["../apps/2025/data/*"],
+      "@json/*": ["../apps/2025/json/*"],
+      "@public/*": ["../apps/2025/public/*"]
     }
   }
 }
