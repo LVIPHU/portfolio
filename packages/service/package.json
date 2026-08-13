@@ -1,0 +1,63 @@
+{
+  "name": "@portfolio/service",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./stats": {
+      "types": "./src/stats/index.ts",
+      "default": "./src/stats/index.ts"
+    },
+    "./stats/handlers": {
+      "types": "./src/stats/handlers.ts",
+      "default": "./src/stats/handlers.ts"
+    },
+    "./stats/hooks": {
+      "types": "./src/stats/hooks.ts",
+      "default": "./src/stats/hooks.ts"
+    }
+  },
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio --port 8088"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.2",
+    "postgres": "^3.4.9",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.10",
+    "next": "16.2.10",
+    "react": "^19.2.0",
+    "swr": "^2.4.2",
+    "typescript": "^5.6.0"
+  },
+  "peerDependencies": {
+    "next": ">=16",
+    "react": "^19",
+    "swr": "^2"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "swr": {
+      "optional": true
+    }
+  }
+}
