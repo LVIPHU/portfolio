@@ -42,10 +42,10 @@
 }
 
 .text {
-  font-family: var(--font-panchang);
+  font-family: var(--font-space-grotesk);
   font-weight: 700;
   text-transform: uppercase;
-  line-height: 100%;
+  line-height: 110%;
   font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
 }
 

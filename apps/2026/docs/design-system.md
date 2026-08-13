@@ -90,19 +90,20 @@ Sandpack) đi qua biến này thay vì `--color-primary`, light → `--foregroun
 
 ## Typography
 
-Font: **Anton** (heading — mặc định cho h1–h6, uppercase), **Panchang** (h3/h4 kỹ thuật),
-**Roboto** (thân bài). Class toàn cục (mobile → desktop, px trên comp):
+Font: **Anton** (heading lớn — h1/h2, uppercase), **Space Grotesk** (h3/h4 kỹ thuật,
+uppercase; thay Panchang vì Panchang không có glyph tiếng Việt), **Roboto** (thân bài).
+Class toàn cục (mobile → desktop, px trên comp):
 
-| Class   | Font         | Size     | Line-height | Ghi chú                                |
-| ------- | ------------ | -------- | ----------- | -------------------------------------- |
-| `.h1`   | Anton        | 56 → 160 | 95%         | uppercase; `.vh` = tính theo chiều cao |
-| `.h2`   | Anton        | 56 → 96  | 90%         | uppercase                              |
-| `.h3`   | Panchang 700 | 20 → 52  | 90%         | uppercase                              |
-| `.h4`   | Panchang 700 | 20 → 28  | 100%        | uppercase                              |
-| `.p-l`  | Roboto 500   | 32 → 64  | 100%        | lead                                   |
-| `.p`    | Roboto 500   | 16 → 18  | 125% → 133% | thân bài; `.p.bold` = 900              |
-| `.p-s`  | Roboto 900   | 14       | → 114%      | uppercase, label                       |
-| `.p-xs` | Roboto 900   | 12       | → 113%      | uppercase, meta                        |
+| Class   | Font              | Size     | Line-height | Ghi chú                                |
+| ------- | ----------------- | -------- | ----------- | -------------------------------------- |
+| `.h1`   | Anton             | 56 → 160 | 100%        | uppercase; `.vh` = tính theo chiều cao |
+| `.h2`   | Anton             | 56 → 96  | 105%        | uppercase; nới so lenis 90% vì dấu VI  |
+| `.h3`   | Space Grotesk 700 | 20 → 52  | 110%        | uppercase                              |
+| `.h4`   | Space Grotesk 700 | 20 → 28  | 110%        | uppercase                              |
+| `.p-l`  | Roboto 500        | 32 → 64  | 100%        | lead                                   |
+| `.p`    | Roboto 500        | 16 → 18  | 125% → 133% | thân bài; `.p.bold` = 900              |
+| `.p-s`  | Roboto 900        | 14       | → 114%      | uppercase, label                       |
+| `.p-xs` | Roboto 900        | 12       | → 113%      | uppercase, meta                        |
 
 Helper màu: `.contrast` (màu nhấn theo theme), `.grey`.
 

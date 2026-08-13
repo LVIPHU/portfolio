@@ -3,12 +3,11 @@
 .title {
   display: inline-block;
   overflow: hidden;
-  /* chừa chỗ trên/dưới cho dấu tiếng Việt (Anton line-height chặt), bù lại bằng margin âm
-     để không đổi vị trí layout */
-  padding-top: 0.22em;
-  padding-bottom: 0.14em;
-  margin-top: -0.22em;
-  margin-bottom: -0.14em;
+  /* chừa chỗ trên/dưới cho dấu tiếng Việt chồng (Ề Ệ Ỗ…); bù margin âm giữ layout */
+  padding-top: 0.28em;
+  padding-bottom: 0.18em;
+  margin-top: -0.28em;
+  margin-bottom: -0.18em;
   vertical-align: top;
 }
 

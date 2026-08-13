@@ -5,7 +5,7 @@ import '@/components/showcase/theme.css'
 
 // Layout full-bleed cho trang showcase: KHÔNG dùng chrome portfolio (nav/footer/max-w).
 // Theme riêng qua .showcase-root[data-theme], nền qua .showcase-bg (sau canvas Earth).
-// Fonts (Anton/Roboto/Panchang) và Cursor đã nạp toàn site ở [locale]/layout.tsx.
+// Fonts (Anton/Space Grotesk/Roboto) và Cursor đã nạp toàn site ở [locale]/layout.tsx.
 //
 // setRequestLocale: hiện subtree này chưa gọi API server nào của next-intl nên CHƯA phải bug
 // sống — nhưng thiếu nó thì ngày ai đó thêm một server component gọi getTranslations() vào đây,

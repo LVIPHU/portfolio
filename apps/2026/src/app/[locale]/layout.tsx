@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { SmoothScroll } from '@/components/scroll/smooth-scroll'
 import { Scrollbar } from '@/components/scroll/scrollbar'
 import { Cursor } from '@/components/chrome/cursor'
-import { anton, panchang, roboto } from '@/lib/fonts'
+import { anton, roboto, spaceGrotesk } from '@/lib/fonts'
 import { profile } from '@portfolio/content'
 import '../globals.css'
 // Nạp SAU globals.css và tách riêng — Lightning CSS của Tailwind cắt scrollbar-* khỏi file
@@ -42,7 +42,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${anton.variable} ${panchang.variable} ${roboto.variable} flex min-h-screen flex-col antialiased`}
+        className={`${anton.variable} ${spaceGrotesk.variable} ${roboto.variable} flex min-h-screen flex-col antialiased`}
       >
         <NextIntlClientProvider>
           <ThemeProvider>

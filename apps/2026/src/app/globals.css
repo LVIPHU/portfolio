@@ -130,7 +130,7 @@
 
   /* fallback fonts (next/font ghi đè khi .variable có mặt trên body) */
   --font-anton: 'Anton', sans-serif;
-  --font-panchang: 'Panchang', sans-serif;
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
   --font-roboto: 'Roboto', sans-serif;
 }
 
@@ -272,7 +272,7 @@
 .h1 {
   font-family: var(--font-anton);
   font-weight: 400;
-  line-height: 95%;
+  line-height: 100%; /* nhẹ hơn 95% lenis — chừa dấu tiếng Việt trên dòng đầu */
   letter-spacing: 0;
   text-transform: uppercase;
   font-size: calc(((56 * 100) / var(--device-width)) * 1vw);
@@ -280,21 +280,22 @@
 .h2 {
   font-family: var(--font-anton);
   font-weight: 400;
-  line-height: 90%; /* khớp lenis (_font-style.scss) — trước đây 100% làm heading mobile thưa hơn comp */
+  /* 105% (không 90% lenis): tiếng Việt có dấu chồng (Ề Ệ Ỗ…) — 90% làm dòng sau đè dấu dòng trước */
+  line-height: 105%;
   text-transform: uppercase;
   font-size: calc(((56 * 100) / var(--device-width)) * 1vw);
 }
 .h3 {
-  font-family: var(--font-panchang);
+  font-family: var(--font-space-grotesk);
   font-weight: 700;
-  line-height: 90%;
+  line-height: 110%;
   text-transform: uppercase;
   font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
 }
 .h4 {
-  font-family: var(--font-panchang);
+  font-family: var(--font-space-grotesk);
   font-weight: 700;
-  line-height: 100%;
+  line-height: 110%;
   text-transform: uppercase;
   font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
 }
@@ -334,7 +335,7 @@
   }
   .h2 {
     font-size: calc(((96 * 100) / var(--device-width)) * 1vw);
-    line-height: 90%;
+    line-height: 105%;
   }
   .h3 {
     font-size: calc(((52 * 100) / var(--device-width)) * 1vw);
