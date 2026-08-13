@@ -6,10 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A pnpm + Turborepo monorepo of portfolio website "versions". Each version is an app in `apps/`:
 
-Both apps now run the **same locked stack** — Next.js 16.2 + React 19.2 (Turbopack, React Compiler on) + Tailwind v4 + next-intl (`vi` default no-prefix, `/en`) — and consume four shared raw-TS packages: `@portfolio/content` (data + blog), `@portfolio/mdx` (MDX pipeline + components), `@portfolio/ui` (Base UI components, hooks, GSAP motion primitives), `@portfolio/i18n` (locale vocabulary + next-intl routing/navigation/middleware/request helpers; messages JSON stay per-app). "Upgrade one, upgrade both": a change in a shared package lands in both sites.
+Both apps now run the **same locked stack** — Next.js 16.2 + React 19.2 (Turbopack, React Compiler on) + Tailwind v4 + next-intl (`vi` default no-prefix, `/en`) — and consume shared raw-TS packages: `@portfolio/content` (data + blog), `@portfolio/mdx` (MDX pipeline + components), `@portfolio/ui` (Base UI components + GSAP motion), `@portfolio/utils` (`cn` + string/object/date/fetch helpers), `@portfolio/hooks` (generic React hooks), `@portfolio/i18n` (locale vocabulary + next-intl routing/navigation/middleware/request helpers; messages JSON stay per-app), `@portfolio/service` (shared API/DB: Drizzle schema, stats handlers/hooks; apps keep thin `app/api/*/route.ts`). "Upgrade one, upgrade both": a change in a shared package lands in both sites.
 
-- `apps/2026` (package `web-2026`) — port 3000. The current design; consumes all four shared packages. Bilingual Vietnamese/English.
-- `apps/2025` (package `web-2025`) — port 3001. The 2025 design, migrated onto the shared stack across phases C0–C12 (contentlayer2, Lingui, Radix, framer-motion all removed; Drizzle/Postgres extras kept, DB client lazy). History in `docs/plans/` (GSD format) — consult STATE.md/ROADMAP.md there before touching it.
+- `apps/2026` (package `web-2026`) — port 3000. The current design; consumes the shared packages. Bilingual Vietnamese/English.
+- `apps/2025` (package `web-2025`) — port 3001. The 2025 design, migrated onto the shared stack across phases C0–C12 (contentlayer2, Lingui, Radix, framer-motion all removed; blog stats via `@portfolio/service`). History in `docs/plans/` (GSD format) — consult STATE.md/ROADMAP.md there before touching it.
 
 ## Commands
 
@@ -29,7 +29,7 @@ pnpm ci-check     # prettier --check + typecheck + build + check-links (one gate
 
 Scope to one package with turbo filters, e.g. `pnpm build --filter=web-2026` or `pnpm --filter web-2026 typecheck`. No unit tests; `pnpm ci-check` is the quality gate.
 
-`apps/2025` requires `apps/2025/.env.local` to build (untracked). Minimum: `NODE_ENV` (`development` locally), `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_NODE_ENV`, and a syntactically valid placeholder `DATABASE_URL` (src/db/index.ts throws at build if missing; the client is lazy so it never connects unless DB features are used).
+`apps/2025` requires `apps/2025/.env.local` to build (untracked). Minimum: `NODE_ENV` (`development` locally), `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_NODE_ENV`, and a syntactically valid placeholder `DATABASE_URL` (stats soft-fails to zeros when DB is unavailable). Drizzle kit lives in `@portfolio/service` (`pnpm --filter @portfolio/service db:push`).
 
 > The turbo local cache (`.turbo/`) can grow to tens of GB over many builds — delete it if the disk fills; turbo regenerates it.
 
@@ -37,10 +37,13 @@ Scope to one package with turbo filters, e.g. `pnpm build --filter=web-2026` or 
 
 ### Shared packages (raw-TS, no build step)
 
-All four export **raw TypeScript source** (`exports: "./src/index.ts"`, plus subpaths) and are consumed via `transpilePackages: ["@portfolio/content", "@portfolio/ui", "@portfolio/mdx", "@portfolio/i18n"]` in each app's `next.config.ts`. Tailwind picks up UI/MDX classes via `@source` in the app CSS. Version anchor = `apps/2026`.
+All shared packages export **raw TypeScript source** (`exports: "./src/index.ts"`, plus subpaths) and are consumed via `transpilePackages` in each app's `next.config.ts` (content, ui, mdx, i18n, service, utils, hooks). Tailwind picks up UI/MDX classes via `@source` in the app CSS. Version anchor = `apps/2026`.
 
-- **`@portfolio/i18n`** — shared next-intl config: `@portfolio/i18n/locales` (`Locale`, `locales`, `defaultLocale` — **no** next-intl, safe for `@portfolio/content`); `.` re-exports locales + `routing`; `./navigation`, `./middleware`, `./request` are separate entries (client / Edge / server). Apps keep `messages/{vi,en}.json` and thin shims under `src/i18n/` + `src/proxy.ts`. Content must **only** import `@portfolio/i18n/locales`, never navigation/middleware/request.
-- **`@portfolio/ui`** — shadcn components on **Base UI** (`@base-ui/react`), added one-per-CLI-command (`pnpm dlx shadcn@latest add <name>` inside `packages/ui`); `cn()` at `@portfolio/ui/utils` (react-free subpath — import cn from there, not the component barrel, so Node scripts don't pull React); shared hooks at `@portfolio/ui/hooks`; GSAP motion primitives (Reveal, useScrollProgress, ParallaxColumns, HoverHighlight, useMagnify) at `@portfolio/ui/motion`. Intra-package imports are **relative** (shadcn emits `@/…`, which resolves against the _app's_ tsconfig under transpilePackages — convert to relative after each `add`). App barrels re-export named symbols (never `export *` across a `'use client'` boundary — it crashes Turbopack).
+- **`@portfolio/i18n`** — shared next-intl config: `@portfolio/i18n/locales` (`Locale`, `locales`, `defaultLocale` — **no** next-intl, safe for `@portfolio/content`); `.` re-exports locales + `routing`; `./navigation`, `./middleware`, `./request` are separate entries (client / Edge / server). Apps keep `messages/{vi,en}.json`, thin `src/i18n/request.ts` (+ 2025 `i18n/index.ts` for `PageLangParam`) and `src/proxy.ts`. Import `routing` / navigation helpers from `@portfolio/i18n` / `@portfolio/i18n/navigation` — no app `routing.ts` / `navigation.ts` shims. Content must **only** import `@portfolio/i18n/locales`, never navigation/middleware/request.
+- **`@portfolio/service`** — shared API/DB layer: Drizzle schema + lazy `createDb`, blog stats queries (soft-fail), Zod validators, `createStatsHandlers`, SWR hooks. Migrations under `packages/service/supabase/`. Apps inject `DATABASE_URL` and mount thin `app/api/stats/route.ts`. Add future APIs as new modules under the same package.
+- **`@portfolio/utils`** — react-free helpers: `cn()` (`clsx` + `tailwind-merge`), string (`capitalize`, `escapeHtml`, …), object (`omit`/`pick`), date (`formatDate`, `getTimeAgo`, `sortPosts`), `fetcher`. Import from `@portfolio/utils`. Do **not** put Localized/`t()` or app/env/Next-specific code here — those stay in each app's `src/utils/`.
+- **`@portfolio/hooks`** — generic client hooks (`useMediaQuery`, `useDragRotate`, `useDebounceCallback`, …). GSAP/scroll motion hooks stay in `@portfolio/ui/motion`.
+- **`@portfolio/ui`** — shadcn components on **Base UI** (`@base-ui/react`), added one-per-CLI-command (`pnpm dlx shadcn@latest add <name>` inside `packages/ui`); `cn()` from `@portfolio/utils` (after `shadcn add`, rewrite any emitted `@/lib/utils` / relative utils import to `@portfolio/utils` — see `packages/ui/components.json` aliases). GSAP motion primitives (Reveal, useScrollProgress, ParallaxColumns, HoverHighlight, useMagnify) at `@portfolio/ui/motion`. Intra-package component imports are **relative** (shadcn emits `@/…`, which resolves against the _app's_ tsconfig under transpilePackages — convert to relative after each `add`). App barrels re-export named symbols (never `export *` across a `'use client'` boundary — it crashes Turbopack).
 - **`@portfolio/mdx`** — one remark/rehype pipeline (`remarkPlugins`/`rehypePlugins`) + MDX components (`defaultMdxComponents`) + `<MDXContent>` RSC renderer, shared by both apps. Includes `<Sandpack>` live playground (fences → files via the `remarkSandpackFiles` plugin at MDAST level; heavy `@codesandbox/sandpack-react` is code-split behind `next/dynamic` and must be in the app's `transpilePackages`).
 
 ### Content (`packages/content`)
@@ -51,16 +54,16 @@ All four export **raw TypeScript source** (`exports: "./src/index.ts"`, plus sub
 
 ### App (`apps/2026`) — Next.js 16 App Router, React 19, Tailwind v4
 
-- **i18n via next-intl**: locales `vi` (default, no URL prefix) and `en` (`/en/...` prefix), from `@portfolio/i18n` (`localePrefix: "as-needed"`). App shims: [routing.ts](apps/2026/src/i18n/routing.ts), [navigation.ts](apps/2026/src/i18n/navigation.ts). UI chrome strings live in `apps/2026/messages/{vi,en}.json`; content strings come from `@portfolio/content` `Localized` objects — keep that separation.
+- **i18n via next-intl**: locales `vi` (default, no URL prefix) and `en` (`/en/...` prefix), from `@portfolio/i18n` (`localePrefix: "as-needed"`). UI chrome strings live in `apps/2026/messages/{vi,en}.json`; content strings come from `@portfolio/content` `Localized` objects — keep that separation. Prefer `getTranslations` / messages over `locale === 'vi' ? … : …` ternaries.
 - All routes live under `src/app/[locale]/` and are statically generated (`generateStaticParams`); pages call `setRequestLocale(locale)` before rendering.
-- Internal links/navigation must use `Link`, `redirect`, `usePathname`, `useRouter` from `@/i18n/navigation` (locale-aware), not `next/link`/`next/navigation` directly.
+- Internal links/navigation must use `Link`, `redirect`, `usePathname`, `useRouter` from `@portfolio/i18n/navigation` (locale-aware), not `next/link`/`next/navigation` directly.
 - Next 16 convention: the middleware file is [src/proxy.ts](apps/2026/src/proxy.ts) (not `middleware.ts`). Default export comes from `@portfolio/i18n/middleware`; `export const config.matcher` must stay an **inline object literal** in the app file (Next static analysis).
 - MDX is rendered via `<MDXContent>` from `@portfolio/mdx` (server-side, `next-mdx-remote/rsc` under the hood).
-- UI comes from `@portfolio/ui` (Base UI + `cn()`); theming via next-themes with Tailwind `dark:` variants. `apps/2025` consumes the same components through a shim barrel `src/components/atoms/index.ts` that re-exports from `@portfolio/ui` (app-specific atoms stay local).
+- UI comes from `@portfolio/ui` (Base UI); `cn` from `@portfolio/utils`; theming via next-themes with Tailwind `dark:` variants. `apps/2025` consumes the same components through a shim barrel `src/components/atoms/index.ts` that re-exports from `@portfolio/ui` (app-specific atoms stay local). App-local helpers live under `src/utils/` (2025: content/github/icons/…; 2026: `format.ts` locale helpers + `fonts.ts`).
 
 ### Adding a new version
 
-Create `apps/<year>` with any stack, add `"@portfolio/content": "workspace:*"` (and `@portfolio/i18n` / mdx / ui if on the shared stack) as dependencies, and give it a unique package name and dev port. Old versions stay deployed in parallel (one Vercel project per app, Root Directory set to the app folder).
+Create `apps/<year>` with any stack, add `"@portfolio/content": "workspace:*"` (and `@portfolio/i18n` / mdx / ui / utils / hooks / service if on the shared stack) as dependencies, and give it a unique package name and dev port. Old versions stay deployed in parallel (one Vercel project per app, Root Directory set to the app folder).
 
 ## Deploy (Vercel)
 
@@ -76,3 +79,38 @@ The C0–C12 upgrade is complete. History and rationale live in [docs/plans/](do
 ## Notes
 
 - README and code comments are written in Vietnamese; follow that convention for user-facing docs. Respond in Vietnamese; commit messages in English (conventional format).
+
+## Tri thức xuyên dự án — `D:\JARVIS\`
+
+**Bản đồ vào: `D:\JARVIS\wiki\index.md`.** Trước khi GHI, đọc `D:\JARVIS\purpose.md` + `D:\JARVIS\schema.md` (ở **gốc** `D:\JARVIS\`, không nằm trong `wiki/`).
+
+> **Một sự thật chỉ sống ở một nơi; nơi khác trỏ tới nó.**
+
+| Nơi                    | Giữ gì                                                    | Không chép sang wiki   |
+| ---------------------- | --------------------------------------------------------- | ---------------------- |
+| `CLAUDE.md` (file này) | Luật / kiến trúc đang gác của portfolio                   | wiki chỉ trỏ           |
+| `docs/plans/`          | Lịch sử GSD / phase của monorepo này                      | không bao giờ vào wiki |
+| `D:\JARVIS\wiki\`      | Khái niệm · mẫu · lớp lỗi có tên — đã tách khỏi một dự án | —                      |
+
+### Phân công — đọc rộng, ghi hẹp
+
+|                          | Việc                              | Đích                                                                                                |
+| ------------------------ | --------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **Đọc**                  | mọi phiên                         | `D:\JARVIS\wiki\index.md` → trang cần; skill `testing-pilot` / `design-pilot` route sang trang đúng |
+| **Ghi bằng chứng**       | phiên này, ngay khi vừa CHẠY xong | chỉ `D:\JARVIS\raw\YYYY-MM-DD-retro-<slug>.md`                                                      |
+| **Chưng cất raw → wiki** | chỉ phiên JARVIS (nơi lint chạy)  | `wiki/`                                                                                             |
+
+**Trigger — viết `-retro-` trước khi kết phiên khi:** vừa chạy `pnpm ci-check` (hoặc typecheck / lint / build / check-links) có bài học · một lớp lỗi vừa được đặt tên · một quyết định hoá ra sai · một số đo perf vừa đo. Ngôi thứ nhất: chuyện gì đã xảy ra, nó tốn gì, lần sau làm khác thế nào. **File mới**; không sửa note có sẵn từ ngoài phiên JARVIS.
+
+Gửi `raw/` phải kèm entry `wiki/log.md` trong **cùng commit** (lint F9b bắt cả `raw/`). Op `ingest`, nói thật mới xong bước 1:
+
+```
+## [YYYY-MM-DD] ingest | retro portfolio — gửi bằng chứng, CHƯA chưng cất
+- nguồn: `raw/YYYY-MM-DD-retro-<slug>.md`
+- trang chạm: (không) — chỉ gửi raw
+- ghi chú: bằng chứng ngôi thứ nhất từ phiên portfolio. Chưng cất là việc của phiên JARVIS.
+```
+
+Sau mỗi lần ghi: `bash D:/JARVIS/tools/lint.sh --self-check` → xanh, rồi mới commit; chạy lại lint **sau** commit (F9b kiểm commit đã tồn tại).
+
+⛔ **Không ghi thẳng vào `D:\JARVIS\wiki\` từ đây.** Cổng là `D:\JARVIS\tools\lint.sh`. Phần riêng portfolio vẫn ở `CLAUDE.md` / `docs/plans/`.

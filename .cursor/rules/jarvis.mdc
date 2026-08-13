@@ -1,0 +1,28 @@
+---
+description: JARVIS cross-project wiki — Query freely, write evidence only to raw/
+alwaysApply: true
+---
+
+# JARVIS (portfolio sessions)
+
+Cross-project distilled knowledge lives at `D:\JARVIS\`. This project **reads** it and **writes evidence only**.
+
+## Read
+
+- Enter via `D:\JARVIS\wiki\index.md`; open only the pages you need. Never load the whole wiki.
+- For testing work → skill `testing-pilot`. For design / distinctive UI → skill `design-pilot`.
+- Before answering from “how we test / design / review”, orient through the index (or the pilot skill), then cite `[[slug]]` pages.
+
+## Write (evidence only)
+
+When this session has **actually run** something worth keeping (`pnpm ci-check`, typecheck/lint/build/check-links with a lesson, a named bug class, a wrong decision, a measured perf number), **before the session ends** write:
+
+`D:\JARVIS\raw\YYYY-MM-DD-retro-<slug>.md`
+
+First person: what happened, what it cost, what you would do differently. **New file only.** Same commit must append a `wiki/log.md` entry (op `ingest`, note: evidence only — distillation not done). Then `bash D:/JARVIS/tools/lint.sh --self-check`.
+
+## Do not
+
+- Do **not** write into `D:\JARVIS\wiki\` from a portfolio session. Distill only in a JARVIS session where lint runs.
+- Do **not** copy portfolio laws / `docs/plans/` into the wiki — one fact, one place; wiki gets concepts detached from this repo.
+- Portfolio-specific truth stays in `CLAUDE.md` and `docs/plans/`.
