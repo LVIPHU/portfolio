@@ -40,7 +40,9 @@
   padding: var(--wordmark-top) var(--wordmark-inset);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* KHÔNG space-between: hai lớp phải xếp SÁT nhau đúng như hero (E/I nằm ngay dưới F-L-X,
+     `top: 100%` trong felix-mark.module.css). Bản cũ dồn E/I xuống đáy màn hình nên trong suốt
+     lúc tấm gold trượt đi, chữ E/I của intro và của hero lệch nhau (đo được 46px ở 1920×950). */
 }
 
 /* Khối chữ trượt XUỐNG đúng 100vh trong khi tấm phủ trượt LÊN 100vh → hai chuyển
@@ -69,13 +71,18 @@
   display: block;
   width: 100%;
   height: auto;
+  /* CẤM co: mặc định flex-shrink:1 bóp dẹt hai lớp chữ khi tổng chiều cao vượt viewport
+     (1920×950: mỗi lớp cao 481px, tổng 963 > 870 khả dụng) — chữ intro thấp hơn chữ hero
+     46px, tức SAI CẢ KÍCH THƯỚC chứ không chỉ vị trí. Hero không dính vì .mark của nó khoá
+     bằng aspect-ratio. */
+  flex: 0 0 auto;
 }
 
 /* Lớp E/I trồi lên CHỒNG KHÍT lớp trên → chữ hoàn chỉnh (pha .translate của lenis).
-   Hai lớp đang cách nhau cả chiều cao màn hình do .inner dùng space-between, nên quãng
-   phải đi = 100vh − 2×padding − chiều cao lớp; translate % lấy theo chính lớp đó (100%).
+   Hai lớp xếp sát nhau nên quãng phải đi đúng bằng chiều cao của chính lớp đó (100%) —
+   GIỐNG HỆT `html.intro-running.intro-out .ei` của hero, cùng 1500ms out-expo, không delay.
    Hero phía sau ghép cùng nhịp nhờ class html.intro-out. */
 .translate {
-  transform: translate3d(0, calc(-100vh + 2 * var(--wordmark-top) + 100%), 0);
+  transform: translate3d(0, -100%, 0);
   transition: transform var(--intro-dur, 1500ms) var(--ease-out-expo);
 }
