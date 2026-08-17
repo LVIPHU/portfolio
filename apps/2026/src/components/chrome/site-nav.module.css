@@ -1,0 +1,103 @@
+/* Hai nút chính bên phải nav (bố cục kiểu landonorris.com: brand trái — hai nút phải).
+   Nút CTA = tấm gold đặc + chữ ĐEN CỨNG (giấy phép dùng gold: gold làm NỀN thì luôn kèm
+   var(--color-black), không lấy --theme-primary vì gold chỉ có MỘT bản cho cả hai theme).
+   Nút menu = chỉ viền 1px + chữ/gạch thừa kế foreground, để không có hai tấm gold cạnh nhau. */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: calc(((8 * 100) / var(--device-width)) * 1vw);
+}
+
+.hire,
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(((36 * 100) / var(--device-width)) * 1vw);
+  /* min-height: dưới 375px comp chiều cao vw tụt xuống dưới ngưỡng chạm 32px */
+  min-height: 32px;
+  font-family: var(--font-roboto);
+  font-weight: 900;
+  font-size: calc(((12 * 100) / var(--device-width)) * 1vw);
+  line-height: 113%;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition:
+    background-color 300ms var(--ease-in-out-quad),
+    color 300ms var(--ease-in-out-quad),
+    border-color 300ms var(--ease-in-out-quad);
+}
+
+.hire {
+  padding-inline: calc(((16 * 100) / var(--device-width)) * 1vw);
+  gap: calc(((8 * 100) / var(--device-width)) * 1vw);
+  background-color: var(--color-gold);
+  color: var(--color-black);
+  border: 1px solid var(--color-gold);
+}
+
+/* Hover lật ngược tấm gold: nền về màu trang, chữ + viền thành gold. Ở light gold-trên-sáng
+   chỉ 1.69:1 — nhưng đây là chữ ≥12px comp NÊN không được để nguyên: giữ chữ đen, chỉ hạ nền
+   xuống trong suốt là mất tín hiệu. Vì vậy hover chỉ đổi SẮC ĐỘ nền (gold → gold 85%) và giữ
+   chữ đen ở cả hai theme, đúng luật "một gold, đổi vai trò chứ không đổi màu". */
+@media (hover: hover) {
+  .hire:hover {
+    background-color: color-mix(in srgb, var(--color-gold) 85%, var(--color-black));
+    border-color: color-mix(in srgb, var(--color-gold) 85%, var(--color-black));
+  }
+  .toggle:hover {
+    border-color: var(--color-gold);
+  }
+  .toggle:hover .bars::before,
+  .toggle:hover .bars::after {
+    background-color: var(--color-gold);
+  }
+}
+
+.toggle {
+  width: calc(((44 * 100) / var(--device-width)) * 1vw);
+  min-width: 32px;
+  padding: 0;
+  background-color: transparent;
+  color: inherit;
+  border: 1px solid var(--border);
+}
+
+/* Icon hai gạch (Lando dùng "=" chứ không phải hamburger 3 gạch) → khi mở thì xoay thành X.
+   Vẽ bằng ::before/::after để không phải nhúng hai SVG và để transform mượt theo token easing. */
+.bars {
+  position: relative;
+  display: block;
+  width: calc(((16 * 100) / var(--device-width)) * 1vw);
+  min-width: 14px;
+  height: 8px;
+}
+
+.bars::before,
+.bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition:
+    transform 400ms var(--ease-out-expo),
+    background-color 300ms var(--ease-in-out-quad);
+}
+
+.bars::before {
+  top: 0;
+}
+.bars::after {
+  bottom: 0;
+}
+
+.toggle[aria-expanded='true'] .bars::before {
+  transform: translateY(3px) rotate(45deg);
+}
+.toggle[aria-expanded='true'] .bars::after {
+  transform: translateY(-3px) rotate(-45deg);
+}

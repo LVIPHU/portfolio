@@ -6,7 +6,12 @@
     "resume": "Resume",
     "gallery": "Gallery",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "hire": "Hire me",
+    "menu": "Menu",
+    "close": "Close menu",
+    "enquiries": "Business enquiries",
+    "followMe": "Follow me"
   },
   "footer": {
     "builtWith": "Built with Next.js · Version 2026",

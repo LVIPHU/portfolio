@@ -6,7 +6,12 @@
     "resume": "Resume",
     "gallery": "Ảnh",
     "blog": "Blog",
-    "contact": "Liên hệ"
+    "contact": "Liên hệ",
+    "hire": "Thuê mình",
+    "menu": "Menu",
+    "close": "Đóng menu",
+    "enquiries": "Liên hệ công việc",
+    "followMe": "Theo dõi mình"
   },
   "footer": {
     "builtWith": "Xây dựng bằng Next.js · Version 2026",

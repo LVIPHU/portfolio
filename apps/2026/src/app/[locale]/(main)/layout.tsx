@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server'
 import { SiteNav } from '@/components/chrome/site-nav'
 import { SiteFooter } from '@/components/chrome/site-footer'
 import { StarsBackground } from '@/components/three/stars-background'
-import { profile } from '@portfolio/content'
+import { gallery, profile } from '@portfolio/content'
 
 // Chrome portfolio (nav + khung + footer) cho tất cả trang thường.
 // Trang /about nằm ở route group (showcase) nên KHÔNG dùng layout này.
@@ -24,7 +24,10 @@ export default async function MainLayout({
   return (
     <>
       <StarsBackground />
-      <SiteNav name={profile.name} />
+      {/* email/socials/photos truyền xuống vì SiteNav/SiteMenu là client component — entry gốc
+          @portfolio/content chạm filesystem nên chỉ server mới import được. Ba ảnh đầu của
+          gallery đủ cho cột trái tấm menu (desktop). */}
+      <SiteNav name={profile.name} email={profile.email} socials={profile.socials} photos={gallery.slice(0, 3)} />
       <main className='w-full flex-1 py-10' style={{ paddingInline: 'var(--safe)' }}>
         {children}
       </main>

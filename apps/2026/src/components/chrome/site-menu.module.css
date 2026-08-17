@@ -1,0 +1,320 @@
+/* Menu toàn màn hình mở từ nút "=" trên nav (bố cục kiểu landonorris.com, ngôn ngữ chuyển
+   động của lenis: tấm trượt xuống bằng --ease-out-expo, từng dòng chữ trồi lên trong mặt nạ
+   overflow như ListItem/AppearTitle).
+
+   z-index 40 < header 50: header phải NẰM TRÊN tấm này thì brand + hai nút mới thấy được
+   khi menu mở (nút "=" biến thành X ngay tại chỗ, không nhảy sang chỗ khác). Vì vậy tấm này
+   chừa đúng --header-height ở trên. */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--header-height);
+  background-color: var(--background);
+  transform: translateY(-101%);
+  visibility: hidden;
+  overscroll-behavior: contain;
+  overflow-y: auto;
+  transition:
+    transform 800ms var(--ease-out-expo),
+    /* visibility đổi TRỄ đúng bằng thời gian trượt ra, nếu không tấm biến mất ngay lập tức
+       và animation đóng không bao giờ nhìn thấy */
+    visibility 0s linear 800ms;
+}
+
+.overlay.open {
+  transform: translateY(0);
+  visibility: visible;
+  transition:
+    transform 800ms var(--ease-out-expo),
+    visibility 0s linear 0s;
+}
+
+.inner {
+  flex: 1;
+  /* min-height:0 — không có nó, flex item giữ nguyên min-height:auto (= chiều cao nội dung) nên
+     KHÔNG co lại được: khối ảnh đẩy email/socials rơi xuống dưới fold thay vì tự thu nhỏ. */
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacer-sm);
+  padding-block: var(--spacer-xs);
+}
+
+/* ---- danh sách link ---- */
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: block;
+  overflow: hidden; /* mặt nạ cho chữ trồi lên */
+  padding-block: calc(((4 * 100) / var(--device-width)) * 1vw);
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: calc(((12 * 100) / var(--device-width)) * 1vw);
+  font-family: var(--font-anton);
+  font-weight: 400;
+  line-height: 100%;
+  text-transform: uppercase;
+  /* 32 → 46 comp: cỡ chọn theo RÀNG BUỘC CHIỀU CAO, không phải theo thang .h1/.h2. Bảy dòng
+     + khối meta phải nằm gọn trong một màn hình (đã thử 72 comp desktop: tràn xuống dưới fold
+     ở màn 860px). Vì < 56 comp nên chữ KHÔNG được tô gold — tín hiệu nằm ở gạch bên dưới. */
+  font-size: calc(((32 * 100) / var(--device-width)) * 1vw);
+  /* Chừa chỗ cho gạch gold NGAY TRONG hộp của link: .item có overflow:hidden làm mặt nạ,
+     nên gạch đặt lồi ra ngoài (bottom âm) sẽ bị cắt mất. */
+  padding-bottom: calc(((6 * 100) / var(--device-width)) * 1vw);
+  transform: translateY(110%);
+  transition: transform 900ms var(--ease-out-expo);
+}
+
+.open .link {
+  transform: translateY(0);
+  /* so le theo thứ tự dòng — cùng nhịp 100ms như stagger của ListItem */
+  transition-delay: calc(90ms + 60ms * var(--i, 0));
+}
+
+/* Gạch gold chạy dưới chữ khi hover / khi đang ở trang đó.
+   KHÔNG tô gold vào chính chữ: cỡ 32→46px comp nằm dưới ngưỡng 56/64 của "chữ trình bày",
+   mà gold trên nền sáng chỉ 1.69:1. Đổi tín hiệu sang GẠCH là cách hợp lệ cho cả hai theme
+   (giống nav ngang cũ dùng border-b-2). */
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background-color: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 600ms var(--ease-out-expo);
+}
+
+.active::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) {
+  .link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* ---- cột trái: ảnh (desktop) + khối meta ---- */
+
+.side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacer-xs);
+  min-height: 0; /* cùng lý do với .inner */
+}
+
+/* Ảnh CHỈ có ở desktop: menu mobile đang vừa khít một màn hình, thêm ảnh là phải cuộn — mà
+   cuộn trong tấm menu thì mất luôn cảm giác "một màn hình một quyết định". */
+.photos {
+  display: none;
+}
+
+/* ---- khối meta dưới cùng ---- */
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacer-xs);
+  opacity: 0;
+  transform: translateY(calc(((16 * 100) / var(--device-width)) * 1vw));
+  transition:
+    opacity 600ms var(--ease-in-out-quad),
+    transform 800ms var(--ease-out-expo);
+}
+
+.open .meta {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 400ms; /* vào SAU khi các dòng link đã trồi xong */
+}
+
+.metaBlock {
+  display: flex;
+  flex-direction: column;
+  gap: calc(((8 * 100) / var(--device-width)) * 1vw);
+}
+
+.metaLabel {
+  color: var(--theme-grey);
+}
+
+.email {
+  font-family: var(--font-roboto);
+  font-weight: 500;
+  font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
+  line-height: 110%;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 300ms var(--ease-in-out-quad);
+}
+
+@media (hover: hover) {
+  .email:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+  }
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(((16 * 100) / var(--device-width)) * 1vw);
+}
+
+.social {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.social::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .social:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Hai công tắc (ngôn ngữ + theme) dời từ nav vào đây: nav chỉ còn ĐÚNG hai nút chính. */
+.switches {
+  display: flex;
+  align-items: center;
+  gap: calc(((12 * 100) / var(--device-width)) * 1vw);
+}
+
+@media (min-width: 800px) {
+  .inner {
+    flex-direction: row;
+    /* stretch + tự canh bên trong: cột link canh GIỮA chiều cao, khối meta tụt xuống đáy —
+       đúng bố cục trang tham chiếu, và tránh dồn tất cả xuống đáy để trống nửa trên. */
+    align-items: stretch;
+    justify-content: space-between;
+    gap: var(--gap);
+    padding-block: var(--spacer-sm);
+  }
+
+  /* Link dồn về phải như trang tham chiếu; khối meta giữ cột trái */
+  .nav {
+    order: 2;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: right;
+  }
+
+  .link {
+    font-size: calc(((46 * 100) / var(--device-width)) * 1vw);
+  }
+
+  .link::after {
+    transform-origin: right;
+  }
+
+  .side {
+    order: 1;
+    /* 4 cột của lưới 12 — cột link bên phải giữ phần còn lại, không phá hệ cột */
+    max-width: calc(var(--column-width) * 4 + var(--gap) * 3);
+  }
+
+  .meta {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+
+  /* flex:1 + min-height:0 — khối ảnh ăn ĐÚNG phần cao còn thừa sau khối meta, không bao giờ
+     đẩy email/socials xuống dưới fold. Vì thế ảnh KHÔNG khai aspect-ratio: chiều cao do lưới
+     quyết định, `object-fit: cover` lo phần cắt. */
+  .photos {
+    display: grid;
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: var(--gap);
+  }
+
+  /* Ảnh 2 là tấm dọc cao chiếm trọn cột phải; ảnh 1 và 3 xếp chồng ở cột trái → thế lệch tầng
+     kiểu trang tham chiếu mà không phải kê grid-area cho từng tấm. */
+  .photo:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .photo {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Cùng kiểu mặt nạ với dòng chữ: lộ dần từ dưới lên, chỉ khác là clip cả khung ảnh */
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 900ms var(--ease-out-expo);
+  }
+
+  .open .photo {
+    clip-path: inset(0 0 0 0);
+    /* vào SAU các dòng link (link cuối ~90 + 60×6 = 450ms) và TRƯỚC khối meta (400ms) */
+    transition-delay: calc(200ms + 80ms * var(--i, 0));
+  }
+
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Đen trắng mặc định, hover mới lên màu: site chỉ có đen / trắng / gold, để ảnh màu nằm
+       thẳng cạnh chữ là phá bảng màu. */
+    filter: grayscale(1);
+    transform: scale(1.02); /* chừa biên cho scale hover, tránh hở mép khi phóng */
+    transition:
+      filter 600ms var(--ease-in-out-quad),
+      transform 900ms var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .photo:hover img {
+      filter: grayscale(0);
+      transform: scale(1.06);
+    }
+  }
+}
+
+/* Tôn trọng prefers-reduced-motion: bỏ trượt/stagger, chỉ hiện – ẩn. */
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .overlay.open,
+  .link,
+  .open .link,
+  .photo,
+  .open .photo,
+  .meta,
+  .open .meta {
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+  }
+}

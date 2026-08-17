@@ -136,13 +136,13 @@ out-expo, đổi nền theme 0.6s out-expo.
 
 Component xếp theo MỐI QUAN TÂM, không theo trang dùng nó:
 
-| Thư mục                | Chứa gì                                                  | Ghi chú                                                                            |
-| ---------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `components/brand/`    | FelixHeroMark, Intro                                     | nhận diện thương hiệu; Intro giao tiếp bằng class `html.intro-running`/`intro-out` |
-| `components/effects/`  | AppearTitle, Card, HorizontalSlides, ListItem, Marquee   | hiệu ứng dùng chung, KHÔNG phụ thuộc `.showcase-root`                              |
-| `components/scroll/`   | SmoothScroll, Scrollbar, GsapSync                        | cụm Lenis; cả ba phải là hậu duệ của `<ReactLenis root>`                           |
-| `components/chrome/`   | SiteNav, SiteFooter, LocaleSwitcher, ThemeToggle, Cursor | khung site, chạy toàn bộ route                                                     |
-| `components/showcase/` | theme.css + các section của `/about`                     | CHỈ chỗ này mới được phụ thuộc `.showcase-root`                                    |
+| Thư mục                | Chứa gì                                                            | Ghi chú                                                                            |
+| ---------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| `components/brand/`    | FelixHeroMark, Intro                                               | nhận diện thương hiệu; Intro giao tiếp bằng class `html.intro-running`/`intro-out` |
+| `components/effects/`  | AppearTitle, Card, HorizontalSlides, ListItem, Marquee             | hiệu ứng dùng chung, KHÔNG phụ thuộc `.showcase-root`                              |
+| `components/scroll/`   | SmoothScroll, Scrollbar, GsapSync                                  | cụm Lenis; cả ba phải là hậu duệ của `<ReactLenis root>`                           |
+| `components/chrome/`   | SiteNav, SiteMenu, SiteFooter, LocaleSwitcher, ThemeToggle, Cursor | khung site, chạy toàn bộ route                                                     |
+| `components/showcase/` | theme.css + các section của `/about`                               | CHỈ chỗ này mới được phụ thuộc `.showcase-root`                                    |
 
 Vì sao hiệu ứng dùng chung được: `globals.css` khai đủ cả năm token `--theme-*` ngay ở `:root`
 làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên component render ngoài
@@ -153,7 +153,18 @@ làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên co
 - **Marquee / ListItem / AppearTitle / Card** — hiệu ứng thuần CSS; ListItem cần `visible`,
   AppearTitle tự reveal bằng IntersectionObserver. (Registry design-sync publish `Card` dưới tên
   `ShowcaseCard` để không đè `Card` của `packages/ui` — tên lịch sử, đừng đổi.)
-- **Nav** — cao `--header-height` (58 → 98), tự ẩn ở đỉnh trang chủ, trượt vào khi cuộn.
+- **Nav** — cao `--header-height` (58 → 98), tự ẩn ở đỉnh trang chủ, trượt vào khi cuộn (đứng yên
+  khi menu đang mở, nếu không nút đóng trôi mất khỏi màn hình). Chỉ chứa **hai nút**: CTA nền gold
+  (chữ đen cứng) + công tắc `=` → `X`. Không còn nav ngang; LocaleSwitcher/ThemeToggle nằm trong menu.
+- **SiteMenu** — tấm toàn màn hình dưới header (z 40 < header 50), trượt xuống 800ms `--ease-out-expo`,
+  từng dòng link trồi lên trong mặt nạ `overflow: hidden` (stagger 60ms), khối ảnh + meta vào sau.
+  Ba điểm dễ vấp nếu sửa lại:
+  - Nó phải là **anh em** của `<header>`, không phải con: `backdrop-blur` của header tạo containing
+    block mới cho `position: fixed`.
+  - Cỡ chữ link 32 → 46 comp chọn theo **ràng buộc chiều cao** (bảy dòng + meta gọn trong một màn
+    hình), tức dưới ngưỡng 56/64 → **không** được tô gold; tín hiệu active/hover là gạch gold.
+  - Cột ảnh (chỉ ≥800px) dùng `flex: 1` + `min-height: 0` để ăn phần cao còn thừa; thiếu
+    `min-height: 0` là flex item giữ min-height auto và đẩy email/socials xuống dưới fold.
 
 ## Cấm kỵ
 
