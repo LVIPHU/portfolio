@@ -150,6 +150,11 @@ làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên co
 
 - **FelixHeroMark** — wordmark FELIX (Cloister Black → SVG, viewBox `0 0 1401 368`), fill
   `var(--theme-contrast)`; vị trí khớp intro qua `--wordmark-top/-inset` (30 / 32.5 trên comp 1440).
+- **Lề hero (cả `/` lẫn `/about`)** — trên = dưới = `--wordmark-top`: hàng CTA cách mép dưới đúng
+  bằng wordmark cách mép trên (lenis: title `margin-top: 30px`, `.bottom` `padding-bottom: 40px`).
+  ĐỪNG cộng thêm `padding-bottom` ở khối dưới — đó chính là lỗi lề gấp đôi đã sửa một lần.
+  Trang chủ: chữ + nút dồn cột 1→6, quả cầu Earth chiếm nửa phải (pose riêng `HERO_POSE` trong
+  `earth-canvas.tsx`); `/about` ngược lại — cầu trái, CTA cột 9→12.
 - **Marquee / ListItem / AppearTitle / Card** — hiệu ứng thuần CSS; ListItem cần `visible`,
   AppearTitle tự reveal bằng IntersectionObserver. (Registry design-sync publish `Card` dưới tên
   `ShowcaseCard` để không đè `Card` của `packages/ui` — tên lịch sử, đừng đổi.)
@@ -157,22 +162,28 @@ làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên co
   chỗ khi hover, nền gold + chữ **đen cứng**. Dùng chung cho CTA của `/about` và nút mở menu
   (`iconOnly`). Giữ nguyên mẹo specificity `.btn.btnFilled` — `theme.css` có
   `.showcase-root a { color: inherit }` (0,1,1) sẽ đè một class đơn.
-- **SiteNav** — KHÔNG còn là `<header>`: chỉ một `PillButton` nổi `position: fixed` ở góc trên-trái
-  (`--safe`), z 60, không nền / không viền / không chiếm chỗ trong luồng. Mount ở
-  `[locale]/layout.tsx` nên chạy trên **mọi** route, kể cả `(showcase)/about`; cố ý đè lên wordmark
-  FELIX. Ẩn trong lúc intro qua `html.intro-running:not(.intro-out)`. Vì nút không chiếm chỗ,
-  `(main)/layout.tsx` khai `--main-top` cho `<main>`, và hero trang chủ huỷ lại đúng biến đó để
-  chữ FELIX vẫn chồng khít tấm intro.
+- **SiteNav** — KHÔNG còn là `<header>`: chỉ một `PillButton` nổi `position: fixed` ở góc
+  **phải-dưới** (`bottom: var(--wordmark-top); right: var(--wordmark-inset)` — cùng cặp token với
+  hero thì mới thẳng hàng với nút CTA), z 60, không nền / không viền / không chiếm chỗ trong luồng.
+  Mount ở `[locale]/layout.tsx` nên chạy trên **mọi** route, kể cả `(showcase)/about`. Ẩn trong lúc
+  intro qua `html.intro-running:not(.intro-out)`. Vì nút không chiếm chỗ: `(main)/layout.tsx` khai
+  `--main-top` cho `<main>` (hero trang chủ huỷ lại đúng biến đó để chữ FELIX vẫn chồng khít tấm
+  intro), desktop né NGANG bằng `padding-right` của `.heroCta`, mobile né XUỐNG bằng class
+  `.menu-button-reserve` (globals.css).
 - **SiteMenu** — tấm phủ trọn viewport (z 40, dưới nút), trượt xuống 800ms `--ease-out-expo`. Nửa
   trái: bốn ảnh gallery hai cột lệch tầng, tràn mép, lộ dần bằng `clip-path`. Nửa phải: khối chữ
-  **căn giữa** cả hai chiều + email/socials/công tắc bên dưới. Ba điểm dễ vấp nếu sửa lại:
-  - Cỡ chữ link **56 → 64 comp** — chọn đúng ngưỡng "chữ trình bày" để hover **tô gold** hợp lệ ở
-    cả hai theme. Hạ cỡ xuống là phải đổi tín hiệu về gạch gold.
-  - Hover cuộn **từng ký tự**, so le từ NGOÀI VÀO TRONG (`delay = (center − |i − center|) × 30ms`).
-    Bản dự bị đặt ở `translateY(120%)` chứ không phải 100%, và `line-height: 1.35` cho mỗi bản: dấu
-    tiếng Việt nhô ra ngoài hộp ký tự sẽ thò lên mép mặt nạ thành vệt gold lấm tấm lúc nghỉ.
-  - Vì lý do dấu đó, dòng link **không** dùng mặt nạ `overflow: hidden` như ListItem/AppearTitle —
-    lượt vào là trồi + mờ dần.
+  **căn giữa** cả hai chiều + socials/công tắc bên dưới. Bốn điểm dễ vấp nếu sửa lại:
+  - Tấm **LUÔN nền đen** bất kể theme của site — class toàn cục `dark` gắn ngay trên thẻ overlay
+    (`globals.css` khai `.dark { --background… }` cho bất kỳ phần tử nào, và `@custom-variant dark
+(&:is(.dark *))` kéo theo cả `dark:` của các control bên trong). Nhờ đó gold luôn 10.79:1.
+  - Cỡ chữ link **44 comp** — chọn theo ràng buộc chiều cao (7 mục hiện đủ, không cuộn, kể cả
+    1920×950). Dưới ngưỡng 56/64 comp của giấy phép gold nhưng hợp lệ **chỉ vì** tấm luôn tối; đổi
+    nền tấm là phải xét lại cỡ chữ.
+  - Hover cuộn **từng ký tự**, so le TRÁI → PHẢI (`delay = i × 45ms`, mỗi ký tự 800ms). Bản dự bị
+    đặt ở `translateY(120%)` chứ không phải 100%, và `line-height: 1.35` cho mỗi bản: dấu tiếng
+    Việt nhô ra ngoài hộp ký tự sẽ thò lên mép mặt nạ thành vệt gold lấm tấm lúc nghỉ. Vì lý do
+    dấu đó, dòng link **không** dùng mặt nạ `overflow: hidden` như ListItem/AppearTitle — lượt vào
+    là trồi + mờ dần.
   - Trang đang xem render bằng `<span>` (không phải `<Link>`) + gạch ngang gold: `aria-disabled`
     trên thẻ `<a>` chỉ nói với trình đọc màn hình, chuột và bàn phím vẫn điều hướng như thường.
 

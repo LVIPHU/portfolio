@@ -8,9 +8,7 @@
     "blog": "Blog",
     "contact": "Liên hệ",
     "menu": "Menu",
-    "close": "Đóng menu",
-    "enquiries": "Liên hệ công việc",
-    "followMe": "Theo dõi mình"
+    "close": "Đóng menu"
   },
   "footer": {
     "builtWith": "Xây dựng bằng Next.js · Version 2026",
@@ -33,8 +31,7 @@
   "showcase": {
     "aboutHeading": "Về mình",
     "scrollLabel": ["cuộn", "khám phá"],
-    "ctaProjects": "Xem dự án",
-    "ctaContact": "Liên hệ",
+    "ctaContact": "Thuê mình",
     "skillsHeading": "Mình dùng gì",
     "statement": {
       "first": "Biến ý tưởng",

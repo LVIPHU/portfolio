@@ -22,7 +22,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     bio: profile.bio.map((b) => t(b, locale)),
     aboutHeading: ts('aboutHeading'),
     scrollLabel: ts.raw('scrollLabel') as [string, string],
-    ctaProjects: ts('ctaProjects'),
     ctaContact: ts('ctaContact'),
     skillsHeading: ts('skillsHeading'),
     techs: resume.skills.flatMap((g) => g.items),

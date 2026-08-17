@@ -56,10 +56,10 @@ export default async function LocaleLayout({
                   Phải nằm TRONG SmoothScroll vì component đọc tiến độ qua useLenis. */}
               <Scrollbar />
               {/* Hai nút nổi + tấm menu chạy TOÀN SITE (kể cả (showcase)/about) nên mount ở đây
-                  chứ không ở (main)/layout. email/socials/photos truyền xuống vì SiteNav là
+                  chứ không ở (main)/layout. socials/photos truyền xuống vì SiteNav là
                   client component, mà entry gốc @portfolio/content chạm filesystem → server-only.
                   Bốn ảnh đầu của gallery đủ cho hai cột ảnh trong menu. */}
-              <SiteNav email={profile.email} socials={profile.socials} photos={gallery.slice(0, 4)} />
+              <SiteNav socials={profile.socials} photos={gallery.slice(0, 4)} />
               {children}
               {/* Con trỏ tuỳ biến chạy toàn site. Luật ẩn con trỏ native nằm ở globals.css
                   (ngoài @layer) chứ không còn trong showcase/theme.css — file đó chỉ nạp ở

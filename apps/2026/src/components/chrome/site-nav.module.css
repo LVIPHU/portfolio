@@ -1,15 +1,17 @@
-/* Header = hai nút NỔI ở góc trên-trái, không nền / không viền / không backdrop-blur và không
-   chiếm chỗ trong luồng (bố cục landonorris.com). Vì thế nó không còn là <header> sticky nữa mà
-   là một lớp fixed mount ở [locale]/layout.tsx — chạy trên MỌI route, kể cả (showcase)/about.
+/* Nút mở menu NỔI ở góc phải-DƯỚI, không nền / không viền / không backdrop-blur và không chiếm
+   chỗ trong luồng. Vì thế nó không còn là <header> sticky nữa mà là một lớp fixed mount ở
+   [locale]/layout.tsx — chạy trên MỌI route, kể cả (showcase)/about, và cuộn thì đứng yên.
 
-   z-index 60 > 40 của tấm menu: nút mở menu phải nằm TRÊN tấm phủ thì mới bấm đóng được, đúng
-   như nút X của trang tham chiếu. Nút cố ý ĐÈ lên wordmark FELIX ở hero — cả hai nút đều nền
-   gold đặc + chữ đen cứng nên đọc được trên mọi nền phía sau. */
+   Lề dùng ĐÚNG cặp token của hero (--wordmark-top / --wordmark-inset, không phải --safe): nút
+   nằm cùng hàng với nút CTA ở đáy hero, lệch token là lệch hàng ngay.
+
+   z-index 60 > 40 của tấm menu: nút phải nằm TRÊN tấm phủ thì mới bấm đóng được, đúng như nút X
+   của trang tham chiếu. Nền gold đặc + icon đen cứng nên đọc được trên mọi nền phía sau. */
 
 .bar {
   position: fixed;
-  top: var(--safe);
-  left: var(--safe);
+  bottom: var(--wordmark-top);
+  right: var(--wordmark-inset);
   z-index: 60;
   display: flex;
   align-items: center;

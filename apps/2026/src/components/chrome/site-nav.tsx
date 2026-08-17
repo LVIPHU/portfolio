@@ -18,11 +18,9 @@ const items = [
 ] as const satisfies readonly NavItem[]
 
 export function SiteNav({
-  email,
   socials,
   photos,
 }: {
-  email: string
   socials: readonly { label: string; url: string }[]
   photos: readonly { src: string }[]
 }) {
@@ -66,7 +64,6 @@ export function SiteNav({
         onClose={() => setOpen(false)}
         items={items}
         isActive={isActive}
-        email={email}
         socials={socials}
         photos={photos}
       />

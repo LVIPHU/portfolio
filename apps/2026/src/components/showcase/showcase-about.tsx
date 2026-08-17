@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, type CSSProperties } from 'react'
-import { ArrowRight, Mail } from 'lucide-react'
+import { Mail } from 'lucide-react'
 import { EarthBackground } from '@/components/three/earth-background'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { HorizontalSlides } from '@/components/effects/horizontal-slides'
@@ -20,7 +20,6 @@ export type AboutContent = {
   bio: string[]
   aboutHeading: string
   scrollLabel: [string, string]
-  ctaProjects: string
   ctaContact: string
   skillsHeading: string
   techs: string[]
@@ -67,7 +66,9 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
               gold: .h3 chỉ 20px comp ở mobile nên không được là gold trên nền sáng. */}
           <h2 className={`h3 ${s.heroRole}`}>{content.role}</h2>
         </div>
-        <div className={s.heroBottom}>
+        {/* menu-button-reserve: chỉ mobile — né XUỐNG dưới nút mở menu (desktop né ngang bằng
+            padding-right của .heroCta) */}
+        <div className={`${s.heroBottom} menu-button-reserve`}>
           <div className={`${s.scrollHint} ${hasScrolled ? s.scrollHintHidden : ''}`}>
             <span className={s.scrollHintText}>
               {content.scrollLabel[0]}
@@ -76,10 +77,9 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
             </span>
           </div>
           <p className={`p-s ${s.heroDesc}`}>{content.tagline}</p>
-          {/* Cả hai nút đều ĐẶC: lenis không phân cấp primary/secondary ở hero. Công thức nút
-              nằm ở @/components/effects/pill-button (header nổi dùng chung). */}
+          {/* MỘT nút thôi: nút thứ hai ở hàng này là nút mở menu (lớp fixed góc phải-dưới).
+              Công thức nút nằm ở @/components/effects/pill-button — nút menu dùng chung. */}
           <div className={s.heroCta}>
-            <PillButtonLink href='/projects' icon={<ArrowRight />} label={content.ctaProjects} />
             <PillButtonLink href='/contact' icon={<Mail />} label={content.ctaContact} />
           </div>
         </div>

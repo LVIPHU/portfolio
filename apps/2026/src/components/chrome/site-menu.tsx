@@ -11,32 +11,27 @@ import s from './site-menu.module.css'
 
 export type NavItem = { href: string; key: string }
 
-// Nhịp so le giữa hai ký tự liền nhau khi hover (ms).
-const CHAR_STEP = 30
+// Nhịp so le giữa hai ký tự liền nhau khi hover (ms). Chạy TRÁI → PHẢI theo thứ tự đọc; bản
+// trước so le từ giữa ra hai bên nên mắt không bắt được hướng, nhìn rối.
+const CHAR_STEP = 45
 
 // Ký tự trắng phải là NBSP: khoảng trắng thường trong một <span> riêng bị gộp/bỏ khi render.
 const NBSP = ' '
 
-// Chữ cuộn theo TỪNG KÝ TỰ, so le từ NGOÀI VÀO TRONG: ký tự ngoài rìa đi trước, cặp giữa đi
-// cuối. Cùng ngôn ngữ với nhãn nút PillButton (hai bản chồng nhau tráo chỗ) nhưng làm ở mức ký
-// tự và không có nền — bản dự bị là gold.
+// Chữ cuộn theo TỪNG KÝ TỰ, so le TRÁI → PHẢI theo thứ tự đọc. Cùng ngôn ngữ với nhãn nút
+// PillButton (hai bản chồng nhau tráo chỗ) nhưng làm ở mức ký tự và không có nền — bản dự bị
+// là gold.
 //
 // Dãy ký tự để aria-hidden và kèm một bản .sr-only: tách chữ ra từng <span> khiến trình đọc màn
 // hình đọc rời từng chữ cái.
 function RollingText({ text }: { text: string }) {
   const chars = Array.from(text)
-  const center = (chars.length - 1) / 2
 
   return (
     <>
       <span className={s.chars} aria-hidden>
         {chars.map((char, i) => (
-          <span
-            key={i}
-            className={s.char}
-            // center - |i - center| = khoảng cách TỚI RÌA: rìa = 0 (đi ngay), giữa = lớn nhất.
-            style={{ '--d': `${Math.round((center - Math.abs(i - center)) * CHAR_STEP)}ms` } as CSSProperties}
-          >
+          <span key={i} className={s.char} style={{ '--d': `${i * CHAR_STEP}ms` } as CSSProperties}>
             <span className={s.charFace}>{char === ' ' ? NBSP : char}</span>
             <span className={s.charFaceHidden}>{char === ' ' ? NBSP : char}</span>
           </span>
@@ -51,14 +46,13 @@ function RollingText({ text }: { text: string }) {
 // unmount ngay thì tấm biến mất khựng một nhịp. Khi đóng thì `visibility: hidden` + aria-hidden
 // nên trình đọc màn hình và Tab đều không với tới.
 //
-// email/socials/photos nhận qua PROP chứ không import @portfolio/content: entry gốc của content
+// socials/photos nhận qua PROP chứ không import @portfolio/content: entry gốc của content
 // chạm filesystem (blog) nên là server-only — component 'use client' phải để layout truyền xuống.
 export function SiteMenu({
   open,
   onClose,
   items,
   isActive,
-  email,
   socials,
   photos,
 }: {
@@ -66,7 +60,6 @@ export function SiteMenu({
   onClose: () => void
   items: readonly NavItem[]
   isActive: (href: string) => boolean
-  email: string
   socials: readonly { label: string; url: string }[]
   photos: readonly { src: string }[]
 }) {
@@ -111,7 +104,12 @@ export function SiteMenu({
     <div
       ref={panel}
       id='site-menu'
-      className={clsx(s.overlay, open && s.open)}
+      // class 'dark' toàn cục (globals.css khai `.dark { --background… }` cho BẤT KỲ phần tử nào):
+      // tấm menu luôn nền đen bất kể site đang light hay dark, giống trang tham chiếu. Nhờ vậy gold
+      // luôn đạt 10.79:1 nên chữ nhỏ hơn ngưỡng 56/64 comp vẫn được tô gold khi hover. Tailwind v4
+      // ở app này dùng `@custom-variant dark (&:is(.dark *))` nên LocaleSwitcher/ThemeToggle bên
+      // trong cũng ăn theo — không phải chép lại token.
+      className={clsx('dark', s.overlay, open && s.open)}
       role='dialog'
       aria-modal='true'
       aria-label={t('menu')}
@@ -160,13 +158,6 @@ export function SiteMenu({
           </nav>
 
           <div className={s.meta}>
-            <div className={s.metaBlock}>
-              <span className={clsx('p-xs', s.metaLabel)}>{t('enquiries')}</span>
-              <a href={`mailto:${email}`} className={s.email}>
-                {email}
-              </a>
-            </div>
-
             <div className={s.socials}>
               {socials.map((social) => (
                 <a

@@ -7,7 +7,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--wordmark-top) var(--wordmark-inset) var(--safe);
+  /* Lề DƯỚI bằng đúng lề TRÊN (--wordmark-top): hàng CTA cách mép dưới đúng bằng wordmark cách
+     mép trên. Trước đây đáy là --safe rồi .heroBottom còn cộng thêm 40 comp nữa → 80 comp, gấp
+     đôi lenis (home.module.scss: title margin-top 30, .bottom padding-bottom 40). */
+  padding: var(--wordmark-top) var(--wordmark-inset);
 }
 .heroTop {
   display: flex;
@@ -67,19 +70,23 @@
     grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
     gap: var(--gap);
     align-items: end;
-    padding-bottom: calc(((40 * 100) / var(--device-width)) * 1vw);
+    /* KHÔNG padding-bottom ở đây: lề đáy đã do .hero lo (= --wordmark-top). Cộng thêm ở đây là
+       lề dưới thành gấp đôi lề trên — lỗi đã sửa một lần, đừng thêm lại. */
   }
   .heroDesc {
     grid-column: 3 / span 3;
     max-width: none;
   }
-  /* Hai nút chiếm cột 7→12, chia đôi đều — mỗi nút rộng 3 cột nên to đúng như lenis,
-     chứ không phải co lại vừa chữ. */
+  /* Còn MỘT nút, chiếm cột 7→12 nhưng chừa bên phải đúng chỗ của nút mở menu (ô icon 48 comp +
+     gap) — nút menu là lớp fixed nên không tự đẩy được cái gì, phải chừa tay. */
   .heroCta {
-    grid-column: 7 / -1;
+    /* 4 cột cuối (9→12), không phải 6: một nút trải 6 cột thì cái pill dài ngoẵng, mất tỉ lệ
+       của lenis (mỗi nút của họ rộng ~3 cột). */
+    grid-column: 9 / -1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--gap);
+    padding-right: calc(((48 * 100) / var(--device-width)) * 1vw + var(--gap));
   }
 }
 
