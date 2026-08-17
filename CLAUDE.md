@@ -23,15 +23,22 @@ pnpm dev          # run all apps via turbo
 pnpm build        # build all (turbo skips unchanged apps)
 pnpm typecheck    # tsc --noEmit across all packages (both apps have it)
 pnpm lint         # eslint flat config (eslint.config.mjs) — react-hooks + React Compiler rules
+pnpm format       # prettier --check .   (format:write to fix)
 pnpm check-links  # dead-link crawler over both built apps (scripts/check-dead-links.mjs)
 pnpm ci-check     # prettier --check + typecheck + build + check-links (one gate for humans & CI)
 ```
 
-Scope to one package with turbo filters, e.g. `pnpm build --filter=web-2026` or `pnpm --filter web-2026 typecheck`. No unit tests; `pnpm ci-check` is the quality gate.
+Scope to one package with turbo filters, e.g. `pnpm build --filter=web-2026` or `pnpm --filter web-2026 typecheck`. No unit tests; `pnpm ci-check` is the quality gate — GitHub Actions ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs exactly that one command with placeholder env values, so a green local `ci-check` means a green CI. A husky `pre-commit` hook runs `lint-staged` (prettier --write on staged files).
 
-`apps/2025` requires `apps/2025/.env.local` to build (untracked). Minimum: `NODE_ENV` (`development` locally), `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_NODE_ENV`, and a syntactically valid placeholder `DATABASE_URL` (stats soft-fails to zeros when DB is unavailable). Drizzle kit lives in `@portfolio/service` (`pnpm --filter @portfolio/service db:push`).
+Dev servers are declared in [.claude/launch.json](.claude/launch.json) (`web-2026` → 3000, `web-2025` → 3001) — start them with the preview tool, not with Bash.
 
-> The turbo local cache (`.turbo/`) can grow to tens of GB over many builds — delete it if the disk fills; turbo regenerates it.
+`apps/2025` requires `apps/2025/.env.local` to build (untracked). Minimum: `NODE_ENV` (`development` locally), `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_NODE_ENV`, and a syntactically valid placeholder `DATABASE_URL` (stats soft-fails to zeros when DB is unavailable). Drizzle kit lives in `@portfolio/service` (`pnpm --filter @portfolio/service db:push`). `apps/2026` only needs the optional `DATABASE_URL` (see its `.env.example`).
+
+### Build outputs & caches (both apps)
+
+- `distDir` is conditional in each `next.config.ts`: a **local production build writes to `.next-build`**, everything else (dev, CI, Vercel) writes to `.next`. This keeps a local `next build` from corrupting the dev server's `.next`. `next start` locally (what `check-links` spawns) also reads `.next-build`.
+- `predev` runs `scripts/clean-dev-cache.mjs`, which deletes `.next` before every `pnpm dev` — Turbopack dev can wedge into an all-routes-404 state that a plain restart does not fix. It never touches `.next-build`.
+- The turbo local cache (`.turbo/`) can grow to tens of GB over many builds — delete it if the disk fills; turbo regenerates it.
 
 ## Architecture
 
@@ -45,21 +52,46 @@ All shared packages export **raw TypeScript source** (`exports: "./src/index.ts"
 - **`@portfolio/hooks`** — generic client hooks (`useMediaQuery`, `useDragRotate`, `useDebounceCallback`, …). GSAP/scroll motion hooks stay in `@portfolio/ui/motion`.
 - **`@portfolio/ui`** — shadcn components on **Base UI** (`@base-ui/react`), added one-per-CLI-command (`pnpm dlx shadcn@latest add <name>` inside `packages/ui`); `cn()` from `@portfolio/utils` (after `shadcn add`, rewrite any emitted `@/lib/utils` / relative utils import to `@portfolio/utils` — see `packages/ui/components.json` aliases). GSAP motion primitives (Reveal, useScrollProgress, ParallaxColumns, HoverHighlight, useMagnify) at `@portfolio/ui/motion`. Intra-package component imports are **relative** (shadcn emits `@/…`, which resolves against the _app's_ tsconfig under transpilePackages — convert to relative after each `add`). App barrels re-export named symbols (never `export *` across a `'use client'` boundary — it crashes Turbopack).
 - **`@portfolio/mdx`** — one remark/rehype pipeline (`remarkPlugins`/`rehypePlugins`) + MDX components (`defaultMdxComponents`) + `<MDXContent>` RSC renderer, shared by both apps. Includes `<Sandpack>` live playground (fences → files via the `remarkSandpackFiles` plugin at MDAST level; heavy `@codesandbox/sandpack-react` is code-split behind `next/dynamic` and must be in the app's `transpilePackages`).
+- pnpm runs with `autoInstallPeers: false` and isolated node_modules: **every import must be a declared dependency of the package that imports it**. A missing declaration can still resolve locally through hoisting and then fail only on Vercel.
 
 ### Content (`packages/content`)
 
 - `Locale` comes from `@portfolio/i18n/locales` (re-exported from content for existing imports). Every display string is a `Localized` object `{ vi: "...", en: "..." }` (types in [types.ts](packages/content/src/types.ts)). Structured data lives in `profile.ts`, `projects.ts`, `resume.ts`, `gallery.ts`.
-- **Blog**: MDX files in `packages/content/blog/` named `<slug>.<locale>.mdx` (e.g. `hello-world.vi.mdx`). [blog.ts](packages/content/src/blog.ts) reads them from the filesystem at build/SSG time (gray-matter frontmatter: title, description, date, tags), locating the directory relative to the app's cwd or via the `PORTFOLIO_CONTENT_DIR` env var. `getPost` falls back to the other locale if a translation is missing.
-- **Assets**: images in `packages/content/assets/` are copied into `apps/2026/public/content/` by [sync-content-assets.mjs](apps/2026/scripts/sync-content-assets.mjs), which runs automatically via `predev`/`prebuild`. `public/content/` is generated and wiped on every sync — never edit it directly; add assets to the content package.
+- Two entry points on purpose: the root export (`@portfolio/content`) touches the filesystem (blog) and is **server-only**; the `@portfolio/content/data2025` subpath is pure static data with no `fs`, so it is client-safe. `apps/2025` has no `data/` directory any more — its legacy data lives in `*2025.ts` files here.
+- **Blog**: MDX files in `packages/content/blog/` named `<slug>.<locale>.mdx` (e.g. `hello-world.vi.mdx`). [blog.ts](packages/content/src/blog.ts) reads them from the filesystem at build/SSG time (gray-matter frontmatter: title, description, date, tags), locating the directory relative to the app's cwd or via the `PORTFOLIO_CONTENT_DIR` env var (2026's `next.config.ts` sets it, because Next's generate-params worker runs with a different cwd). `getPost` **and** `getAllPosts` fall back to the other locale when a translation is missing.
+- **Assets**: images in `packages/content/assets/` are copied into each app's `public/content/` by its `scripts/sync-content-assets.mjs`, run automatically via `predev`/`prebuild`. `public/content/` is generated and wiped on every sync — never edit it directly; add assets to the content package. (2025 additionally runs `scripts/generate-content-json.ts` for its search index, and `postbuild` writes feed/search/tags.)
 
 ### App (`apps/2026`) — Next.js 16 App Router, React 19, Tailwind v4
 
 - **i18n via next-intl**: locales `vi` (default, no URL prefix) and `en` (`/en/...` prefix), from `@portfolio/i18n` (`localePrefix: "as-needed"`). UI chrome strings live in `apps/2026/messages/{vi,en}.json`; content strings come from `@portfolio/content` `Localized` objects — keep that separation. Prefer `getTranslations` / messages over `locale === 'vi' ? … : …` ternaries.
-- All routes live under `src/app/[locale]/` and are statically generated (`generateStaticParams`); pages call `setRequestLocale(locale)` before rendering.
+- All routes live under `src/app/[locale]/` and are statically generated (`generateStaticParams`). **Every layout and page must call `setRequestLocale(locale)`** before rendering, not just pages: if a server component below it calls `getTranslations()` without it, next-intl reads `headers()`, the whole subtree drops out of static render, blog pages then hit `fs` at runtime in a lambda that has no `packages/content`, and production 500s (local looks fine). Verify with the build's route table — no `ƒ` on these routes.
 - Internal links/navigation must use `Link`, `redirect`, `usePathname`, `useRouter` from `@portfolio/i18n/navigation` (locale-aware), not `next/link`/`next/navigation` directly.
 - Next 16 convention: the middleware file is [src/proxy.ts](apps/2026/src/proxy.ts) (not `middleware.ts`). Default export comes from `@portfolio/i18n/middleware`; `export const config.matcher` must stay an **inline object literal** in the app file (Next static analysis).
 - MDX is rendered via `<MDXContent>` from `@portfolio/mdx` (server-side, `next-mdx-remote/rsc` under the hood).
 - UI comes from `@portfolio/ui` (Base UI); `cn` from `@portfolio/utils`; theming via next-themes with Tailwind `dark:` variants. `apps/2025` consumes the same components through a shim barrel `src/components/atoms/index.ts` that re-exports from `@portfolio/ui` (app-specific atoms stay local). App-local helpers live under `src/utils/` (2025: content/github/icons/…; 2026: `format.ts` locale helpers + `fonts.ts`).
+
+#### Route groups and layout wiring (2026)
+
+- `[locale]/layout.tsx` is the site-wide shell: fonts, `ThemeProvider`, and the **whole-site scroll/cursor chrome** — `SmoothScroll` (lenis) wrapping `Scrollbar` (reads progress via `useLenis`, so it must stay inside) and `Cursor`. `globals.css` is imported here, followed by the separate `native-scrollbar.css` (Tailwind's Lightning CSS strips `scrollbar-*` from any file that `@import 'tailwindcss'`).
+- `(main)` — the ordinary portfolio pages (home, blog, projects, resume, gallery, tags, contact) with nav + footer + `StarsBackground`.
+- `(showcase)` — full-bleed pages (`/about`) with no site chrome: its own scoped theme via `.showcase-root[data-theme]` + `showcase/theme.css`, plus `GsapSync` and `Intro` mounted at the layout level.
+- `src/components/` is grouped by concern, not by page: `brand/` (FELIX mark, intro), `chrome/` (nav, full-screen menu, footer, cursor, theme + locale toggles), `effects/` (card, marquee, list-item, appear-title, horizontal-slides — each with a CSS module), `scroll/` (lenis + GSAP wiring, scrollbar), `showcase/`, `three/` (r3f canvases: earth, stars).
+
+#### Design system (2026)
+
+[apps/2026/docs/design-system.md](apps/2026/docs/design-system.md) is the written spec; `src/app/globals.css` (global tokens) and `src/components/showcase/theme.css` (scoped showcase themes) are the source of truth. Read the doc before touching colors, spacing, or type — the rules are unusually strict and have already been re-litigated once:
+
+- Sizes scale with the viewport: `calc(((<px on comp> * 100) / var(--device-width)) * 1vw)`, comp 375 mobile / 1440 desktop, **one** breakpoint at 800px.
+- Colors go through the three theme tokens `--theme-primary` / `--theme-secondary` / `--theme-contrast`; components don't reach for palette values directly.
+- There is exactly **one** brand gold (`#DFB454`) for both themes — no darker variant. It is legible by restricted usage, not by shade: allowed as a background (with hard black text on top), as 1–4px rules/borders/chrome, and for display type ≥56px comp; never for small text. The Earth material's `#D4AF37` is deliberately different — don't sync them.
+- Motion uses the easing tokens (`--ease-out-expo`, `--ease-in-out-quad`), not hand-written cubic-beziers.
+- Fonts (all `next/font/google`, declared in `src/utils/fonts.ts`): Anton for h1/h2, **Space Grotesk** for h3/h4, Roboto for body. Any replacement font must ship a `vietnamese` subset — Panchang was dropped precisely because its cmap had no Vietnamese glyphs, which fails silently as mismatched fallback and stacked diacritics.
+
+Scroll-driven animations cannot be verified with the browser tools' synthetic scrolling — it produces false negatives. Drive a real scroll (mouse wheel) when checking them.
+
+### `.design-sync/`
+
+Config + generators that package the UI into a design-system bundle (separate configs for 2025 and 2026; 2026 reads `.next-build`/`.next` chunk CSS and must concatenate _all_ chunks). Re-syncing is done by the user running the `/design-sync` skill — it is user-invocation-only and can't be triggered from here. See [.design-sync/NOTES-2026.md](.design-sync/NOTES-2026.md).
 
 ### Adding a new version
 
@@ -79,6 +111,7 @@ The C0–C12 upgrade is complete. History and rationale live in [docs/plans/](do
 ## Notes
 
 - README and code comments are written in Vietnamese; follow that convention for user-facing docs. Respond in Vietnamese; commit messages in English (conventional format).
+- Comments in this repo carry the _why_ (and often the bug that motivated the code). Read the surrounding comment before "simplifying" something that looks redundant, and keep that density in new code.
 
 ## Tri thức xuyên dự án — `D:\JARVIS\`
 
