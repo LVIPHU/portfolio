@@ -1,22 +1,32 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLenis } from 'lenis/react'
+import { usePathname } from '@portfolio/i18n/navigation'
 import { FelixFLX, FelixEI } from './felix-mark'
+import { waitForPageReady } from './page-ready'
 import s from './intro.module.css'
 
-// Intro kiểu lenis: tấm phủ gold, chữ FELIX đen trượt lên so le, E/I trồi lên ghép
-// vào F-L-X thành chữ hoàn chỉnh, rồi cả tấm trượt khỏi màn hình.
+// Intro kiểu lenis: tấm phủ gold, chữ FELIX đen trượt lên so le, E/I trồi lên ghép vào F-L-X
+// thành chữ hoàn chỉnh, rồi cả tấm trượt khỏi màn hình.
 //
-// QUAN TRỌNG — overlay nằm NGAY TRONG HTML server trả về (không chờ hydrate): nếu chỉ
-// mount sau khi client chạy thì người dùng thấy nội dung trang trước rồi tấm gold mới
-// nhảy vào. Việc bỏ qua (mobile / reduced-motion) do CSS lo — KHÔNG dùng class trên
-// <html> trước paint vì React hydration xoá sạch class gắn kiểu đó.
+// Nó KIÊM LUÔN cổng chờ tải: tấm chỉ mở ra khi (a) đã chạy đủ nhịp tối thiểu và (b)
+// waitForPageReady() báo trang đích đã có đủ font/ảnh/model 3D. Trang nhẹ thì (a) quyết định,
+// trang nặng thì (b) — nên sau intro trang luôn hiện đầy đủ, không còn cảnh quả cầu bật ra sau.
 //
-// Intro chỉ mount ở trang chủ (main) và (showcase)/about — đúng phạm vi đã chọn; các
-// trang nội dung sâu (blog...) không mang markup/JS intro. Cờ module-scope chống phát
-// lại khi điều hướng SPA giữa 2 trang (hard load mới reset cờ).
-let hasPlayedThisLoad = false
+// QUAN TRỌNG — overlay nằm NGAY TRONG HTML server trả về (không chờ hydrate): nếu chỉ mount sau
+// khi client chạy thì người dùng thấy nội dung trang trước rồi tấm gold mới nhảy vào. Việc bỏ qua
+// (reduced-motion) do CSS lo — KHÔNG dùng class trên <html> trước paint vì React hydration xoá
+// sạch class gắn kiểu đó.
+//
+// Mount MỘT lần ở [locale]/layout.tsx và chạy lại theo từng lần đổi pathname.
+
+// Nhịp: phủ + vạch chờ chạy → (≥1000ms VÀ trang đích sẵn sàng) → chữ trượt vào 1500ms → E/I ghép
+// ở +1900 → tấm trượt đi (CSS trễ đúng --intro-dur rồi chạy 1500ms) → nhả ở +3600.
+// MỌI route đều chạy bản đầy đủ này, kể cả điều hướng trong site — user chốt như vậy.
+const TIMING = { hold: 1000, join: 1900, release: 3600 }
+
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))
 
 export function Intro() {
   const lenis = useLenis()
@@ -24,105 +34,101 @@ export function Intro() {
   // Mọi chỗ nhả khoá phải đọc qua ref — closure bắt lenis=undefined từng gây kẹt cuộn.
   const lenisRef = useRef(lenis)
   lenisRef.current = lenis
+  const pathname = usePathname()
 
   const [isLoaded, setIsLoaded] = useState(false)
   const [introOut, setIntroOut] = useState(false)
   const [done, setDone] = useState(false)
-  const [playing, setPlaying] = useState(false)
+
+  // Mỗi lần đổi route là một "run"; mọi timer/promise của run cũ phải tự vô hiệu khi run mới bắt
+  // đầu — nếu không, release() của lượt trước sẽ gỡ class ngay giữa lượt sau.
+  const runRef = useRef(0)
   const releasedRef = useRef(false)
 
-  useEffect(() => {
-    // cùng điều kiện với CSS (media query trong intro.module.css): overlay bị ẩn thì
-    // đừng khoá scroll, gỡ luôn markup
-    const skip =
-      hasPlayedThisLoad || window.innerWidth < 800 || window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (skip) {
-      releasedRef.current = true
-      setDone(true)
-      return
-    }
-    hasPlayedThisLoad = true
-    setPlaying(true)
-    document.documentElement.classList.add('intro-running')
-    const id = setTimeout(() => setIsLoaded(true), 1000)
-    return () => {
-      clearTimeout(id)
-      // Unmount TRƯỚC khi release() kịp chạy (vd nhấn Back giữa intro): transitionEnd không
-      // bao giờ bắn vì wrapper đã unmount, timer 4600ms thì bị clear — không còn đường nào
-      // gỡ class. Mà hasPlayedThisLoad chặn mọi lần mount sau đụng vào classList, nên class
-      // kẹt là kẹt CẢ SESSION: BackgroundCanvas đọc intro-running sẽ ghim frameloop='never'
-      // vĩnh viễn (Earth + sao đứng im trên mọi route, chỉ hard reload mới cứu). Gỡ ở đây
-      // là chốt an toàn cuối; chạy sau release() thì chỉ là no-op.
-      document.documentElement.classList.remove('intro-running', 'intro-out')
-    }
-  }, [])
-
-  // khoá scroll suốt intro — không khoá nữa nếu release đã chạy trước khi lenis kịp đến
-  useEffect(() => {
-    if (!playing || !lenis || releasedRef.current) return
-    lenis.stop()
-    return () => lenis.start()
-  }, [playing, lenis])
-
-  // nhả scroll + gỡ overlay. Gọi được nhiều lần (transitionEnd + timeout dự phòng)
-  // — bắt buộc có fallback, nếu transition không bắn thì trang sẽ kẹt không cuộn được.
+  // nhả khoá + gỡ overlay. Gọi được nhiều lần (transitionEnd + timer dự phòng) — bắt buộc có
+  // fallback, nếu transition không bắn thì trang sẽ kẹt không cuộn được.
   const release = () => {
     if (releasedRef.current) return
     releasedRef.current = true
+    const run = runRef.current
     lenisRef.current?.start()
     setDone(true)
-    // Gỡ class trạng thái sau khi transition ghép của hero chắc chắn xong — không để
-    // state intro rò rỉ vĩnh viễn trên <html>. Hero rơi về trạng thái mặc định (.ei
-    // đã ghép, không transition) nên không đổi hình.
+    // Gỡ class trạng thái sau khi transition ghép của hero chắc chắn xong — không để state intro
+    // rò rỉ vĩnh viễn trên <html>. Chỉ gỡ nếu CHƯA có run mới (đổi route ngay sau khi lộ trang).
     setTimeout(() => {
+      if (runRef.current !== run) return
       document.documentElement.classList.remove('intro-running', 'intro-out')
     }, 1600)
   }
 
-  // Chặn Tab suốt intro: tấm phủ che kín màn nhưng nội dung phía sau vẫn focus được —
-  // người dùng bàn phím sẽ tab vào control vô hình (WCAG focus-not-obscured). aria-hidden
-  // trên overlay chỉ ẩn nó khỏi screen reader, không chặn focus phía sau.
+  // useLayoutEffect chứ không useEffect: usePathname() chỉ đổi SAU khi trang mới đã commit, nên
+  // tấm phủ phải kín NGAY trong khung hình đó. Chờ tới useEffect là người dùng kịp thấy trang mới
+  // lúc chưa tải xong.
+  useLayoutEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      releasedRef.current = true
+      setDone(true)
+      return
+    }
+
+    const run = ++runRef.current
+    const alive = () => runRef.current === run
+
+    releasedRef.current = false
+    setDone(false)
+    setIsLoaded(false)
+    setIntroOut(false)
+
+    const html = document.documentElement
+    html.classList.add('intro-running')
+    html.classList.remove('intro-out')
+    lenisRef.current?.stop()
+
+    // Mở ra khi CẢ HAI xong: nhịp tối thiểu và trang đích đã sẵn sàng. Trong lúc chờ, tấm gold
+    // KHÔNG để trống trơn — vạch chờ ở đáy tự chạy bằng CSS (xem .loader).
+    Promise.all([sleep(TIMING.hold), waitForPageReady()]).then(() => {
+      if (!alive()) return
+      setIsLoaded(true)
+    })
+
+    return () => {
+      // Unmount/đổi route TRƯỚC khi release() kịp chạy (vd nhấn Back giữa intro): transitionEnd
+      // không bao giờ bắn vì wrapper đã unmount, timer thì bị clear — không còn đường nào gỡ
+      // class. Mà class kẹt là kẹt CẢ SESSION: BackgroundCanvas đọc intro-running sẽ ghim
+      // frameloop='never' vĩnh viễn (ultrareview bug_003). Chốt an toàn cuối; chỉ dọn khi KHÔNG
+      // có run mới nối tiếp.
+      if (runRef.current !== run) return
+      lenisRef.current?.start()
+      html.classList.remove('intro-running', 'intro-out')
+    }
+  }, [pathname])
+
+  // Chặn Tab suốt intro: tấm phủ che kín màn nhưng nội dung phía sau vẫn focus được — người dùng
+  // bàn phím sẽ tab vào control vô hình (WCAG focus-not-obscured). aria-hidden trên overlay chỉ
+  // ẩn nó khỏi screen reader, không chặn focus phía sau.
   useEffect(() => {
-    if (!playing || done) return
+    if (done) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Tab') e.preventDefault()
     }
     window.addEventListener('keydown', onKey, true)
     return () => window.removeEventListener('keydown', onKey, true)
-  }, [playing, done])
+  }, [done])
 
-  // resize xuống <800px giữa intro: CSS ẩn overlay ngay (không còn transitionEnd nào
-  // sẽ bắn) → nhả khoá lập tức thay vì bắt user chờ fallback
+  // Chữ trượt vào xong → E/I trồi lên ghép; rồi nhả. Mốc tính từ isLoaded (thời điểm bắt đầu
+  // choreography) chứ không từ lúc mount — vì cổng chờ tài nguyên có thể kéo dài bao lâu tuỳ mạng.
   useEffect(() => {
-    if (!playing) return
-    const onResize = () => {
-      if (window.innerWidth < 800) release()
-    }
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [playing])
-
-  useEffect(() => {
-    if (!playing) return
-    const id = setTimeout(release, 4600) // 1000 chờ + 1500 vào + 1500 ra + đệm
-    return () => clearTimeout(id)
-  }, [playing])
-
-  // Chữ trượt vào xong → E/I trồi lên ghép (đúng nhịp lenis: bắn theo transitionEnd
-  // của path chữ; fallback timer phòng transition không bắn). Side effect DOM tách
-  // riêng theo introOut — không nhét vào setState updater (updater phải pure).
-  const markIntroOut = () => setIntroOut(true)
+    if (!isLoaded || done) return
+    const timers = [setTimeout(() => setIntroOut(true), TIMING.join), setTimeout(release, TIMING.release)]
+    return () => timers.forEach(clearTimeout)
+    // release/setIntroOut ổn định theo run; phụ thuộc thêm chỉ tổ khởi động lại timer giữa chừng
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded, done])
 
   useEffect(() => {
     if (!introOut) return
     document.documentElement.classList.add('intro-out')
   }, [introOut])
-
-  useEffect(() => {
-    if (!playing) return
-    const id = setTimeout(markIntroOut, 2900) // 1000 chờ + 1500 trượt + 375 stagger
-    return () => clearTimeout(id)
-  }, [playing])
 
   if (done) return null
 
@@ -133,7 +139,7 @@ export function Intro() {
       onTransitionEnd={(e) => {
         // tấm phủ báo kết thúc → nhả scroll; path chữ báo kết thúc → tới pha ghép E/I
         if (e.target === e.currentTarget) release()
-        else if ((e.target as Element).tagName === 'path') markIntroOut()
+        else if ((e.target as Element).tagName === 'path') setIntroOut(true)
       }}
     >
       <div className={`${s.inner} ${isLoaded ? s.relative : ''}`}>
@@ -152,6 +158,9 @@ export function Intro() {
           showClassName={s.show}
         />
       </div>
+      {/* Vạch chờ: chạy suốt lúc cổng chờ tài nguyên còn giữ màn (trước đây chỗ này là tấm gold
+          trống trơn, tải chậm là đứng hình mấy giây). Tự tắt khi chữ bắt đầu trượt vào. */}
+      <div className={`${s.loader} ${isLoaded ? s.loaderDone : ''}`} />
     </div>
   )
 }

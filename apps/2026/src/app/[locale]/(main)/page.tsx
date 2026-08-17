@@ -8,7 +8,6 @@ import { Marquee } from '@/components/effects/marquee'
 import { ListItem } from '@/components/effects/list-item'
 import { PostRow } from '@/components/post-row'
 import { FelixHeroMark } from '@/components/brand/felix-mark'
-import { Intro } from '@/components/brand/intro'
 import { EarthBackground } from '@/components/three/earth-background'
 import { formatDate, t } from '@/utils/format'
 export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -20,8 +19,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
 
   return (
     <div className='flex flex-col gap-24'>
-      {/* Intro chỉ ở trang chủ (và /about bên showcase) — không phải mọi route */}
-      <Intro />
       {/* Trái Đất đậu NỬA PHẢI hero (pose riêng của variant hero — /about giữ pose bên trái),
           mờ dần khi cuộn qua hero. withStars/withLeva=false vì layout (main) đã có canvas sao
           + panel Leva riêng. */}

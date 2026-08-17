@@ -8,6 +8,7 @@ import Stats from 'stats.js'
 import type { Group, Mesh, MeshPhysicalMaterial } from 'three'
 import { EarthModel } from './earth-model'
 import { Stars } from './stars'
+import { markSceneReady, SCENE_EARTH } from './scene-ready'
 
 // Keyframe pose của Earth cho từng threshold (data-earth-step). position = tỉ lệ viewport
 // (0 = giữa; y DƯƠNG = LÊN TRÊN), scale = hệ số, rotationY = số vòng quay (× 2π),
@@ -213,6 +214,13 @@ function Earth({ pose, fade, steps }: { pose: MutableRefObject<Pose>; fade: Muta
   )
 }
 
+// Báo cho tấm Intro biết asset của cảnh đã xong. Đặt BÊN TRONG <Suspense>: component này chỉ
+// render khi nhánh đó đã resolve, tức useGLTF/useTexture của EarthModel đã tải xong.
+function AssetsReady() {
+  useEffect(() => markSceneReady(SCENE_EARTH), [])
+  return null
+}
+
 export default function EarthCanvas({
   debug = false,
   variant = 'sections',
@@ -232,6 +240,7 @@ export default function EarthCanvas({
       {withStars && <Stars />}
       <Suspense fallback={null}>
         <Earth pose={pose} fade={fade} steps={variant === 'hero' ? HERO_POSE : STEPS} />
+        <AssetsReady />
       </Suspense>
       {debug && <StatsPanel />}
     </BackgroundCanvas>

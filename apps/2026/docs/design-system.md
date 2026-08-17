@@ -150,6 +150,20 @@ làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên co
 
 - **FelixHeroMark** — wordmark FELIX (Cloister Black → SVG, viewBox `0 0 1401 368`), fill
   `var(--theme-contrast)`; vị trí khớp intro qua `--wordmark-top/-inset` (30 / 32.5 trên comp 1440).
+- **Intro** — mount MỘT lần ở `[locale]/layout.tsx`, chạy lại **mỗi lần đổi route** (kể cả điều
+  hướng SPA) và kiêm **cổng chờ tải**: chỉ vào pha `intro-out` khi nhịp tối thiểu 1000ms xong
+  **và** `brand/page-ready.ts` báo trang đích đủ font + ảnh + cảnh 3D (trần chờ 8s để mạng hỏng
+  không nhốt người dùng). Bốn điều dễ vấp:
+  - Phủ màn bằng `useLayoutEffect` chứ không `useEffect`: `usePathname()` chỉ đổi SAU khi trang mới
+    commit, chờ tới effect là người dùng kịp thấy trang chưa tải xong.
+  - Transition khai TRÊN `.out`; bỏ class ra là tấm phủ lại kín ngay, không trượt ngược.
+  - Trong lúc chờ, `.loader` (vạch 2px đen chạy qua lại) giữ nhịp — trước đây chỗ này là tấm gold
+    trống trơn, mạng chậm đọc ra "treo".
+  - Trạng thái cảnh 3D đọc qua `three/scene-ready.ts` (store nhỏ, API theo **id** nên StrictMode
+    gọi hai lần vẫn đúng và không phụ thuộc thứ tự effect cha–con) — **không** import
+    `useProgress` của drei, làm thế là kéo `three` ra khỏi chunk lazy vào bundle chính.
+  - `BackgroundCanvas` ghim `frameloop='never'` khi `intro-running` **và chưa** `intro-out`: canvas
+    chạy lại đúng lúc tấm bắt đầu trượt đi nên kịp vẽ khung đầu trước khi trang lộ ra.
 - **Lề hero (cả `/` lẫn `/about`)** — trên = dưới = `--wordmark-top`: hàng CTA cách mép dưới đúng
   bằng wordmark cách mép trên (lenis: title `margin-top: 30px`, `.bottom` `padding-bottom: 40px`).
   ĐỪNG cộng thêm `padding-bottom` ở khối dưới — đó chính là lỗi lề gấp đôi đã sửa một lần.

@@ -15,23 +15,72 @@
 }
 
 /* Bỏ qua intro bằng CSS THUẦN (không script, không class trên <html> — class đó bị
-   React hydration xoá mất): mobile như lenis, và tôn trọng reduced-motion.
-   Overlay vẫn nằm trong HTML server trả về nên không bao giờ chớp. */
-@media (max-width: 799.98px) {
-  .wrapper {
-    display: none;
-  }
-}
+   React hydration xoá mất): tôn trọng reduced-motion. Overlay vẫn nằm trong HTML server
+   trả về nên không bao giờ chớp.
+   KHÔNG còn nhánh ẩn ở mobile: intro giờ kiêm cổng chờ tải, mà mạng yếu (đúng cảnh mobile)
+   mới là chỗ cần cổng đó nhất. */
 @media (prefers-reduced-motion: reduce) {
   .wrapper {
     display: none;
   }
 }
 
+/* Transition khai TRÊN .out (không phải trên .wrapper): bỏ class ra là tấm phủ lại kín NGAY,
+   không có màn trượt ngược xuống — đúng thứ cần cho lần điều hướng kế tiếp. */
 .wrapper.out {
   transform: translate3d(0, -100%, 0);
   transition: transform var(--intro-dur, 1500ms) var(--ease-out-expo);
+  /* Trễ đúng bằng thời gian chữ trượt vào, rồi tấm mới đi. */
   transition-delay: var(--intro-dur, 1500ms);
+}
+
+/* ---- vạch chờ ----
+   Cổng chờ tài nguyên có thể giữ màn vài giây (mạng chậm, model 3D nặng). Trước đây chỗ đó là
+   tấm gold TRỐNG TRƠN — đọc ra "trang treo" chứ không phải "đang tải". Vạch này chạy bằng CSS
+   thuần nên có mặt ngay trong HTML server trả về, không chờ hydrate.
+   Đen trên gold (10.79:1) và chỉ dày 2px — đúng vai trò "gạch/chrome" trong giấy phép màu. */
+.loader {
+  position: absolute;
+  left: var(--wordmark-inset);
+  right: var(--wordmark-inset);
+  bottom: var(--wordmark-top);
+  height: 2px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.18);
+  transition: opacity 400ms var(--ease-in-out-quad);
+}
+
+.loader::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  background-color: var(--color-black);
+  animation: intro-sweep 1400ms var(--ease-in-out-quad) infinite;
+}
+
+/* Chữ bắt đầu trượt vào thì vạch lui — hai chuyển động cùng lúc là rối. */
+.loaderDone {
+  opacity: 0;
+}
+
+@keyframes intro-sweep {
+  from {
+    /* -100% của CHÍNH nó (30% bề ngang) = nằm ngoài mép trái */
+    transform: translateX(-100%);
+  }
+  to {
+    /* 333% × 30% = 100% bề ngang khung → ra khỏi mép phải */
+    transform: translateX(333%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader::after {
+    animation: none;
+  }
 }
 
 .inner {

@@ -1,6 +1,5 @@
 import { setRequestLocale } from 'next-intl/server'
 import { GsapSync } from '@/components/scroll/gsap-sync'
-import { Intro } from '@/components/brand/intro'
 import '@/components/showcase/theme.css'
 
 // Layout full-bleed cho trang showcase: KHÔNG dùng chrome portfolio (nav/footer/max-w).
@@ -26,7 +25,6 @@ export default async function ShowcaseLayout({
       {/* GsapSync mount ở LAYOUT chứ không trong page body: layout lo việc xuyên suốt, page lo
           nội dung. Cố ý chỉ ở route group này — lý do đầy đủ trong scroll/gsap-sync.tsx. */}
       <GsapSync />
-      <Intro />
       <div className='showcase-bg' aria-hidden />
       {children}
     </div>

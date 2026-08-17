@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { SmoothScroll } from '@/components/scroll/smooth-scroll'
 import { Scrollbar } from '@/components/scroll/scrollbar'
 import { Cursor } from '@/components/chrome/cursor'
+import { Intro } from '@/components/brand/intro'
 import { SiteNav } from '@/components/chrome/site-nav'
 import { anton, roboto, spaceGrotesk } from '@/utils/fonts'
 import { gallery, profile } from '@portfolio/content'
@@ -47,10 +48,11 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider>
           <ThemeProvider>
-            {/* Intro KHÔNG đặt ở đây: chỉ trang chủ (main) + (showcase)/about mount nó
-                — trang nội dung sâu không mang markup/JS intro (18KB path SVG). Cờ
-                module-scope trong intro.tsx chống phát lại khi điều hướng SPA. */}
+            {/* Intro mount MỘT lần ở đây và chạy lại theo mỗi lần đổi route: nó vừa là màn thương
+                hiệu vừa là CỔNG CHỜ TẢI (chỉ mở khi font/ảnh/model 3D của trang đích đã xong).
+                Đánh đổi đã biết: SVG wordmark (~18KB path) từ nay đi theo mọi route. */}
             <SmoothScroll>
+              <Intro />
               {/* Thanh tiến độ đặt ở đây chứ không riêng (showcase): lenis mount Scrollbar
                   trong default layout (layouts/default/index.js:108) nên nó chạy toàn site.
                   Phải nằm TRONG SmoothScroll vì component đọc tiến độ qua useLenis. */}
