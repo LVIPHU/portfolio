@@ -139,7 +139,7 @@ Component xếp theo MỐI QUAN TÂM, không theo trang dùng nó:
 | Thư mục                | Chứa gì                                                            | Ghi chú                                                                            |
 | ---------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
 | `components/brand/`    | FelixHeroMark, Intro                                               | nhận diện thương hiệu; Intro giao tiếp bằng class `html.intro-running`/`intro-out` |
-| `components/effects/`  | AppearTitle, Card, HorizontalSlides, ListItem, Marquee             | hiệu ứng dùng chung, KHÔNG phụ thuộc `.showcase-root`                              |
+| `components/effects/`  | AppearTitle, Card, HorizontalSlides, ListItem, Marquee, PillButton | hiệu ứng dùng chung, KHÔNG phụ thuộc `.showcase-root`                              |
 | `components/scroll/`   | SmoothScroll, Scrollbar, GsapSync                                  | cụm Lenis; cả ba phải là hậu duệ của `<ReactLenis root>`                           |
 | `components/chrome/`   | SiteNav, SiteMenu, SiteFooter, LocaleSwitcher, ThemeToggle, Cursor | khung site, chạy toàn bộ route                                                     |
 | `components/showcase/` | theme.css + các section của `/about`                               | CHỈ chỗ này mới được phụ thuộc `.showcase-root`                                    |
@@ -153,18 +153,28 @@ làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên co
 - **Marquee / ListItem / AppearTitle / Card** — hiệu ứng thuần CSS; ListItem cần `visible`,
   AppearTitle tự reveal bằng IntersectionObserver. (Registry design-sync publish `Card` dưới tên
   `ShowcaseCard` để không đè `Card` của `packages/ui` — tên lịch sử, đừng đổi.)
-- **Nav** — cao `--header-height` (58 → 98), tự ẩn ở đỉnh trang chủ, trượt vào khi cuộn (đứng yên
-  khi menu đang mở, nếu không nút đóng trôi mất khỏi màn hình). Chỉ chứa **hai nút**: CTA nền gold
-  (chữ đen cứng) + công tắc `=` → `X`. Không còn nav ngang; LocaleSwitcher/ThemeToggle nằm trong menu.
-- **SiteMenu** — tấm toàn màn hình dưới header (z 40 < header 50), trượt xuống 800ms `--ease-out-expo`,
-  từng dòng link trồi lên trong mặt nạ `overflow: hidden` (stagger 60ms), khối ảnh + meta vào sau.
-  Ba điểm dễ vấp nếu sửa lại:
-  - Nó phải là **anh em** của `<header>`, không phải con: `backdrop-blur` của header tạo containing
-    block mới cho `position: fixed`.
-  - Cỡ chữ link 32 → 46 comp chọn theo **ràng buộc chiều cao** (bảy dòng + meta gọn trong một màn
-    hình), tức dưới ngưỡng 56/64 → **không** được tô gold; tín hiệu active/hover là gạch gold.
-  - Cột ảnh (chỉ ≥800px) dùng `flex: 1` + `min-height: 0` để ăn phần cao còn thừa; thiếu
-    `min-height: 0` là flex item giữ min-height auto và đẩy email/socials xuống dưới fold.
+- **PillButton** — nút chính kiểu lenis: ô icon vuông định chiều cao (48 comp), nhãn nhân đôi tráo
+  chỗ khi hover, nền gold + chữ **đen cứng**. Dùng chung cho CTA của `/about` và nút mở menu
+  (`iconOnly`). Giữ nguyên mẹo specificity `.btn.btnFilled` — `theme.css` có
+  `.showcase-root a { color: inherit }` (0,1,1) sẽ đè một class đơn.
+- **SiteNav** — KHÔNG còn là `<header>`: chỉ một `PillButton` nổi `position: fixed` ở góc trên-trái
+  (`--safe`), z 60, không nền / không viền / không chiếm chỗ trong luồng. Mount ở
+  `[locale]/layout.tsx` nên chạy trên **mọi** route, kể cả `(showcase)/about`; cố ý đè lên wordmark
+  FELIX. Ẩn trong lúc intro qua `html.intro-running:not(.intro-out)`. Vì nút không chiếm chỗ,
+  `(main)/layout.tsx` khai `--main-top` cho `<main>`, và hero trang chủ huỷ lại đúng biến đó để
+  chữ FELIX vẫn chồng khít tấm intro.
+- **SiteMenu** — tấm phủ trọn viewport (z 40, dưới nút), trượt xuống 800ms `--ease-out-expo`. Nửa
+  trái: bốn ảnh gallery hai cột lệch tầng, tràn mép, lộ dần bằng `clip-path`. Nửa phải: khối chữ
+  **căn giữa** cả hai chiều + email/socials/công tắc bên dưới. Ba điểm dễ vấp nếu sửa lại:
+  - Cỡ chữ link **56 → 64 comp** — chọn đúng ngưỡng "chữ trình bày" để hover **tô gold** hợp lệ ở
+    cả hai theme. Hạ cỡ xuống là phải đổi tín hiệu về gạch gold.
+  - Hover cuộn **từng ký tự**, so le từ NGOÀI VÀO TRONG (`delay = (center − |i − center|) × 30ms`).
+    Bản dự bị đặt ở `translateY(120%)` chứ không phải 100%, và `line-height: 1.35` cho mỗi bản: dấu
+    tiếng Việt nhô ra ngoài hộp ký tự sẽ thò lên mép mặt nạ thành vệt gold lấm tấm lúc nghỉ.
+  - Vì lý do dấu đó, dòng link **không** dùng mặt nạ `overflow: hidden` như ListItem/AppearTitle —
+    lượt vào là trồi + mờ dần.
+  - Trang đang xem render bằng `<span>` (không phải `<Link>`) + gạch ngang gold: `aria-disabled`
+    trên thẻ `<a>` chỉ nói với trình đọc màn hình, chuột và bàn phím vẫn điều hướng như thường.
 
 ## Cấm kỵ
 

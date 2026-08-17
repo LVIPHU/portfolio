@@ -1,23 +1,19 @@
-/* Menu toàn màn hình mở từ nút "=" trên nav (bố cục kiểu landonorris.com, ngôn ngữ chuyển
-   động của lenis: tấm trượt xuống bằng --ease-out-expo, từng dòng chữ trồi lên trong mặt nạ
-   overflow như ListItem/AppearTitle).
+/* Menu toàn màn hình mở từ nút "=" nổi ở góc trái (bố cục landonorris.com, ngôn ngữ chuyển động
+   của lenis: tấm trượt xuống bằng --ease-out-expo, từng dòng chữ trồi lên trong mặt nạ overflow
+   như ListItem/AppearTitle).
 
-   z-index 40 < header 50: header phải NẰM TRÊN tấm này thì brand + hai nút mới thấy được
-   khi menu mở (nút "=" biến thành X ngay tại chỗ, không nhảy sang chỗ khác). Vì vậy tấm này
-   chừa đúng --header-height ở trên. */
+   z-index 40 < 60 của hai nút nổi: nút "=" phải nằm TRÊN tấm này thì mới bấm đóng được, và vì
+   thế tấm phủ trọn viewport (inset: 0) chứ không chừa chỗ cho header nữa. */
 
 .overlay {
   position: fixed;
   inset: 0;
   z-index: 40;
-  display: flex;
-  flex-direction: column;
-  padding-top: var(--header-height);
   background-color: var(--background);
   transform: translateY(-101%);
   visibility: hidden;
   overscroll-behavior: contain;
-  overflow-y: auto;
+  overflow: hidden;
   transition:
     transform 800ms var(--ease-out-expo),
     /* visibility đổi TRỄ đúng bằng thời gian trượt ra, nếu không tấm biến mất ngay lập tức
@@ -34,105 +30,125 @@
 }
 
 .inner {
-  flex: 1;
-  /* min-height:0 — không có nó, flex item giữ nguyên min-height:auto (= chiều cao nội dung) nên
-     KHÔNG co lại được: khối ảnh đẩy email/socials rơi xuống dưới fold thay vì tự thu nhỏ. */
-  min-height: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--spacer-sm);
-  padding-block: var(--spacer-xs);
+  height: 100%;
 }
 
-/* ---- danh sách link ---- */
+/* ---- nửa phải: khối chữ căn giữa ---- */
+
+.panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacer-xs);
+  padding: var(--safe);
+  /* Chừa chỗ cho hai nút nổi ở mobile (chúng nằm đè lên tấm này) */
+  padding-top: calc(var(--safe) + var(--header-height));
+  text-align: center;
+  overflow-y: auto;
+}
 
 .nav {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
+/* KHÔNG mặt nạ overflow ở cấp dòng như ListItem/AppearTitle: chữ Anton hoa có dấu tiếng Việt
+   (Ủ, Ệ, Ớ) nhô cao hơn hộp dòng, mặt nạ khít là cụt dấu ngay ở trạng thái nghỉ. Vì thế lượt
+   vào của menu dùng trồi + mờ dần thay cho lộ-qua-mặt-nạ. */
 .item {
   display: block;
-  overflow: hidden; /* mặt nạ cho chữ trồi lên */
-  padding-block: calc(((4 * 100) / var(--device-width)) * 1vw);
 }
 
 .link {
-  position: relative;
-  display: inline-flex;
-  align-items: baseline;
-  gap: calc(((12 * 100) / var(--device-width)) * 1vw);
+  display: inline-block;
   font-family: var(--font-anton);
   font-weight: 400;
-  line-height: 100%;
+  /* Khớp line-height của .charFace: dòng active render chữ trần (không tách ký tự) nên hai
+     kiểu dựng phải cùng chiều cao dòng, nếu không hàng bị xô lệch khi đổi trang. */
+  line-height: 1.35;
   text-transform: uppercase;
-  /* 32 → 46 comp: cỡ chọn theo RÀNG BUỘC CHIỀU CAO, không phải theo thang .h1/.h2. Bảy dòng
-     + khối meta phải nằm gọn trong một màn hình (đã thử 72 comp desktop: tràn xuống dưới fold
-     ở màn 860px). Vì < 56 comp nên chữ KHÔNG được tô gold — tín hiệu nằm ở gạch bên dưới. */
-  font-size: calc(((32 * 100) / var(--device-width)) * 1vw);
-  /* Chừa chỗ cho gạch gold NGAY TRONG hộp của link: .item có overflow:hidden làm mặt nạ,
-     nên gạch đặt lồi ra ngoài (bottom âm) sẽ bị cắt mất. */
-  padding-bottom: calc(((6 * 100) / var(--device-width)) * 1vw);
-  transform: translateY(110%);
-  transition: transform 900ms var(--ease-out-expo);
+  /* 56 → 64 comp: ĐÚNG ngưỡng "chữ trình bày" của giấy phép dùng gold (≥56 mobile / ≥64 desktop),
+     nhờ vậy hover tô gold hợp lệ ở CẢ hai theme. Cỡ nhỏ hơn thì gold chỉ đạt 1.69:1 trên nền
+     sáng và phải đổi sang gạch — đó là lý do bản trước dùng gạch chứ không phải chữ gold. */
+  font-size: calc(((56 * 100) / var(--device-width)) * 1vw);
+  opacity: 0;
+  transform: translateY(40%);
+  transition:
+    transform 900ms var(--ease-out-expo),
+    opacity 600ms var(--ease-out-expo);
 }
 
 .open .link {
+  opacity: 1;
   transform: translateY(0);
-  /* so le theo thứ tự dòng — cùng nhịp 100ms như stagger của ListItem */
+  /* so le theo thứ tự dòng — cùng nhịp với stagger của ListItem */
   transition-delay: calc(90ms + 60ms * var(--i, 0));
 }
 
-/* Gạch gold chạy dưới chữ khi hover / khi đang ở trang đó.
-   KHÔNG tô gold vào chính chữ: cỡ 32→46px comp nằm dưới ngưỡng 56/64 của "chữ trình bày",
-   mà gold trên nền sáng chỉ 1.69:1. Đổi tín hiệu sang GẠCH là cách hợp lệ cho cả hai theme
-   (giống nav ngang cũ dùng border-b-2). */
-.link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background-color: var(--color-gold);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 600ms var(--ease-out-expo);
+/* Trang ĐANG XEM: gạch ngang, xám lại, không bấm được (đã render bằng <span> nên tự nó không
+   điều hướng). Gạch dùng gold — vai trò "gạch/viền" luôn hợp lệ ở cả hai theme. */
+.active {
+  color: var(--theme-grey);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-gold);
+  text-decoration-thickness: 2px;
+  cursor: default;
 }
 
-.active::after {
-  transform: scaleX(1);
+/* ---- chữ cuộn theo từng ký tự khi hover ---- */
+
+.chars {
+  display: inline-flex;
+}
+
+.char {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.charFace,
+.charFaceHidden {
+  display: block;
+  /* 1.35 chứ không phải 1: hộp của MỖI bản ký tự phải chứa trọn dấu tiếng Việt. Bản dự bị nằm
+     dưới mặt nạ ở translateY(100%) — nếu dấu (Ủ, Ệ, Ự) nhô ra NGOÀI hộp của chính nó thì nó
+     thò lên trên mép dưới mặt nạ và lộ vệt gold ngay ở trạng thái nghỉ. Đây là lỗi đã thấy tận
+     mắt, không phải phòng xa. */
+  line-height: 1.35;
+  transition: transform 500ms var(--ease-out-expo);
+  transition-delay: var(--d, 0ms);
+}
+
+.charFaceHidden {
+  position: absolute;
+  inset: 0;
+  /* 120% chứ không phải 100%: dấu của bản dự bị nhô lên TRÊN hộp của chính nó, ở đúng 100% nó
+     thò qua mép dưới mặt nạ thành vệt gold lấm tấm khi nghỉ. 20% dôi ra là chỗ cho dấu. */
+  transform: translateY(120%);
+  color: var(--color-gold);
 }
 
 @media (hover: hover) {
-  .link:hover::after {
-    transform: scaleX(1);
+  .link:hover .charFace {
+    transform: translateY(-120%);
+  }
+  .link:hover .charFaceHidden {
+    transform: translateY(0);
   }
 }
 
-/* ---- cột trái: ảnh (desktop) + khối meta ---- */
-
-.side {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--spacer-xs);
-  min-height: 0; /* cùng lý do với .inner */
-}
-
-/* Ảnh CHỈ có ở desktop: menu mobile đang vừa khít một màn hình, thêm ảnh là phải cuộn — mà
-   cuộn trong tấm menu thì mất luôn cảm giác "một màn hình một quyết định". */
-.photos {
-  display: none;
-}
-
-/* ---- khối meta dưới cùng ---- */
+/* ---- khối meta dưới khối chữ ---- */
 
 .meta {
   display: flex;
   flex-direction: column;
-  gap: var(--spacer-xs);
+  align-items: center;
+  gap: calc(((16 * 100) / var(--device-width)) * 1vw);
   opacity: 0;
   transform: translateY(calc(((16 * 100) / var(--device-width)) * 1vw));
   transition:
@@ -149,6 +165,7 @@
 .metaBlock {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: calc(((8 * 100) / var(--device-width)) * 1vw);
 }
 
@@ -159,7 +176,7 @@
 .email {
   font-family: var(--font-roboto);
   font-weight: 500;
-  font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
+  font-size: calc(((18 * 100) / var(--device-width)) * 1vw);
   line-height: 110%;
   text-decoration-color: transparent;
   text-underline-offset: 0.2em;
@@ -176,6 +193,7 @@
 .socials {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: calc(((16 * 100) / var(--device-width)) * 1vw);
 }
 
@@ -203,83 +221,56 @@
   }
 }
 
-/* Hai công tắc (ngôn ngữ + theme) dời từ nav vào đây: nav chỉ còn ĐÚNG hai nút chính. */
+/* Hai công tắc (ngôn ngữ + theme) nằm trong menu: header chỉ còn ĐÚNG hai nút chính. */
 .switches {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: calc(((12 * 100) / var(--device-width)) * 1vw);
 }
 
+/* ---- nửa trái: ảnh, chỉ desktop ---- */
+
+.photos {
+  display: none;
+}
+
 @media (min-width: 800px) {
-  .inner {
-    flex-direction: row;
-    /* stretch + tự canh bên trong: cột link canh GIỮA chiều cao, khối meta tụt xuống đáy —
-       đúng bố cục trang tham chiếu, và tránh dồn tất cả xuống đáy để trống nửa trên. */
-    align-items: stretch;
-    justify-content: space-between;
-    gap: var(--gap);
-    padding-block: var(--spacer-sm);
-  }
-
-  /* Link dồn về phải như trang tham chiếu; khối meta giữ cột trái */
-  .nav {
-    order: 2;
-    align-items: flex-end;
-    justify-content: center;
-    text-align: right;
-  }
-
-  .link {
-    font-size: calc(((46 * 100) / var(--device-width)) * 1vw);
-  }
-
-  .link::after {
-    transform-origin: right;
-  }
-
-  .side {
-    order: 1;
-    /* 4 cột của lưới 12 — cột link bên phải giữ phần còn lại, không phá hệ cột */
-    max-width: calc(var(--column-width) * 4 + var(--gap) * 3);
-  }
-
-  .meta {
-    flex: 0 0 auto;
-    justify-content: flex-end;
-  }
-
-  /* flex:1 + min-height:0 — khối ảnh ăn ĐÚNG phần cao còn thừa sau khối meta, không bao giờ
-     đẩy email/socials xuống dưới fold. Vì thế ảnh KHÔNG khai aspect-ratio: chiều cao do lưới
-     quyết định, `object-fit: cover` lo phần cắt. */
+  /* Hai cột ảnh chiếm đúng nửa trái, tràn tới mép trên/dưới; cột phải tụt xuống một nhịp để
+     thành thế lệch tầng như trang tham chiếu (overlay overflow:hidden cắt phần thừa ở đáy). */
   .photos {
-    display: grid;
-    flex: 1 1 auto;
-    min-height: 0;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex: 0 0 50%;
+    gap: var(--gap);
+    padding: var(--gap);
+    padding-bottom: 0;
+  }
+
+  .photoCol {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
     gap: var(--gap);
   }
 
-  /* Ảnh 2 là tấm dọc cao chiếm trọn cột phải; ảnh 1 và 3 xếp chồng ở cột trái → thế lệch tầng
-     kiểu trang tham chiếu mà không phải kê grid-area cho từng tấm. */
-  .photo:nth-child(2) {
-    grid-column: 2;
-    grid-row: 1 / span 2;
+  .photoCol:nth-child(2) {
+    padding-top: var(--spacer-md);
   }
 
   .photo {
     margin: 0;
-    width: 100%;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
     overflow: hidden;
-    /* Cùng kiểu mặt nạ với dòng chữ: lộ dần từ dưới lên, chỉ khác là clip cả khung ảnh */
+    /* Cùng kiểu mặt nạ với dòng chữ: lộ dần từ dưới lên */
     clip-path: inset(100% 0 0 0);
     transition: clip-path 900ms var(--ease-out-expo);
   }
 
   .open .photo {
     clip-path: inset(0 0 0 0);
-    /* vào SAU các dòng link (link cuối ~90 + 60×6 = 450ms) và TRƯỚC khối meta (400ms) */
+    /* vào SAU các dòng link, so le theo thứ tự đọc trái→phải, trên→dưới */
     transition-delay: calc(200ms + 80ms * var(--i, 0));
   }
 
@@ -302,6 +293,20 @@
       transform: scale(1.06);
     }
   }
+
+  .panel {
+    padding-top: var(--safe);
+    padding-block: var(--spacer-sm);
+    gap: var(--spacer-sm);
+  }
+
+  .link {
+    font-size: calc(((64 * 100) / var(--device-width)) * 1vw);
+  }
+
+  .email {
+    font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
+  }
 }
 
 /* Tôn trọng prefers-reduced-motion: bỏ trượt/stagger, chỉ hiện – ẩn. */
@@ -313,7 +318,9 @@
   .photo,
   .open .photo,
   .meta,
-  .open .meta {
+  .open .meta,
+  .charFace,
+  .charFaceHidden {
     transition-duration: 1ms;
     transition-delay: 0ms;
   }

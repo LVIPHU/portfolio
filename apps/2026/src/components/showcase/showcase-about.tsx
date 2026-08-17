@@ -10,7 +10,7 @@ import { ZoomSection } from './zoom-section'
 import { FeatureCards } from './feature-cards'
 import { ProjectsSection } from './projects-section'
 import { FelixHeroMark } from '@/components/brand/felix-mark'
-import { Link } from '@portfolio/i18n/navigation'
+import { PillButtonLink } from '@/components/effects/pill-button'
 import s from './sections.module.css'
 
 export type AboutContent = {
@@ -76,33 +76,11 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
             </span>
           </div>
           <p className={`p-s ${s.heroDesc}`}>{content.tagline}</p>
-          {/* Cấu trúc .button của lenis: ô icon vuông bám mép trái (chính nó định chiều cao
-              nút), nhãn căn giữa phần còn lại. Nhãn phải nhân ĐÔI — hover tráo hai bản chứ
-              không đổi màu một bản. Bản dự bị aria-hidden để screen reader chỉ đọc một lần.
-              Cả hai nút đều ĐẶC: lenis không phân cấp primary/secondary ở hero. */}
+          {/* Cả hai nút đều ĐẶC: lenis không phân cấp primary/secondary ở hero. Công thức nút
+              nằm ở @/components/effects/pill-button (header nổi dùng chung). */}
           <div className={s.heroCta}>
-            <Link href='/projects' className={`${s.btn} ${s.btnFilled}`}>
-              <span className={s.btnIcon} aria-hidden>
-                <ArrowRight />
-              </span>
-              <span className={s.btnLabel}>
-                <span className={s.btnLabelVisible}>{content.ctaProjects}</span>
-                <span className={s.btnLabelHidden} aria-hidden>
-                  {content.ctaProjects}
-                </span>
-              </span>
-            </Link>
-            <Link href='/contact' className={`${s.btn} ${s.btnFilled}`}>
-              <span className={s.btnIcon} aria-hidden>
-                <Mail />
-              </span>
-              <span className={s.btnLabel}>
-                <span className={s.btnLabelVisible}>{content.ctaContact}</span>
-                <span className={s.btnLabelHidden} aria-hidden>
-                  {content.ctaContact}
-                </span>
-              </span>
-            </Link>
+            <PillButtonLink href='/projects' icon={<ArrowRight />} label={content.ctaProjects} />
+            <PillButtonLink href='/contact' icon={<Mail />} label={content.ctaContact} />
           </div>
         </div>
       </section>
@@ -158,19 +136,7 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
       <footer data-earth-step='7' className={s.footer}>
         <div>
           <h2 className='h1 vh'>{content.footerHeading}</h2>
-          {/* Chữ BẮT BUỘC bọc trong .btnLabel: .btn::before là absolute z-index auto nên nó
-              nằm trên lớp text thường của chính element — text trần sẽ bị nền gold phủ mất. */}
-          <Link href='/contact' className={`${s.btn} ${s.btnFilled} ${s.footerCta}`}>
-            <span className={s.btnIcon} aria-hidden>
-              <Mail />
-            </span>
-            <span className={s.btnLabel}>
-              <span className={s.btnLabelVisible}>{content.ctaFooter}</span>
-              <span className={s.btnLabelHidden} aria-hidden>
-                {content.ctaFooter}
-              </span>
-            </span>
-          </Link>
+          <PillButtonLink href='/contact' icon={<Mail />} label={content.ctaFooter} className={s.footerCta} />
         </div>
         <div className={s.footerBottom}>
           <div className={s.footerLinks}>

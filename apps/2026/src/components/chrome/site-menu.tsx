@@ -11,12 +11,48 @@ import s from './site-menu.module.css'
 
 export type NavItem = { href: string; key: string }
 
+// Nhịp so le giữa hai ký tự liền nhau khi hover (ms).
+const CHAR_STEP = 30
+
+// Ký tự trắng phải là NBSP: khoảng trắng thường trong một <span> riêng bị gộp/bỏ khi render.
+const NBSP = ' '
+
+// Chữ cuộn theo TỪNG KÝ TỰ, so le từ NGOÀI VÀO TRONG: ký tự ngoài rìa đi trước, cặp giữa đi
+// cuối. Cùng ngôn ngữ với nhãn nút PillButton (hai bản chồng nhau tráo chỗ) nhưng làm ở mức ký
+// tự và không có nền — bản dự bị là gold.
+//
+// Dãy ký tự để aria-hidden và kèm một bản .sr-only: tách chữ ra từng <span> khiến trình đọc màn
+// hình đọc rời từng chữ cái.
+function RollingText({ text }: { text: string }) {
+  const chars = Array.from(text)
+  const center = (chars.length - 1) / 2
+
+  return (
+    <>
+      <span className={s.chars} aria-hidden>
+        {chars.map((char, i) => (
+          <span
+            key={i}
+            className={s.char}
+            // center - |i - center| = khoảng cách TỚI RÌA: rìa = 0 (đi ngay), giữa = lớn nhất.
+            style={{ '--d': `${Math.round((center - Math.abs(i - center)) * CHAR_STEP)}ms` } as CSSProperties}
+          >
+            <span className={s.charFace}>{char === ' ' ? NBSP : char}</span>
+            <span className={s.charFaceHidden}>{char === ' ' ? NBSP : char}</span>
+          </span>
+        ))}
+      </span>
+      <span className='sr-only'>{text}</span>
+    </>
+  )
+}
+
 // Tấm menu toàn màn hình. Luôn ở trong DOM (chỉ đổi class) để animation ĐÓNG còn chạy được —
 // unmount ngay thì tấm biến mất khựng một nhịp. Khi đóng thì `visibility: hidden` + aria-hidden
 // nên trình đọc màn hình và Tab đều không với tới.
 //
-// email/socials nhận qua PROP chứ không import @portfolio/content: entry gốc của content chạm
-// filesystem (blog) nên là server-only — component 'use client' phải để layout server truyền xuống.
+// email/socials/photos nhận qua PROP chứ không import @portfolio/content: entry gốc của content
+// chạm filesystem (blog) nên là server-only — component 'use client' phải để layout truyền xuống.
 export function SiteMenu({
   open,
   onClose,
@@ -61,11 +97,15 @@ export function SiteMenu({
     return () => document.removeEventListener('keydown', onKey)
   }, [open, onClose])
 
-  // Đưa tiêu điểm vào link đầu tiên khi mở (nút X ở nav vẫn Tab tới được vì header nằm trên).
+  // Đưa tiêu điểm vào link đầu tiên khi mở (nút đóng vẫn Tab tới được vì nó nằm trên tấm này).
   useEffect(() => {
     if (!open) return
     panel.current?.querySelector<HTMLAnchorElement>('a')?.focus()
   }, [open])
+
+  // Hai cột ảnh xen kẽ: cột trái giữ ảnh chẵn, cột phải giữ ảnh lẻ rồi tụt xuống một nhịp (lệch
+  // tầng như trang tham chiếu).
+  const columns = [photos.filter((_, i) => i % 2 === 0), photos.filter((_, i) => i % 2 === 1)]
 
   return (
     <div
@@ -78,34 +118,46 @@ export function SiteMenu({
       aria-hidden={!open}
       inert={!open ? true : undefined}
     >
-      <div className={clsx(s.inner, 'layout-block-inner')}>
-        <nav className={s.nav}>
-          {items.map((item, i) => (
-            <span key={item.key} className={s.item}>
-              <Link
-                href={item.href}
-                onClick={onClose}
-                className={clsx(s.link, isActive(item.href) && s.active)}
-                style={{ '--i': i } as CSSProperties}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-              >
-                {t(item.key)}
-              </Link>
-            </span>
+      <div className={s.inner}>
+        {/* Cột ảnh: chỉ desktop (CSS ẩn dưới 800px) — menu mobile đang vừa đúng một màn hình,
+            thêm ảnh vào là phải cuộn. <img> thuần chứ không next/image, giống trang /gallery:
+            ảnh đã nằm sẵn trong public/content nên không cần optimizer. */}
+        <div className={s.photos} aria-hidden>
+          {columns.map((column, ci) => (
+            <div key={ci} className={s.photoCol}>
+              {column.map((photo, i) => (
+                <figure key={photo.src} className={s.photo} style={{ '--i': ci + i * 2 } as CSSProperties}>
+                  <img src={photo.src} alt='' loading='lazy' />
+                </figure>
+              ))}
+            </div>
           ))}
-        </nav>
+        </div>
 
-        <div className={s.side}>
-          {/* Cột ảnh: chỉ desktop (CSS ẩn dưới 800px) — menu mobile hiện vừa đúng một màn hình,
-              thêm ảnh vào là phải cuộn. <img> thuần chứ không next/image, giống trang /gallery:
-              ảnh đã nằm sẵn trong public/content nên không cần optimizer. */}
-          <div className={s.photos} aria-hidden>
-            {photos.map((photo, i) => (
-              <figure key={photo.src} className={s.photo} style={{ '--i': i } as CSSProperties}>
-                <img src={photo.src} alt='' loading='lazy' />
-              </figure>
-            ))}
-          </div>
+        <div className={s.panel}>
+          <nav className={s.nav}>
+            {items.map((item, i) => {
+              const active = isActive(item.href)
+              const style = { '--i': i } as CSSProperties
+
+              // Trang đang xem: KHÔNG phải link nữa — <span> gạch ngang, không bấm được, không
+              // có hiệu ứng hover. Dùng <span> chứ không phải <a aria-disabled>: aria-disabled
+              // chỉ nói với trình đọc màn hình, chuột và bàn phím vẫn điều hướng như thường.
+              return (
+                <span key={item.key} className={s.item}>
+                  {active ? (
+                    <span className={clsx(s.link, s.active)} style={style} aria-current='page'>
+                      {t(item.key)}
+                    </span>
+                  ) : (
+                    <Link href={item.href} onClick={onClose} className={s.link} style={style}>
+                      <RollingText text={t(item.key)} />
+                    </Link>
+                  )}
+                </span>
+              )
+            })}
+          </nav>
 
           <div className={s.meta}>
             <div className={s.metaBlock}>
@@ -115,21 +167,18 @@ export function SiteMenu({
               </a>
             </div>
 
-            <div className={s.metaBlock}>
-              <span className={clsx('p-xs', s.metaLabel)}>{t('followMe')}</span>
-              <div className={s.socials}>
-                {socials.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.url}
-                    target='_blank'
-                    rel='noreferrer'
-                    className={clsx('p-s', s.social)}
-                  >
-                    {social.label}
-                  </a>
-                ))}
-              </div>
+            <div className={s.socials}>
+              {socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.url}
+                  target='_blank'
+                  rel='noreferrer'
+                  className={clsx('p-s', s.social)}
+                >
+                  {social.label}
+                </a>
+              ))}
             </div>
 
             <div className={s.switches}>

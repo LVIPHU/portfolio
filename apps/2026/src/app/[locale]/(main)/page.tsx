@@ -30,7 +30,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
       <section
         className='flex h-[100svh] flex-col justify-between'
         style={{
-          marginTop: 'calc(-1 * var(--spacing) * 10)',
+          // Huỷ đúng padding-top của <main> (biến --main-top khai ở (main)/layout.tsx) — hai nút
+          // nổi không chiếm chỗ nên hero vẫn bắt đầu ở đỉnh viewport, khớp chữ trong tấm intro.
+          marginTop: 'calc(-1 * var(--main-top))',
           marginInline: 'calc(-1 * var(--safe))',
           padding: 'var(--wordmark-top) var(--wordmark-inset)',
         }}
