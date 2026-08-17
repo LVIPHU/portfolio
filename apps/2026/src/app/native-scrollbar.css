@@ -16,11 +16,63 @@
    Firefox không hiểu ::-webkit-scrollbar nên `selector(::-webkit-scrollbar)` trả false ở đó và
    true ở Chromium — dùng chính điều này làm điều kiện, không cần hack -moz-. */
 
+/* BÙ CHỖ THANH CUỘN KHI BỊ KHOÁ.
+   lenis.stop() (menu mở, intro chạy) gắn `lenis-stopped` với `overflow: clip` → thanh cuộn biến
+   mất → khung nội dung rộng thêm đúng bề ngang thanh cuộn → cả trang nhích ngang, mỗi lần đóng/mở
+   lại giật một cái. `scrollbar-gutter: stable` KHÔNG giải quyết được: đo tận nơi thấy Chrome bỏ
+   qua gutter của viewport khi overflow là clip/hidden (clientWidth vẫn 1914 → 1920).
+   Nên bù thẳng bằng padding: --scrollbar-w do ScrollbarWidthVar (scroll/smooth-scroll.tsx) đo và
+   ghi lên <html>; thiết bị dùng thanh cuộn overlay (macOS, mobile) đo ra 0 nên luật này thành
+   no-op, không phải chia nhánh. */
+html.lenis-stopped {
+  padding-right: var(--scrollbar-w, 0px);
+}
+
+/* Chrome cố định (position: fixed) tính theo viewport — mà viewport RỘNG THÊM đúng bấy nhiêu px
+   khi thanh cuộn biến mất, nên nút nổi góc phải cũng trôi theo. Bù cùng một biến để nó đứng yên
+   so với nội dung. */
+html.lenis-stopped .fixed-right-compensate {
+  margin-right: var(--scrollbar-w, 0px);
+}
+
+/* MÁNG CUỘN PHẢI THEO THEME CỦA /about.
+   Máng nền trong suốt nên thứ lộ ra là nền của <html>. Mọi route bình thường thì nền đó = theme
+   của site nên khớp. Riêng /about có theme RIÊNG lật theo cuộn (zoom-section đổi
+   .showcase-root[data-theme] dark ⇄ light) và nền của nó nằm ở lớp phủ .showcase-bg
+   (position: fixed) — mà lớp phủ KHÔNG với tới máng cuộn (máng nằm ngoài initial containing
+   block). Kết quả: trang đen còn dải máng trắng (hoặc ngược lại), lộ rõ một vệt lạc màu.
+   :has() cho phép bắt đúng trạng thái đó mà không cần thêm class lên <html> bằng JS.
+
+   TÔ THẲNG VÀO ::-webkit-scrollbar-track, KHÔNG tô nền <html>: đã thử cách kia và nó phá trang —
+   nền của body vốn được PROPAGATE lên canvas (vì html không có nền); vừa cho html một nền là body
+   quay về tự tô nền của chính nó, mà trong thứ tự vẽ của root stacking context thì nền block
+   in-flow (body) nằm TRÊN các lớp z-index âm → tấm .showcase-bg (z -20) bị body phủ mất và
+   /about hiện ra sáng trưng khi site đang light. */
+html:has(.showcase-root[data-theme='dark'])::-webkit-scrollbar-track {
+  background-color: var(--color-black);
+}
+html:has(.showcase-root[data-theme='light'])::-webkit-scrollbar-track {
+  background-color: var(--color-white);
+}
+html:has(.showcase-root[data-theme='contrast'])::-webkit-scrollbar-track {
+  background-color: var(--color-gold);
+}
+
 /* Firefox: không bỏ được nút mũi tên, nhưng thanh `thin` của nó vốn đã không có nút. */
 @supports not selector(::-webkit-scrollbar) {
   html {
     scrollbar-width: thin;
     scrollbar-color: var(--primary) var(--background);
+  }
+  /* Firefox tô máng bằng scrollbar-color chứ không để trong suốt → phải lật riêng cho /about. */
+  html:has(.showcase-root[data-theme='dark']) {
+    scrollbar-color: var(--color-gold) var(--color-black);
+  }
+  html:has(.showcase-root[data-theme='light']) {
+    scrollbar-color: var(--color-gold) var(--color-white);
+  }
+  html:has(.showcase-root[data-theme='contrast']) {
+    scrollbar-color: var(--color-black) var(--color-gold);
   }
 }
 

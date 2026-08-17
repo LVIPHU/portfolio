@@ -150,6 +150,19 @@ làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên co
 
 - **FelixHeroMark** — wordmark FELIX (Cloister Black → SVG, viewBox `0 0 1401 368`), fill
   `var(--theme-contrast)`; vị trí khớp intro qua `--wordmark-top/-inset` (30 / 32.5 trên comp 1440).
+- **Thanh cuộn gốc** (`app/native-scrollbar.css`, tách khỏi globals vì Lightning CSS cắt
+  `scrollbar-*`) — hai luật dễ mất nếu ai đó dọn file này:
+  - `html.lenis-stopped { padding-right: var(--scrollbar-w) }` bù đúng bề ngang thanh cuộn lúc
+    lenis khoá cuộn (mở menu / chạy intro): lenis đặt `overflow: clip` → thanh cuộn biến mất →
+    khung nội dung rộng thêm → cả trang nhích ngang mỗi lượt. `scrollbar-gutter: stable` KHÔNG
+    cứu được (đo: Chrome bỏ qua gutter của viewport khi overflow là clip/hidden). Biến
+    `--scrollbar-w` do `ScrollbarWidthVar` trong `scroll/smooth-scroll.tsx` đo. Lớp `fixed` bám
+    mép phải phải thêm class `.fixed-right-compensate` vì viewport của `position: fixed` cũng
+    rộng thêm bấy nhiêu.
+  - Máng cuộn của `/about` theo `.showcase-root[data-theme]` (dark ⇄ light đổi theo cuộn) qua
+    `html:has(…)::-webkit-scrollbar-track`. **Đừng** đổi sang tô nền `<html>`: nền body đang được
+    propagate lên canvas, cho html một nền là body tự tô nền của nó, mà nền block in-flow vẽ TRÊN
+    lớp z-index âm → `.showcase-bg` (z −20) bị phủ và `/about` sáng trưng khi site đang light.
 - **Intro** — mount MỘT lần ở `[locale]/layout.tsx`, chạy lại **mỗi lần đổi route** (kể cả điều
   hướng SPA) và kiêm **cổng chờ tải**: chỉ vào pha `intro-out` khi nhịp tối thiểu 1000ms xong
   **và** `brand/page-ready.ts` báo trang đích đủ font + ảnh + cảnh 3D (trần chờ 8s để mạng hỏng
