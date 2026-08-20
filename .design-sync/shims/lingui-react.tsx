@@ -3,5 +3,5 @@
 export { Trans, useLingui } from './lingui-react-macro'
 
 export function I18nProvider({ children }: any) {
-  return <>{children}</>
+  return children ?? null
 }
