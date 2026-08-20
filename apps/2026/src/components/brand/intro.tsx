@@ -5,6 +5,7 @@ import { useLenis } from 'lenis/react'
 import { usePathname } from '@portfolio/i18n/navigation'
 import { FelixFLX, FelixEI } from './felix-mark'
 import { waitForPageReady } from './page-ready'
+import { blockScrollKeys } from '@/components/scroll/scroll-lock'
 import s from './intro.module.css'
 
 // Intro kiểu lenis: tấm phủ gold, chữ FELIX đen trượt lên so le, E/I trồi lên ghép vào F-L-X
@@ -103,16 +104,13 @@ export function Intro() {
     }
   }, [pathname])
 
-  // Chặn Tab suốt intro: tấm phủ che kín màn nhưng nội dung phía sau vẫn focus được — người dùng
-  // bàn phím sẽ tab vào control vô hình (WCAG focus-not-obscured). aria-hidden trên overlay chỉ
-  // ẩn nó khỏi screen reader, không chặn focus phía sau.
+  // Chặn Tab + phím cuộn suốt intro. Tab: tấm phủ che kín màn nhưng nội dung phía sau vẫn focus
+  // được, người dùng bàn phím sẽ tab vào control vô hình (WCAG focus-not-obscured). Phím cuộn:
+  // lenis chỉ chặn wheel/touch, còn `overflow: clip` của nó đã bị trung hoà (native-scrollbar.css)
+  // để thanh cuộn không biến mất — nên phần bàn phím phải tự lo.
   useEffect(() => {
     if (done) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') e.preventDefault()
-    }
-    window.addEventListener('keydown', onKey, true)
-    return () => window.removeEventListener('keydown', onKey, true)
+    return blockScrollKeys(true)
   }, [done])
 
   // Chữ trượt vào xong → E/I trồi lên ghép; rồi nhả. Mốc tính từ isLoaded (thời điểm bắt đầu
@@ -129,6 +127,16 @@ export function Intro() {
     if (!introOut) return
     document.documentElement.classList.add('intro-out')
   }, [introOut])
+
+  // Khoá cuộn khi lenis SẴN SÀNG, không phải lúc layout effect chạy: ReactLenis set context ở
+  // effect của component cha nên lượt đầu tiên `lenisRef.current` còn undefined và stop() rơi vào
+  // khoảng không — đo được: lần tải đầu `lenis-stopped` không hề xuất hiện, trang phía sau tấm gold
+  // vẫn cuộn được. Effect này chạy lại khi lenis xuất hiện nên bịt đúng khe đó.
+  useEffect(() => {
+    if (done || !lenis) return
+    lenis.stop()
+    return () => lenis.start()
+  }, [done, lenis])
 
   if (done) return null
 

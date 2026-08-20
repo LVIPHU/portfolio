@@ -16,23 +16,24 @@
    Firefox không hiểu ::-webkit-scrollbar nên `selector(::-webkit-scrollbar)` trả false ở đó và
    true ở Chromium — dùng chính điều này làm điều kiện, không cần hack -moz-. */
 
-/* BÙ CHỖ THANH CUỘN KHI BỊ KHOÁ.
-   lenis.stop() (menu mở, intro chạy) gắn `lenis-stopped` với `overflow: clip` → thanh cuộn biến
-   mất → khung nội dung rộng thêm đúng bề ngang thanh cuộn → cả trang nhích ngang, mỗi lần đóng/mở
-   lại giật một cái. `scrollbar-gutter: stable` KHÔNG giải quyết được: đo tận nơi thấy Chrome bỏ
-   qua gutter của viewport khi overflow là clip/hidden (clientWidth vẫn 1914 → 1920).
-   Nên bù thẳng bằng padding: --scrollbar-w do ScrollbarWidthVar (scroll/smooth-scroll.tsx) đo và
-   ghi lên <html>; thiết bị dùng thanh cuộn overlay (macOS, mobile) đo ra 0 nên luật này thành
-   no-op, không phải chia nhánh. */
-html.lenis-stopped {
-  padding-right: var(--scrollbar-w, 0px);
-}
+/* KHOÁ CUỘN MÀ KHÔNG ĐƯỢC GIẤU THANH CUỘN.
+   lenis.stop() không khoá bằng JS — nó dựa vào CSS của chính lenis:
+   `.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip }` (lenis/dist/lenis.css).
+   Cái `clip` đó bỏ luôn thanh cuộn → khung nội dung VÀ viewport của mọi lớp `position: fixed`
+   rộng thêm đúng bề ngang thanh cuộn. Đo tận nơi: canvas nền 3D nhảy `0,1914 → 0,1920`, r3f đo
+   lại rồi vẽ lại cảnh ở tỉ lệ khác nên quả cầu giật ngang mỗi lần mở/đóng menu; tấm menu và tấm
+   intro cũng rộng thêm (chữ căn giữa lệch 3px, wordmark intro lệch khỏi wordmark hero).
+   Bù bằng padding (bản trước) chỉ cứu được nội dung trong luồng, không cứu được lớp fixed.
 
-/* Chrome cố định (position: fixed) tính theo viewport — mà viewport RỘNG THÊM đúng bấy nhiêu px
-   khi thanh cuộn biến mất, nên nút nổi góc phải cũng trôi theo. Bù cùng một biến để nó đứng yên
-   so với nội dung. */
-html.lenis-stopped .fixed-right-compensate {
-  margin-right: var(--scrollbar-w, 0px);
+   Phần khoá THẬT nằm ở JS của lenis: đọc lenis.mjs 1.3.25, hàm onVirtualScroll — khi `isStopped`
+   nó `preventDefault()` mọi wheel/touch. Vậy `overflow: clip` chỉ còn tác dụng chặn bàn phím và
+   kéo thanh cuộn; bàn phím thì Intro/SiteMenu tự chặn (scroll-lock.ts), còn kéo thanh cuộn thì
+   chấp nhận đánh đổi — tấm phủ là `fixed` nên không vỡ gì, mà đổi lại KHÔNG một pixel nào nhảy.
+
+   Specificity phải ≥ (0,3,0) của luật lenis, nên viết đủ ba class + `html`; KHÔNG dùng
+   `!important`, và KHÔNG gỡ class bằng JS (updateClassName() của lenis gắn lại sau mỗi lần emit). */
+html.lenis.lenis-stopped:not(.lenis-autoToggle) {
+  overflow: visible;
 }
 
 /* MÁNG CUỘN PHẢI THEO THEME CỦA /about.
@@ -43,17 +44,30 @@ html.lenis-stopped .fixed-right-compensate {
    block). Kết quả: trang đen còn dải máng trắng (hoặc ngược lại), lộ rõ một vệt lạc màu.
    :has() cho phép bắt đúng trạng thái đó mà không cần thêm class lên <html> bằng JS.
 
+   PHẢI ĐẶT TRÊN `body`, KHÔNG PHẢI `html`: khi html còn `overflow: visible` thì phần tử TRUYỀN
+   thanh cuộn cho viewport là body, và Chrome lấy style thanh cuộn từ chính phần tử đó — bản chỉ
+   có `html:has(…)` không bao giờ được vẽ. Đã chứng minh: bơm thử
+   `body:has(.showcase-root[data-theme='dark'])::-webkit-scrollbar-track { background: red }` thì
+   dải máng đỏ ngay, còn bản `html:has(…)` thì không đổi gì (ảnh chụp DPR 4). Cẩn thận:
+   `getComputedStyle(html, '::-webkit-scrollbar-track')` trả về màu "đúng" dù không hề được vẽ —
+   nó chỉ resolve cascade, đừng dùng nó làm bằng chứng.
+   Giữ thêm bản `html:has(…)` cho trường hợp html trở thành phần tử truyền (khi có ai đó đặt
+   overflow lên html).
+
    TÔ THẲNG VÀO ::-webkit-scrollbar-track, KHÔNG tô nền <html>: đã thử cách kia và nó phá trang —
    nền của body vốn được PROPAGATE lên canvas (vì html không có nền); vừa cho html một nền là body
    quay về tự tô nền của chính nó, mà trong thứ tự vẽ của root stacking context thì nền block
    in-flow (body) nằm TRÊN các lớp z-index âm → tấm .showcase-bg (z -20) bị body phủ mất và
    /about hiện ra sáng trưng khi site đang light. */
+body:has(.showcase-root[data-theme='dark'])::-webkit-scrollbar-track,
 html:has(.showcase-root[data-theme='dark'])::-webkit-scrollbar-track {
   background-color: var(--color-black);
 }
+body:has(.showcase-root[data-theme='light'])::-webkit-scrollbar-track,
 html:has(.showcase-root[data-theme='light'])::-webkit-scrollbar-track {
   background-color: var(--color-white);
 }
+body:has(.showcase-root[data-theme='contrast'])::-webkit-scrollbar-track,
 html:has(.showcase-root[data-theme='contrast'])::-webkit-scrollbar-track {
   background-color: var(--color-gold);
 }
@@ -64,13 +78,17 @@ html:has(.showcase-root[data-theme='contrast'])::-webkit-scrollbar-track {
     scrollbar-width: thin;
     scrollbar-color: var(--primary) var(--background);
   }
-  /* Firefox tô máng bằng scrollbar-color chứ không để trong suốt → phải lật riêng cho /about. */
+  /* Firefox tô máng bằng scrollbar-color chứ không để trong suốt → phải lật riêng cho /about.
+     Cùng quy tắc truyền như trên nên khai cả body lẫn html. */
+  body:has(.showcase-root[data-theme='dark']),
   html:has(.showcase-root[data-theme='dark']) {
     scrollbar-color: var(--color-gold) var(--color-black);
   }
+  body:has(.showcase-root[data-theme='light']),
   html:has(.showcase-root[data-theme='light']) {
     scrollbar-color: var(--color-gold) var(--color-white);
   }
+  body:has(.showcase-root[data-theme='contrast']),
   html:has(.showcase-root[data-theme='contrast']) {
     scrollbar-color: var(--color-black) var(--color-gold);
   }

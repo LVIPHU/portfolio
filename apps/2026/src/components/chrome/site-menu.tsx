@@ -4,6 +4,7 @@ import { type CSSProperties, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { useLenis } from 'lenis/react'
 import { Link } from '@portfolio/i18n/navigation'
+import { blockScrollKeys } from '@/components/scroll/scroll-lock'
 import { LocaleSwitcher } from '@/components/chrome/locale-switcher'
 import { ThemeToggle } from '@/components/chrome/theme-toggle'
 import { clsx } from 'clsx'
@@ -79,6 +80,14 @@ export function SiteMenu({
       else document.documentElement.style.overflow = ''
     }
   }, [open, lenis])
+
+  // Chặn phím cuộn khi menu mở: lenis chỉ chặn wheel/touch, còn `overflow: clip` của nó đã bị
+  // trung hoà (native-scrollbar.css) để thanh cuộn không biến mất. KHÔNG chặn Tab — trong menu có
+  // link và công tắc phải Tab tới được.
+  useEffect(() => {
+    if (!open) return
+    return blockScrollKeys()
+  }, [open])
 
   // Esc đóng menu — dialog nào cũng phải có đường thoát bằng bàn phím.
   useEffect(() => {

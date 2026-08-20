@@ -151,16 +151,23 @@ làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên co
 - **FelixHeroMark** — wordmark FELIX (Cloister Black → SVG, viewBox `0 0 1401 368`), fill
   `var(--theme-contrast)`; vị trí khớp intro qua `--wordmark-top/-inset` (30 / 32.5 trên comp 1440).
 - **Thanh cuộn gốc** (`app/native-scrollbar.css`, tách khỏi globals vì Lightning CSS cắt
-  `scrollbar-*`) — hai luật dễ mất nếu ai đó dọn file này:
-  - `html.lenis-stopped { padding-right: var(--scrollbar-w) }` bù đúng bề ngang thanh cuộn lúc
-    lenis khoá cuộn (mở menu / chạy intro): lenis đặt `overflow: clip` → thanh cuộn biến mất →
-    khung nội dung rộng thêm → cả trang nhích ngang mỗi lượt. `scrollbar-gutter: stable` KHÔNG
-    cứu được (đo: Chrome bỏ qua gutter của viewport khi overflow là clip/hidden). Biến
-    `--scrollbar-w` do `ScrollbarWidthVar` trong `scroll/smooth-scroll.tsx` đo. Lớp `fixed` bám
-    mép phải phải thêm class `.fixed-right-compensate` vì viewport của `position: fixed` cũng
-    rộng thêm bấy nhiêu.
-  - Máng cuộn của `/about` theo `.showcase-root[data-theme]` (dark ⇄ light đổi theo cuộn) qua
-    `html:has(…)::-webkit-scrollbar-track`. **Đừng** đổi sang tô nền `<html>`: nền body đang được
+  `scrollbar-*`) — hai luật dễ mất nếu ai đó dọn file này, cả hai đều đã trả giá một vòng vá sai:
+  - **KHÔNG được để thanh cuộn biến mất khi khoá.** `lenis.stop()` không khoá bằng JS mà dựa vào
+    `.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip }` của lenis; `clip` bỏ luôn
+    thanh cuộn nên khung nội dung **và viewport của mọi lớp `position: fixed`** rộng thêm bấy
+    nhiêu px: đo được canvas 3D nhảy `0,1914 → 0,1920`, r3f vẽ lại cảnh ở tỉ lệ khác → quả cầu
+    giật ngang mỗi lượt mở/đóng. Vì thế app **trung hoà** luật đó bằng
+    `html.lenis.lenis-stopped:not(.lenis-autoToggle) { overflow: visible }` (specificity 0,3,1 —
+    không `!important`, và **không** gỡ class bằng JS vì `updateClassName()` gắn lại). Phần khoá
+    thật vẫn còn: lenis `preventDefault()` wheel/touch khi `isStopped`, bàn phím do
+    `scroll/scroll-lock.ts` chặn. Bù bằng `padding-right` (bản trước) chỉ cứu nội dung trong
+    luồng — KHÔNG cứu lớp fixed; `scrollbar-gutter: stable` cũng vô dụng (Chrome bỏ gutter của
+    viewport khi overflow là clip/hidden).
+  - Máng cuộn của `/about` theo `.showcase-root[data-theme]` (dark ⇄ light đổi theo cuộn) và luật
+    phải đặt trên **`body`**: khi `html` còn `overflow: visible` thì body mới là phần tử truyền
+    thanh cuộn cho viewport, bản chỉ có `html:has(…)` **không bao giờ được vẽ**. Đừng tin
+    `getComputedStyle(html, '::-webkit-scrollbar-track')` — nó trả màu "đúng" cả khi không hề vẽ;
+    kiểm bằng ảnh chụp DPR 4 ở mép phải. Và **đừng** đổi sang tô nền `<html>`: nền body đang được
     propagate lên canvas, cho html một nền là body tự tô nền của nó, mà nền block in-flow vẽ TRÊN
     lớp z-index âm → `.showcase-bg` (z −20) bị phủ và `/about` sáng trưng khi site đang light.
 - **Intro** — mount MỘT lần ở `[locale]/layout.tsx`, chạy lại **mỗi lần đổi route** (kể cả điều

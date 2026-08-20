@@ -48,9 +48,7 @@ export function SiteNav({
       {/* Không có thẻ <header> bọc: nút là lớp nổi, không có nền lẫn khung, và không được chiếm
           chỗ trong luồng của trang. Nhãn vùng đặt bằng aria-label để trình đọc màn hình vẫn nhận
           ra đây là điều hướng chính. */}
-      {/* fixed-right-compensate: khi lenis khoá cuộn, thanh cuộn biến mất và viewport rộng thêm →
-          lớp fixed này trôi sang phải. Luật bù nằm ở app/native-scrollbar.css. */}
-      <nav className={`${s.bar} fixed-right-compensate`} aria-label={t('menu')}>
+      <nav className={s.bar} aria-label={t('menu')}>
         <PillButton
           className={s.toggle}
           icon={<span className={s.bars} />}
