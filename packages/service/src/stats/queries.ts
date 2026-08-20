@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm'
+import { and, eq, sql } from 'drizzle-orm'
 import type { Database } from '../db'
 import { statsTable, type SelectStats, type StatsType } from '../db/schema'
 
@@ -29,6 +29,32 @@ export async function getBlogStats(db: Database | null, type: StatsType, slug: s
     return newStats[0] ?? emptyStats(type, slug)
   } catch (e) {
     console.warn('[stats] getBlogStats failed:', e instanceof Error ? e.message : e)
+    return emptyStats(type, slug)
+  }
+}
+
+/**
+ * +1 lượt xem NGAY TRONG SQL (`views = views + 1`).
+ *
+ * Không nhận số từ client: hook useBlogStats tắt hết revalidate (revalidateIfStale/OnFocus/
+ * OnReconnect = false) nên lần mount thứ hai trong cùng phiên đọc lại số cũ trong cache — client
+ * gửi đúng con số server đang giữ, clamp ở updateBlogStats thấy "không lớn hơn" nên bỏ qua, lượt
+ * xem mất trắng. Tăng ở SQL cũng dẹp luôn lost-update khi hai người đọc cùng lúc.
+ */
+export async function incrementBlogViews(db: Database | null, type: StatsType, slug: string): Promise<SelectStats> {
+  if (!db) return emptyStats(type, slug)
+
+  try {
+    // Bảo đảm hàng tồn tại (getBlogStats tự insert nếu chưa có) rồi mới UPDATE … + 1.
+    await getBlogStats(db, type, slug)
+    const updated = await db
+      .update(statsTable)
+      .set({ views: sql`${statsTable.views} + 1` })
+      .where(and(eq(statsTable.type, type), eq(statsTable.slug, slug)))
+      .returning()
+    return updated[0] ?? emptyStats(type, slug)
+  } catch (e) {
+    console.warn('[stats] incrementBlogViews failed:', e instanceof Error ? e.message : e)
     return emptyStats(type, slug)
   }
 }

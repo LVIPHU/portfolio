@@ -24,6 +24,11 @@ export function Cursor() {
       const inSandpack = !!target?.closest('[data-sandpack]')
       setOverSandpack(inSandpack)
       if (inSandpack) {
+        // Vẫn bám theo con trỏ nhưng nhảy TỨC THÌ (gsap.set, không tween): vòng chỉ bị ẩn bằng
+        // opacity chứ không được đồng bộ lại lúc hiện, nên nếu đứng yên trong lúc ẩn thì rời khối
+        // sandpack là nó hiện ra ở chỗ cũ rồi trượt ngang 0.6s mới bắt kịp (nặng nhất: chuyển động
+        // chuột đầu tiên sau khi tải trang rơi vào sandpack → vòng bay từ góc 0,0).
+        gsap.set(dot.current, { x: e.clientX, y: e.clientY })
         setPointer(false)
         return
       }

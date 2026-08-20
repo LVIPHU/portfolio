@@ -13,12 +13,15 @@ export function ViewsCounter({ type, slug, className }: { type: StatsType; slug:
   const sent = useRef(false)
   const [optimistic, setOptimistic] = useState(0)
 
+  // Gửi CỜ, không gửi số: useBlogStats tắt hết revalidate nên lần mount sau trong cùng phiên đọc
+  // lại số cũ trong cache; gửi số đó lên thì clamp ở server (không bao giờ hạ giá trị) coi như
+  // không có gì thay đổi và lượt xem mất trắng. Để server `views = views + 1` là hết.
   useEffect(() => {
     if (isLoading || sent.current) return
     sent.current = true
     setOptimistic(1)
-    void updateView({ type, slug, views: stats.views + 1 })
-  }, [isLoading, stats.views, type, slug, updateView])
+    void updateView({ type, slug, incrementViews: true })
+  }, [isLoading, type, slug, updateView])
 
   if (isLoading) {
     return (
