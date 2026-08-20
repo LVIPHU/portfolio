@@ -7,6 +7,14 @@
  */
 import type { Localized } from './types'
 
+// Preview deploy trên Vercel KHÔNG có NEXT_PUBLIC_APP_URL (biến chỉ khai ở scope Production), y hệt
+// lý do apps/2025/env.mjs phải tự suy ra. Thiếu nó thì siteUrl là undefined và `new URL(anh, base)`
+// trong getStructuredData ném ERR_INVALID_URL, giết cả bước prerender — build preview chết ở trang
+// blog đầu tiên có ảnh. Package không import @env của app (tránh vòng phụ thuộc) nên chép cùng một
+// luật ở đây.
+const vercelHost = process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || (vercelHost ? `https://${vercelHost}` : undefined)
+
 export interface SiteMetadata2025 {
   avatar: string
   title: Localized
@@ -67,7 +75,7 @@ export const SITE_METADATA_2025: SiteMetadata2025 = {
   },
   language: 'vi-VN',
   theme: 'system',
-  siteUrl: process.env.NEXT_PUBLIC_APP_URL,
+  siteUrl,
   siteRepo: 'https://github.com/LVIPHU/portfolio',
   siteLogo: `/static/images/logo.jpg`,
   socialBanner: `/static/images/twitter-card.jpg`,
