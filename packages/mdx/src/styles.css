@@ -275,3 +275,23 @@
 .katex {
   font-size: 1.05em;
 }
+
+/* ---------- Sandpack: editor|preview đầy ô shell cố định ---------- */
+
+[data-sandpack] .sp-layout {
+  height: 100%;
+}
+
+[data-sandpack] .sp-stack {
+  height: 100%;
+}
+
+[data-sandpack] .sp-preview-container,
+[data-sandpack] .sp-preview,
+[data-sandpack] .sp-preview-iframe {
+  height: 100%;
+}
+
+[data-sandpack] .cm-editor {
+  height: 100%;
+}
