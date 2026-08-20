@@ -78,7 +78,8 @@
     "readMore": "Read more",
     "allTags": "All tags",
     "backToBlog": "Back to Blog",
-    "postsTaggedWith": "Posts tagged"
+    "postsTaggedWith": "Posts tagged",
+    "views": "{count, plural, =1 {1 view} other {# views}}"
   },
   "tags": {
     "title": "Tags",

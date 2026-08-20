@@ -78,7 +78,8 @@
     "readMore": "Đọc tiếp",
     "allTags": "Tất cả tag",
     "backToBlog": "Quay lại Blog",
-    "postsTaggedWith": "Bài viết có tag"
+    "postsTaggedWith": "Bài viết có tag",
+    "views": "{count, plural, =1 {1 lượt xem} other {# lượt xem}}"
   },
   "tags": {
     "title": "Tag",

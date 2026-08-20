@@ -35,15 +35,16 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "stats.js": "^0.17.0",
+    "swr": "^2.4.2",
     "three": "^0.182.0"
   },
   "devDependencies": {
-    "@types/stats.js": "^0.17.4",
     "@tailwindcss/postcss": "^4.3.2",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@types/stats.js": "^0.17.4",
     "@types/three": "^0.182.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "tailwindcss": "^4.3.2",
