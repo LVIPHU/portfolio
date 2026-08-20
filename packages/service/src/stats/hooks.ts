@@ -27,8 +27,11 @@ export function useBlogStats(type: StatsType, slug: string) {
   return [stats, isLoading] as const
 }
 
+/** `incrementViews` để SERVER tự +1 — client đọc-rồi-ghi làm mất lượt khi cache đã cũ. */
+export type StatsUpdateArg = Partial<SelectStats> & { incrementViews?: boolean }
+
 export function useUpdateBlogStats() {
-  const { trigger } = useSWRMutation('/api/stats', async (url: string, { arg }: { arg: Partial<SelectStats> }) => {
+  const { trigger } = useSWRMutation('/api/stats', async (url: string, { arg }: { arg: StatsUpdateArg }) => {
     return fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

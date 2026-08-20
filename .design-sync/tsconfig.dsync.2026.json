@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "jsx": "react-jsx",
+    "jsx": "react",
     "jsxFactory": "globalThis.React.createElement",
     "jsxFragmentFactory": "globalThis.React.Fragment",
     "module": "esnext",
     "moduleResolution": "bundler",
     "paths": {
+      "react": ["../apps/2026/node_modules/@types/react/index.d.ts"],
+      "react/jsx-runtime": ["../apps/2026/node_modules/@types/react/jsx-runtime.d.ts"],
+      "react/jsx-dev-runtime": ["../apps/2026/node_modules/@types/react/jsx-dev-runtime.d.ts"],
       "next/image": ["../../.design-sync/shims/next-image.tsx"],
       "next/link": ["../../.design-sync/shims/next-link.tsx"],
       "next/navigation": ["../../.design-sync/shims/next-navigation.ts"],

@@ -3,7 +3,8 @@ export { t, msg, defineMessage, plural, select, selectOrdinal } from './lingui-m
 import { t as tImpl } from './lingui-macro'
 
 export function Trans({ children, message, id }: any) {
-  return <>{children ?? message ?? id ?? null}</>
+  // Không dùng JSX — design-sync không luôn resolve `react/jsx-runtime`.
+  return children ?? message ?? id ?? null
 }
 
 const passthrough = (d: any) => (typeof d === 'string' ? d : (d?.message ?? d?.id ?? ''))

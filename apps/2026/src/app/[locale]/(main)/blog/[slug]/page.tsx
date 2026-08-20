@@ -8,6 +8,7 @@ import { getAllSlugs, getPost, type Locale } from '@portfolio/content'
 import { Link } from '@portfolio/i18n/navigation'
 import { Badge } from '@portfolio/ui'
 import { formatDate } from '@/utils/format'
+import { ViewsCounter } from '@/components/views-counter'
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }))
 }
@@ -31,7 +32,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   if (!post) notFound()
 
   return (
-    <article>
+    <article className='mx-auto w-full max-w-3xl'>
       <Link href='/blog' className='p-s text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5'>
         <ArrowLeft className='h-4 w-4' /> {t('backToBlog')}
       </Link>
@@ -42,6 +43,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <time dateTime={post.date} className='p-xs'>
             {formatDate(post.date, locale)}
           </time>
+          <ViewsCounter type='blog' slug={post.slug} className='p-xs' />
           <div className='flex gap-1.5'>
             {post.tags.map((tag) => (
               <Link key={tag} href={`/tags/${tag}`}>
@@ -54,7 +56,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         </div>
       </header>
 
-      <div className='prose prose-neutral dark:prose-invert mt-10 max-w-3xl'>
+      <div className='prose prose-neutral dark:prose-invert mt-10 max-w-none'>
         <MDXContent source={post.content} />
       </div>
     </article>

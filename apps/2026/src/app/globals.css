@@ -409,6 +409,12 @@
   html.has-custom-cursor * {
     cursor: none;
   }
+
+  /* Sandpack: iframe cross-origin không nhận cursor:none — dùng native trong cả block. */
+  html.has-custom-cursor [data-sandpack],
+  html.has-custom-cursor [data-sandpack] * {
+    cursor: auto;
+  }
 }
 
 /* Chừa chỗ cho nút mở menu (lớp fixed góc phải-dưới, không chiếm chỗ trong luồng).

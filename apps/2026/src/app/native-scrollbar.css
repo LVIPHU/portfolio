@@ -16,6 +16,11 @@
    Firefox không hiểu ::-webkit-scrollbar nên `selector(::-webkit-scrollbar)` trả false ở đó và
    true ở Chromium — dùng chính điều này làm điều kiện, không cần hack -moz-. */
 
+/* Giữ chỗ thanh cuộn kể cả khi overlay ẩn / Lenis stop↔start — tránh layout xê dịch ngang. */
+html {
+  scrollbar-gutter: stable;
+}
+
 /* KHOÁ CUỘN MÀ KHÔNG ĐƯỢC GIẤU THANH CUỘN.
    lenis.stop() không khoá bằng JS — nó dựa vào CSS của chính lenis:
    `.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip }` (lenis/dist/lenis.css).

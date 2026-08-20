@@ -1,4 +1,4 @@
-import { ArrowRight, Mail } from 'lucide-react'
+import { ArrowRight, User } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { featuredProjects, getAllPosts, profile, resume, type Locale } from '@portfolio/content'
 import { Link } from '@portfolio/i18n/navigation'
@@ -55,9 +55,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               {t(profile.title, locale)}
             </p>
             <p className='p text-muted-foreground mt-6'>{t(profile.tagline, locale)}</p>
+            {/* Hàng nút Ở NGUYÊN trong cột 1-6 cùng khối chữ: kéo nó trải hết bề ngang thì hai
+                nút dài gấp đôi và đè lên vùng quả cầu — kích thước/vị trí gốc là cặp nút gọn nằm
+                trong nửa trái. */}
             <div className='mt-10 grid grid-cols-1 min-[800px]:grid-cols-2' style={{ gap: 'var(--gap)' }}>
               <PillButtonLink href='/projects' icon={<ArrowRight />} label={tHome('viewProjects')} />
-              <PillButtonLink href='/contact' icon={<Mail />} label={tHome('contactMe')} />
+              {/* Nút thứ hai dẫn sang /about (bản showcase full-bleed) chứ không phải /contact:
+                  liên hệ đã có sẵn trong menu, còn thứ người xem cần ngay sau "xem dự án" là câu
+                  chuyện về mình. */}
+              <PillButtonLink href='/about' icon={<User />} label={tHome('aboutMe')} />
             </div>
           </div>
         </div>

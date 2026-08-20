@@ -17,7 +17,7 @@
   "home": {
     "greeting": "Hi, I'm",
     "viewProjects": "View projects",
-    "contactMe": "Contact me",
+    "aboutMe": "About me",
     "featuredProjects": "Featured projects",
     "latestPosts": "Latest posts",
     "viewAll": "View all"
@@ -78,7 +78,8 @@
     "readMore": "Read more",
     "allTags": "All tags",
     "backToBlog": "Back to Blog",
-    "postsTaggedWith": "Posts tagged"
+    "postsTaggedWith": "Posts tagged",
+    "views": "{count, plural, =1 {1 view} other {# views}}"
   },
   "tags": {
     "title": "Tags",

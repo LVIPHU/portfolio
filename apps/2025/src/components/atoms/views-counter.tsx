@@ -1,18 +1,21 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import type { StatsType } from '@portfolio/service'
 import { useBlogStats, useUpdateBlogStats } from '@portfolio/service/stats/hooks'
-import { useEffect } from 'react'
 
 export function ViewsCounter({ type, slug, className }: { type: StatsType; slug: string; className?: string }) {
   const [stats, isLoading] = useBlogStats(type, slug)
   const updateView = useUpdateBlogStats()
+  const sent = useRef(false)
+  const [optimistic, setOptimistic] = useState(0)
 
   useEffect(() => {
-    if (!isLoading && stats) {
-      updateView({ type, slug, views: stats['views'] + 1 }).then(() => {})
-    }
-  }, [stats, isLoading, updateView, type, slug])
+    if (isLoading || sent.current) return
+    sent.current = true
+    setOptimistic(1)
+    void updateView({ type, slug, views: stats.views + 1 })
+  }, [isLoading, stats.views, type, slug, updateView])
 
-  return <span className={className}>{isLoading ? '---' : (stats['views'] || 0) + ' views'}</span>
+  return <span className={className}>{isLoading ? '---' : `${stats.views + optimistic} views`}</span>
 }

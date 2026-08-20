@@ -73,9 +73,13 @@
     /* KHÔNG padding-bottom ở đây: lề đáy đã do .hero lo (= --wordmark-top). Cộng thêm ở đây là
        lề dưới thành gấp đôi lề trên — lỗi đã sửa một lần, đừng thêm lại. */
   }
+  /* Trải trọn khoảng TRỐNG giữa scroll-hint (cột 1-2) và nút CTA (cột 9-12) rồi canh giữa: mô tả
+     nằm đúng chính giữa hai khối đó (đo ở 1274px: hint kết thúc 214, nút bắt đầu 854, tâm mô tả
+     534). Quả cầu đậu quanh trục đó, lệch trái thêm một nhịp — xem STEPS[0] trong earth-canvas. */
   .heroDesc {
-    grid-column: 3 / span 3;
+    grid-column: 3 / 9;
     max-width: none;
+    text-align: center;
   }
   /* Còn MỘT nút, chiếm cột 7→12 nhưng chừa bên phải đúng chỗ của nút mở menu (ô icon 48 comp +
      gap) — nút menu là lớp fixed nên không tự đẩy được cái gì, phải chừa tay. */

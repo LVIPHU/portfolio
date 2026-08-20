@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server'
 import { createDb } from '../db'
-import { getBlogStats, updateBlogStats } from './queries'
+import { getBlogStats, incrementBlogViews, updateBlogStats } from './queries'
 import { statsQuerySchema, statsUpdateBodySchema } from './validators'
 
 export type CreateStatsHandlersOptions = {
@@ -36,8 +36,10 @@ export function createStatsHandlers({ databaseUrl }: CreateStatsHandlersOptions)
       return Response.json({ message: 'Missing or invalid `type` or `slug` parameter!' }, { status: 400 })
     }
 
-    const { type, slug, ...updates } = parsed.data
-    const updatedStats = await updateBlogStats(db, type, slug, updates)
+    const { type, slug, incrementViews, ...updates } = parsed.data
+    const updatedStats = incrementViews
+      ? await incrementBlogViews(db, type, slug)
+      : await updateBlogStats(db, type, slug, updates)
     return Response.json(updatedStats)
   }
 

@@ -275,3 +275,49 @@
 .katex {
   font-size: 1.05em;
 }
+
+/* ---------- Sandpack: editor|preview đầy ô shell cố định ---------- */
+
+[data-sandpack] .sandpack-shell {
+  height: var(--sandpack-height);
+  /* hai pane đọc biến này qua style inline (xem sandpack-root.tsx) */
+  --sandpack-pane-height: 100%;
+}
+
+[data-sandpack] .sp-layout {
+  height: 100%;
+}
+
+[data-sandpack] .sp-stack {
+  height: 100%;
+}
+
+[data-sandpack] .sp-preview-container,
+[data-sandpack] .sp-preview,
+[data-sandpack] .sp-preview-iframe {
+  height: 100%;
+}
+
+[data-sandpack] .cm-editor {
+  height: 100%;
+}
+
+/* Dưới 768px sandpack tự cho hai pane XUỐNG DÒNG (luật của chính nó: `> .sp-stack { min-width:
+   100% }`). Để nguyên `height: 100%` ở đó là nhét 2×420px vào hộp 420px có overflow: hidden — đo
+   được ở 375×812: stack preview nằm ở top 419 trong shell cao 420, người đọc chỉ thấy editor và
+   KHÔNG BAO GIỜ thấy kết quả chạy. Chia đôi ô cho hai pane: tổng vẫn đúng bằng shell (và đúng bằng
+   skeleton), đây cũng là cách chính sandpack làm cho các stack khác (`calc($layout$height / 2)`).
+   Shell phải NHẢ chiều cao ở đây: pane editor là flex item có `min-height: auto` nên không co
+   xuống dưới chiều cao nội dung (đo được 300px cho demo 11 dòng) — giữ shell 420px thì preview
+   lại bị cắt mất một nửa. Chiều cao phải nằm ở CSS, KHÔNG đặt inline trên
+   SandpackCodeEditor/SandpackPreview: style inline thắng mọi media query. */
+@media (max-width: 768px) {
+  [data-sandpack] .sandpack-shell {
+    height: auto;
+    --sandpack-pane-height: calc(var(--sandpack-height) / 2);
+  }
+
+  [data-sandpack] .sp-layout {
+    height: auto;
+  }
+}
