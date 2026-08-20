@@ -1,8 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
-import { SiteNav } from '@/components/chrome/site-nav'
 import { SiteFooter } from '@/components/chrome/site-footer'
 import { StarsBackground } from '@/components/three/stars-background'
-import { profile } from '@portfolio/content'
 
 // Chrome portfolio (nav + khung + footer) cho tất cả trang thường.
 // Trang /about nằm ở route group (showcase) nên KHÔNG dùng layout này.
@@ -24,8 +22,21 @@ export default async function MainLayout({
   return (
     <>
       <StarsBackground />
-      <SiteNav name={profile.name} />
-      <main className='w-full flex-1 py-10' style={{ paddingInline: 'var(--safe)' }}>
+      {/* SiteNav mount ở [locale]/layout.tsx — hai nút nổi chạy trên MỌI route, kể cả (showcase).
+          Ở đây chỉ cần chừa chỗ: nút là lớp fixed nên không đẩy nội dung, thiếu padding-top thì
+          dòng đầu của trang chui xuống dưới nút. */}
+      <main
+        className='w-full flex-1 pb-10'
+        style={
+          {
+            paddingInline: 'var(--safe)',
+            // Đặt qua biến để hero trang chủ huỷ lại ĐÚNG bằng số này (nó phải bắt đầu ngay
+            // đỉnh viewport thì chữ FELIX mới chồng khít vị trí chữ trong tấm intro).
+            '--main-top': 'calc(var(--header-height) + var(--safe))',
+            paddingTop: 'var(--main-top)',
+          } as React.CSSProperties
+        }
+      >
         {children}
       </main>
       <SiteFooter />

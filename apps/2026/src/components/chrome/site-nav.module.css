@@ -1,0 +1,63 @@
+/* Nút mở menu NỔI ở góc phải-DƯỚI, không nền / không viền / không backdrop-blur và không chiếm
+   chỗ trong luồng. Vì thế nó không còn là <header> sticky nữa mà là một lớp fixed mount ở
+   [locale]/layout.tsx — chạy trên MỌI route, kể cả (showcase)/about, và cuộn thì đứng yên.
+
+   Lề dùng ĐÚNG cặp token của hero (--wordmark-top / --wordmark-inset, không phải --safe): nút
+   nằm cùng hàng với nút CTA ở đáy hero, lệch token là lệch hàng ngay.
+
+   z-index 60 > 40 của tấm menu: nút phải nằm TRÊN tấm phủ thì mới bấm đóng được, đúng như nút X
+   của trang tham chiếu. Nền gold đặc + icon đen cứng nên đọc được trên mọi nền phía sau. */
+
+.bar {
+  position: fixed;
+  bottom: var(--wordmark-top);
+  right: var(--wordmark-inset);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: calc(((8 * 100) / var(--device-width)) * 1vw);
+  transition: opacity 600ms var(--ease-out-expo);
+}
+
+/* Trong lúc intro chạy thì giấu hẳn (kể cả bàn phím) — tấm gold của intro phủ toàn màn hình,
+   nút hiện ra giữa chừng sẽ trôi nổi trên nền gold. `intro-out` là nhịp tấm intro bắt đầu trượt
+   đi nên nút vào đúng lúc trang lộ ra. Class do brand/intro.tsx gắn trên <html>. */
+:global(html.intro-running:not(.intro-out)) .bar {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Icon hai gạch (trang tham chiếu dùng "=" chứ không phải hamburger 3 gạch) → xoay thành X khi
+   mở. Vẽ bằng ::before/::after để không phải nhúng hai SVG và để transform mượt theo token. */
+.bars {
+  position: relative;
+  display: block;
+  width: calc(((18 * 100) / var(--device-width)) * 1vw);
+  min-width: 16px;
+  height: 9px;
+}
+
+.bars::before,
+.bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: transform 400ms var(--ease-out-expo);
+}
+
+.bars::before {
+  top: 0;
+}
+.bars::after {
+  bottom: 0;
+}
+
+.toggle[aria-expanded='true'] .bars::before {
+  transform: translateY(3.5px) rotate(45deg);
+}
+.toggle[aria-expanded='true'] .bars::after {
+  transform: translateY(-3.5px) rotate(-45deg);
+}

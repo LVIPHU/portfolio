@@ -8,6 +8,7 @@ import Stats from 'stats.js'
 import type { Group, Mesh, MeshPhysicalMaterial } from 'three'
 import { EarthModel } from './earth-model'
 import { Stars } from './stars'
+import { markSceneReady, SCENE_EARTH } from './scene-ready'
 
 // Keyframe pose của Earth cho từng threshold (data-earth-step). position = tỉ lệ viewport
 // (0 = giữa; y DƯƠNG = LÊN TRÊN), scale = hệ số, rotationY = số vòng quay (× 2π),
@@ -32,6 +33,12 @@ const STEPS: Step[] = [
   { position: [-0.55, -0.1], scale: 2.2, rotationY: 2.8 }, // 6 projects — cung trái
   { position: [0.0, -0.65], scale: 3.2, rotationY: 3.4 }, // 7 footer — cung nhô từ đáy
 ]
+
+// Pose RIÊNG của hero trang chủ: nửa cầu nhô từ đáy nhưng lệch sang PHẢI (x dương), vì khối
+// chữ + hai nút của trang chủ dồn hết sang nửa trái. /about giữ nguyên STEPS[0] (lệch trái) —
+// bố cục bên đó là chữ phải, cầu trái, đừng đồng bộ hai giá trị này.
+//   y = -0.45: tâm hơi dưới mép nên phần lọt vào màn nhỉnh hơn nửa cầu một chút.
+const HERO_POSE: Step[] = [{ position: [0.28, -0.45], scale: 3.0, rotationY: 0 }]
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 const TAU = Math.PI * 2
@@ -145,7 +152,7 @@ function useHeroFade(enabled: boolean): MutableRefObject<number> {
   return fade
 }
 
-function Earth({ pose, fade }: { pose: MutableRefObject<Pose>; fade: MutableRefObject<number> }) {
+function Earth({ pose, fade, steps }: { pose: MutableRefObject<Pose>; fade: MutableRefObject<number>; steps: Step[] }) {
   const group = useRef<Group>(null)
   const spin = useRef(0)
   const { viewport } = useThree()
@@ -170,8 +177,8 @@ function Earth({ pose, fade }: { pose: MutableRefObject<Pose>; fade: MutableRefO
     const g = group.current
     if (!g) return
     const { i, p } = pose.current
-    const from = STEPS[i] ?? STEPS[STEPS.length - 1]
-    const to = STEPS[i + 1] ?? from
+    const from = steps[i] ?? steps[steps.length - 1]
+    const to = steps[i + 1] ?? from
     g.scale.setScalar(baseScale * lerp(from.scale, to.scale, p))
     g.position.set(
       viewport.width * lerp(from.position[0], to.position[0], p),
@@ -207,6 +214,13 @@ function Earth({ pose, fade }: { pose: MutableRefObject<Pose>; fade: MutableRefO
   )
 }
 
+// Báo cho tấm Intro biết asset của cảnh đã xong. Đặt BÊN TRONG <Suspense>: component này chỉ
+// render khi nhánh đó đã resolve, tức useGLTF/useTexture của EarthModel đã tải xong.
+function AssetsReady() {
+  useEffect(() => markSceneReady(SCENE_EARTH), [])
+  return null
+}
+
 export default function EarthCanvas({
   debug = false,
   variant = 'sections',
@@ -225,7 +239,8 @@ export default function EarthCanvas({
       {/* withStars=false khi trang đã có canvas sao riêng (tránh 2 lớp sao chồng nhau) */}
       {withStars && <Stars />}
       <Suspense fallback={null}>
-        <Earth pose={pose} fade={fade} />
+        <Earth pose={pose} fade={fade} steps={variant === 'hero' ? HERO_POSE : STEPS} />
+        <AssetsReady />
       </Suspense>
       {debug && <StatsPanel />}
     </BackgroundCanvas>

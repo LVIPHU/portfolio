@@ -1,0 +1,302 @@
+/* Menu toàn màn hình mở từ nút "=" nổi ở góc phải-dưới (bố cục landonorris.com, ngôn ngữ chuyển động
+   của lenis: tấm trượt xuống bằng --ease-out-expo, từng dòng chữ trồi lên trong mặt nạ overflow
+   như ListItem/AppearTitle).
+
+   z-index 40 < 60 của nút nổi: nút "=" phải nằm TRÊN tấm này thì mới bấm đóng được, và vì
+   thế tấm phủ trọn viewport (inset: 0) chứ không chừa chỗ cho header nữa. */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  /* Token đọc từ class 'dark' gắn ngay trên thẻ này (xem site-menu.tsx) → tấm luôn tối. */
+  background-color: var(--background);
+  color: var(--foreground);
+  transform: translateY(-101%);
+  visibility: hidden;
+  overscroll-behavior: contain;
+  overflow: hidden;
+  transition:
+    transform 800ms var(--ease-out-expo),
+    /* visibility đổi TRỄ đúng bằng thời gian trượt ra, nếu không tấm biến mất ngay lập tức
+       và animation đóng không bao giờ nhìn thấy */
+    visibility 0s linear 800ms;
+}
+
+.overlay.open {
+  transform: translateY(0);
+  visibility: visible;
+  transition:
+    transform 800ms var(--ease-out-expo),
+    visibility 0s linear 0s;
+}
+
+.inner {
+  display: flex;
+  height: 100%;
+}
+
+/* ---- nửa phải: khối chữ căn giữa ---- */
+
+.panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacer-xs);
+  padding: var(--safe);
+  /* Mobile: khối chữ chiếm trọn bề ngang nên phải chừa chỗ cho nút mở menu ở góc phải-DƯỚI
+     (lớp fixed, đè lên tấm này). Desktop bỏ phần chừa này — khối chữ nằm ở nửa phải nhưng
+     canh giữa, còn nút bám sát mép, hai bên không đụng nhau. */
+  padding-bottom: calc(var(--safe) + var(--header-height));
+  text-align: center;
+  overflow-y: auto;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* KHÔNG mặt nạ overflow ở cấp dòng như ListItem/AppearTitle: chữ Anton hoa có dấu tiếng Việt
+   (Ủ, Ệ, Ớ) nhô cao hơn hộp dòng, mặt nạ khít là cụt dấu ngay ở trạng thái nghỉ. Vì thế lượt
+   vào của menu dùng trồi + mờ dần thay cho lộ-qua-mặt-nạ. */
+.item {
+  display: block;
+}
+
+.link {
+  display: inline-block;
+  font-family: var(--font-anton);
+  font-weight: 400;
+  /* Khớp line-height của .charFace: dòng active render chữ trần (không tách ký tự) nên hai
+     kiểu dựng phải cùng chiều cao dòng, nếu không hàng bị xô lệch khi đổi trang. */
+  line-height: 1.35;
+  text-transform: uppercase;
+  /* 44 comp: cỡ chọn theo RÀNG BUỘC CHIỀU CAO — bảy mục phải hiện đủ, không cuộn, kể cả màn
+     1920×950 (7 × 58.7px × 1.35 ≈ 555px). Dưới ngưỡng 56/64 comp của giấy phép dùng gold, nhưng
+     hợp lệ vì tấm menu LUÔN nền đen (class 'dark' trên overlay) → gold đạt 10.79:1. */
+  font-size: calc(((44 * 100) / var(--device-width)) * 1vw);
+  opacity: 0;
+  transform: translateY(40%);
+  transition:
+    transform 900ms var(--ease-out-expo),
+    opacity 600ms var(--ease-out-expo);
+}
+
+.open .link {
+  opacity: 1;
+  transform: translateY(0);
+  /* so le theo thứ tự dòng — cùng nhịp với stagger của ListItem */
+  transition-delay: calc(90ms + 60ms * var(--i, 0));
+}
+
+/* Trang ĐANG XEM: gạch ngang, xám lại, không bấm được (đã render bằng <span> nên tự nó không
+   điều hướng). Gạch dùng gold — vai trò "gạch/viền" luôn hợp lệ ở cả hai theme. */
+.active {
+  color: var(--theme-grey);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-gold);
+  text-decoration-thickness: 2px;
+  cursor: default;
+}
+
+/* ---- chữ cuộn theo từng ký tự khi hover ---- */
+
+.chars {
+  display: inline-flex;
+}
+
+.char {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.charFace,
+.charFaceHidden {
+  display: block;
+  /* 1.35 chứ không phải 1: hộp của MỖI bản ký tự phải chứa trọn dấu tiếng Việt. Bản dự bị nằm
+     dưới mặt nạ ở translateY(100%) — nếu dấu (Ủ, Ệ, Ự) nhô ra NGOÀI hộp của chính nó thì nó
+     thò lên trên mép dưới mặt nạ và lộ vệt gold ngay ở trạng thái nghỉ. Đây là lỗi đã thấy tận
+     mắt, không phải phòng xa. */
+  line-height: 1.35;
+  /* 800ms (không phải 500): cùng một nhịp cho mọi ký tự, chậm và đều thì mắt bắt được hướng
+     chạy trái → phải; nhanh hơn là đọc ra "nhiễu". */
+  transition: transform 800ms var(--ease-out-expo);
+  transition-delay: var(--d, 0ms);
+}
+
+.charFaceHidden {
+  position: absolute;
+  inset: 0;
+  /* 120% chứ không phải 100%: dấu của bản dự bị nhô lên TRÊN hộp của chính nó, ở đúng 100% nó
+     thò qua mép dưới mặt nạ thành vệt gold lấm tấm khi nghỉ. 20% dôi ra là chỗ cho dấu. */
+  transform: translateY(120%);
+  color: var(--color-gold);
+}
+
+@media (hover: hover) {
+  .link:hover .charFace {
+    transform: translateY(-120%);
+  }
+  .link:hover .charFaceHidden {
+    transform: translateY(0);
+  }
+}
+
+/* ---- khối meta dưới khối chữ ---- */
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(((16 * 100) / var(--device-width)) * 1vw);
+  opacity: 0;
+  transform: translateY(calc(((16 * 100) / var(--device-width)) * 1vw));
+  transition:
+    opacity 600ms var(--ease-in-out-quad),
+    transform 800ms var(--ease-out-expo);
+}
+
+.open .meta {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 400ms; /* vào SAU khi các dòng link đã trồi xong */
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(((16 * 100) / var(--device-width)) * 1vw);
+}
+
+.social {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.social::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  .social:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Hai công tắc (ngôn ngữ + theme) nằm trong menu: header chỉ còn ĐÚNG hai nút chính. */
+.switches {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(((12 * 100) / var(--device-width)) * 1vw);
+}
+
+/* ---- nửa trái: ảnh, chỉ desktop ---- */
+
+.photos {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  /* Hai cột ảnh chiếm đúng nửa trái, tràn tới mép trên/dưới; cột phải tụt xuống một nhịp để
+     thành thế lệch tầng như trang tham chiếu (overlay overflow:hidden cắt phần thừa ở đáy). */
+  .photos {
+    display: flex;
+    flex: 0 0 50%;
+    gap: var(--gap);
+    padding: var(--gap);
+    padding-bottom: 0;
+  }
+
+  .photoCol {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+  }
+
+  .photoCol:nth-child(2) {
+    padding-top: var(--spacer-md);
+  }
+
+  .photo {
+    margin: 0;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    /* Cùng kiểu mặt nạ với dòng chữ: lộ dần từ dưới lên */
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 900ms var(--ease-out-expo);
+  }
+
+  .open .photo {
+    clip-path: inset(0 0 0 0);
+    /* vào SAU các dòng link, so le theo thứ tự đọc trái→phải, trên→dưới */
+    transition-delay: calc(200ms + 80ms * var(--i, 0));
+  }
+
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Đen trắng mặc định, hover mới lên màu: site chỉ có đen / trắng / gold, để ảnh màu nằm
+       thẳng cạnh chữ là phá bảng màu. */
+    filter: grayscale(1);
+    transform: scale(1.02); /* chừa biên cho scale hover, tránh hở mép khi phóng */
+    transition:
+      filter 600ms var(--ease-in-out-quad),
+      transform 900ms var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .photo:hover img {
+      filter: grayscale(0);
+      transform: scale(1.06);
+    }
+  }
+
+  /* padding-block đối xứng ở desktop: bỏ phần chừa cho nút (xem lý do ở .panel bên trên) thì
+     khối chữ mới canh giữa THẬT theo chiều cao. */
+  .panel {
+    padding-block: var(--spacer-xs);
+    gap: var(--spacer-xs);
+  }
+
+  .link {
+    font-size: calc(((44 * 100) / var(--device-width)) * 1vw);
+  }
+}
+
+/* Tôn trọng prefers-reduced-motion: bỏ trượt/stagger, chỉ hiện – ẩn. */
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .overlay.open,
+  .link,
+  .open .link,
+  .photo,
+  .open .photo,
+  .meta,
+  .open .meta,
+  .charFace,
+  .charFaceHidden {
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+  }
+}

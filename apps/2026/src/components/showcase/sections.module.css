@@ -7,7 +7,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--wordmark-top) var(--wordmark-inset) var(--safe);
+  /* Lề DƯỚI bằng đúng lề TRÊN (--wordmark-top): hàng CTA cách mép dưới đúng bằng wordmark cách
+     mép trên. Trước đây đáy là --safe rồi .heroBottom còn cộng thêm 40 comp nữa → 80 comp, gấp
+     đôi lenis (home.module.scss: title margin-top 30, .bottom padding-bottom 40). */
+  padding: var(--wordmark-top) var(--wordmark-inset);
 }
 .heroTop {
   display: flex;
@@ -67,19 +70,23 @@
     grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
     gap: var(--gap);
     align-items: end;
-    padding-bottom: calc(((40 * 100) / var(--device-width)) * 1vw);
+    /* KHÔNG padding-bottom ở đây: lề đáy đã do .hero lo (= --wordmark-top). Cộng thêm ở đây là
+       lề dưới thành gấp đôi lề trên — lỗi đã sửa một lần, đừng thêm lại. */
   }
   .heroDesc {
     grid-column: 3 / span 3;
     max-width: none;
   }
-  /* Hai nút chiếm cột 7→12, chia đôi đều — mỗi nút rộng 3 cột nên to đúng như lenis,
-     chứ không phải co lại vừa chữ. */
+  /* Còn MỘT nút, chiếm cột 7→12 nhưng chừa bên phải đúng chỗ của nút mở menu (ô icon 48 comp +
+     gap) — nút menu là lớp fixed nên không tự đẩy được cái gì, phải chừa tay. */
   .heroCta {
-    grid-column: 7 / -1;
+    /* 4 cột cuối (9→12), không phải 6: một nút trải 6 cột thì cái pill dài ngoẵng, mất tỉ lệ
+       của lenis (mỗi nút của họ rộng ~3 cột). */
+    grid-column: 9 / -1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--gap);
+    padding-right: calc(((48 * 100) / var(--device-width)) * 1vw + var(--gap));
   }
 }
 
@@ -140,141 +147,6 @@
   50% {
     transform: scaleY(1.5);
   }
-}
-
-/* ============ primary button (port .button của lenis) ============
-   Cấu trúc: [ô icon vuông] [nhãn căn giữa phần còn lại], bọc trong viên thuốc bo tròn.
-   Chiều cao nút do Ô ICON quyết định (48px comp), KHÔNG phải do line-height của chữ —
-   đó là lý do nút lenis cao và bè chứ không mảnh như nút chỉ có padding.
-   Nền nghỉ và lớp wipe khi hover là hai pseudo-element chồng nhau, đúng ::before/::after
-   của lenis; chữ và icon đội z-index 10 để luôn nằm trên cả hai. */
-.btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-roboto);
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 200%;
-  border: 1px solid var(--theme-contrast);
-  /* KHÔNG phải viên thuốc. Nút lenis là chữ nhật bo VỪA — bán kính ~25% chiều cao (12px comp
-     trên nút cao 48px comp), bằng đúng bán kính của ô icon nên hai hình khớp ngôn ngữ nhau.
-     Bo tròn tuyệt đối (9999px) làm đầu phải thành nửa hình tròn và bóp méo góc trái ô icon. */
-  --btn-radius: calc(((12 * 100) / var(--device-width)) * 1vw);
-  border-radius: var(--btn-radius);
-  /* Cắt lớp wipe theo đúng đường bo — thiếu nó thì vệt hover tràn ra góc vuông */
-  overflow: hidden;
-  font-size: calc(((16 * 100) / var(--device-width)) * 1vw);
-}
-/* ::before = nền nghỉ (gold). ::after = vệt phủ khi hover. */
-.btn::before,
-.btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-}
-.btn::before {
-  background-color: var(--theme-contrast);
-}
-/* Nghỉ: dẹt ở ĐỈNH. Hover (dưới): đổi origin sang bottom rồi mới nở → vệt MỌC LÊN TỪ ĐÁY.
-   transform-origin không nằm trong transition nên nó đổi tức thì; nhờ đó lượt vào quét lên,
-   lượt ra tóp lên đỉnh — luôn cùng một hướng. Đây là chi tiết dễ bỏ sót nhất của lenis. */
-.btn::after {
-  background-color: var(--theme-secondary);
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.6s var(--ease-out-expo);
-}
-.btnIcon {
-  position: relative;
-  z-index: 10;
-  flex: 0 0 auto;
-  aspect-ratio: 1 / 1;
-  width: calc(((48 * 100) / var(--device-width)) * 1vw);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Ô icon nghịch màu với thân nút: nền theme (đen ở dark / trắng ở light), viền gold.
-     Nhờ cặp --theme-primary/secondary nên nó tự đúng ở cả hai theme, không cần hardcode. */
-  background-color: var(--theme-primary);
-  color: var(--theme-secondary);
-  border: 1px solid var(--theme-contrast);
-  /* Cùng bán kính với thân nút để hai hình khớp nhau khi overflow:hidden cắt góc trái */
-  border-radius: var(--btn-radius);
-  transition: border-color 0.6s var(--ease-out-expo);
-}
-.btnIcon svg {
-  width: calc(((22 * 100) / var(--device-width)) * 1vw);
-  height: calc(((22 * 100) / var(--device-width)) * 1vw);
-}
-/* Nhãn là HAI bản chồng nhau tráo chỗ, không phải một bản đổi màu (.text của lenis). */
-.btnLabel {
-  position: relative;
-  z-index: 10;
-  flex-grow: 1;
-  align-self: stretch;
-}
-.btnLabelVisible,
-.btnLabelHidden {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 0 calc(((24 * 100) / var(--device-width)) * 1vw);
-}
-.btnLabelVisible {
-  position: relative;
-  transform: scaleY(1);
-  transform-origin: bottom;
-  transition:
-    transform 0.6s var(--ease-out-expo),
-    opacity 0.6s var(--ease-out-expo);
-}
-.btnLabelHidden {
-  position: absolute;
-  inset: 0;
-  transform: scaleY(0);
-  transform-origin: top;
-  opacity: 0;
-  transition:
-    transform 0.6s var(--ease-out-expo),
-    opacity 0.4s var(--ease-out-expo);
-}
-@media (hover: hover) {
-  /* Cả ba đều lật origin: vệt phủ mọc lên từ đáy, bản nhãn đang hiện bị ép dẹt LÊN đỉnh,
-     bản dự bị mọc LÊN từ đáy. Ba chuyển động cùng chiều nên đọc ra một cú quét duy nhất. */
-  .btn:hover::after {
-    transform: scaleY(1);
-    transform-origin: bottom;
-  }
-  .btn:hover .btnLabelVisible {
-    transform: scaleY(0);
-    transform-origin: top;
-    opacity: 0;
-  }
-  .btn:hover .btnLabelHidden {
-    transform: scaleY(1);
-    transform-origin: bottom;
-    opacity: 1;
-  }
-  .btn:hover .btnIcon {
-    border-color: var(--theme-secondary);
-  }
-  /* Ba class để chắc chắn thắng .btn.btnFilled (0,2,0) bên dưới, không phụ thuộc thứ tự.
-     Ở dark --theme-primary trùng --color-black nên không đổi gì; ở light nó lật sang trắng
-     để đọc được trên vệt phủ đen. */
-  .btn.btnFilled:hover {
-    color: var(--theme-primary);
-  }
-}
-/* .btn.btnFilled chứ KHÔNG phải .btnFilled: theme.css có `.showcase-root a { color: inherit }`
-   với specificity (0,1,1), thắng một class đơn (0,1,0). Hai class = (0,2,0) mới thắng được.
-   Chữ trên nền gold là ĐEN CỨNG, không lấy --theme-primary — đúng cách lenis làm ở
-   button.module.scss:15. --theme-contrast là MỘT gold ở mọi theme nên --theme-primary trên
-   nền đó sẽ ra #EFEFEF/#EFEFEF = 1.69:1.
-     light 10.79:1  |  dark 10.79:1  |  contrast (#000 trên #EFEFEF) 18.10:1 */
-.btn.btnFilled {
-  color: var(--color-black);
 }
 
 /* ============ ABOUT (why) ============ */
