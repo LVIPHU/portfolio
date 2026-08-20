@@ -163,7 +163,11 @@ export function getStructuredData(post: PostMeta, siteUrl: string, authorName?: 
     datePublished: post.date,
     dateModified: post.lastmod ?? post.date,
     description: post.summary,
-    image: post.images.length ? post.images.map((i) => new URL(i, siteUrl).toString()) : `${siteUrl}/og-image.png`,
+    // siteUrl rỗng thì để nguyên đường dẫn tương đối: `new URL('/a.jpg', '')` ném ERR_INVALID_URL,
+    // mà JSON-LD hụt một URL tuyệt đối chỉ là SEO kém — không đáng đánh sập cả lần prerender.
+    image: post.images.length
+      ? post.images.map((i) => (siteUrl ? new URL(i, siteUrl).toString() : i))
+      : `${siteUrl}/og-image.png`,
     url: `${siteUrl}/${post.path}`,
     ...(authorName ? { author: [{ '@type': 'Person', name: authorName }] } : {}),
   }
