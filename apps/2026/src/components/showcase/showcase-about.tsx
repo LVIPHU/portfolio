@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, type CSSProperties } from 'react'
-import { ArrowRight, Mail } from 'lucide-react'
+import { Mail } from 'lucide-react'
 import { EarthBackground } from '@/components/three/earth-background'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { HorizontalSlides } from '@/components/effects/horizontal-slides'
@@ -10,7 +10,7 @@ import { ZoomSection } from './zoom-section'
 import { FeatureCards } from './feature-cards'
 import { ProjectsSection } from './projects-section'
 import { FelixHeroMark } from '@/components/brand/felix-mark'
-import { Link } from '@portfolio/i18n/navigation'
+import { PillButtonLink } from '@/components/effects/pill-button'
 import s from './sections.module.css'
 
 export type AboutContent = {
@@ -20,7 +20,6 @@ export type AboutContent = {
   bio: string[]
   aboutHeading: string
   scrollLabel: [string, string]
-  ctaProjects: string
   ctaContact: string
   skillsHeading: string
   techs: string[]
@@ -67,7 +66,9 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
               gold: .h3 chỉ 20px comp ở mobile nên không được là gold trên nền sáng. */}
           <h2 className={`h3 ${s.heroRole}`}>{content.role}</h2>
         </div>
-        <div className={s.heroBottom}>
+        {/* menu-button-reserve: chỉ mobile — né XUỐNG dưới nút mở menu (desktop né ngang bằng
+            padding-right của .heroCta) */}
+        <div className={`${s.heroBottom} menu-button-reserve`}>
           <div className={`${s.scrollHint} ${hasScrolled ? s.scrollHintHidden : ''}`}>
             <span className={s.scrollHintText}>
               {content.scrollLabel[0]}
@@ -76,33 +77,10 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
             </span>
           </div>
           <p className={`p-s ${s.heroDesc}`}>{content.tagline}</p>
-          {/* Cấu trúc .button của lenis: ô icon vuông bám mép trái (chính nó định chiều cao
-              nút), nhãn căn giữa phần còn lại. Nhãn phải nhân ĐÔI — hover tráo hai bản chứ
-              không đổi màu một bản. Bản dự bị aria-hidden để screen reader chỉ đọc một lần.
-              Cả hai nút đều ĐẶC: lenis không phân cấp primary/secondary ở hero. */}
+          {/* MỘT nút thôi: nút thứ hai ở hàng này là nút mở menu (lớp fixed góc phải-dưới).
+              Công thức nút nằm ở @/components/effects/pill-button — nút menu dùng chung. */}
           <div className={s.heroCta}>
-            <Link href='/projects' className={`${s.btn} ${s.btnFilled}`}>
-              <span className={s.btnIcon} aria-hidden>
-                <ArrowRight />
-              </span>
-              <span className={s.btnLabel}>
-                <span className={s.btnLabelVisible}>{content.ctaProjects}</span>
-                <span className={s.btnLabelHidden} aria-hidden>
-                  {content.ctaProjects}
-                </span>
-              </span>
-            </Link>
-            <Link href='/contact' className={`${s.btn} ${s.btnFilled}`}>
-              <span className={s.btnIcon} aria-hidden>
-                <Mail />
-              </span>
-              <span className={s.btnLabel}>
-                <span className={s.btnLabelVisible}>{content.ctaContact}</span>
-                <span className={s.btnLabelHidden} aria-hidden>
-                  {content.ctaContact}
-                </span>
-              </span>
-            </Link>
+            <PillButtonLink href='/contact' icon={<Mail />} label={content.ctaContact} />
           </div>
         </div>
       </section>
@@ -158,19 +136,7 @@ export function ShowcaseAbout({ content }: { content: AboutContent }) {
       <footer data-earth-step='7' className={s.footer}>
         <div>
           <h2 className='h1 vh'>{content.footerHeading}</h2>
-          {/* Chữ BẮT BUỘC bọc trong .btnLabel: .btn::before là absolute z-index auto nên nó
-              nằm trên lớp text thường của chính element — text trần sẽ bị nền gold phủ mất. */}
-          <Link href='/contact' className={`${s.btn} ${s.btnFilled} ${s.footerCta}`}>
-            <span className={s.btnIcon} aria-hidden>
-              <Mail />
-            </span>
-            <span className={s.btnLabel}>
-              <span className={s.btnLabelVisible}>{content.ctaFooter}</span>
-              <span className={s.btnLabelHidden} aria-hidden>
-                {content.ctaFooter}
-              </span>
-            </span>
-          </Link>
+          <PillButtonLink href='/contact' icon={<Mail />} label={content.ctaFooter} className={s.footerCta} />
         </div>
         <div className={s.footerBottom}>
           <div className={s.footerLinks}>

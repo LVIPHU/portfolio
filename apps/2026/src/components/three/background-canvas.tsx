@@ -15,26 +15,29 @@ import { Canvas } from '@react-three/fiber'
 // nhánh rời nhau. Class 'intro-running' được gỡ qua BA đường — transitionEnd, timer dự phòng
 // 4600ms, và cleanup unmount của Intro (bắt buộc: hai đường đầu đều chết nếu người dùng nhấn
 // Back giữa intro, mà class kẹt thì frameloop ghim 'never' cả session — ultrareview bug_003).
-function useIntroRunning() {
-  const [running, setRunning] = useState(false)
+// Ngưng vẽ khi intro đang phủ NHƯNG CHƯA tới pha trượt đi (`intro-out`). Chạy lại đúng lúc tấm
+// gold bắt đầu rời màn: canvas có trọn 0.9–1.5s đó để vẽ khung đầu tiên, nên lúc tấm đi hẳn thì
+// quả cầu đã hiện — nếu ghim 'never' tới tận cuối thì trang lộ ra với canvas trắng một nhịp.
+function useIntroCovering() {
+  const [covering, setCovering] = useState(false)
 
   useEffect(() => {
     const el = document.documentElement
-    const read = () => setRunning(el.classList.contains('intro-running'))
+    const read = () => setCovering(el.classList.contains('intro-running') && !el.classList.contains('intro-out'))
     read()
     const mo = new MutationObserver(read)
     mo.observe(el, { attributes: true, attributeFilter: ['class'] })
     return () => mo.disconnect()
   }, [])
 
-  return running
+  return covering
 }
 
 // Canvas nền dùng chung cho EarthCanvas và StarsCanvas — MỘT nơi giữ camera/gl/dpr
 // và hack re-measure. Hai canvas phải cùng cấu hình để starfield trên trang (main)
 // trông y hệt trên /about; tách riêng từng file từng làm chúng lệch nhau âm thầm.
 export function BackgroundCanvas({ children }: { children: React.ReactNode }) {
-  const introRunning = useIntroRunning()
+  const introCovering = useIntroCovering()
 
   // r3f đo container fixed=0 lúc mount → ép re-measure sau layout (bẫy đã biết).
   useEffect(() => {
@@ -48,7 +51,7 @@ export function BackgroundCanvas({ children }: { children: React.ReactNode }) {
         orthographic
         camera={{ near: 0.01, far: 10000, position: [0, 0, 1000] }}
         dpr={[1, 2]}
-        frameloop={introRunning ? 'never' : 'always'}
+        frameloop={introCovering ? 'never' : 'always'}
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       >
         {children}

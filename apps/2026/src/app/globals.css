@@ -411,19 +411,20 @@
   }
 }
 
-/* CHỈ ẩn ở breakpoint tương ứng — không set display ở trạng thái hiện
-   (nếu không sẽ đè display:flex của component). */
-/* Nav trang chủ trốn lên khi đang ở đỉnh (chỗ wordmark FELIX ngự trị), trượt vào khi
-   cuộn — chỉ từ 800px trở lên, đúng dải có intro; mobile giữ nav để bấm được menu. */
+/* Chừa chỗ cho nút mở menu (lớp fixed góc phải-dưới, không chiếm chỗ trong luồng).
+   CHỈ mobile: ở đó khối CTA trải hết bề ngang nên phải né XUỐNG; desktop né NGANG bằng
+   padding-right của chính hàng CTA (xem .heroCta trong showcase/sections.module.css). */
+.menu-button-reserve {
+  padding-bottom: calc(((48 * 100) / var(--device-width)) * 1vw + var(--gap));
+}
 @media (min-width: 800px) {
-  header[data-home] {
-    transition: transform 0.5s var(--ease-out-expo);
-  }
-  header[data-hidden] {
-    transform: translateY(-100%);
+  .menu-button-reserve {
+    padding-bottom: 0;
   }
 }
 
+/* CHỈ ẩn ở breakpoint tương ứng — không set display ở trạng thái hiện
+   (nếu không sẽ đè display:flex của component). */
 @media (max-width: 799.98px) {
   .desktop-only {
     display: none !important;

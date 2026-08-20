@@ -32,7 +32,9 @@
   top: 0;
 }
 
-/* Đang chạy intro: E/I nằm chờ ở dòng dưới (đây là lúc DUY NHẤT cần transform) */
+/* Đang chạy intro: E/I nằm chờ ở dòng dưới (đây là lúc DUY NHẤT cần transform).
+   Tấm intro dựng y HỆT: cùng khối .mark aspect-ratio, E/I cũng chờ ở `top: 100%` rồi trồi lên
+   -100% — hai bên phải khớp từng khung hình, sửa một bên là phải sửa bên kia. */
 :global(html.intro-running) .ei {
   top: 100%;
 }

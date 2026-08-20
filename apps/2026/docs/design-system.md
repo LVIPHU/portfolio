@@ -136,13 +136,13 @@ out-expo, đổi nền theme 0.6s out-expo.
 
 Component xếp theo MỐI QUAN TÂM, không theo trang dùng nó:
 
-| Thư mục                | Chứa gì                                                  | Ghi chú                                                                            |
-| ---------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `components/brand/`    | FelixHeroMark, Intro                                     | nhận diện thương hiệu; Intro giao tiếp bằng class `html.intro-running`/`intro-out` |
-| `components/effects/`  | AppearTitle, Card, HorizontalSlides, ListItem, Marquee   | hiệu ứng dùng chung, KHÔNG phụ thuộc `.showcase-root`                              |
-| `components/scroll/`   | SmoothScroll, Scrollbar, GsapSync                        | cụm Lenis; cả ba phải là hậu duệ của `<ReactLenis root>`                           |
-| `components/chrome/`   | SiteNav, SiteFooter, LocaleSwitcher, ThemeToggle, Cursor | khung site, chạy toàn bộ route                                                     |
-| `components/showcase/` | theme.css + các section của `/about`                     | CHỈ chỗ này mới được phụ thuộc `.showcase-root`                                    |
+| Thư mục                | Chứa gì                                                            | Ghi chú                                                                            |
+| ---------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| `components/brand/`    | FelixHeroMark, Intro                                               | nhận diện thương hiệu; Intro giao tiếp bằng class `html.intro-running`/`intro-out` |
+| `components/effects/`  | AppearTitle, Card, HorizontalSlides, ListItem, Marquee, PillButton | hiệu ứng dùng chung, KHÔNG phụ thuộc `.showcase-root`                              |
+| `components/scroll/`   | SmoothScroll, Scrollbar, GsapSync                                  | cụm Lenis; cả ba phải là hậu duệ của `<ReactLenis root>`                           |
+| `components/chrome/`   | SiteNav, SiteMenu, SiteFooter, LocaleSwitcher, ThemeToggle, Cursor | khung site, chạy toàn bộ route                                                     |
+| `components/showcase/` | theme.css + các section của `/about`                               | CHỈ chỗ này mới được phụ thuộc `.showcase-root`                                    |
 
 Vì sao hiệu ứng dùng chung được: `globals.css` khai đủ cả năm token `--theme-*` ngay ở `:root`
 làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên component render ngoài
@@ -150,10 +150,76 @@ làm cầu nối, `theme.css` chỉ _ghi đè_ chúng theo `data-theme`. Nên co
 
 - **FelixHeroMark** — wordmark FELIX (Cloister Black → SVG, viewBox `0 0 1401 368`), fill
   `var(--theme-contrast)`; vị trí khớp intro qua `--wordmark-top/-inset` (30 / 32.5 trên comp 1440).
+- **Thanh cuộn gốc** (`app/native-scrollbar.css`, tách khỏi globals vì Lightning CSS cắt
+  `scrollbar-*`) — hai luật dễ mất nếu ai đó dọn file này, cả hai đều đã trả giá một vòng vá sai:
+  - **KHÔNG được để thanh cuộn biến mất khi khoá.** `lenis.stop()` không khoá bằng JS mà dựa vào
+    `.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip }` của lenis; `clip` bỏ luôn
+    thanh cuộn nên khung nội dung **và viewport của mọi lớp `position: fixed`** rộng thêm bấy
+    nhiêu px: đo được canvas 3D nhảy `0,1914 → 0,1920`, r3f vẽ lại cảnh ở tỉ lệ khác → quả cầu
+    giật ngang mỗi lượt mở/đóng. Vì thế app **trung hoà** luật đó bằng
+    `html.lenis.lenis-stopped:not(.lenis-autoToggle) { overflow: visible }` (specificity 0,3,1 —
+    không `!important`, và **không** gỡ class bằng JS vì `updateClassName()` gắn lại). Phần khoá
+    thật vẫn còn: lenis `preventDefault()` wheel/touch khi `isStopped`, bàn phím do
+    `scroll/scroll-lock.ts` chặn. Bù bằng `padding-right` (bản trước) chỉ cứu nội dung trong
+    luồng — KHÔNG cứu lớp fixed; `scrollbar-gutter: stable` cũng vô dụng (Chrome bỏ gutter của
+    viewport khi overflow là clip/hidden).
+  - Máng cuộn của `/about` theo `.showcase-root[data-theme]` (dark ⇄ light đổi theo cuộn) và luật
+    phải đặt trên **`body`**: khi `html` còn `overflow: visible` thì body mới là phần tử truyền
+    thanh cuộn cho viewport, bản chỉ có `html:has(…)` **không bao giờ được vẽ**. Đừng tin
+    `getComputedStyle(html, '::-webkit-scrollbar-track')` — nó trả màu "đúng" cả khi không hề vẽ;
+    kiểm bằng ảnh chụp DPR 4 ở mép phải. Và **đừng** đổi sang tô nền `<html>`: nền body đang được
+    propagate lên canvas, cho html một nền là body tự tô nền của nó, mà nền block in-flow vẽ TRÊN
+    lớp z-index âm → `.showcase-bg` (z −20) bị phủ và `/about` sáng trưng khi site đang light.
+- **Intro** — mount MỘT lần ở `[locale]/layout.tsx`, chạy lại **mỗi lần đổi route** (kể cả điều
+  hướng SPA) và kiêm **cổng chờ tải**: chỉ vào pha `intro-out` khi nhịp tối thiểu 1000ms xong
+  **và** `brand/page-ready.ts` báo trang đích đủ font + ảnh + cảnh 3D (trần chờ 8s để mạng hỏng
+  không nhốt người dùng). Bốn điều dễ vấp:
+  - Phủ màn bằng `useLayoutEffect` chứ không `useEffect`: `usePathname()` chỉ đổi SAU khi trang mới
+    commit, chờ tới effect là người dùng kịp thấy trang chưa tải xong.
+  - Transition khai TRÊN `.out`; bỏ class ra là tấm phủ lại kín ngay, không trượt ngược.
+  - Trong lúc chờ, `.loader` (vạch 2px đen chạy qua lại) giữ nhịp — trước đây chỗ này là tấm gold
+    trống trơn, mạng chậm đọc ra "treo".
+  - Trạng thái cảnh 3D đọc qua `three/scene-ready.ts` (store nhỏ, API theo **id** nên StrictMode
+    gọi hai lần vẫn đúng và không phụ thuộc thứ tự effect cha–con) — **không** import
+    `useProgress` của drei, làm thế là kéo `three` ra khỏi chunk lazy vào bundle chính.
+  - `BackgroundCanvas` ghim `frameloop='never'` khi `intro-running` **và chưa** `intro-out`: canvas
+    chạy lại đúng lúc tấm bắt đầu trượt đi nên kịp vẽ khung đầu trước khi trang lộ ra.
+- **Lề hero (cả `/` lẫn `/about`)** — trên = dưới = `--wordmark-top`: hàng CTA cách mép dưới đúng
+  bằng wordmark cách mép trên (lenis: title `margin-top: 30px`, `.bottom` `padding-bottom: 40px`).
+  ĐỪNG cộng thêm `padding-bottom` ở khối dưới — đó chính là lỗi lề gấp đôi đã sửa một lần.
+  Trang chủ: chữ + nút dồn cột 1→6, quả cầu Earth chiếm nửa phải (pose riêng `HERO_POSE` trong
+  `earth-canvas.tsx`); `/about` ngược lại — cầu trái, CTA cột 9→12.
 - **Marquee / ListItem / AppearTitle / Card** — hiệu ứng thuần CSS; ListItem cần `visible`,
   AppearTitle tự reveal bằng IntersectionObserver. (Registry design-sync publish `Card` dưới tên
   `ShowcaseCard` để không đè `Card` của `packages/ui` — tên lịch sử, đừng đổi.)
-- **Nav** — cao `--header-height` (58 → 98), tự ẩn ở đỉnh trang chủ, trượt vào khi cuộn.
+- **PillButton** — nút chính kiểu lenis: ô icon vuông định chiều cao (48 comp), nhãn nhân đôi tráo
+  chỗ khi hover, nền gold + chữ **đen cứng**. Dùng chung cho CTA của `/about` và nút mở menu
+  (`iconOnly`). Giữ nguyên mẹo specificity `.btn.btnFilled` — `theme.css` có
+  `.showcase-root a { color: inherit }` (0,1,1) sẽ đè một class đơn.
+- **SiteNav** — KHÔNG còn là `<header>`: chỉ một `PillButton` nổi `position: fixed` ở góc
+  **phải-dưới** (`bottom: var(--wordmark-top); right: var(--wordmark-inset)` — cùng cặp token với
+  hero thì mới thẳng hàng với nút CTA), z 60, không nền / không viền / không chiếm chỗ trong luồng.
+  Mount ở `[locale]/layout.tsx` nên chạy trên **mọi** route, kể cả `(showcase)/about`. Ẩn trong lúc
+  intro qua `html.intro-running:not(.intro-out)`. Vì nút không chiếm chỗ: `(main)/layout.tsx` khai
+  `--main-top` cho `<main>` (hero trang chủ huỷ lại đúng biến đó để chữ FELIX vẫn chồng khít tấm
+  intro), desktop né NGANG bằng `padding-right` của `.heroCta`, mobile né XUỐNG bằng class
+  `.menu-button-reserve` (globals.css).
+- **SiteMenu** — tấm phủ trọn viewport (z 40, dưới nút), trượt xuống 800ms `--ease-out-expo`. Nửa
+  trái: bốn ảnh gallery hai cột lệch tầng, tràn mép, lộ dần bằng `clip-path`. Nửa phải: khối chữ
+  **căn giữa** cả hai chiều + socials/công tắc bên dưới. Bốn điểm dễ vấp nếu sửa lại:
+  - Tấm **LUÔN nền đen** bất kể theme của site — class toàn cục `dark` gắn ngay trên thẻ overlay
+    (`globals.css` khai `.dark { --background… }` cho bất kỳ phần tử nào, và `@custom-variant dark
+(&:is(.dark *))` kéo theo cả `dark:` của các control bên trong). Nhờ đó gold luôn 10.79:1.
+  - Cỡ chữ link **44 comp** — chọn theo ràng buộc chiều cao (7 mục hiện đủ, không cuộn, kể cả
+    1920×950). Dưới ngưỡng 56/64 comp của giấy phép gold nhưng hợp lệ **chỉ vì** tấm luôn tối; đổi
+    nền tấm là phải xét lại cỡ chữ.
+  - Hover cuộn **từng ký tự**, so le TRÁI → PHẢI (`delay = i × 45ms`, mỗi ký tự 800ms). Bản dự bị
+    đặt ở `translateY(120%)` chứ không phải 100%, và `line-height: 1.35` cho mỗi bản: dấu tiếng
+    Việt nhô ra ngoài hộp ký tự sẽ thò lên mép mặt nạ thành vệt gold lấm tấm lúc nghỉ. Vì lý do
+    dấu đó, dòng link **không** dùng mặt nạ `overflow: hidden` như ListItem/AppearTitle — lượt vào
+    là trồi + mờ dần.
+  - Trang đang xem render bằng `<span>` (không phải `<Link>`) + gạch ngang gold: `aria-disabled`
+    trên thẻ `<a>` chỉ nói với trình đọc màn hình, chuột và bàn phím vẫn điều hướng như thường.
 
 ## Cấm kỵ
 

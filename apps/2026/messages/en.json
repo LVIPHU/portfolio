@@ -6,7 +6,9 @@
     "resume": "Resume",
     "gallery": "Gallery",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close menu"
   },
   "footer": {
     "builtWith": "Built with Next.js · Version 2026",
@@ -29,8 +31,7 @@
   "showcase": {
     "aboutHeading": "About me",
     "scrollLabel": ["scroll", "to explore"],
-    "ctaProjects": "View projects",
-    "ctaContact": "Contact",
+    "ctaContact": "Hire me",
     "skillsHeading": "What I work with",
     "statement": {
       "first": "Turn ideas",
