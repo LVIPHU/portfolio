@@ -21,10 +21,11 @@ const STEPS: Step[] = [
   //   y = -0.50 là con số ĐẶC BIỆT: tâm rơi đúng vào mép dưới viewport nên phần lọt vào màn
   //     luôn là chính xác một nửa cầu, ở MỌI chiều cao màn — không phải canh lại theo từng
   //     viewport như các mốc -0.72 / -0.66 trước đó.
-  //   x = -0.22 → ở viewport 1907px tâm nằm x=534, vành cầu rộng nhất trải 234→834. Chữ
-  //     "CUỘN / KHÁM PHÁ" (cột 1-2) kết thúc ~x=195 nên vẫn thoát. Dòng mô tả (355→775) thì
-  //     nằm trên vành cầu — chấp nhận, vì nửa cầu bắt buộc chiếm hết dải đó.
-  { position: [-0.22, -0.5], scale: 3.0, rotationY: 0 },
+  //   x = -0.13 → trục của dòng mô tả (trung điểm giữa "CUỘN / KHÁM PHÁ" và nút "Thuê mình" đo
+  //     được là -0.081 ở viewport 1274px) rồi dịch thêm sang trái một nhịp nữa cho thoáng nút.
+  //     Dòng mô tả nằm đè vành cầu — chấp nhận được vì .heroDesc đã có quầng tối riêng để đọc
+  //     trên gold.
+  { position: [-0.13, -0.5], scale: 3.0, rotationY: 0 },
   { position: [-0.5, 0.15], scale: 3.0, rotationY: 0.5 }, // 1 about — nửa cầu lớn bên trái
   { position: [0.0, 0.0], scale: 0.9, rotationY: 1.0 }, // 2 skills — nhỏ giữa (nghỉ nhịp)
   { position: [0.0, 0.25], scale: 0.5, rotationY: 1.6, opacity: 0 }, // 3 zoom-start — MỜ DẦN suốt đoạn scroll ngang, mất hẳn đúng lúc rail kết thúc
@@ -35,10 +36,19 @@ const STEPS: Step[] = [
 ]
 
 // Pose RIÊNG của hero trang chủ: nửa cầu nhô từ đáy nhưng lệch sang PHẢI (x dương), vì khối
-// chữ + hai nút của trang chủ dồn hết sang nửa trái. /about giữ nguyên STEPS[0] (lệch trái) —
-// bố cục bên đó là chữ phải, cầu trái, đừng đồng bộ hai giá trị này.
+// chữ + hai nút của trang chủ dồn hết sang nửa trái. /about dùng STEPS[0] (giữa màn) — bố cục
+// bên đó khác hẳn, đừng đồng bộ hai giá trị này.
 //   y = -0.45: tâm hơi dưới mép nên phần lọt vào màn nhỉnh hơn nửa cầu một chút.
-const HERO_POSE: Step[] = [{ position: [0.28, -0.45], scale: 3.0, rotationY: 0 }]
+//   x = 0.21: vành PHẢI của cầu dừng cách nút mở menu đúng một --gap — bằng khe giữa hai nút CTA.
+//     Cách tính (không đoán bằng mắt: nửa tối của cầu chìm vào nền đen nên nhìn ra nhỏ hơn thật):
+//     bán kính cầu trên màn ≈ 0.39 × CHIỀU CAO viewport tính bằng px — hằng số này suy từ camera
+//     (perspective, z=1000) nên chỉ phụ thuộc chiều cao, không phụ thuộc bề ngang.
+//       1274×720: bán kính ≈ 279, nút mở menu bắt đầu ở x=1201, khe hai nút CTA 21px
+//         → tâm cần ở 901px = 0.707 bề ngang → x = 0.207.
+//       1920×1030: bán kính ≈ 400, nút bắt đầu ~1806, khe 32px → x ≈ 0.216.
+//     Vì bán kính theo chiều cao còn nút bám mép phải, khe này giãn/co theo tỉ lệ màn — 0.21 là số
+//     canh cho dải 16:9 thường gặp.
+const HERO_POSE: Step[] = [{ position: [0.21, -0.45], scale: 3.0, rotationY: 0 }]
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 const TAU = Math.PI * 2
