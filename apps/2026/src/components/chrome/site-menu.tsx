@@ -4,7 +4,7 @@ import { type CSSProperties, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { useLenis } from 'lenis/react'
 import { Link } from '@portfolio/i18n/navigation'
-import { blockScrollKeys } from '@/components/scroll/scroll-lock'
+import { blockScrollKeys, blockWheelScroll } from '@/components/scroll/scroll-lock'
 import { LocaleSwitcher } from '@/components/chrome/locale-switcher'
 import { ThemeToggle } from '@/components/chrome/theme-toggle'
 import { clsx } from 'clsx'
@@ -69,16 +69,15 @@ export function SiteMenu({
   const panel = useRef<HTMLDivElement>(null)
 
   // Khoá cuộn nền khi menu mở. Lenis là nguồn cuộn duy nhất của site nên stop() là đúng chỗ;
-  // fallback overflow cho trường hợp prefers-reduced-motion (SmoothScroll không mount Lenis).
+  // khi prefers-reduced-motion (SmoothScroll không mount Lenis) thì tự chặn wheel/touch. KHÔNG
+  // dùng `overflow: hidden` trên <html>: nó giấu thanh cuộn nên khung nội dung và mọi lớp
+  // position:fixed (kể cả canvas 3D) rộng thêm — đúng cái nhích ngang mà native-scrollbar.css
+  // vừa đi sửa, chỉ khác là lần này chỉ người bật reduced-motion mới dính.
   useEffect(() => {
     if (!open) return
-    if (lenis) lenis.stop()
-    else document.documentElement.style.overflow = 'hidden'
-
-    return () => {
-      if (lenis) lenis.start()
-      else document.documentElement.style.overflow = ''
-    }
+    if (!lenis) return blockWheelScroll()
+    lenis.stop()
+    return () => lenis.start()
   }, [open, lenis])
 
   // Chặn phím cuộn khi menu mở: lenis chỉ chặn wheel/touch, còn `overflow: clip` của nó đã bị
@@ -99,10 +98,16 @@ export function SiteMenu({
     return () => document.removeEventListener('keydown', onKey)
   }, [open, onClose])
 
-  // Đưa tiêu điểm vào link đầu tiên khi mở (nút đóng vẫn Tab tới được vì nó nằm trên tấm này).
+  // Đưa tiêu điểm vào link đầu tiên khi mở (nút đóng vẫn Tab tới được vì nó nằm trên tấm này),
+  // và TRẢ nó về chỗ cũ khi đóng. Không trả thì tấm đóng lại nhận `inert` kéo tiêu điểm về <body>:
+  // đóng menu bằng Esc xong, Tab tiếp là chạy lại từ đầu trang chứ không quay về nút menu.
   useEffect(() => {
     if (!open) return
+    const opener = document.activeElement
     panel.current?.querySelector<HTMLAnchorElement>('a')?.focus()
+    return () => {
+      if (opener instanceof HTMLElement && opener.isConnected) opener.focus()
+    }
   }, [open])
 
   // Hai cột ảnh xen kẽ: cột trái giữ ảnh chẵn, cột phải giữ ảnh lẻ rồi tụt xuống một nhịp (lệch
@@ -128,13 +133,15 @@ export function SiteMenu({
       <div className={s.inner}>
         {/* Cột ảnh: chỉ desktop (CSS ẩn dưới 800px) — menu mobile đang vừa đúng một màn hình,
             thêm ảnh vào là phải cuộn. <img> thuần chứ không next/image, giống trang /gallery:
-            ảnh đã nằm sẵn trong public/content nên không cần optimizer. */}
+            ảnh đã nằm sẵn trong public/content nên không cần optimizer. KHÔNG loading='lazy':
+            tấm đóng là `visibility: hidden` nên ảnh không bao giờ vào viewport, trình duyệt hoãn
+            tải vô hạn và lần mở menu đầu tiên là bốn ô trống. */}
         <div className={s.photos} aria-hidden>
           {columns.map((column, ci) => (
             <div key={ci} className={s.photoCol}>
               {column.map((photo, i) => (
                 <figure key={photo.src} className={s.photo} style={{ '--i': ci + i * 2 } as CSSProperties}>
-                  <img src={photo.src} alt='' loading='lazy' />
+                  <img src={photo.src} alt='' />
                 </figure>
               ))}
             </div>

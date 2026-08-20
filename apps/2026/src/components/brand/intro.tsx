@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLenis } from 'lenis/react'
+import { useIsomorphicLayoutEffect } from '@portfolio/hooks'
 import { usePathname } from '@portfolio/i18n/navigation'
 import { FelixFLX, FelixEI } from './felix-mark'
 import { waitForPageReady } from './page-ready'
@@ -62,10 +63,11 @@ export function Intro() {
     }, 1600)
   }
 
-  // useLayoutEffect chứ không useEffect: usePathname() chỉ đổi SAU khi trang mới đã commit, nên
+  // Layout effect chứ không useEffect: usePathname() chỉ đổi SAU khi trang mới đã commit, nên
   // tấm phủ phải kín NGAY trong khung hình đó. Chờ tới useEffect là người dùng kịp thấy trang mới
-  // lúc chưa tải xong.
-  useLayoutEffect(() => {
+  // lúc chưa tải xong. Bản isomorphic vì component này render cả trên server (overlay nằm sẵn
+  // trong HTML) — useLayoutEffect thẳng sẽ ré cảnh báo trong log build/SSG.
+  useIsomorphicLayoutEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       releasedRef.current = true
       setDone(true)
@@ -74,6 +76,9 @@ export function Intro() {
 
     const run = ++runRef.current
     const alive = () => runRef.current === run
+    // Lượt cũ phải buông cổng chờ khi đổi route, nếu không mỗi lượt điều hướng để lại một
+    // subscriber bám vào store cảnh 3D.
+    const abort = new AbortController()
 
     releasedRef.current = false
     setDone(false)
@@ -87,7 +92,7 @@ export function Intro() {
 
     // Mở ra khi CẢ HAI xong: nhịp tối thiểu và trang đích đã sẵn sàng. Trong lúc chờ, tấm gold
     // KHÔNG để trống trơn — vạch chờ ở đáy tự chạy bằng CSS (xem .loader).
-    Promise.all([sleep(TIMING.hold), waitForPageReady()]).then(() => {
+    Promise.all([sleep(TIMING.hold), waitForPageReady(abort.signal)]).then(() => {
       if (!alive()) return
       setIsLoaded(true)
     })
@@ -98,6 +103,7 @@ export function Intro() {
       // class. Mà class kẹt là kẹt CẢ SESSION: BackgroundCanvas đọc intro-running sẽ ghim
       // frameloop='never' vĩnh viễn (ultrareview bug_003). Chốt an toàn cuối; chỉ dọn khi KHÔNG
       // có run mới nối tiếp.
+      abort.abort()
       if (runRef.current !== run) return
       lenisRef.current?.start()
       html.classList.remove('intro-running', 'intro-out')

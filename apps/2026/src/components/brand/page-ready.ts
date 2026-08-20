@@ -36,7 +36,7 @@ function imagesReady(): Promise<void> {
 }
 
 /** Cảnh 3D: chờ pending về 0. Chưa ai đăng ký sau SCENE_GRACE → trang này không có canvas. */
-function scenesReady(): Promise<void> {
+function scenesReady(signal?: AbortSignal): Promise<void> {
   return new Promise((resolve) => {
     const check = () => {
       const { pending, registered } = getSceneState()
@@ -53,17 +53,30 @@ function scenesReady(): Promise<void> {
       }
     }, SCENE_GRACE)
     const unsubscribe = subscribeScene(check)
+    const onAbort = () => {
+      cleanup()
+      resolve()
+    }
     const cleanup = () => {
       clearTimeout(graceId)
       unsubscribe()
+      signal?.removeEventListener('abort', onAbort)
     }
-    check()
+    signal?.addEventListener('abort', onAbort)
+    if (signal?.aborted) onAbort()
+    else check()
   })
 }
 
-export function waitForPageReady(): Promise<void> {
+/**
+ * @param signal Đổi route giữa lúc đang chờ thì lượt cũ phải buông ngay: không có nó, subscriber
+ *   của `scenesReady` bám vào store cho tới khi trang mới cũng tải xong (rò cho mỗi lượt điều
+ *   hướng), còn cảnh của trang cũ vừa unregister lại kích `check` của lượt đã bỏ. Cổng chờ thì
+ *   `alive()` bên Intro chặn rồi — cái này dọn phần lắng nghe.
+ */
+export function waitForPageReady(signal?: AbortSignal): Promise<void> {
   return Promise.race([
-    Promise.all([fontsReady(), imagesReady(), scenesReady(), nextPaint()]).then(() => undefined),
+    Promise.all([fontsReady(), imagesReady(), scenesReady(signal), nextPaint()]).then(() => undefined),
     timeout(MAX_WAIT),
   ])
 }
