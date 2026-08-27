@@ -14,8 +14,8 @@ export function ViewsCounter({ type, slug, className }: { type: StatsType; slug:
     if (isLoading || sent.current) return
     sent.current = true
     setOptimistic(1)
-    void updateView({ type, slug, views: stats.views + 1 })
-  }, [isLoading, stats.views, type, slug, updateView])
+    void updateView({ type, slug, incrementViews: true })
+  }, [isLoading, type, slug, updateView])
 
   return <span className={className}>{isLoading ? '---' : `${stats.views + optimistic} views`}</span>
 }

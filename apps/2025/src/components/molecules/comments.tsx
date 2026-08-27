@@ -1,9 +1,11 @@
 'use client'
 
 import type { BooleanString, InputPosition, Mapping } from '@giscus/react'
-import GiscusComponent from '@giscus/react'
+import dynamic from 'next/dynamic'
 import { useTheme } from 'next-themes'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
+
+const GiscusComponent = dynamic(() => import('@giscus/react'), { ssr: false })
 
 interface GiscusConfigs {
   themeURL: string

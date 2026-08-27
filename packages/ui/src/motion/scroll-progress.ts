@@ -3,6 +3,7 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import type { RefObject } from 'react'
+import { prefersReducedMotion } from './reduced-motion'
 
 gsap.registerPlugin(useGSAP)
 
@@ -33,9 +34,14 @@ export function useScrollProgress(
       if (!scopeEl || !beamEl) return
 
       const setScaleY = gsap.quickSetter(beamEl, 'scaleY') as (v: number) => void
+      if (prefersReducedMotion()) {
+        gsap.set(beamEl, { transformOrigin: 'top', scaleY: 1, opacity: 1 })
+        return
+      }
       gsap.set(beamEl, { transformOrigin: 'top', scaleY: 0, opacity: 0 })
 
       let lastOpaque = false
+      let frame: number | null = null
       const update = () => {
         const rect = scopeEl.getBoundingClientRect()
         const vh = window.innerHeight || document.documentElement.clientHeight
@@ -53,14 +59,22 @@ export function useScrollProgress(
           lastOpaque = opaque
         }
       }
+      const onScroll = () => {
+        if (frame !== null) return
+        frame = requestAnimationFrame(() => {
+          frame = null
+          update()
+        })
+      }
 
       update()
-      window.addEventListener('scroll', update, { passive: true })
-      window.addEventListener('resize', update)
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onScroll)
 
       return () => {
-        window.removeEventListener('scroll', update)
-        window.removeEventListener('resize', update)
+        if (frame !== null) cancelAnimationFrame(frame)
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onScroll)
       }
     },
     { scope }

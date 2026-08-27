@@ -22,5 +22,9 @@ pnpm-lock.yaml
 # design-sync machine state
 .ds-sync/
 ds-bundle/
+ds-bundle-2026/
 .design-sync/.cache/
 .design-sync/learnings/
+
+# leftover Claude worktrees — generated/copied trees, không thuộc source of truth
+.claude/worktrees/

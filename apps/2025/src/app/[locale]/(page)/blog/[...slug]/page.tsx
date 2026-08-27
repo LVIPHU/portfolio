@@ -9,12 +9,13 @@ import {
   getAllPosts,
   getAllSlugs,
   getPost,
+  getRelatedPosts,
   getStructuredData,
   mapLocale,
 } from '@/utils/content'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { MDX_COMPONENTS } from '@/mdx-components'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 // Map tĩnh chọn template theo frontmatter layout (D-03 — hết meta-programming)
 const DEFAULT_TEMPLATE = 'PostLayout'
@@ -46,25 +47,30 @@ export async function generateMetadata(props: BlogPostParams): Promise<Metadata 
   }
   const authorDetails = getAuthorDetails(post.authors.length ? post.authors : ['default'])
 
-  const t = await getTranslations()
+  const t = await getTranslations({ locale: params.locale })
   const siteName = t('App.lươngVĩPhúS')
+  const siteUrl = SITE_METADATA.siteUrl ?? ''
+  const localePrefix = params.locale === 'en' ? '/en' : ''
 
   const publishedAt = new Date(post.date).toISOString()
   const modifiedAt = new Date(post.lastmod || post.date).toISOString()
   const authors = authorDetails.map((author) => author.name)
   const imageList = post.images.length ? post.images : [SITE_METADATA.socialBanner]
-  const ogImages = imageList.map((img) => ({
-    url: img.includes('http') ? img : SITE_METADATA.siteUrl + img,
-  }))
+  const toAbsolute = (img: string) => (img.includes('http') ? img : `${siteUrl}${img}`)
+  const ogImages = imageList.map((img) => ({ url: toAbsolute(img) }))
+  const ogLocale = params.locale === 'en' ? 'en_US' : 'vi_VN'
 
   return {
     title: post.title,
     description: post.summary,
+    alternates: {
+      canonical: `${siteUrl}${localePrefix}/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.summary,
       siteName: siteName,
-      locale: 'vi_VN',
+      locale: ogLocale,
       type: 'article',
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
@@ -76,7 +82,7 @@ export async function generateMetadata(props: BlogPostParams): Promise<Metadata 
       card: 'summary_large_image',
       title: post.title,
       description: post.summary,
-      images: imageList,
+      images: imageList.map(toAbsolute),
     },
   }
 }
@@ -87,6 +93,7 @@ export const generateStaticParams = async () => {
 
 export default async function Page(props: BlogPostParams) {
   const params = await props.params
+  setRequestLocale(params.locale)
   const slug = decodeURI(params.slug.join('/'))
   const locale = mapLocale(params.locale)
 
@@ -110,13 +117,25 @@ export default async function Page(props: BlogPostParams) {
   // Thay computedField structuredData của hệ cũ (D-02)
   const jsonLd: Record<string, unknown> = getStructuredData(mainContent, SITE_METADATA.siteUrl ?? '')
   jsonLd['author'] = authorDetails.map((author) => ({ '@type': 'Person', name: author.name }))
+  // getStructuredData fallback `/og-image.png` không tồn tại — trỏ socialBanner thật.
+  if (!mainContent.images.length) {
+    const banner = SITE_METADATA.socialBanner
+    jsonLd.image = banner.includes('http') ? banner : `${SITE_METADATA.siteUrl ?? ''}${banner}`
+  }
 
   const Layout = TEMPLATES[(post.layout as keyof typeof TEMPLATES) || DEFAULT_TEMPLATE]
+  const relatedPosts = getRelatedPosts(slug, locale, 3)
 
   return (
     <>
       <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Layout content={{ ...mainContent, toc }} authorDetails={authorDetails} next={next} prev={prev}>
+      <Layout
+        content={{ ...mainContent, toc }}
+        authorDetails={authorDetails}
+        next={next}
+        prev={prev}
+        relatedPosts={relatedPosts}
+      >
         <MDXContent source={post.content} components={MDX_COMPONENTS} />
       </Layout>
     </>

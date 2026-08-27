@@ -77,8 +77,6 @@ export {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  ScrollArea,
-  ScrollBar,
   Select,
   SelectGroup,
   SelectValue,
@@ -95,10 +93,6 @@ export {
   TabsTrigger,
   TabsContent,
   Textarea,
-  Toggle,
-  toggleVariants,
-  ToggleGroup,
-  ToggleGroupItem,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
@@ -136,3 +130,4 @@ export {
 export { TableOfContents } from './toc'
 export { VideoCard } from './video-card'
 export { ViewsCounter } from './views-counter'
+export { PostViews, BlogStatsListProvider } from './post-views'

@@ -1,14 +1,20 @@
 import { getAllPosts, getPostsWithAuthors, mapLocale } from '@/utils/content'
 import { POSTS_PER_PAGE } from '@/constants/post'
 import { BlogTemplate } from '@/components/templates'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
-export async function generateMetadata() {
-  const t = await getTranslations()
+type PageBlogParam = {
+  params: Promise<{ locale: string; page: string }>
+}
+
+export async function generateMetadata(props: PageBlogParam) {
+  const { locale } = await props.params
+  const t = await getTranslations({ locale })
 
   return {
     title: t('Common.blog'),
+    description: t('Blog.iLikeToWrite'),
   }
 }
 
@@ -19,12 +25,9 @@ export function generateStaticParams({ params }: { params: { locale: string } })
   return Array.from({ length: Math.max(0, total - 1) }, (_, i) => ({ page: String(i + 2) }))
 }
 
-type PageBlogParam = {
-  params: Promise<{ locale: string; page: string }>
-}
-
 export default async function BlogPaginatedPage(props: PageBlogParam) {
   const params = await props.params
+  setRequestLocale(params.locale)
   // getAllPosts đã sort + lọc draft + bỏ content (per-locale, fallback slug thiếu — D-04)
   // + enrich author cho card grid/list
   const posts = getPostsWithAuthors(mapLocale(params.locale))

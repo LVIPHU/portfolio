@@ -71,7 +71,7 @@ export const SITE_METADATA_2025: SiteMetadata2025 = {
   },
   description: {
     vi: 'Tôi là Lương Vĩ Phú, một kỹ sư phần mềm. Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với tôi. Cảm ơn bạn đã ghé thăm trang web của tôi.',
-    en: 'I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.',
+    en: 'I am Lương Vĩ Phú, a software engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.',
   },
   language: 'vi-VN',
   theme: 'system',

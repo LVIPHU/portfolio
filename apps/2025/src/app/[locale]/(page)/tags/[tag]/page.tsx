@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { getPostsWithAuthors, getTagData, mapLocale } from '@/utils/content'
 import { TagTemplate } from '@/components/templates'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 type TagPageParams = {
   params: Promise<{ tag: string; locale: string }>
@@ -13,11 +13,10 @@ type TagPageParams = {
 export async function generateMetadata(props: TagPageParams): Promise<Metadata> {
   const params = await props.params
   const tag = decodeURI(params.tag)
-  const t = await getTranslations()
-  const siteTitle = t('App.lươngVĩPhúS')
+  const t = await getTranslations({ locale: params.locale })
   return {
     title: tag,
-    description: `${siteTitle} ${tag} tagged content`,
+    description: t('Tags.writtenAbout', { tag }),
     alternates: {
       canonical: './',
       types: {
@@ -37,23 +36,20 @@ export const generateStaticParams = async ({ params }: { params: { locale: strin
 
 export default async function TagPage(props: TagPageParams) {
   const params = await props.params
+  setRequestLocale(params.locale)
   const locale = mapLocale(params.locale)
   const tag = decodeURI(params.tag)
-  // Capitalize first letter and convert space to dash
-  const title = '#' + tag[0] + tag.split(' ').join('-').slice(1)
-  // so khớp theo slug(tag): key sidebar/URL đã slugify, tag bài thì raw → slug 2 phía
-  const filteredPosts = getPostsWithAuthors(locale).filter((post) => post.tags.map((t) => slug(t)).includes(tag))
+  const first = tag[0] ?? ''
+  const title = '#' + first + tag.split(' ').join('-').slice(1)
+  const t = await getTranslations()
+  const filteredPosts = getPostsWithAuthors(locale).filter((post) => post.tags.map((item) => slug(item)).includes(tag))
   if (filteredPosts.length === 0) {
     return notFound()
   }
   return (
     <TagTemplate
       title={title}
-      description={
-        <>
-          Things I&#39;ve written about <span className='ml-1 font-semibold'>{tag}</span>
-        </>
-      }
+      description={t('Tags.writtenAbout', { tag })}
       posts={filteredPosts}
       tagCounts={getTagData(locale)}
     />

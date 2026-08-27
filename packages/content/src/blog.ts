@@ -4,6 +4,7 @@ import { slug } from 'github-slugger'
 import matter from 'gray-matter'
 import readingTime from 'reading-time'
 import { postFrontmatterSchema } from './schema'
+import { defaultLocale } from '@portfolio/i18n/locales'
 import type { Locale, Post, PostMeta } from './types'
 
 /**
@@ -31,6 +32,17 @@ export function contentDir(): string {
 
 const blogDir = () => path.join(contentDir(), 'blog')
 
+const prodMemo = new Map<string, unknown>()
+
+/** Cache FS trong production (build/start). Dev luôn đọc lại để sửa MDX hiện ngay. */
+function memoize<T>(key: string, compute: () => T): T {
+  if (process.env.NODE_ENV !== 'production') return compute()
+  if (prodMemo.has(key)) return prodMemo.get(key) as T
+  const value = compute()
+  prodMemo.set(key, value)
+  return value
+}
+
 interface ParsedFile {
   slug: string
   locale: Locale
@@ -39,45 +51,51 @@ interface ParsedFile {
 
 /** File đặt tên dạng <slug>.<locale>.mdx, ví dụ hello-world.vi.mdx */
 function listFiles(): ParsedFile[] {
-  const dir = blogDir()
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith('.mdx'))
-    .flatMap((file) => {
-      const m = file.match(/^(.+)\.(vi|en)\.mdx$/)
-      if (!m) return []
-      return [{ slug: m[1], locale: m[2] as Locale, file: path.join(dir, file) }]
-    })
+  return memoize('listFiles', () => {
+    const dir = blogDir()
+    return fs
+      .readdirSync(dir)
+      .filter((f) => f.endsWith('.mdx'))
+      .flatMap((file) => {
+        const m = file.match(/^(.+)\.(vi|en)\.mdx$/)
+        const slug = m?.[1]
+        const locale = m?.[2]
+        if (!slug || (locale !== 'vi' && locale !== 'en')) return []
+        return [{ slug, locale, file: path.join(dir, file) }]
+      })
+  })
 }
 
 const iso = (d: Date) => d.toISOString().slice(0, 10)
 
 function toPost(parsed: ParsedFile): Post {
-  const raw = fs.readFileSync(parsed.file, 'utf8')
-  const { data, content } = matter(raw)
-  const fm = postFrontmatterSchema.safeParse(data)
-  if (!fm.success) {
-    throw new Error(`Frontmatter không hợp lệ ở ${parsed.file}:\n${fm.error.message}`)
-  }
-  const f = fm.data
-  return {
-    slug: parsed.slug,
-    locale: parsed.locale,
-    title: f.title,
-    summary: f.summary,
-    date: iso(f.date),
-    lastmod: f.lastmod ? iso(f.lastmod) : undefined,
-    tags: f.tags,
-    draft: f.draft,
-    images: f.images,
-    authors: f.authors,
-    layout: f.layout,
-    canonicalUrl: f.canonicalUrl,
-    path: `blog/${parsed.slug}`,
-    filePath: `blog/${parsed.slug}.${parsed.locale}.mdx`,
-    readingTime: readingTime(content),
-    content,
-  }
+  return memoize(`toPost:${parsed.file}`, () => {
+    const raw = fs.readFileSync(parsed.file, 'utf8')
+    const { data, content } = matter(raw)
+    const fm = postFrontmatterSchema.safeParse(data)
+    if (!fm.success) {
+      throw new Error(`Frontmatter không hợp lệ ở ${parsed.file}:\n${fm.error.message}`)
+    }
+    const f = fm.data
+    return {
+      slug: parsed.slug,
+      locale: parsed.locale,
+      title: f.title,
+      summary: f.summary,
+      date: iso(f.date),
+      lastmod: f.lastmod ? iso(f.lastmod) : undefined,
+      tags: f.tags,
+      draft: f.draft,
+      images: f.images,
+      authors: f.authors,
+      layout: f.layout,
+      canonicalUrl: f.canonicalUrl,
+      path: `blog/${parsed.slug}`,
+      filePath: `blog/${parsed.slug}.${parsed.locale}.mdx`,
+      readingTime: readingTime(content),
+      content,
+    }
+  })
 }
 
 function isPublished(p: { draft: boolean }): boolean {
@@ -108,7 +126,7 @@ export function getAllPosts(locale: Locale): PostMeta[] {
 export function getPost(slug: string, locale: Locale): Post | null {
   const files = listFiles().filter((f) => f.slug === slug)
   const exact = files.find((f) => f.locale === locale)
-  const fallback = files[0]
+  const fallback = files.find((f) => f.locale === defaultLocale) ?? files[0]
   const target = exact ?? fallback
   if (!target) return null
   const post = toPost(target)
@@ -152,6 +170,24 @@ export function getTagData(locale: Locale): Record<string, number> {
 /** Documents cho search (kbar) — shape khớp public/search.json cũ của 2025 */
 export function getSearchDocs(locale: Locale): PostMeta[] {
   return getAllPosts(locale)
+}
+
+/** Bài liên quan: chấm điểm theo số tag chung, thiếu thì fallback bài mới nhất. */
+export function getRelatedPosts(slug: string, locale: Locale, limit = 3): PostMeta[] {
+  const posts = getAllPosts(locale)
+  const current = posts.find((p) => p.slug === slug)
+  const others = posts.filter((p) => p.slug !== slug)
+  if (!current) return others.slice(0, limit)
+
+  const currentTags = new Set(current.tags)
+  return [...others]
+    .sort((a, b) => {
+      const scoreA = a.tags.filter((tag) => currentTags.has(tag)).length
+      const scoreB = b.tags.filter((tag) => currentTags.has(tag)).length
+      if (scoreB !== scoreA) return scoreB - scoreA
+      return a.date < b.date ? 1 : -1
+    })
+    .slice(0, limit)
 }
 
 /** schema.org BlogPosting cho 1 bài (thay computedField structuredData của contentlayer) */

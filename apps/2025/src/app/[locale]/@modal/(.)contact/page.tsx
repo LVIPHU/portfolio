@@ -1,7 +1,9 @@
 import { ContactForm, ContactInfo, Modal } from '@/components/molecules'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-export default async function ContactModal() {
+export default async function ContactModal({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  setRequestLocale(locale)
   const t = await getTranslations()
   return (
     <Modal

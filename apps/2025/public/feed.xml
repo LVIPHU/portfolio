@@ -2,81 +2,81 @@
 		<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 			<channel>
 				<title>Lương Vĩ Phú&#39;s dev blog - portfolio</title>
-				<link>http://localhost:3001/blog</link>
-				<description>I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.</description>
+				<link>/blog</link>
+				<description>I am Lương Vĩ Phú, a software engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.</description>
 				<language>vi-VN</language>
-				<managingEditor>undefined (undefined)</managingEditor>
-				<webMaster>undefined (undefined)</webMaster>
+				<managingEditor>luongviphu0403@gmail.com (Lương Vĩ Phú)</managingEditor>
+				<webMaster>luongviphu0403@gmail.com (Lương Vĩ Phú)</webMaster>
 				<lastBuildDate>Sun, 12 Jul 2026 00:00:00 GMT</lastBuildDate>
-				<atom:link href="http://localhost:3001/feed.xml" rel="self" type="application/rss+xml"/>
+				<atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
 				
 		<item>
-			<guid>http://localhost:3001/blog/playground-demo</guid>
+			<guid>/blog/playground-demo</guid>
 			<title>Code playground sống ngay trong bài viết</title>
-			<link>http://localhost:3001/blog/playground-demo</link>
+			<link>/blog/playground-demo</link>
 			<description>Chèn trình soạn thảo chạy được vào blog bằng Sandpack — sửa code là thấy kết quả, không rời trang.</description>
 			<pubDate>Sun, 12 Jul 2026 00:00:00 GMT</pubDate>
-			<author>undefined (undefined)</author>
+			<author>luongviphu0403@gmail.com (Lương Vĩ Phú)</author>
 			<category>react</category><category>sandpack</category>
 		</item>
 	
 		<item>
-			<guid>http://localhost:3001/blog/portfolio-monorepo</guid>
+			<guid>/blog/portfolio-monorepo</guid>
 			<title>Xây dựng portfolio bằng monorepo</title>
-			<link>http://localhost:3001/blog/portfolio-monorepo</link>
+			<link>/blog/portfolio-monorepo</link>
 			<description>Vì sao mình chọn monorepo cho portfolio: giữ nhiều version chạy song song mà chỉ cần một nguồn nội dung.</description>
 			<pubDate>Mon, 06 Jul 2026 00:00:00 GMT</pubDate>
-			<author>undefined (undefined)</author>
+			<author>luongviphu0403@gmail.com (Lương Vĩ Phú)</author>
 			<category>nextjs</category><category>monorepo</category>
 		</item>
 	
 		<item>
-			<guid>http://localhost:3001/blog/hello-world</guid>
+			<guid>/blog/hello-world</guid>
 			<title>Xin chào thế giới</title>
-			<link>http://localhost:3001/blog/hello-world</link>
+			<link>/blog/hello-world</link>
 			<description>Bài viết đầu tiên trên blog — vì sao mình làm trang này và bạn sẽ đọc được gì ở đây.</description>
 			<pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
-			<author>undefined (undefined)</author>
+			<author>luongviphu0403@gmail.com (Lương Vĩ Phú)</author>
 			<category>life</category>
 		</item>
 	
 		<item>
-			<guid>http://localhost:3001/blog/does-promise-all-run-in-parallel-or-sequential</guid>
+			<guid>/blog/does-promise-all-run-in-parallel-or-sequential</guid>
 			<title>Does JavaScript Promise.all() run in parallel or sequential?</title>
-			<link>http://localhost:3001/blog/does-promise-all-run-in-parallel-or-sequential</link>
+			<link>/blog/does-promise-all-run-in-parallel-or-sequential</link>
 			<description>JavaScript is a single-threaded programming language, so it can&#39;t run multiple things at the same time, Promise.all() actually runs promises concurrently, not in parallel!. Let&#39;s dive in to see how it works.</description>
 			<pubDate>Mon, 04 Sep 2023 00:00:00 GMT</pubDate>
-			<author>undefined (undefined)</author>
+			<author>luongviphu0403@gmail.com (Lương Vĩ Phú)</author>
 			<category>javascript</category><category>promise</category><category>parallel</category><category>sequential</category><category>concurrently</category>
 		</item>
 	
 		<item>
-			<guid>http://localhost:3001/blog/guide-to-using-images-in-nextjs</guid>
+			<guid>/blog/guide-to-using-images-in-nextjs</guid>
 			<title>Images in Next.js</title>
-			<link>http://localhost:3001/blog/guide-to-using-images-in-nextjs</link>
+			<link>/blog/guide-to-using-images-in-nextjs</link>
 			<description>In this article we introduce adding images in the tailwind starter blog and the benefits and limitations of the next/image component.</description>
 			<pubDate>Wed, 11 Nov 2020 00:00:00 GMT</pubDate>
-			<author>undefined (undefined)</author>
+			<author>luongviphu0403@gmail.com (Lương Vĩ Phú)</author>
 			<category>nextjs</category><category>guide</category>
 		</item>
 	
 		<item>
-			<guid>http://localhost:3001/blog/kien-truc-react-fiber</guid>
+			<guid>/blog/kien-truc-react-fiber</guid>
 			<title>Kiến trúc React Fiber</title>
-			<link>http://localhost:3001/blog/kien-truc-react-fiber</link>
+			<link>/blog/kien-truc-react-fiber</link>
 			<description>React Fiber là một phiên bản tái cấu trúc liên tục của thuật toán cốt lỗi của React. Đây là kết quả của hơn hai năm nghiên cứu bởi đội ngũ React.</description>
 			<pubDate>Tue, 19 Jul 2016 00:00:00 GMT</pubDate>
-			<author>undefined (undefined)</author>
+			<author>luongviphu0403@gmail.com (Lương Vĩ Phú)</author>
 			<category>react</category><category>architecture</category>
 		</item>
 	
 		<item>
-			<guid>http://localhost:3001/blog/cac-component-element-va-instance-trong-react</guid>
+			<guid>/blog/cac-component-element-va-instance-trong-react</guid>
 			<title>Các Component, Element và Instance trong React</title>
-			<link>http://localhost:3001/blog/cac-component-element-va-instance-trong-react</link>
+			<link>/blog/cac-component-element-va-instance-trong-react</link>
 			<description>Sự khác biệt giữa component, instance và element khiến nhiều người mới học React cảm thấy bối rối. Tại sao lại có ba thuật ngữ khác nhau để chỉ một thứ xuất hiện trên màn hình?</description>
 			<pubDate>Fri, 18 Dec 2015 00:00:00 GMT</pubDate>
-			<author>undefined (undefined)</author>
+			<author>luongviphu0403@gmail.com (Lương Vĩ Phú)</author>
 			<category>react</category><category>component</category><category>element</category><category>instance</category>
 		</item>
 	

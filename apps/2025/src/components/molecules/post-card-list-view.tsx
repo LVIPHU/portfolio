@@ -39,7 +39,7 @@ export function PostCardListView({ post }: { post: PostWithAuthor }) {
               desktop bỏ aspect-video, ảnh fill theo chiều cao NỘI DUNG → card gọn, ảnh ~16:9 */}
           <NavigationLink href={`/blog/${slug}`} className='relative aspect-video w-full sm:aspect-auto sm:w-64'>
             <NextImage
-              src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
+              src={images?.[0] ?? SITE_METADATA.socialBanner}
               alt={title}
               fill
               sizes='(min-width: 640px) 33vw, 100vw'

@@ -33,6 +33,12 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in-scale {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
     .fade-in-up {
       animation: none;
     }

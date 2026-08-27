@@ -1,7 +1,16 @@
 'use client'
 
 import type { PostWithAuthor } from '@/utils/content'
-import { Badge, Container, NavigationLink, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
+import {
+  Badge,
+  BlogStatsListProvider,
+  Container,
+  NavigationLink,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
 import { AppContextInterface, useApp } from '@/providers/app'
 import { LayoutGrid, List } from 'lucide-react'
@@ -45,12 +54,14 @@ export function TagTemplate({ title, description, posts, tagCounts }: ListLayout
         <div className='relative flex flex-col items-start gap-12 lg:flex-row'>
           <TagsList tagCounts={tagCounts} />
           <div className='py-5 md:py-10'>
-            <TabsContent value='GRID'>
-              <GridView posts={posts} />
-            </TabsContent>
-            <TabsContent value='LIST'>
-              <ListView posts={posts} />
-            </TabsContent>
+            <BlogStatsListProvider slugs={posts.map((post) => post.slug)}>
+              <TabsContent value='GRID'>
+                <GridView posts={posts} />
+              </TabsContent>
+              <TabsContent value='LIST'>
+                <ListView posts={posts} />
+              </TabsContent>
+            </BlogStatsListProvider>
           </div>
         </div>
       </Tabs>
@@ -60,7 +71,7 @@ export function TagTemplate({ title, description, posts, tagCounts }: ListLayout
 
 function TagsList({ tagCounts }: { tagCounts: Record<string, number> }) {
   const tagKeys = Object.keys(tagCounts)
-  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
+  const sortedTags = tagKeys.sort((a, b) => (tagCounts[b] ?? 0) - (tagCounts[a] ?? 0))
   return (
     <aside className='sticky top-8 order-last w-full shrink-0 lg:order-first lg:max-w-sm'>
       <h3 className='text-3xl font-bold tracking-tight'>Tags</h3>

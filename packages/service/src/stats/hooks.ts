@@ -2,41 +2,60 @@
 
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
+import { fetcher } from '@portfolio/utils'
 import type { SelectStats, StatsType } from '../db/schema'
 
-async function fetcher(url: string) {
-  return fetch(url).then((res) => res.json())
-}
-
 export function useBlogStats(type: StatsType, slug: string) {
-  const { data, isLoading } = useSWR<SelectStats>(`/api/stats?slug=${slug}&type=${type}`, fetcher, {
+  const { data, isLoading } = useSWR<SelectStats>(`/api/stats?slug=${encodeURIComponent(slug)}&type=${type}`, fetcher, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   })
-  const { views, loves, applauses, ideas, bullseyes } = data || {}
   const stats: SelectStats = {
     type,
     slug,
-    views: views || 0,
-    loves: loves || 0,
-    applauses: applauses || 0,
-    ideas: ideas || 0,
-    bullseyes: bullseyes || 0,
+    views: data?.views || 0,
+    loves: data?.loves || 0,
+    applauses: data?.applauses || 0,
+    ideas: data?.ideas || 0,
+    bullseyes: data?.bullseyes || 0,
   }
   return [stats, isLoading] as const
 }
 
+export function useBlogStatsList(type: StatsType, slugs: string[]) {
+  const key = slugs.length ? `/api/stats?type=${type}&slugs=${slugs.map(encodeURIComponent).join(',')}` : null
+  const { data, isLoading } = useSWR<SelectStats[]>(key, fetcher, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  })
+  return [
+    data ?? slugs.map((slug) => ({ type, slug, views: 0, loves: 0, applauses: 0, ideas: 0, bullseyes: 0 })),
+    isLoading,
+  ] as const
+}
+
 /** `incrementViews` để SERVER tự +1 — client đọc-rồi-ghi làm mất lượt khi cache đã cũ. */
-export type StatsUpdateArg = Partial<SelectStats> & { incrementViews?: boolean }
+export type StatsUpdateArg = {
+  type: StatsType
+  slug: string
+  incrementViews?: boolean
+  loves?: number
+  applauses?: number
+  ideas?: number
+  bullseyes?: number
+}
 
 export function useUpdateBlogStats() {
   const { trigger } = useSWRMutation('/api/stats', async (url: string, { arg }: { arg: StatsUpdateArg }) => {
-    return fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(arg),
-    }).catch(console.error)
+    })
+    if (!res.ok) throw new Error(`Stats update failed: ${res.status}`)
+    return res.json() as Promise<SelectStats>
   })
   return trigger
 }

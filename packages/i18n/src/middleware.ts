@@ -6,4 +6,5 @@ import { routing } from './routing'
 export default createMiddleware(routing)
 
 /** Chỉ để tham chiếu / test — app không được `export const config = proxyConfig`. */
-export const PROXY_MATCHER = '/((?!api|trpc|_next|_vercel|.*\\..*).*)'
+export const PROXY_MATCHER =
+  '/((?!api|trpc|_next|_vercel|icon(?:/|$)|apple-icon(?:/|$)|opengraph-image(?:/|$)|.*\\..*).*)'

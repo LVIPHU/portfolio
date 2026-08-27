@@ -37,6 +37,7 @@ export const ContactInfo = () => {
     <div>
       <h2 className='text-2xl font-bold tracking-tight'>{t('Contact.contactInformation')}</h2>
       <p className='text-muted-foreground mt-2'>{t('Contact.contactInfoDesc')}</p>
+      <p className='text-muted-foreground mt-1 text-sm'>{t('Contact.sla')}</p>
 
       <ul className='mt-8 space-y-6'>
         {contactItems.map(({ icon: Icon, label, value, href }) => (
@@ -63,7 +64,7 @@ export const ContactInfo = () => {
             key={label}
             href={href}
             target='_blank'
-            rel='noreferrer'
+            rel='noopener noreferrer'
             aria-label={label}
             className='text-muted-foreground hover:text-foreground transition-colors'
           >

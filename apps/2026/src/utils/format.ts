@@ -18,7 +18,7 @@ const monthFormatters: Record<Locale, (year: string, month: string) => string> =
 
 export function formatMonth(value: string, locale: Locale): string {
   const [year, month] = value.split('-')
-  if (!month) return year
+  if (!year || !month) return value
   return monthFormatters[locale](year, month)
 }
 

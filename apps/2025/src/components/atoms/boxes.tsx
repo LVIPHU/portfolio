@@ -1,5 +1,5 @@
 'use client'
-import React, { CSSProperties, memo, useRef, useState, useMemo, useEffect, useLayoutEffect } from 'react'
+import React, { CSSProperties, memo, useState, useMemo, useEffect, useLayoutEffect } from 'react'
 import { cn } from '@portfolio/utils'
 import { initAudio, playRandomNote } from '@/utils'
 import { useDragRotate } from '@portfolio/hooks'
@@ -8,14 +8,13 @@ import { BREAKPOINTS, COLORS, TOTAL_GRID } from '@/constants/boxes'
 type Color = (typeof COLORS)[number]
 
 const getRandomColor = (): Color => {
-  return COLORS[Math.floor(Math.random() * COLORS.length)]
+  return COLORS[Math.floor(Math.random() * COLORS.length)] ?? 'lime'
 }
 
-// Color mapping for Tailwind v4 colors
 const COLOR_MAP: Record<Color, string> = {
-  lime: 'rgb(190 242 100)', // lime-300
-  amber: 'rgb(252 211 77)', // amber-300
-  sky: 'rgb(125 211 252)', // sky-300
+  lime: 'rgb(190 242 100)',
+  amber: 'rgb(252 211 77)',
+  sky: 'rgb(125 211 252)',
 }
 
 type BoxCellProps = {
@@ -40,8 +39,13 @@ const Cell = memo(function BoxCell({ id }: BoxCellProps) {
   )
 
   return (
-    <div
-      className={cn({
+    <button
+      type='button'
+      // Trang trí thuần (tổ tiên đã aria-hidden): tabIndex -1 giữ nút ngoài tab order —
+      // 3.600 nút focusable từng bắt người dùng bàn phím Tab xuyên qua cả lưới,
+      // và aria-hidden đè lên phần tử focusable là vi phạm WCAG nếu thiếu dòng này.
+      tabIndex={-1}
+      className={cn('h-full w-full appearance-none p-0', {
         'box-cell-0': id === '0',
         'box-cell-2': id === '2',
         'box-cell-3': id === '3',
@@ -56,38 +60,22 @@ const Cell = memo(function BoxCell({ id }: BoxCellProps) {
 
 const Grid = memo(function BoxRow() {
   const cells = useMemo(() => Array.from({ length: 4 }, (_, i) => i), [])
-  const ref = useRef<HTMLDivElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useLayoutEffect(() => {
-    const element = ref.current
-    if (!element) return
-
-    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), { threshold: 0.1 })
-
-    observer.observe(element)
-    return () => observer.unobserve(element)
-  }, [])
 
   return (
-    <div ref={ref} className='box-grid'>
-      {isVisible && (
-        <>
-          {cells.map((idx) => (
-            <Cell id={`${idx}`} key={idx} />
-          ))}
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth='0.4'
-            stroke='currentColor'
-            className='pointer-events-none absolute left-[30%] top-[30%] h-8 w-8 text-slate-600'
-          >
-            <path strokeLinecap='round' strokeLinejoin='round' d='M12 4v16M0 12h24' />
-          </svg>
-        </>
-      )}
+    <div className='box-grid'>
+      {cells.map((cellIdx) => (
+        <Cell id={`${cellIdx}`} key={cellIdx} />
+      ))}
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        fill='none'
+        viewBox='0 0 24 24'
+        strokeWidth='0.4'
+        stroke='currentColor'
+        className='pointer-events-none absolute left-[30%] top-[30%] h-8 w-8 text-slate-600'
+      >
+        <path strokeLinecap='round' strokeLinejoin='round' d='M12 4v16M0 12h24' />
+      </svg>
     </div>
   )
 })
@@ -98,6 +86,8 @@ type BoxCoreProps = {
 
 export const Boxes = memo(function BoxCore({ children }: BoxCoreProps) {
   const { ref, angle, isDragging, onMouseDown } = useDragRotate()
+  // CSS `.box-content` là lưới 30×30 — phải đủ 900 ô, không cắt theo viewport. Cắt 484/225
+  // để trống hàng rồi IntersectionObserver (bounding box TRƯỚC skew) nuốt nốt dấu cộng.
   const grids = useMemo(() => Array.from({ length: TOTAL_GRID }, (_, i) => i), [])
   const [scaleValue, setScaleValue] = useState(0.6)
 
@@ -140,13 +130,20 @@ export const Boxes = memo(function BoxCore({ children }: BoxCoreProps) {
 
   return (
     <div className='box-container'>
+      {/* Kéo xoay nền — pointer-only; không phải control form nên không gán role button. */}
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- drag surface, không phải click target */}
       <div ref={ref} style={styles} className='box-content' onMouseDown={onMouseDown}>
         {children}
-        {grids.map((idx) => (
-          <Grid key={idx} />
-        ))}
+        {/* Lưới + dấu cộng là TRANG TRÍ: ẩn khỏi cây a11y (900 grid × 4 nút đọc thành rác
+            trên screen reader). display:contents để wrapper không thành grid item —
+            .box-grid vẫn là con trực tiếp của lưới 30×30. Click chuột chơi note vẫn chạy. */}
+        <div aria-hidden className='contents'>
+          {grids.map((idx) => (
+            <Grid key={idx} />
+          ))}
+        </div>
       </div>
-      <div className='[WebkitMaskImage:radial-gradient(ellipse_at_center,transparent_50%,black)] pointer-events-none fixed inset-0 select-none backdrop-blur-sm [background:radial-gradient(ellipse_at_center,transparent_50%,var(-----background))] [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]' />
+      <div className='[WebkitMaskImage:radial-gradient(ellipse_at_center,transparent_50%,black)] pointer-events-none fixed inset-0 select-none backdrop-blur-sm [background:radial-gradient(ellipse_at_center,transparent_50%,hsl(var(--background)))] [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]' />
     </div>
   )
 })

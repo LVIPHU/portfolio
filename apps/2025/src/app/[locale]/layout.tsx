@@ -11,6 +11,8 @@ import { JetBrains_Mono, Nunito, Playpen_Sans } from 'next/font/google'
 import { cn } from '@portfolio/utils'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { KBarSearchProvider } from '@/components/organisms/search/kbar-provider'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { UmamiAnalytics } from '@/components/organisms/umami-analytics'
 
 const FONT_PLAYPEN_SANS = Playpen_Sans({
   subsets: ['latin', 'vietnamese'],
@@ -48,9 +50,13 @@ export async function generateMetadata(props: Params & { children: ReactNode; mo
 
   const title = t('App.lươngVĩPhúS')
   const description = t('App.iAmLươngVĩ')
+  const siteUrl = SITE_METADATA.siteUrl ?? 'http://localhost:3001'
+  const ogLocale = locale === 'en' ? 'en_US' : 'vi_VN'
+  const viHome = siteUrl
+  const enHome = `${siteUrl}/en`
 
   return {
-    metadataBase: new URL(SITE_METADATA.siteUrl ?? 'http://localhost:3001'),
+    metadataBase: new URL(siteUrl),
     title: {
       default: title,
       template: `%s | ${title}`,
@@ -62,13 +68,18 @@ export async function generateMetadata(props: Params & { children: ReactNode; mo
       url: './',
       siteName: title,
       images: [SITE_METADATA.socialBanner],
-      locale: 'vi_VN',
+      locale: ogLocale,
       type: 'website',
     },
     alternates: {
       canonical: './',
+      languages: {
+        vi: viHome,
+        en: enHome,
+        'x-default': viHome,
+      },
       types: {
-        'application/rss+xml': `${SITE_METADATA.siteUrl}/feed.xml`,
+        'application/rss+xml': `${siteUrl}/feed.xml`,
       },
     },
     robots: {
@@ -78,13 +89,13 @@ export async function generateMetadata(props: Params & { children: ReactNode; mo
         index: true,
         follow: true,
         'max-video-preview': -1,
-        'max-image-preview': 'large',
+        'max-image-preview': 'large' as const,
         'max-snippet': -1,
       },
     },
     twitter: {
       title: title,
-      card: 'summary_large_image',
+      card: 'summary_large_image' as const,
       images: [SITE_METADATA.socialBanner],
     },
   }
@@ -107,6 +118,8 @@ export default async function RootLayout({ children, modal, params }: Readonly<P
     >
       <body>
         <NextIntlClientProvider>
+          <UmamiAnalytics />
+          <SpeedInsights />
           <ProviderRegistry>
             <KBarSearchProvider configs={SITE_METADATA.search.kbarConfigs}>
               <Navbar />

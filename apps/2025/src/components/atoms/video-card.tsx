@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavigationLink } from '@/components/atoms/navigation-link'
 import { FadeContent } from '@/components/atoms/fade-content'
-import { VideoKey } from '@/components/templates'
+import type { VideoKey } from '@/components/templates/home'
 
 interface VideoCardProps {
   idx?: number
@@ -31,13 +31,18 @@ export const VideoCard = React.memo(
     }
 
     return (
-      <NavigationLink href={href} className='absolute z-10 h-full w-full' style={{ gridColumn, gridRow }}>
+      <NavigationLink
+        href={href}
+        aria-label={name}
+        className='absolute z-10 h-full w-full'
+        style={{ gridColumn, gridRow }}
+      >
         <FadeContent blur={true} delay={idx * 300} duration={500} className='h-full w-full'>
           <div
             onPointerMove={handlePointerMove}
             onPointerEnter={handlePointerEnter}
             onPointerLeave={handlePointerLeave}
-            className='transition-filter relative h-full w-full cursor-pointer select-none shadow-[32px_50px_50px_0px_#193A3E55] grayscale hover:grayscale-0 active:scale-95 active:shadow-[8px_8px_12px_-4px_#00132960]'
+            className='transition-filter relative h-full w-full cursor-pointer select-none shadow-[32px_50px_50px_0px_#193A3E55] grayscale hover:grayscale-0 active:scale-95 active:shadow-[8px_8px_12px_-4px_#00132960] motion-reduce:transition-none motion-reduce:active:scale-100'
           >
             <video
               ref={ref}

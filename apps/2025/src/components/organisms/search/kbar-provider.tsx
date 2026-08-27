@@ -2,16 +2,24 @@
 
 import type { Action } from 'kbar'
 import { KBarProvider } from 'kbar'
-import { useRouter } from 'next/navigation.js'
+import dynamic from 'next/dynamic'
+import { useRouter } from '@portfolio/i18n/navigation'
 import { useState, type ReactNode, useEffect } from 'react'
-import type { CoreContent, MDXDocument } from '@/types/data'
 import { formatDate } from '@portfolio/utils'
-import { KBarModal } from './kbar-modal'
+
+const KBarModal = dynamic(() => import('./kbar-modal').then((m) => m.KBarModal), { ssr: false })
+
+type SearchDocument = {
+  path: string
+  title: string
+  summary?: string
+  date: string
+}
 
 export interface KBarSearchProps {
   searchDocumentsPath: string | false
   defaultActions?: Action[]
-  onSearchDocumentsLoad?: (json: any) => Action[]
+  onSearchDocumentsLoad?: (documents: SearchDocument[]) => Action[]
 }
 
 export interface KBarConfig {
@@ -26,16 +34,16 @@ export function KBarSearchProvider({ configs, children }: { configs: KBarSearchP
   const [dataLoaded, setDataLoaded] = useState(false)
 
   useEffect(() => {
-    function mapPosts(posts: CoreContent<MDXDocument>[]) {
+    function mapPosts(posts: SearchDocument[]) {
       const actions: Action[] = []
       for (const post of posts) {
         actions.push({
-          id: (post as any)?.path,
-          name: post?.title,
-          keywords: (post as any)?.summary || '',
+          id: post.path,
+          name: post.title,
+          keywords: post.summary || '',
           section: 'Content',
-          subtitle: formatDate((post as any)?.date),
-          perform: () => router.push('/' + (post as any)?.path),
+          subtitle: formatDate(post.date),
+          perform: () => router.push('/' + post.path),
         })
       }
       return actions
@@ -47,14 +55,14 @@ export function KBarSearchProvider({ configs, children }: { configs: KBarSearchP
             ? searchDocumentsPath
             : new URL(searchDocumentsPath, window.location.origin)
         const res = await fetch(url)
-        const json = await res.json()
+        const json = (await res.json()) as SearchDocument[]
         const actions = onSearchDocumentsLoad ? onSearchDocumentsLoad(json) : mapPosts(json)
         setSearchActions(actions)
         setDataLoaded(true)
       }
     }
     if (!dataLoaded && searchDocumentsPath) {
-      fetchData()
+      void fetchData()
     } else {
       setDataLoaded(true)
     }

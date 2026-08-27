@@ -4,6 +4,7 @@ import { useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { prefersReducedMotion } from './reduced-motion'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -38,6 +39,7 @@ export function Reveal({
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return
       const axis = direction === 'horizontal' ? 'x' : 'y'
       const from = reverse ? -distance : distance
       gsap.from(scope.current, {

@@ -14,10 +14,20 @@ import { Sandpack } from './sandpack'
  * App override bằng next/image qua prop components của MDXContent.
  */
 function PlainImg(props: ComponentPropsWithoutRef<'img'>) {
-  return <img loading='lazy' decoding='async' {...props} />
+  return <img loading='lazy' decoding='async' alt={props.alt ?? ''} {...props} />
+}
+
+function MdxLink({ href, children, ...props }: ComponentPropsWithoutRef<'a'>) {
+  const external = typeof href === 'string' && /^https?:\/\//.test(href)
+  return (
+    <a href={href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} {...props}>
+      {children}
+    </a>
+  )
 }
 
 export const defaultMdxComponents: MDXComponents = {
+  a: MdxLink,
   pre: Pre,
   table: TableWrapper,
   img: PlainImg,

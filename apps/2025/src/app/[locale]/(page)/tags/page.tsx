@@ -3,8 +3,9 @@ import { Reveal, Badge, Container, NavigationLink } from '@/components/atoms'
 import { slug } from 'github-slugger'
 import { getTagData, mapLocale } from '@/utils/content'
 
-export async function generateMetadata() {
-  const t = await getTranslations()
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const t = await getTranslations({ locale })
 
   return {
     title: t('Common.tags'),
@@ -17,7 +18,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   setRequestLocale(locale)
   const tagCounts = getTagData(mapLocale(locale))
   const tagKeys = Object.keys(tagCounts)
-  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
+  const sortedTags = tagKeys.sort((a, b) => (tagCounts[b] ?? 0) - (tagCounts[a] ?? 0))
   return (
     <Container className='pt-4 md:pt-0'>
       <div className='flex flex-col items-start justify-start divide-y divide-gray-200 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0 dark:divide-gray-700'>

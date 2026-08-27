@@ -3,13 +3,13 @@ import { capitalize, kebabCaseToPlainText } from '@portfolio/utils'
 import { GritBackground, GrowingUnderline, Image, NavigationLink, Zoom } from '@/components/atoms'
 
 export function Banner({ banner, className }: { banner: string; className?: string }) {
-  const [path, author, filename] = banner.split('__')
+  const [path = '', author = '', filename] = banner.split('__')
   const handle = path.split('/').pop() || ''
   return (
     <div className={cn('relative', className)}>
       <Credit
         author={author}
-        id={filename?.split('.')[0]}
+        id={filename?.split('.')[0] ?? ''}
         className={cn([
           'absolute right-4 top-4 z-10',
           'hidden rounded-xl px-3 py-0.5 lg:block',

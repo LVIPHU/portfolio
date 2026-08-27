@@ -4,7 +4,8 @@ import { memo, useState, type CSSProperties, type ReactNode } from 'react'
 import { PanelBottomClose, PanelBottomOpen } from 'lucide-react'
 import { NavigationLink, Popover, PopoverContent, PopoverTrigger, Separator } from '@/components/atoms'
 import { useMagnify } from '@portfolio/ui/motion'
-import { usePathname } from 'next/navigation'
+import { usePathname } from '@portfolio/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 type BaseItem = {
   type: 'link' | 'popover' | 'action'
@@ -40,6 +41,7 @@ export const FloatingDock = memo(function FloatingDock({
 function MobileDock({ items, className }: { items: Item[]; className?: string }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const t = useTranslations()
 
   return (
     <div className={cn('relative block md:hidden', className)}>
@@ -51,7 +53,10 @@ function MobileDock({ items, className }: { items: Item[]; className?: string })
         </div>
       )}
       <button
+        type='button'
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-label={t('Navbar.toggleDock')}
         className='flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-gray-200 via-gray-100 to-gray-200 dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800'
       >
         {open ? (
@@ -121,10 +126,14 @@ function MobileItem({ item, pathname, delayIndex }: { item: Item; pathname: stri
     )
   }
   return (
-    <div className='fade-in-up relative' style={style} onClick={item.onClick}>
-      <div className='flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-gray-200 via-gray-100 to-gray-200 dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800'>
+    <div className='fade-in-up relative' style={style}>
+      <button
+        type='button'
+        onClick={item.onClick}
+        className='flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-gray-200 via-gray-100 to-gray-200 dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800'
+      >
         <div className='h-4 w-4'>{item.icon}</div>
-      </div>
+      </button>
     </div>
   )
 }
@@ -159,36 +168,53 @@ type IconProps = {
   onClick?: () => void
 }
 
+const DOCK_ITEM_CLASS =
+  'group/dock relative flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-gray-200 via-gray-100 to-gray-200 transition-transform active:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100 dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800'
+
 function IconContainer({ title, icon, href, content, onClick }: IconProps) {
   const pathname = usePathname()
 
-  const Container = (
-    <div
-      data-magnify-item
-      onClick={onClick}
-      className='group/dock relative flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-gray-200 via-gray-100 to-gray-200 transition-transform active:scale-95 dark:from-neutral-800 dark:via-neutral-700 dark:to-neutral-800'
-    >
+  const inner = (
+    <>
       {/* C9: tooltip bằng CSS group-hover (thay AnimatePresence) */}
-      <div className='pointer-events-none absolute -top-8 left-1/2 w-fit -translate-x-1/2 translate-y-1 whitespace-pre rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs text-neutral-700 opacity-0 transition-[opacity,transform] duration-150 group-hover/dock:translate-y-0 group-hover/dock:opacity-100 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white'>
+      <div className='pointer-events-none absolute -top-8 left-1/2 w-fit -translate-x-1/2 translate-y-1 whitespace-pre rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs text-neutral-700 opacity-0 transition-[opacity,transform] duration-150 group-hover/dock:translate-y-0 group-hover/dock:opacity-100 motion-reduce:transition-none dark:border-neutral-900 dark:bg-neutral-800 dark:text-white'>
         {title}
       </div>
       <div data-magnify-icon className='flex h-5 w-5 items-center justify-center'>
         {icon}
       </div>
       {href && pathname === href && <IndicatorDesktop />}
-    </div>
+    </>
   )
 
   if (content) {
     return (
       <Popover>
-        <PopoverTrigger>{Container}</PopoverTrigger>
+        <PopoverTrigger>
+          <div data-magnify-item className={DOCK_ITEM_CLASS}>
+            {inner}
+          </div>
+        </PopoverTrigger>
         <PopoverContent className='w-80'>{content}</PopoverContent>
       </Popover>
     )
   }
 
-  return href ? <NavigationLink href={href}>{Container}</NavigationLink> : Container
+  if (href) {
+    return (
+      <NavigationLink href={href}>
+        <div data-magnify-item className={DOCK_ITEM_CLASS}>
+          {inner}
+        </div>
+      </NavigationLink>
+    )
+  }
+
+  return (
+    <button type='button' data-magnify-item onClick={onClick} className={DOCK_ITEM_CLASS}>
+      {inner}
+    </button>
+  )
 }
 
 function IndicatorDesktop() {

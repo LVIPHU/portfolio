@@ -8,11 +8,18 @@
     "blog": "Blog",
     "contact": "Liên hệ",
     "menu": "Menu",
-    "close": "Đóng menu"
+    "close": "Đóng menu",
+    "skipToContent": "Bỏ qua tới nội dung"
+  },
+  "a11y": {
+    "themeLight": "Chuyển sang giao diện sáng",
+    "themeDark": "Chuyển sang giao diện tối",
+    "locale": "Ngôn ngữ"
   },
   "footer": {
     "builtWith": "Xây dựng bằng Next.js · Version 2026",
-    "rights": "Bảo lưu mọi quyền."
+    "rights": "Bảo lưu mọi quyền.",
+    "privacy": "Quyền riêng tư"
   },
   "home": {
     "greeting": "Xin chào, mình là",
@@ -58,7 +65,9 @@
     "title": "Dự án",
     "description": "Những thứ mình đã và đang xây dựng.",
     "demo": "Demo",
-    "source": "Mã nguồn"
+    "source": "Mã nguồn",
+    "breadcrumb": "Đường dẫn",
+    "caseStudy": "Case study"
   },
   "resume": {
     "title": "Resume",
@@ -79,7 +88,9 @@
     "allTags": "Tất cả tag",
     "backToBlog": "Quay lại Blog",
     "postsTaggedWith": "Bài viết có tag",
-    "views": "{count, plural, =1 {1 lượt xem} other {# lượt xem}}"
+    "views": "{count, plural, =1 {1 lượt xem} other {# lượt xem}}",
+    "relatedPosts": "Bài viết liên quan",
+    "breadcrumb": "Đường dẫn"
   },
   "tags": {
     "title": "Tag",
@@ -90,7 +101,15 @@
     "title": "Liên hệ",
     "description": "Muốn hợp tác, trao đổi hay chỉ đơn giản là chào một câu? Cứ nhắn cho mình.",
     "emailMe": "Gửi email",
-    "findMeOn": "Tìm mình trên"
+    "findMeOn": "Tìm mình trên",
+    "sla": "Thường phản hồi trong 24–48 giờ"
+  },
+  "privacy": {
+    "title": "Quyền riêng tư",
+    "intro": "Trang này thu thập ít nhất có thể. Không tài khoản, không cookie quảng cáo.",
+    "umami": "Umami Cloud ghi lượt xem trang, không cookie và không định danh cá nhân. Script chỉ chạy khi đã cấu hình website id.",
+    "speed": "Vercel Speed Insights đo Core Web Vitals bằng script first-party. Không dùng để dựng hồ sơ quảng cáo.",
+    "mailto": "Nút liên hệ là mailto:. Thư tới email, không lưu trên site này."
   },
   "notFound": {
     "title": "Không tìm thấy trang",
@@ -99,5 +118,9 @@
   },
   "localeSwitcher": {
     "label": "Ngôn ngữ"
+  },
+  "theme": {
+    "light": "Sáng",
+    "dark": "Tối"
   }
 }

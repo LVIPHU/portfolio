@@ -56,6 +56,7 @@ export function SiteNav({
           aria-expanded={open}
           aria-controls='site-menu'
           aria-label={open ? t('close') : t('menu')}
+          data-umami-event='nav-menu-toggle'
         />
       </nav>
 

@@ -42,10 +42,12 @@ pnpm typecheck    # tsc --noEmit toàn workspace
 pnpm lint         # eslint (react-hooks + React Compiler)
 pnpm format       # prettier --check (format:write để tự sửa)
 pnpm check-links  # crawler dò link chết trên bản build của cả 2 app
-pnpm ci-check     # cổng chất lượng: prettier + typecheck + build + check-links
+pnpm ci-check     # prettier + eslint + vitest + typecheck + build + check-links
 ```
 
-Không có unit test — `pnpm ci-check` là cổng duy nhất, và GitHub Actions cũng chạy đúng lệnh này. Commit được prettier hoá tự động qua husky + lint-staged.
+Testing: Vitest + Testing Library cho shared packages (`packages/utils`, `hooks`, `content`, `service`). Không có unit test ở app — `pnpm test` (vitest run) nằm trong `ci-check`. GitHub Actions chạy đúng `pnpm ci-check`. Commit được prettier + eslint --fix qua husky + lint-staged.
+
+Analytics: **Umami Cloud** (pageviews, `data-umami-event`) khi có `NEXT_PUBLIC_UMAMI_WEBSITE_ID`; **Vercel Speed Insights** (Core Web Vitals) trên deploy. Thiếu env thì Umami không render — app vẫn chạy.
 
 `apps/2025` cần `apps/2025/.env.local` (không commit) mới build được: `NODE_ENV`, `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_NODE_ENV`, và `DATABASE_URL` (chỉ cần chuỗi hợp lệ — client DB lazy, thiếu DB thì stats tự trả 0). `apps/2026` chỉ cần `DATABASE_URL` tuỳ chọn, xem `apps/2026/.env.example`. Migration + drizzle-kit nằm ở `packages/service` (`pnpm --filter @portfolio/service db:push`).
 
@@ -64,6 +66,7 @@ Vài điểm hay vướng khi chạy local:
 | Resume (kinh nghiệm, học vấn, skills) | `packages/content/src/resume.ts`                                                                   |
 | Ảnh gallery                           | Thêm ảnh vào `packages/content/assets/gallery/` + khai báo trong `packages/content/src/gallery.ts` |
 | Viết blog                             | Tạo `packages/content/blog/<slug>.vi.mdx` và `<slug>.en.mdx`                                       |
+| Case study (2026)                     | Tạo `packages/content/projects/<slug>.<locale>.mdx` + khai báo slug trong `projects.ts`            |
 | Chữ giao diện (nav, footer, nút...)   | `apps/<version>/messages/{vi,en}.json`                                                             |
 | File resume PDF                       | Đặt `resume.pdf` vào `apps/2026/public/`                                                           |
 

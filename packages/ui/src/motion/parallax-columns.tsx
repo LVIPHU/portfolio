@@ -4,6 +4,7 @@ import { useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { prefersReducedMotion } from './reduced-motion'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -22,6 +23,7 @@ export function ParallaxColumns({ children, className, amount = 60 }: ParallaxCo
   useGSAP(
     () => {
       const cols = gsap.utils.toArray<HTMLElement>('[data-parallax-col]', scope.current)
+      if (prefersReducedMotion() || cols.length === 0) return
       cols.forEach((col, i) => {
         gsap.to(col, {
           y: (i % 2 === 0 ? -1 : 1) * amount,

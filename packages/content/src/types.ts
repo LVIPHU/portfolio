@@ -65,6 +65,17 @@ export interface GalleryItem {
   alt: string
   caption: Localized
   date: string // "2026-01"
+  width: number
+  height: number
+}
+
+export interface ProjectCase {
+  slug: string
+  locale: Locale
+  title: string
+  summary: string
+  date: string
+  content: string
 }
 
 export interface PostMeta {

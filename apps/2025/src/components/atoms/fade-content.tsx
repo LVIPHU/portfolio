@@ -1,5 +1,6 @@
 'use client'
 import { useRef, useState, ReactNode, useEffect, memo } from 'react'
+import { prefersReducedMotion } from '@portfolio/ui/motion'
 
 interface FadeContentProps {
   children: ReactNode
@@ -28,10 +29,14 @@ export const FadeContent = memo(function FadeContent({
   useEffect(() => {
     const element = ref.current
     if (!element) return
+    if (prefersReducedMotion()) {
+      setInView(true)
+      return
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           observer.unobserve(element)
           setTimeout(() => {
             setInView(true)

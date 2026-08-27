@@ -3,10 +3,12 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { projects, type Locale } from '@portfolio/content'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { t } from '@/utils/format'
+import { Link } from '@portfolio/i18n/navigation'
+import { pageMetadata } from '@/utils/seo'
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
   const tMeta = await getTranslations({ locale, namespace: 'projects' })
-  return { title: tMeta('title') }
+  return pageMetadata(locale, '/projects', tMeta('title'), tMeta('description'))
 }
 
 export default async function ProjectsPage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -30,35 +32,13 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
         {sorted.map((project) => (
           <div key={project.slug} className='hover:border-primary group border-b py-8 transition-colors'>
             <div className='flex flex-col justify-between gap-2 sm:flex-row sm:items-baseline'>
-              <h2 className='h3 dark:group-hover:text-primary transition-colors'>{project.name}</h2>
+              <h2 className='h3 dark:group-hover:text-primary transition-colors'>
+                <Link href={`/projects/${project.slug}`}>{project.name}</Link>
+              </h2>
               <span className='p-xs text-muted-foreground'>{project.year}</span>
             </div>
             <p className='p text-muted-foreground mt-3 max-w-2xl'>{t(project.description, locale)}</p>
-            <div className='mt-4 flex flex-wrap items-center gap-x-6 gap-y-2'>
-              <span className='p-xs text-muted-foreground'>{project.tech.join(' · ')}</span>
-              <span className='flex gap-4'>
-                {project.links.demo && (
-                  <a
-                    href={project.links.demo}
-                    target='_blank'
-                    rel='noreferrer'
-                    className='p-s dark:text-primary hover:underline'
-                  >
-                    {tP('demo')} ↗
-                  </a>
-                )}
-                {project.links.source && (
-                  <a
-                    href={project.links.source}
-                    target='_blank'
-                    rel='noreferrer'
-                    className='p-s dark:text-primary hover:underline'
-                  >
-                    {tP('source')} ↗
-                  </a>
-                )}
-              </span>
-            </div>
+            <p className='p-xs text-muted-foreground mt-4'>{project.tech.join(' · ')}</p>
           </div>
         ))}
       </div>

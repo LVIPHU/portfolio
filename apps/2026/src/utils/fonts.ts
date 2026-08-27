@@ -16,7 +16,7 @@ export const anton = Anton({
 })
 
 export const roboto = Roboto({
-  weight: ['100', '400', '700', '900'],
+  weight: ['400', '700', '900'],
   subsets: ['latin', 'vietnamese'],
   variable: '--font-roboto',
   display: 'swap',

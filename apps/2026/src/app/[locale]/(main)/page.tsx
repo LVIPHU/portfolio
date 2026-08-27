@@ -1,4 +1,5 @@
 import { ArrowRight, User } from 'lucide-react'
+import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { featuredProjects, getAllPosts, profile, resume, type Locale } from '@portfolio/content'
 import { Link } from '@portfolio/i18n/navigation'
@@ -8,8 +9,19 @@ import { Marquee } from '@/components/effects/marquee'
 import { ListItem } from '@/components/effects/list-item'
 import { PostRow } from '@/components/post-row'
 import { FelixHeroMark } from '@/components/brand/felix-mark'
-import { EarthBackground } from '@/components/three/earth-background'
 import { formatDate, t } from '@/utils/format'
+import { pageMetadata } from '@/utils/seo'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+  const { locale } = await params
+  const tHome = await getTranslations({ locale, namespace: 'home' })
+  return {
+    ...pageMetadata(locale, '/', profile.name, t(profile.tagline, locale) || tHome('greeting')),
+    // Layout dùng template `%s · name` — title trùng name sẽ thành "Name · Name".
+    title: { absolute: profile.name },
+  }
+}
+
 export default async function HomePage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params
   setRequestLocale(locale)
@@ -19,11 +31,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
 
   return (
     <div className='flex flex-col gap-24'>
-      {/* Trái Đất đậu NỬA PHẢI hero (pose riêng của variant hero — /about giữ pose bên trái),
-          mờ dần khi cuộn qua hero. withStars/withLeva=false vì layout (main) đã có canvas sao
-          + panel Leva riêng. */}
-      <EarthBackground variant='hero' withStars={false} withLeva={false} />
-      {/* Hero full-bleed: phá lề của <main> để bắt đầu ngay đỉnh viewport, rồi tự đặt
+      {/* Earth canvas mount ở (main)/layout — sibling của <main>, không nhét vào đây.
+          Hero full-bleed: phá lề của <main> để bắt đầu ngay đỉnh viewport, rồi tự đặt
           lề bằng token wordmark → chữ FELIX nằm chồng khít vị trí chữ trong tấm intro.
           Wordmark ở trên, phần còn lại dồn xuống đáy (bố cục lenis). */}
       <section
@@ -59,7 +68,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
                 nút dài gấp đôi và đè lên vùng quả cầu — kích thước/vị trí gốc là cặp nút gọn nằm
                 trong nửa trái. */}
             <div className='mt-10 grid grid-cols-1 min-[800px]:grid-cols-2' style={{ gap: 'var(--gap)' }}>
-              <PillButtonLink href='/projects' icon={<ArrowRight />} label={tHome('viewProjects')} />
+              <PillButtonLink
+                href='/projects'
+                icon={<ArrowRight />}
+                label={tHome('viewProjects')}
+                data-umami-event='cta-projects'
+              />
               {/* Nút thứ hai dẫn sang /about (bản showcase full-bleed) chứ không phải /contact:
                   liên hệ đã có sẵn trong menu, còn thứ người xem cần ngay sau "xem dự án" là câu
                   chuyện về mình. */}
@@ -98,7 +112,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
               key={project.slug}
               title={project.name}
               source={project.tech.join(' · ')}
-              href={project.links.demo ?? project.links.source ?? '#'}
+              href={`/projects/${project.slug}`}
               index={i}
               visible
             />

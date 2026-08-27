@@ -3,23 +3,19 @@ import path from 'path'
 import { mkdirSync, writeFileSync } from 'fs'
 import { slug } from 'github-slugger'
 import { getAllPosts, getTagData, type PostMeta } from '@portfolio/content'
+import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { escape, sortPosts } from '@portfolio/utils'
-import { env } from '@env'
 
-// Extract only non-macro fields needed for RSS generation
-// Scripts don't run through babel, so we can't use msg macros
+// postbuild chạy ngoài Next — đọc SITE_METADATA, không process.env (owner/email trống lúc script).
 const RSS_CONFIG = {
-  siteUrl: env.NEXT_PUBLIC_APP_URL,
-  email: process.env.email,
-  author: process.env.owner,
+  siteUrl: SITE_METADATA.siteUrl ?? '',
+  email: SITE_METADATA.email,
+  author: SITE_METADATA.author ?? 'Lương Vĩ Phú',
   language: 'vi-VN',
-  // RSS feed uses English strings (hardcoded) as RSS feeds typically don't support i18n
-  title: "Lương Vĩ Phú's dev blog - portfolio",
-  description:
-    'I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.',
+  title: SITE_METADATA.title.en,
+  description: SITE_METADATA.description.en.replace('sofware', 'software'),
 }
 
-// Union 2 locale, dedupe theo path — 1 item mỗi slug như hệ cũ (C5-03, D-07)
 const seen = new Set<string>()
 const blogs = [...getAllPosts('vi'), ...getAllPosts('en')].filter((p) =>
   seen.has(p.path) ? false : (seen.add(p.path), true)
@@ -52,7 +48,7 @@ function generateRss(items: PostMeta[], page = RSS_PAGE) {
 				<language>${language}</language>
 				<managingEditor>${email} (${author})</managingEditor>
 				<webMaster>${email} (${author})</webMaster>
-				<lastBuildDate>${new Date(items[0].date).toUTCString()}</lastBuildDate>
+				<lastBuildDate>${new Date(items[0]?.date ?? Date.now()).toUTCString()}</lastBuildDate>
 				<atom:link href="${siteUrl}/${page}" rel="self" type="application/rss+xml"/>
 				${items.map((item) => generateRssItem(item)).join('')}
 			</channel>
@@ -62,14 +58,12 @@ function generateRss(items: PostMeta[], page = RSS_PAGE) {
 
 export async function generateRssFeed() {
   const publishPosts = blogs.filter((post) => post.draft !== true)
-  // RSS for blog post
   if (publishPosts.length > 0) {
     const rss = generateRss(sortPosts([...publishPosts]))
     writeFileSync(`./public/${RSS_PAGE}`, rss)
   }
 
   if (publishPosts.length > 0) {
-    // RSS for tags — key tag LIVE (union vi+en), thay snapshot json/tag-data.json
     const tagKeys = new Set([...Object.keys(getTagData('vi')), ...Object.keys(getTagData('en'))])
     for (const tag of tagKeys) {
       const filteredPosts = blogs.filter((p) => p.tags.map((t) => slug(t)).includes(tag))

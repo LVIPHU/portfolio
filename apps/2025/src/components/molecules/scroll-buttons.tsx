@@ -8,11 +8,19 @@ export function ScrollButtons() {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
+    let frame: number | null = null
     function handleWindowScroll() {
-      setShow(window.scrollY > 50)
+      if (frame !== null) return
+      frame = requestAnimationFrame(() => {
+        frame = null
+        setShow(window.scrollY > 50)
+      })
     }
-    window.addEventListener('scroll', handleWindowScroll)
-    return () => window.removeEventListener('scroll', handleWindowScroll)
+    window.addEventListener('scroll', handleWindowScroll, { passive: true })
+    return () => {
+      if (frame !== null) cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', handleWindowScroll)
+    }
   }, [])
 
   return (

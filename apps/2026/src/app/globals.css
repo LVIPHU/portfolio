@@ -398,6 +398,26 @@
   font-weight: 600;
 }
 
+/* Skip-link: ẩn tới khi Tab vào. Nền gold + chữ đen — đúng giấy phép gold (nền, không phải chữ nhỏ). */
+.skip-link {
+  position: absolute;
+  left: var(--safe);
+  top: var(--safe);
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--theme-contrast);
+  color: #000;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transform: translateY(-250%);
+  transition: transform 0.2s var(--ease-out-expo);
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
 /* Ẩn con trỏ native khi custom cursor bật (chỉ thiết bị có hover). Trước đây luật này nằm
    trong showcase/theme.css bó theo .showcase-root, nên Cursor chỉ đúng ở /about; giờ Cursor
    mount ở layout gốc nên luật phải toàn cục.

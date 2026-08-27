@@ -24,7 +24,7 @@ export const authorFrontmatterSchema = z.object({
   avatar: z.string().optional(),
   occupation: z.string().optional(),
   company: z.string().optional(),
-  email: z.string().optional(),
+  email: z.string().email().optional().or(z.literal('')),
   twitter: z.string().optional(),
   x: z.string().optional(),
   linkedin: z.string().optional(),
@@ -32,3 +32,13 @@ export const authorFrontmatterSchema = z.object({
 })
 
 export type AuthorFrontmatter = z.infer<typeof authorFrontmatterSchema>
+
+/** Frontmatter case study MDX — slug lấy từ tên file, khớp `projects.ts`. */
+export const projectFrontmatterSchema = z.object({
+  title: z.string().min(1),
+  summary: z.string().default(''),
+  date: z.coerce.date().optional(),
+  draft: z.boolean().default(false),
+})
+
+export type ProjectFrontmatter = z.infer<typeof projectFrontmatterSchema>

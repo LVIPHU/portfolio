@@ -16,7 +16,7 @@
 //   • Hết chói: glow tắt dần ở rìa, specular biển tắt dần ở limb (không hào quang,
 //     không lóe vàng ở terminator/core shadow), bump phẳng dần ở góc xiên.
 //   • Lưới cầu 160×120 thay geometry GLB (UV equirect chuẩn, silhouette tròn hơn);
-//     texture vẫn mượn từ GLB nên không thêm file ảnh nào.
+//     albedo webp tách từ GLB (`public/earth-albedo.webp`) — không fetch GLB lúc runtime.
 //   • Bỏ tầng khí quyển (nhìn từ không gian không thấy) và bỏ wireframe mode.
 //
 // themeMix tự đọc: ưu tiên .showcase-root[data-theme] (/about), nếu trang không có thì
@@ -24,8 +24,8 @@
 // Đèn nằm ở earth-canvas.tsx (leva 'earth'): ambient 0.40 / key 0.90 / fill 0.38 — key 1.1
 // làm cháy vùng sáng của vàng kim.
 
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useGLTF, useTexture } from '@react-three/drei'
+import { useEffect, useMemo, useRef } from 'react'
+import { useTexture } from '@react-three/drei'
 import { useControls } from 'leva'
 import { useFrame, useThree, type ThreeElements } from '@react-three/fiber'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
@@ -36,190 +36,26 @@ import {
   MeshStandardMaterial,
   PMREMGenerator,
   RepeatWrapping,
+  SRGBColorSpace,
   Vector3,
   type Texture,
 } from 'three'
+import {
+  EARTH_EMISSIVE_GLSL,
+  EARTH_MAP_GLSL,
+  EARTH_METAL_GLSL,
+  EARTH_NORMAL_GLSL,
+  EARTH_ROUGH_GLSL,
+  EARTH_SPECULAR_GLSL,
+  EARTH_UNIFORMS_GLSL,
+} from './earth-shaders'
+import { buildEarthMasks } from './earth-textures'
 
-const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
-const smoothstepJs = (a: number, b: number, x: number) => {
-  const t = clamp((x - a) / (b - a), 0, 1)
-  return t * t * (3 - 2 * t)
-}
-const mulberry32 = (seed: number) => () => {
-  seed |= 0
-  seed = (seed + 0x6d2b79f5) | 0
-  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed)
-  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-  return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-}
 
-const UNIFORMS_GLSL = /* glsl */ `
-uniform vec3 uOcean;
-uniform vec3 uLand;
-uniform vec3 uLandDeep;
-uniform float uLow;
-uniform float uHigh;
-uniform float uWaterGain;
-uniform float uOceanSink;
-uniform float uCloudDim;
-uniform float uGlow;
-uniform float uRimStrength;
-uniform float uRimPow;
-uniform vec3 uRimColor;
-uniform float uNight;
-uniform vec3 uNightColor;
-uniform sampler2D uNightMap;
-uniform vec3 uLightDirWorld;
-uniform sampler2D uGeoMap;
-uniform float uGeoOnly;
-uniform float uLandMetal;
-uniform float uLandRough;
-uniform float uOceanRough;
-uniform float uOceanSpecular;
-float vDuotone;
-float vLandTone;
-// Camera cua BackgroundCanvas la ORTHOGRAPHIC. Voi ortho, huong nhin la HANG (0,0,1) trong
-// view space; normalize(vViewPosition) tro ve GOC view-space nen lech truc nhin toi 30-38do
-// khi qua cau bi day lech tam (STEPS position toi 0.55*viewport, scale 3.2). Hau qua: ndv o
-// ria phia huong vao giua man hinh ra ~0.30 thay vi 0, moi guard "tat dan o ria" deu hut ->
-// vanh sang chi o MOT ben. three khai san uniform bool isOrthographic va tu dung dung the nay.
-vec3 eyeDir() { return isOrthographic ? vec3(0.0, 0.0, 1.0) : normalize(vViewPosition); }
-`
-
-const MAP_GLSL = /* glsl */ `
-#include <map_fragment>
-{
-  vec3 c = diffuseColor.rgb;
-  float lum = dot(c, vec3(0.299, 0.587, 0.114));
-  float mx = max(max(c.r, c.g), c.b);
-  float mn = min(min(c.r, c.g), c.b);
-  float sat = mx > 0.0 ? (mx - mn) / mx : 0.0;
-  float water = clamp((c.b - max(c.r, c.g)) * uWaterGain, 0.0, 1.0);
-  float v = smoothstep(uLow, uHigh, lum * (1.0 - water * uOceanSink));
-  v *= 1.0 - uCloudDim * max(0.0, 1.0 - sat * 3.0);
-  // threshold lại sau khi sample: mẫu mờ ở mip thấp (rìa nghiêng) không tạo dải nâu smear
-  float geo = smoothstep(0.42, 0.58, texture2D(uGeoMap, vMapUv).r);
-  float detail = max(v, smoothstep(0.10, 0.55, lum));
-  // đất/biển do mask bờ biển quyết định; vân địa chất chỉ điều tiết TÔNG vàng đậm↔nhạt
-  // → hai theme cho kết quả như nhau (nếu để vân là màu biển lọt qua thì light sẽ trắng nhoè)
-  v = mix(detail * geo, geo, uGeoOnly);
-  float tone = smoothstep(0.15, 0.75, lum) * mix(0.30, 1.0, detail);
-  diffuseColor.rgb = mix(uOcean, mix(uLandDeep, uLand, tone), v);
-  vDuotone = v;
-  vLandTone = tone;
-}
-`
-
-const EMISSIVE_GLSL = /* glsl */ `
-#include <emissivemap_fragment>
-{
-  vec3 nrm = normalize(vNormal);
-  vec3 vDir = eyeDir();
-  float rim = min(pow(1.0 - clamp(dot(nrm, vDir), 0.0, 1.0), uRimPow) * uRimStrength, 1.0);
-  // chống cháy rìa: đất dồn ở limb + glow + rim cộng dồn → tắt dần glow khi nghiêng
-  float limb = pow(1.0 - clamp(dot(nrm, vDir), 0.0, 1.0), 3.0);
-  vec3 lightDirView = normalize((viewMatrix * vec4(uLightDirWorld, 0.0)).xyz);
-  float nightSide = smoothstep(0.12, -0.35, dot(nrm, lightDirView));
-  float city = texture2D(uNightMap, vMapUv).r;
-  vec3 landGlow = mix(uLandDeep, uLand, vLandTone) * vDuotone * uGlow * mix(1.0, 0.3, limb);
-  totalEmissiveRadiance = landGlow + uRimColor * rim + uNightColor * city * uNight * nightSide;
-}
-`
-
-// vàng kim trên đất / cẩm thạch trên biển — metalness & roughness tách theo mask đất
-const ROUGH_GLSL = /* glsl */ `
-#include <roughnessmap_fragment>
-roughnessFactor = mix(uOceanRough, uLandRough + (1.0 - vLandTone) * 0.12, vDuotone);
-`
-const METAL_GLSL = /* glsl */ `
-#include <metalnessmap_fragment>
-metalnessFactor = uLandMetal * vDuotone;
-`
-// bump phẳng dần ở góc xiên: sát limb đạo hàm UV nổ lớn → pháp tuyến giả xoay loạn, hứng
-// đèn key thành dải sáng lốm đốm bám rìa
-const NORMAL_GLSL = /* glsl */ `
-#include <normal_fragment_maps>
-{
-  vec3 baseN = normalize(vNormal);
-  float ndv = clamp(dot(baseN, eyeDir()), 0.0, 1.0);
-  normal = normalize(mix(baseN, normal, smoothstep(0.02, 0.30, ndv)));
-}
-`
-// biển = sứ/cẩm thạch: sheen mềm ở thân cầu cho đổ khối, tắt dần ở rìa để không hào quang
-const SPECULAR_GLSL = /* glsl */ `
-  float ndvOut = clamp(dot(normalize(vNormal), eyeDir()), 0.0, 1.0);
-  totalSpecular *= mix(uOceanSpecular * smoothstep(0.12, 0.45, ndvOut), 1.0, vDuotone);
-  vec3 outgoingLight = totalDiffuse + totalSpecular + totalEmissiveRadiance;`
-
-// heightmap (bump) + đèn thành phố, sinh 1 lần từ texture + mask bờ biển
-function buildMasks(img: HTMLImageElement, geoImg: HTMLImageElement) {
-  const W = 1024
-  const H = 512
-  const c = document.createElement('canvas')
-  c.width = W
-  c.height = H
-  const x = c.getContext('2d', { willReadFrequently: true })!
-  x.drawImage(img, 0, 0, W, H)
-  const d = x.getImageData(0, 0, W, H).data
-  x.clearRect(0, 0, W, H)
-  x.drawImage(geoImg, 0, 0, W, H)
-  const gd = x.getImageData(0, 0, W, H).data
-
-  const geo = new Float32Array(W * H)
-  const lum = new Float32Array(W * H)
-  for (let i = 0; i < W * H; i++) {
-    geo[i] = gd[i * 4] / 255
-    lum[i] = (0.299 * d[i * 4] + 0.587 * d[i * 4 + 1] + 0.114 * d[i * 4 + 2]) / 255
-  }
-
-  // CHỈ đất theo bản đồ thật mới nổi — thềm lục địa không nhô như đất
-  const hc = document.createElement('canvas')
-  hc.width = W
-  hc.height = H
-  const hx = hc.getContext('2d')!
-  const hd = hx.createImageData(W, H)
-  for (let i = 0; i < W * H; i++) {
-    const h = geo[i] * (80 + 160 * lum[i])
-    hd.data[i * 4] = hd.data[i * 4 + 1] = hd.data[i * 4 + 2] = h
-    hd.data[i * 4 + 3] = 255
-  }
-  hx.putImageData(hd, 0, 0)
-  const height = document.createElement('canvas')
-  height.width = W
-  height.height = H
-  const bx = height.getContext('2d')!
-  bx.filter = 'blur(1px)'
-  bx.drawImage(hc, 0, 0)
-
-  // đèn thành phố: chấm li ti trên đất, dày hơn dọc bờ biển, né hai cực
-  const night = document.createElement('canvas')
-  night.width = W
-  night.height = H
-  const nx = night.getContext('2d')!
-  nx.fillStyle = '#000'
-  nx.fillRect(0, 0, W, H)
-  const rand = mulberry32(7)
-  for (let y = 8; y < H - 8; y++) {
-    if (Math.abs(y / H - 0.5) * 180 > 62) continue
-    for (let k = 0; k < W; k++) {
-      const i = y * W + k
-      if (geo[i] < 0.5) continue
-      const coast =
-        Math.min(
-          geo[y * W + ((k + 3) % W)],
-          geo[y * W + ((k - 3 + W) % W)],
-          geo[(y + 3) * W + k],
-          geo[(y - 3) * W + k]
-        ) < 0.3
-      if (rand() < (coast ? 0.07 : 0.011)) {
-        nx.fillStyle = `rgba(255,255,255,${0.5 + rand() * 0.5})`
-        nx.fillRect(k, y, rand() < 0.22 ? 2 : 1, 1)
-      }
-    }
-  }
-  return { height, night }
-}
+// Albedo tách từ GLB cũ thành webp tĩnh (xem comment trong EarthModel); mask bờ biển Natural Earth.
+const EARTH_ALBEDO_SRC = '/earth-albedo.webp'
+const EARTH_MASK_SRC = '/land-mask.png'
 
 // Theme đích cho quả cầu (0 = dark, 1 = light). Hai nguồn, theo thứ tự ưu tiên:
 //  1. .showcase-root[data-theme] — trang /about, zoom-section đổi attribute này khi cuộn.
@@ -251,12 +87,13 @@ function useThemeTarget(): { current: number } {
 }
 
 export function EarthModel(props: ThreeElements['group']) {
-  const { materials } = useGLTF('/earth-web.glb')
-  const geoTex = useTexture('/land-mask.png')
+  // Albedo tách ra file webp tĩnh — KHÔNG load GLB (earth-web.glb đã xoá khỏi public/).
+  // GLB đó bắt Draco decoder từ gstatic.com + EXT_texture_webp; CSP (P2) chặn gstatic nên
+  // useGLTF treo Suspense mãi, canvas Earth trong suốt (chỉ còn sao).
+  const [map, geoTex] = useTexture([EARTH_ALBEDO_SRC, EARTH_MASK_SRC])
   const { gl, scene } = useThree()
   const themeTarget = useThemeTarget()
   const mix = useRef(0)
-  const [ready, setReady] = useState(false)
 
   const { land, glow, relief, night, metal, low, high, waterGain, oceanSink, cloudDim, rimStrength, rimPow, opacity } =
     useControls('earth material', {
@@ -281,9 +118,6 @@ export function EarthModel(props: ThreeElements['group']) {
       rimPow: { value: 5.0, min: 1, max: 10, step: 0.5 },
       opacity: { value: 1, min: 0.1, max: 1, step: 0.05 },
     })
-
-  // texture mượn từ material của GLTF — KHÔNG sửa/dispose material đó (useGLTF cache toàn cục)
-  const map = (materials['Material.002'] as MeshStandardMaterial | undefined)?.map as Texture | null
 
   // Môi trường studio: vàng kim cần thứ để phản xạ, cẩm thạch được sheen mềm.
   //
@@ -369,48 +203,66 @@ export function EarthModel(props: ThreeElements['group']) {
     mat.envMapIntensity = 0.85
     // three lấy onBeforeCompile.toString() làm khoá cache program → khoá riêng theo nội dung
     mat.customProgramCacheKey = () =>
-      `felix-earth-v9-${UNIFORMS_GLSL.length}-${MAP_GLSL.length}-${EMISSIVE_GLSL.length}` +
-      `-${NORMAL_GLSL.length}-${ROUGH_GLSL.length}-${METAL_GLSL.length}-${SPECULAR_GLSL.length}`
+      `felix-earth-v9-${EARTH_UNIFORMS_GLSL.length}-${EARTH_MAP_GLSL.length}-${EARTH_EMISSIVE_GLSL.length}` +
+      `-${EARTH_NORMAL_GLSL.length}-${EARTH_ROUGH_GLSL.length}-${EARTH_METAL_GLSL.length}-${EARTH_SPECULAR_GLSL.length}`
     mat.onBeforeCompile = (shader) => {
       Object.assign(shader.uniforms, uniformsRef.current)
       shader.fragmentShader = shader.fragmentShader
-        .replace('#include <common>', `#include <common>\n${UNIFORMS_GLSL}`)
-        .replace('#include <map_fragment>', MAP_GLSL)
-        .replace('#include <normal_fragment_maps>', NORMAL_GLSL)
-        .replace('#include <roughnessmap_fragment>', ROUGH_GLSL)
-        .replace('#include <metalnessmap_fragment>', METAL_GLSL)
-        .replace('vec3 outgoingLight = totalDiffuse + totalSpecular + totalEmissiveRadiance;', SPECULAR_GLSL)
-        .replace('#include <emissivemap_fragment>', EMISSIVE_GLSL)
+        .replace('#include <common>', `#include <common>\n${EARTH_UNIFORMS_GLSL}`)
+        .replace('#include <map_fragment>', EARTH_MAP_GLSL)
+        .replace('#include <normal_fragment_maps>', EARTH_NORMAL_GLSL)
+        .replace('#include <roughnessmap_fragment>', EARTH_ROUGH_GLSL)
+        .replace('#include <metalnessmap_fragment>', EARTH_METAL_GLSL)
+        .replace('vec3 outgoingLight = totalDiffuse + totalSpecular + totalEmissiveRadiance;', EARTH_SPECULAR_GLSL)
+        .replace('#include <emissivemap_fragment>', EARTH_EMISSIVE_GLSL)
     }
     return mat
   }, [])
 
-  // bump + đèn thành phố: sinh 1 lần khi có đủ 2 ảnh
+  // bump + đèn thành phố: sinh khi đủ 2 ảnh.
   useEffect(() => {
-    if (!map?.image || !geoTex.image) return
-    map.wrapS = RepeatWrapping
-    map.anisotropy = Math.min(16, gl.capabilities.getMaxAnisotropy())
-    geoTex.wrapS = RepeatWrapping
-    geoTex.anisotropy = Math.min(16, gl.capabilities.getMaxAnisotropy())
+    let cancelled = false
+    let bump: CanvasTexture | undefined
+    let nightTex: CanvasTexture | undefined
 
-    const masks = buildMasks(map.image as HTMLImageElement, geoTex.image as HTMLImageElement)
-    const bump = new CanvasTexture(masks.height)
-    bump.wrapS = RepeatWrapping
-    const nightTex = new CanvasTexture(masks.night)
-    nightTex.wrapS = RepeatWrapping
-    nightTex.generateMipmaps = false
-    nightTex.minFilter = LinearFilter // giữ chấm đèn sắc khi cầu thu nhỏ
+    const apply = () => {
+      if (cancelled || !map?.image || !geoTex?.image) return
+      // GLTFLoader (nguồn cũ của texture này) gán sRGB cho baseColor; TextureLoader để
+      // NoColorSpace → shader nhận sRGB thô như linear, tông đất/biển lệch so với bản duyệt.
+      // needsUpdate để re-upload: initTexture của drei có thể đã đẩy bản NoColorSpace lên GPU.
+      // geoTex giữ linear — nó là DATA mask bờ biển, không phải màu.
+      map.colorSpace = SRGBColorSpace
+      map.needsUpdate = true
+      map.wrapS = RepeatWrapping
+      map.anisotropy = Math.min(16, gl.capabilities.getMaxAnisotropy())
+      geoTex.wrapS = RepeatWrapping
+      geoTex.anisotropy = Math.min(16, gl.capabilities.getMaxAnisotropy())
 
-    uniformsRef.current.uNightMap.value = nightTex
-    uniformsRef.current.uGeoMap.value = geoTex
-    material.map = map
-    material.bumpMap = bump
-    material.needsUpdate = true
-    setReady(true)
+      const masks = buildEarthMasks(map.image as HTMLImageElement, geoTex.image as HTMLImageElement)
+      bump?.dispose()
+      nightTex?.dispose()
+      bump = new CanvasTexture(masks.height)
+      bump.wrapS = RepeatWrapping
+      nightTex = new CanvasTexture(masks.night)
+      nightTex.wrapS = RepeatWrapping
+      nightTex.generateMipmaps = false
+      nightTex.minFilter = LinearFilter
+
+      uniformsRef.current.uNightMap.value = nightTex
+      uniformsRef.current.uGeoMap.value = geoTex
+      material.map = map
+      material.bumpMap = bump
+      material.needsUpdate = true
+    }
+
+    // useTexture suspend tới khi ảnh tải xong nên map.image luôn sẵn ở đây — không cần
+    // nghe 'load' như thời texture mượn từ GLB.
+    apply()
 
     return () => {
-      bump.dispose()
-      nightTex.dispose()
+      cancelled = true
+      bump?.dispose()
+      nightTex?.dispose()
     }
   }, [map, geoTex, material, gl])
 
@@ -458,11 +310,12 @@ export function EarthModel(props: ThreeElements['group']) {
     <group {...props} dispose={null}>
       {/* lưới 160×120: UV equirect chuẩn (khớp cả texture GLB và mask bờ biển), bán kính 100
           bằng scale baked của model cũ nên keyframe scale trong earth-canvas không đổi */}
-      <mesh castShadow receiveShadow material={material} visible={ready}>
+      <mesh castShadow receiveShadow material={material}>
         <sphereGeometry args={[100, 160, 120]} />
       </mesh>
     </group>
   )
 }
 
-useGLTF.preload('/earth-web.glb')
+useTexture.preload(EARTH_ALBEDO_SRC)
+useTexture.preload(EARTH_MASK_SRC)

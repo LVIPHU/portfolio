@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 
 import debounce from 'lodash.debounce'
 
@@ -28,40 +28,38 @@ export function useDebounceCallback<T extends (...args: any) => ReturnType<T>>(
   delay = 500,
   options?: DebounceOptions
 ): DebouncedState<T> {
-  const debouncedFunc = useRef<ReturnType<typeof debounce>>(null)
+  const funcRef = useRef(func)
+  funcRef.current = func
+
+  // Một instance duy nhất: bản cũ tạo 2 debounce (useMemo + useEffect→ref) nên unmount
+  // cancel nhầm instance, isPending luôn true sau mount.
+  const debounced = useMemo(() => {
+    let pending = false
+    const instance = debounce(
+      (...args: Parameters<T>) => {
+        pending = false
+        return funcRef.current(...args)
+      },
+      delay,
+      options
+    )
+
+    const wrapped = ((...args: Parameters<T>) => {
+      pending = true
+      return instance(...args)
+    }) as DebouncedState<T>
+    wrapped.cancel = () => {
+      pending = false
+      instance.cancel()
+    }
+    wrapped.flush = () => instance.flush()
+    wrapped.isPending = () => pending
+    return wrapped
+  }, [delay, options])
 
   useUnmount(() => {
-    if (debouncedFunc.current) {
-      debouncedFunc.current.cancel()
-    }
+    debounced.cancel()
   })
-
-  const debounced = useMemo(() => {
-    const debouncedFuncInstance = debounce(func, delay, options)
-
-    const wrappedFunc: DebouncedState<T> = (...args: Parameters<T>) => {
-      return debouncedFuncInstance(...args)
-    }
-
-    wrappedFunc.cancel = () => {
-      debouncedFuncInstance.cancel()
-    }
-
-    wrappedFunc.isPending = () => {
-      return !!debouncedFunc.current
-    }
-
-    wrappedFunc.flush = () => {
-      return debouncedFuncInstance.flush()
-    }
-
-    return wrappedFunc
-  }, [func, delay, options])
-
-  // Update the debounced function ref whenever func, wait, or options change
-  useEffect(() => {
-    debouncedFunc.current = debounce(func, delay, options)
-  }, [func, delay, options])
 
   return debounced
 }

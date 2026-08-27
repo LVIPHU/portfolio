@@ -7,18 +7,46 @@ export const statsQuerySchema = z.object({
   slug: z.string().min(1).max(255),
 })
 
-export const statsUpdateBodySchema = z.object({
+const SLUG_LIST_MAX = 50
+
+/** GET ?type=blog&slugs=a,b,c — tối đa 50 slug, chống N request trên list. */
+export const statsListQuerySchema = z.object({
   type: statsTypeSchema,
-  slug: z.string().min(1).max(255),
-  views: z.number().int().nonnegative().optional(),
-  loves: z.number().int().nonnegative().optional(),
-  applauses: z.number().int().nonnegative().optional(),
-  ideas: z.number().int().nonnegative().optional(),
-  bullseyes: z.number().int().nonnegative().optional(),
-  // Tăng lượt xem PHẢI do server làm: client đọc-rồi-ghi thì con số nó gửi có thể đã cũ, mà
-  // updateBlogStats không bao giờ hạ giá trị nên lượt xem đó biến mất không dấu vết.
-  incrementViews: z.boolean().optional(),
+  slugs: z
+    .string()
+    .min(1)
+    .transform((raw) =>
+      [
+        ...new Set(
+          raw
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean)
+        ),
+      ].slice(0, SLUG_LIST_MAX)
+    )
+    .refine((slugs) => slugs.length > 0 && slugs.every((s) => s.length <= 255), {
+      message: 'Invalid slug list',
+    }),
 })
 
+/** Delta phản ứng: chỉ +1…+5 mỗi request — không nhận giá trị tuyệt đối. */
+const reactionDelta = z.number().int().min(1).max(5).optional()
+
+export const statsUpdateBodySchema = z
+  .object({
+    type: statsTypeSchema,
+    slug: z.string().min(1).max(255),
+    incrementViews: z.boolean().optional(),
+    loves: reactionDelta,
+    applauses: reactionDelta,
+    ideas: reactionDelta,
+    bullseyes: reactionDelta,
+  })
+  .refine((body) => body.incrementViews === true || body.loves || body.applauses || body.ideas || body.bullseyes, {
+    message: 'No increment specified',
+  })
+
 export type StatsQuery = z.infer<typeof statsQuerySchema>
+export type StatsListQuery = z.infer<typeof statsListQuerySchema>
 export type StatsUpdateBody = z.infer<typeof statsUpdateBodySchema>

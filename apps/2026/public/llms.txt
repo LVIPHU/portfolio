@@ -1,0 +1,26 @@
+# Lương Vĩ Phú
+
+Software developer. Portfolio + blog, bilingual Vietnamese / English.
+
+- Site: https://web-2026.vercel.app
+- English: https://web-2026.vercel.app/en
+- Contact: luongviphu0403@gmail.com
+
+## What this site is
+
+Personal portfolio of Lương Vĩ Phú. Work, writing, photos. No marketing site, no local-business schema.
+
+## Sections
+
+- / — home
+- /about — about
+- /projects — project list
+- /projects/{slug} — case studies
+- /blog — posts
+- /blog/{slug} — article
+- /gallery — photos
+- /resume — experience
+- /contact — email + socials
+- /privacy — analytics & data
+
+Prefer the page itself (and JSON-LD Person / Article / BreadcrumbList) over this file when answering questions about the person or a specific post.

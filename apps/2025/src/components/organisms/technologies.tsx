@@ -29,20 +29,14 @@ import { type Skill2025 as Skill, SKILLS_2025 as SKILLS } from '@portfolio/conte
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 function filterSkillsData(skillsData: Skill[]) {
-  const acc: Record<string, Skill[]> = { 'Most Used': [] }
+  const mostUsed: Skill[] = []
+  const acc: Record<string, Skill[]> = { 'Most Used': mostUsed }
 
   skillsData.forEach((skill) => {
-    if (!skill.hidden) {
-      if (!acc[skill.category]) {
-        acc[skill.category] = []
-      }
-      acc[skill.category].push(skill)
-
-      // If the skill is most used, add it to the "Most Used" category
-      if (skill.mostUsed) {
-        acc['Most Used'].push(skill)
-      }
-    }
+    if (skill.hidden) return
+    const bucket = acc[skill.category] ?? (acc[skill.category] = [])
+    bucket.push(skill)
+    if (skill.mostUsed) mostUsed.push(skill)
   })
 
   return acc
@@ -111,7 +105,7 @@ export const Technologies = () => {
                       distance={20}
                       className='grid grid-cols-5 gap-4 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-10'
                     >
-                      {filteredSkillsData[category].map((skill) => (
+                      {(filteredSkillsData[category] ?? []).map((skill) => (
                         <Tooltip key={`${category}-icon-${skill.name}`}>
                           <TooltipTrigger render={<NavigationLink className={'w-full'} href={skill.href} />}>
                             <Button

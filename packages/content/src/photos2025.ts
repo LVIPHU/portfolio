@@ -1,0 +1,67 @@
+/**
+ * ID ảnh Google Drive của trang /photos (2025). Tách khỏi template client
+ * để nội dung không nằm trong UI — cùng chỗ với PROJECTS_2025 / SKILLS_2025.
+ * `id` = file id trên Drive (dùng làm src); `title` cho alt text.
+ */
+export type Photo2025 = {
+  id: string
+  title?: string
+}
+
+export const PHOTOS_2025: Photo2025[] = [
+  { id: '1kvTR0zPTualJFcmKTwetg7Ztda5OeqjN', title: 'Photo 5015' },
+  { id: '1i0rsOybf_IQrbTusWmTa83goIG4l3tOI', title: 'Photo 5020' },
+  { id: '1OGAsQc-jNxPXJb-LARNZSbpFIHZWA224', title: 'Photo 5021' },
+  { id: '15nWHld3fWe7vtzVZuD2qRprgaPTqoiz2', title: 'Photo 5022' },
+  { id: '16Kb0wyJML7q-Att4L3jtPvV6LYN6lhEc', title: 'Photo 5023' },
+  { id: '1nL_HdhVaq0xMdEqT1LMkR3jqQ9XaiDbq', title: 'Photo 5027' },
+  { id: '1yp4HBHCpQ8xMzd5DWxx0dwuNgYeBNl8S', title: 'Photo 5028' },
+  { id: '1a0iJvhOZJ1kT4jzbve125ECPifT9SBtZ', title: 'Photo 5029' },
+  { id: '1hrUmwAq32T3KwDHvAB8uAPGiCS7B0j4z', title: 'Photo 5031' },
+  { id: '1-yM1sOgxpl3ET57bCO-X8aGH3wcQodsT', title: 'Photo 5085' },
+  { id: '11_rkgMWWrtyZUDpnZWKje3mHFNur2cMU', title: 'Photo 5086' },
+  { id: '12VlVsdYLHdplrCZ8Gf5IrKVxztLbV414', title: 'Photo 5087' },
+  { id: '1XWwCsyChk12oiKXJ7jy3Gb3ENiOqn216', title: 'Photo 5094' },
+  { id: '1eYoi4b0OzxeY1I2I2JzgjLDKkm43rtNI', title: 'Photo 5095' },
+  { id: '1ZYw7oV71rvnnr3wasWblBAPrlyhU-Q22', title: 'Photo 5104' },
+  { id: '1WhW9ptbDXtRFKvhioJ3MVlaFFcQoasNS', title: 'Photo 5105' },
+  { id: '1YPQKwfqxyXInUtZu-fmiCFr3wDyrkOuv', title: 'Photo 5110' },
+  { id: '1eAzVYLk_u0lW2fCHt-9REwj3m3vIDfko', title: 'Photo 5112' },
+  { id: '1aH_8AifWx_teN926f7yoRnVay_Mme7SX', title: 'Photo 5113' },
+  { id: '1zXoQ-9rnsV_W9Jqvy4k4-zFHDASc866K', title: 'Photo 5116' },
+  { id: '1lNZBXv_1P7q6zl7V75vtV9fkNUfA3q0I', title: 'Photo 5118' },
+  { id: '1H8oZsEJqIBqzDmYbxhK6QQIby7RYoBX3', title: 'Photo 5119' },
+  { id: '1DME1TdUsvujHv1rTOs6JBGzW7UgMNUwm', title: 'Photo 5122' },
+  { id: '1wfWxM6mrOu_kiwgEstfkMSpJ34KpYKvm', title: 'Photo 5124' },
+  { id: '1lZuIFYJejN_93WU8wA7Ska8ixe1AuQ3o', title: 'Photo 5125' },
+  { id: '1ojLfV8HnmPHqRt4ZjmydckQKhwS2LYQk', title: 'Photo 5126' },
+  { id: '1ls3A86a6v2pOQPExsJ9GxI8ovkFroHBZ', title: 'Photo 5128' },
+  { id: '1KeGkzKe3YwF4HcdkHO1wXhU-p8gHH6Xs', title: 'Photo 5131' },
+  { id: '1NQMr2rJ5mL2ZiSJs8ilG34vaEquU_jvG', title: 'Photo 5133' },
+  { id: '1bRJvUihQ1AbII9z9xlHeHI96LyT6__W5', title: 'Photo 5136' },
+  { id: '1m128-bF3Uqh4YKDu_YUunmAnq6Y5n9kN', title: 'Photo 5137' },
+  { id: '1HTDwyySnAwQRYRBZ0ShSDdZVbbG711he', title: 'Photo 5138' },
+  { id: '1Pfw87XGOx_TmflYNO7wMP7E9icDIHKZx', title: 'Photo 5139' },
+  { id: '1gsilI3JF3vzL27pFpZOojPJxuD5R9La2', title: 'Photo 5144' },
+  { id: '13ZYgGFOjXJW4IbTdJ6NQNdSMiZbMtSNK', title: 'Photo 5146' },
+  { id: '1NUyC9Hux5IQhMAsXALZStHBzBsD1x04w', title: 'Photo 5149' },
+  { id: '18b0K9_icSQpVIvktcBQRwz5wR886_P89', title: 'Photo 5189' },
+  { id: '1GMle3PM35mdxtfr3npS0ixbzQyqYjuEQ', title: 'Photo 5191' },
+  { id: '1L4toLy75Gm4wHKlPLRBqEgVYVjmi1UKb', title: 'Photo 5192' },
+  { id: '1id73Y9M2VyeXOO3ZY2fA1EPS6vwsDz-C', title: 'Photo 5194' },
+  { id: '1EWUdwYIpM4mLQgrVUILqFBFhgv1V9ltY', title: 'Photo 5195' },
+  { id: '1eauSG0n53FTKSncyFrgLpMMXq8Z0hFyl', title: 'Photo 5196' },
+  { id: '1IBOq9YrI7kw3jgqAkX9WRgYEelJP_gWe', title: 'Photo 5255' },
+  { id: '1FmbKQgDQuFaFNwaeKLFy1NiSyS0l3j2P', title: 'Photo 5257' },
+  { id: '19_zu_JrV0EqaJ2Ull9zFE8Mv3oXhGXtL', title: 'Photo 5259' },
+  { id: '1XNs55-jjVkqbwQgJRBX-4Il7JGwA5Ttf', title: 'Photo 5261' },
+  { id: '1UmTiW77ntZzXWW4OBjomdmjY9JyDnlwK', title: 'Photo 5263' },
+  { id: '1dmP7r8Yr7YqXMuUxbgXlvLZTO0o3r2fH', title: 'Photo 5308' },
+  { id: '1HS28GFSYVGiWkr1qhBdxkglkuJFzklnV', title: 'Photo 5310' },
+  { id: '1wwDSHCJqv_h7Doo-BA9jw4TMqs0fTJ2A', title: 'Photo 5312' },
+  { id: '1_pr-N1Hhod0hQZ9Yj6zqX-5HqZ29Q1zN', title: 'Photo 5314' },
+  { id: '1N5GeGxc7xAJK-HxQgyf05bGL0SCbzrVE', title: 'Photo 5317' },
+  { id: '1rXKDRjlZ-zBZ4Yv9zqjjAAGzucL3nGmb', title: 'Photo 5318' },
+  { id: '1oXNqGEkoclWv1uJyXRh5Z2hMQ53_KbMD', title: 'Photo 5321' },
+  { id: '1tHSXyPRhd7qnUPeCl1Cby06GsGwY7vi2', title: 'Photo 5328' },
+]

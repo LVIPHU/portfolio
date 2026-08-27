@@ -140,7 +140,7 @@ Component xếp theo MỐI QUAN TÂM, không theo trang dùng nó:
 | ---------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
 | `components/brand/`    | FelixHeroMark, Intro                                               | nhận diện thương hiệu; Intro giao tiếp bằng class `html.intro-running`/`intro-out` |
 | `components/effects/`  | AppearTitle, Card, HorizontalSlides, ListItem, Marquee, PillButton | hiệu ứng dùng chung, KHÔNG phụ thuộc `.showcase-root`                              |
-| `components/scroll/`   | SmoothScroll, Scrollbar, GsapSync                                  | cụm Lenis; cả ba phải là hậu duệ của `<ReactLenis root>`                           |
+| `components/scroll/`   | SmoothScroll, Scrollbar                                            | cụm Lenis; Scrollbar phải là hậu duệ của `<ReactLenis root>`                       |
 | `components/chrome/`   | SiteNav, SiteMenu, SiteFooter, LocaleSwitcher, ThemeToggle, Cursor | khung site, chạy toàn bộ route                                                     |
 | `components/showcase/` | theme.css + các section của `/about`                               | CHỈ chỗ này mới được phụ thuộc `.showcase-root`                                    |
 

@@ -16,6 +16,7 @@ export const playRandomNote = () => {
   if (typeof window === 'undefined') return
 
   const note = NOTES[Math.floor(Math.random() * NOTES.length)]
+  if (!note) return
   const audio = audioCache[note]
 
   console.log(audio)

@@ -98,6 +98,42 @@ export function SiteMenu({
     return () => document.removeEventListener('keydown', onKey)
   }, [open, onClose])
 
+  // Focus trap: Tab xoay trong tấm. inert phần nền để trình đọc màn hình không đọc trang dưới.
+  useEffect(() => {
+    if (!open) return
+    const root = panel.current
+    if (!root) return
+    const background = [document.getElementById('main'), document.querySelector('footer')].filter(
+      (el): el is HTMLElement => el instanceof HTMLElement
+    )
+    for (const el of background) el.inert = true
+
+    const focusables = () =>
+      [
+        ...root.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+      ].filter((el) => !el.hasAttribute('disabled') && el.getClientRects().length > 0)
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return
+      const items = focusables()
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (!first || !last) return
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+    root.addEventListener('keydown', onKey)
+    return () => {
+      root.removeEventListener('keydown', onKey)
+      for (const el of background) el.inert = false
+    }
+  }, [open])
+
   // Đưa tiêu điểm vào link đầu tiên khi mở (nút đóng vẫn Tab tới được vì nó nằm trên tấm này),
   // và TRẢ nó về chỗ cũ khi đóng. Không trả thì tấm đóng lại nhận `inert` kéo tiêu điểm về <body>:
   // đóng menu bằng Esc xong, Tab tiếp là chạy lại từ đầu trang chứ không quay về nút menu.
@@ -164,7 +200,13 @@ export function SiteMenu({
                       {t(item.key)}
                     </span>
                   ) : (
-                    <Link href={item.href} onClick={onClose} className={s.link} style={style}>
+                    <Link
+                      href={item.href}
+                      onClick={onClose}
+                      className={s.link}
+                      style={style}
+                      data-umami-event={`nav-${item.key}`}
+                    >
                       <RollingText text={t(item.key)} />
                     </Link>
                   )}
@@ -180,7 +222,7 @@ export function SiteMenu({
                   key={social.label}
                   href={social.url}
                   target='_blank'
-                  rel='noreferrer'
+                  rel='noopener noreferrer'
                   className={clsx('p-s', s.social)}
                 >
                   {social.label}

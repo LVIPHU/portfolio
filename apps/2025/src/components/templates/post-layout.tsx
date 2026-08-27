@@ -10,6 +10,7 @@ import {
   Comments,
   PostNav,
   PostTitle,
+  RelatedPosts,
   ScrollButtons,
   SocialShare,
   TagsList,
@@ -20,10 +21,11 @@ interface LayoutProps {
   authorDetails: CoreContent<Author>[]
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
+  relatedPosts?: { path: string; title: string }[]
   children: ReactNode
 }
 
-export function PostLayoutTemplate({ content, next, prev, children }: LayoutProps) {
+export function PostLayoutTemplate({ content, next, prev, relatedPosts = [], children }: LayoutProps) {
   const { slug, images, lastmod, readingTime, date, filePath, title, tags, toc } = content
   const postUrl = `${SITE_METADATA.siteUrl}/blog/${slug}`
 
@@ -56,6 +58,7 @@ export function PostLayoutTemplate({ content, next, prev, children }: LayoutProp
         <Separator className='mt-1' />
         <div className='mt-6 space-y-4 lg:pt-10'>
           <PostNav next={next} nextLabel='Next post' prev={prev} prevLabel='Previous post' />
+          <RelatedPosts posts={relatedPosts} />
           <Comments configs={{ reactions: '0' }} />
         </div>
       </article>

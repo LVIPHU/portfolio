@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Check, Copy } from 'lucide-react'
 
 /**
@@ -9,13 +9,22 @@ import { Check, Copy } from 'lucide-react'
  */
 export function CopyButton() {
   const [copied, setCopied] = useState(false)
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current)
+    },
+    []
+  )
 
   function handleCopy(e: React.MouseEvent<HTMLButtonElement>) {
     const pre = e.currentTarget.closest('[data-mdx-pre]')?.querySelector('pre')
     if (!pre?.textContent) return
-    navigator.clipboard.writeText(pre.textContent)
+    void navigator.clipboard.writeText(pre.textContent)
     setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    if (timer.current) clearTimeout(timer.current)
+    timer.current = setTimeout(() => setCopied(false), 2000)
   }
 
   return (

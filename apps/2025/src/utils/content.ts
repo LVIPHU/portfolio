@@ -17,6 +17,7 @@ export {
   getPostsByTag,
   getTagData,
   getSearchDocs,
+  getRelatedPosts,
   getStructuredData,
   getAllAuthors,
   getAuthor,

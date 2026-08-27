@@ -1,28 +1,24 @@
 ---
-description: JARVIS cross-project wiki — Query freely, write evidence only to raw/
+description: JARVIS cross-project wiki — read freely, write evidence only to raw/
 alwaysApply: true
 ---
 
 # JARVIS (portfolio sessions)
 
-Cross-project distilled knowledge lives at `D:\JARVIS\`. This project **reads** it and **writes evidence only**.
+Cross-project knowledge lives at `D:\JARVIS\`. Full contract: skill `jarvis-bridge`
+(auto-discovered from `~/.agents/skills/`). Read via `D:\JARVIS\wiki\index.md`; `status:
+draft` on a page is curation, not quality — follow draft pages normally.
 
-## Read
+<!-- JARVIS-DUTY:v1 -->
+When this session has actually RUN something worth keeping — a UAT pass, a suite that went
+green and was audited, a bug class that earned a name, a perf number measured, a decision
+that turned out wrong — write it BEFORE the session ends:
+`D:\JARVIS\raw\YYYY-MM-DD-retro-<slug>.md` — first person: what happened, what it cost,
+what you would do differently. New file only. Write the note and LEAVE — committing,
+logging and distillation belong to the next JARVIS session. If nothing was really run,
+do not manufacture a retro.
+<!-- /JARVIS-DUTY -->
 
-- Enter via `D:\JARVIS\wiki\index.md`; open only the pages you need. Never load the whole wiki.
-- For testing work → skill `testing-pilot`. For design / distinctive UI → skill `design-pilot`.
-- Before answering from “how we test / design / review”, orient through the index (or the pilot skill), then cite `[[slug]]` pages.
-
-## Write (evidence only)
-
-When this session has **actually run** something worth keeping (`pnpm ci-check`, typecheck/lint/build/check-links with a lesson, a named bug class, a wrong decision, a measured perf number), **before the session ends** write:
-
-`D:\JARVIS\raw\YYYY-MM-DD-retro-<slug>.md`
-
-First person: what happened, what it cost, what you would do differently. **New file only.** Same commit must append a `wiki/log.md` entry (op `ingest`, note: evidence only — distillation not done). Then `bash D:/JARVIS/tools/lint.sh --self-check`.
-
-## Do not
-
-- Do **not** write into `D:\JARVIS\wiki\` from a portfolio session. Distill only in a JARVIS session where lint runs.
-- Do **not** copy portfolio laws / `docs/plans/` into the wiki — one fact, one place; wiki gets concepts detached from this repo.
-- Portfolio-specific truth stays in `CLAUDE.md` and `docs/plans/`.
+Portfolio-typical triggers: `pnpm ci-check`, typecheck/lint/build/check-links with a
+lesson. Portfolio-specific truth stays in this repo's `CLAUDE.md` and `docs/plans/` —
+never copied into the wiki.

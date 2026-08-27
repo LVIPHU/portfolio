@@ -1,7 +1,9 @@
-import { useMemo } from 'react'
+'use client'
+
 import { cn } from '@portfolio/utils'
 import {
   Container,
+  NavigationLink,
   Separator,
   SocialIcons,
   Tooltip,
@@ -12,6 +14,7 @@ import {
 import { Dot } from 'lucide-react'
 import { type Skill2025 as Skill, SKILLS_2025 as SKILLS } from '@portfolio/content/data2025'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
+import { useTranslations } from 'next-intl'
 
 const techs = ['typescript', 'nextjs', 'react', 'tailwindcss', 'shadcn']
 
@@ -32,18 +35,17 @@ type Props = {
 }
 
 export const Footer = ({ className, description }: Props) => {
-  const techsUsed = useMemo(() => {
-    return techs.map((item) => {
-      const skill = SKILLS.find((skill) => skill.id === item)
-      if (skill) {
-        return (
-          <li key={item}>
-            <TooltipLink item={skill} />
-          </li>
-        )
-      }
-    })
-  }, [])
+  const t = useTranslations()
+  const techsUsed = techs.map((item) => {
+    const skill = SKILLS.find((s) => s.id === item)
+    if (skill) {
+      return (
+        <li key={item}>
+          <TooltipLink item={skill} />
+        </li>
+      )
+    }
+  })
 
   return (
     <Container as={'footer'} className={cn('mb-4 mt-8 flex flex-col gap-y-5 text-sm md:mb-32 md:mt-16', className)}>
@@ -61,6 +63,14 @@ export const Footer = ({ className, description }: Props) => {
           </li>
           <li>
             <SocialIcons kind={'gitfork'} size={5} href={'https://github.com/LVIPHU/portfolio'} />
+          </li>
+          <li>
+            <Dot size={14} />
+          </li>
+          <li>
+            <NavigationLink href='/privacy' className='hover:underline'>
+              {t('Common.privacy')}
+            </NavigationLink>
           </li>
         </ul>
         <ul className='flex flex-wrap items-center justify-center gap-x-2'>

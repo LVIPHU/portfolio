@@ -14,7 +14,7 @@ const ImageContainer = (props: ImageProps) => {
         sizes='(min-width: 1540px) 483px, (min-width: 1280px) 398px, (min-width: 1040px) 312px, (min-width: 780px) 350px, (min-width: 680px) 592px, calc(94.44vw - 31px)'
         width={width}
         height={height}
-        alt={alt || 'none'}
+        alt={alt || 'Photo'}
         src={imageDriveLoader({ id: src as string })}
         {...rest}
       />
@@ -22,7 +22,7 @@ const ImageContainer = (props: ImageProps) => {
   )
 }
 
-type ParallaxScrollImage = { id: string; src: string }
+type ParallaxScrollImage = { id: string; src: string; title?: string }
 
 interface ParallaxScrollProps extends React.HTMLAttributes<HTMLDivElement> {
   images: ParallaxScrollImage[]
@@ -39,23 +39,23 @@ const ParallaxScroll = ({ images, className }: ParallaxScrollProps) => {
   return (
     <ParallaxColumns className={cn('grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:grid-cols-3', className)}>
       <ul data-parallax-col className='grid gap-6'>
-        {firstPart.map(({ src, id }) => (
+        {firstPart.map(({ src, id, title }) => (
           <li key={'grid-1' + id}>
-            <ImageContainer src={src} alt={'thumbnail-' + id} />
+            <ImageContainer src={src} alt={title ?? `Photo ${id}`} />
           </li>
         ))}
       </ul>
       <ul data-parallax-col className='grid gap-6'>
-        {secondPart.map(({ src, id }) => (
+        {secondPart.map(({ src, id, title }) => (
           <li key={'grid-2' + id}>
-            <ImageContainer src={src} alt={'thumbnail-' + id} />
+            <ImageContainer src={src} alt={title ?? `Photo ${id}`} />
           </li>
         ))}
       </ul>
       <ul data-parallax-col className='grid gap-6'>
-        {thirdPart.map(({ src, id }) => (
+        {thirdPart.map(({ src, id, title }) => (
           <li key={'grid-3' + id}>
-            <ImageContainer src={src} alt={'thumbnail-' + id} />
+            <ImageContainer src={src} alt={title ?? `Photo ${id}`} />
           </li>
         ))}
       </ul>

@@ -54,10 +54,12 @@ export function useDragRotate() {
     }
   }, [isDragging, animate])
 
+  const springBackRef = useRef<number | null>(null)
+
   const animateBackToZero = useCallback(() => {
+    if (springBackRef.current !== null) cancelAnimationFrame(springBackRef.current)
     const startAngle = targetAngleRef.current
     let start: number | null = null
-    let rafId: number | null = null
 
     const step = (timestamp: number) => {
       if (start === null) start = timestamp
@@ -67,16 +69,23 @@ export function useDragRotate() {
 
       if (progress < 1) {
         setAngle(current)
-        rafId = requestAnimationFrame(step)
+        springBackRef.current = requestAnimationFrame(step)
       } else {
         setAngle(0)
         targetAngleRef.current = 0
-        rafId = null
+        springBackRef.current = null
       }
     }
 
-    rafId = requestAnimationFrame(step)
+    springBackRef.current = requestAnimationFrame(step)
   }, [])
+
+  useEffect(
+    () => () => {
+      if (springBackRef.current !== null) cancelAnimationFrame(springBackRef.current)
+    },
+    []
+  )
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()

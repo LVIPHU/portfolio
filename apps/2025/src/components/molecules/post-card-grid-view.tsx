@@ -34,13 +34,17 @@ export function PostCardGridView({ post }: { post: PostWithAuthor }) {
   const { path, title, summary, tags, images, readingTime, author } = post
 
   return (
-    <article className='h-full' onClick={() => playRandomNote()}>
+    <article className='h-full'>
       <Card className='flex h-full flex-col gap-0 overflow-hidden p-0 shadow-none'>
         {/* next/image fill (không dùng atom .image-container vì nó rounded-lg cả 4 góc);
             card overflow-hidden tự bo góc TRÊN, đáy ảnh vuông giáp nội dung — như mẫu */}
-        <NavigationLink href={`/${path}`} className='relative block aspect-video w-full'>
+        <NavigationLink
+          href={`/${path}`}
+          className='relative block aspect-video w-full'
+          onClick={() => playRandomNote()}
+        >
           <NextImage
-            src={images && images.length > 0 ? images[0] : SITE_METADATA.socialBanner}
+            src={images?.[0] ?? SITE_METADATA.socialBanner}
             alt={title}
             fill
             sizes='(min-width: 1280px) 33vw, (min-width: 1024px) 50vw, 100vw'

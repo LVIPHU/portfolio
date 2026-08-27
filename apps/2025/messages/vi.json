@@ -14,6 +14,7 @@
   "Blog": {
     "allPosts": "Tất cả bài viết",
     "iLikeToWrite": "Tôi thích viết về những gì tôi quan tâm. Bạn sẽ tìm thấy sự kết hợp giữa các bài viết về phát triển web, tin tức công nghệ và những suy nghĩ ngẫu nhiên từ cuộc sống của tôi. Sử dụng thanh tìm kiếm bên dưới để lọc theo tiêu đề.",
+    "relatedPosts": "Bài viết liên quan",
     "noPostFound": "không tìm thấy bài viết",
     "searchArticles": "Tìm kiếm bài viết",
     "readMore": "Đọc tiếp",
@@ -30,6 +31,7 @@
     "language": "Ngôn ngữ",
     "list": "Danh sách",
     "photos": "Hình ảnh",
+    "privacy": "Quyền riêng tư",
     "projects": "Dự án",
     "resume": "Sơ yếu lý lịch",
     "setting": "Cài đặt",
@@ -48,7 +50,8 @@
     "connect": "Kết nối",
     "emailLabel": "Email",
     "phoneLabel": "Điện thoại",
-    "locationLabel": "Địa điểm"
+    "locationLabel": "Địa điểm",
+    "sla": "Thường phản hồi trong 24–48 giờ"
   },
   "ContactForm": {
     "firstName": "Tên",
@@ -84,7 +87,8 @@
   },
   "Navbar": {
     "home": "Trang chủ",
-    "search": "Tìm kiếm"
+    "search": "Tìm kiếm",
+    "toggleDock": "Mở hoặc đóng menu điều hướng"
   },
   "NotFound": {
     "itSeemsLikeThe": "Có vẻ như trang cậu tìm không có! Hãy quay trở lại!",
@@ -108,7 +112,8 @@
     "theme": "Giao diện"
   },
   "Tags": {
-    "thingsIBlogAbout": "Các chủ đề tôi thường viết"
+    "thingsIBlogAbout": "Các chủ đề tôi thường viết",
+    "writtenAbout": "Những gì tôi đã viết về {tag}"
   },
   "Technologies": {
     "currentlyLearning": "Đang học",
@@ -118,5 +123,13 @@
   },
   "Timeline": {
     "present": "Hiện tại"
+  },
+  "Privacy": {
+    "title": "Quyền riêng tư",
+    "intro": "Trang này giữ theo dõi ở mức tối thiểu. Đây là những gì chạy khi bạn ghé thăm.",
+    "umami": "Thống kê lượt xem dùng Umami chế độ không cookie — không đặt cookie, và không dùng để nhận diện bạn xuyên site.",
+    "speedInsights": "Vercel Speed Insights đo hiệu năng (Core Web Vitals). Nó không xây hồ sơ quảng cáo.",
+    "giscus": "Bình luận bài viết dùng giscus. Để gửi bình luận bạn đăng nhập GitHub; phần đăng nhập do GitHub và giscus xử lý, không lưu trên site này.",
+    "contactForm": "Form liên hệ mở ứng dụng thư (mailto). Không có dữ liệu form nào được lưu trên máy chủ này."
   }
 }

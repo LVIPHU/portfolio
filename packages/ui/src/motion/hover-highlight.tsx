@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
 import { cn } from '@portfolio/utils'
+import { prefersReducedMotion } from './reduced-motion'
 
 gsap.registerPlugin(useGSAP)
 
@@ -25,8 +26,9 @@ export function HoverHighlight({ children, className, highlightClassName }: Hove
 
   const { contextSafe } = useGSAP({ scope })
 
-  const onMouseOver = contextSafe((e: React.MouseEvent) => {
-    const item = (e.target as HTMLElement).closest<HTMLElement>('[data-hover-item]')
+  const moveHighlight = contextSafe((target: EventTarget | null) => {
+    if (prefersReducedMotion()) return
+    const item = (target as HTMLElement | null)?.closest<HTMLElement>('[data-hover-item]')
     if (!item || !scope.current?.contains(item) || !highlight.current) return
     const box = scope.current.getBoundingClientRect()
     const r = item.getBoundingClientRect()
@@ -41,12 +43,26 @@ export function HoverHighlight({ children, className, highlightClassName }: Hove
     })
   })
 
+  const onMouseOver = contextSafe((e: React.MouseEvent) => {
+    moveHighlight(e.target)
+  })
+
+  const onFocus = contextSafe((e: React.FocusEvent) => {
+    moveHighlight(e.target)
+  })
+
   const onMouseLeave = contextSafe(() => {
     gsap.to(highlight.current, { opacity: 0, duration: 0.25, ease: 'power2.out' })
   })
 
   return (
-    <div ref={scope} className={cn('relative', className)} onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
+    <div
+      ref={scope}
+      className={cn('relative', className)}
+      onMouseOver={onMouseOver}
+      onFocus={onFocus}
+      onMouseLeave={onMouseLeave}
+    >
       <span
         ref={highlight}
         aria-hidden
