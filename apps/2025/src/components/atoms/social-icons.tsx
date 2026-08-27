@@ -34,7 +34,7 @@ import {
   SocketIO,
   LogoDark,
   LogoLight,
-} from '@/utils'
+} from '@/components/atoms/icons'
 
 import { cn } from '@portfolio/utils'
 import { GitFork } from 'lucide-react'

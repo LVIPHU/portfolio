@@ -14,6 +14,5 @@ export {
   getTimeAgo,
   kebabCaseToPlainText,
   omit,
-  pick,
   sortPosts,
 } from '../../packages/utils/src/index.ts'

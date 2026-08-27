@@ -27,10 +27,13 @@ export function EarthBackground({
   // Đăng ký "trang này có cảnh 3D phải chờ" cho cổng Intro. Đặt Ở ĐÂY chứ không trong EarthCanvas:
   // canvas nạp qua next/dynamic nên mount trễ (ở dev còn phải compile chunk) — trễ quá cửa sổ ân
   // hạn 600ms của page-ready là Intro mở ra trước khi model kịp tải. EarthBackground thì mount
-  // ngay cùng nhịp với trang.
+  // ngay cùng nhịp với trang. Đăng ký theo ID (idempotent) nên StrictMode gọi hai lần vô hại.
   //
-  // Đăng ký theo ID (idempotent) nên StrictMode gọi hai lần cũng vô hại, và không cần setState
-  // trong effect — react-hooks cảnh báo đúng chỗ đó.
+  // Điều kiện "xong" là AssetsReady trong <Suspense> của earth-canvas — resolve nghĩa là
+  // texture đã tải, cảnh vẽ được frame đầu, tấm gold trượt đi là thấy quả cầu ngay. KHÔNG có
+  // lối thoát ngắn hơn ở đây: user chốt "load xong model mới cho cuộn/xem" — mạng chậm thì
+  // intro giữ màn lâu hơn, đã có vạch chờ ở đáy báo đang tải. Ca treo bệnh lý (kiểu GLB đòi
+  // Draco từ gstatic bị CSP chặn — đã gỡ) do trần MAX_WAIT 8s của brand/page-ready đỡ.
   useEffect(() => {
     if (reduceMotion) return
     registerScene(SCENE_EARTH)

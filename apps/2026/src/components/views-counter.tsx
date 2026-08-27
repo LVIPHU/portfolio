@@ -25,11 +25,15 @@ export function ViewsCounter({ type, slug, className }: { type: StatsType; slug:
 
   if (isLoading) {
     return (
-      <span className={className} aria-busy>
+      <span className={className} aria-busy aria-live='polite'>
         ---
       </span>
     )
   }
 
-  return <span className={className}>{t('views', { count: stats.views + optimistic })}</span>
+  return (
+    <span className={className} aria-live='polite'>
+      {t('views', { count: stats.views + optimistic })}
+    </span>
+  )
 }

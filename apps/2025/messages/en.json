@@ -8,12 +8,13 @@
     "whenIMNot": "When I'm not coding, I usually listen to music {0} or play games {1} like <lol>League of Legends</lol>, <ww>Wuthering Waves</ww>. These hobbies help me maintain creativity and relieve stress."
   },
   "App": {
-    "iAmLươngVĩ": "I am Lương Vĩ Phú, a sofware engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.",
+    "iAmLươngVĩ": "I am Lương Vĩ Phú, a software engineer. If you have any questions, please feel free to contact me. Thank you for visiting my website.",
     "lươngVĩPhúS": "Lương Vĩ Phú's dev blog - portfolio"
   },
   "Blog": {
     "allPosts": "All posts",
     "iLikeToWrite": "I like to write about stuff I'm into. You'll find a mix of web dev articles, tech news, and random thoughts from my life. Use the search below to filter by title.",
+    "relatedPosts": "Related posts",
     "noPostFound": "no post found",
     "searchArticles": "Search articles",
     "readMore": "Read More",
@@ -30,6 +31,7 @@
     "language": "Language",
     "list": "List",
     "photos": "Photos",
+    "privacy": "Privacy",
     "projects": "Projects",
     "resume": "Resume",
     "setting": "Setting",
@@ -48,7 +50,8 @@
     "connect": "Connect",
     "emailLabel": "Email",
     "phoneLabel": "Phone",
-    "locationLabel": "Location"
+    "locationLabel": "Location",
+    "sla": "Usually replies within 24–48 hours"
   },
   "ContactForm": {
     "firstName": "First name",
@@ -84,7 +87,8 @@
   },
   "Navbar": {
     "home": "Home",
-    "search": "Search"
+    "search": "Search",
+    "toggleDock": "Toggle navigation menu"
   },
   "NotFound": {
     "itSeemsLikeThe": "It seems like the page you're looking for doesn't exist! Please go back!",
@@ -108,7 +112,8 @@
     "theme": "Theme"
   },
   "Tags": {
-    "thingsIBlogAbout": "Things I blog about"
+    "thingsIBlogAbout": "Things I blog about",
+    "writtenAbout": "Things I've written about {tag}"
   },
   "Technologies": {
     "currentlyLearning": "Currently Learning",
@@ -118,5 +123,13 @@
   },
   "Timeline": {
     "present": "Present"
+  },
+  "Privacy": {
+    "title": "Privacy",
+    "intro": "This site keeps tracking to a minimum. Here is what runs when you visit.",
+    "umami": "Usage analytics use Umami in cookieless mode — no cookie is set, and visits are not used to identify you across sites.",
+    "speedInsights": "Vercel Speed Insights measures performance (Core Web Vitals). It does not build an advertising profile.",
+    "giscus": "Blog comments use giscus. Posting a comment requires signing in with GitHub; that login is handled by GitHub and giscus, not stored on this site.",
+    "contactForm": "The contact form opens your mail app (mailto). Nothing from that form is stored on this server."
   }
 }

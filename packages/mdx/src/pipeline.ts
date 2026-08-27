@@ -51,6 +51,7 @@ export const rehypePlugins: PluggableList = [
     {
       behavior: 'prepend',
       headingProperties: { className: ['content-header'] },
+      properties: { ariaLabel: 'Link to heading' },
       content: anchorIcon.children,
     },
   ],

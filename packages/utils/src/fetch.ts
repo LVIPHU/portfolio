@@ -1,3 +1,5 @@
 export async function fetcher(url: string) {
-  return fetch(url).then((res) => res.json())
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`Fetch failed: ${res.status} ${res.statusText}`)
+  return res.json()
 }

@@ -5,10 +5,11 @@ import { resume, type Locale } from '@portfolio/content'
 import { Badge } from '@portfolio/ui'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { formatMonth, t } from '@/utils/format'
+import { pageMetadata } from '@/utils/seo'
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
   const tMeta = await getTranslations({ locale, namespace: 'resume' })
-  return { title: tMeta('title') }
+  return pageMetadata(locale, '/resume', tMeta('title'), tMeta('experience'))
 }
 
 export default async function ResumePage({ params }: { params: Promise<{ locale: Locale }> }) {

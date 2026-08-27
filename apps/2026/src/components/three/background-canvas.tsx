@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
 
 // Tấm intro là fixed inset-0 z-index 1000 với nền gold ĐỤC HOÀN TOÀN, nên suốt 4.6s intro
 // cảnh WebGL phía sau không hiện lên một pixel nào. Mặc định r3f là frameloop='always' →
@@ -33,6 +33,19 @@ function useIntroCovering() {
   return covering
 }
 
+// frameloop never→always của r3f không luôn tự invalidate — Intro xong mà không đá một
+// frame thì group Earth đứng nguyên scale 1 / pos 0 (vòng tròn mờ giữa màn) hoặc không vẽ.
+function KickFrame({ covering }: { covering: boolean }) {
+  const invalidate = useThree((s) => s.invalidate)
+  useEffect(() => {
+    if (covering) return
+    invalidate()
+    const id = requestAnimationFrame(() => invalidate())
+    return () => cancelAnimationFrame(id)
+  }, [covering, invalidate])
+  return null
+}
+
 // Canvas nền dùng chung cho EarthCanvas và StarsCanvas — MỘT nơi giữ camera/gl/dpr
 // và hack re-measure. Hai canvas phải cùng cấu hình để starfield trên trang (main)
 // trông y hệt trên /about; tách riêng từng file từng làm chúng lệch nhau âm thầm.
@@ -53,7 +66,9 @@ export function BackgroundCanvas({ children }: { children: React.ReactNode }) {
         dpr={[1, 2]}
         frameloop={introCovering ? 'never' : 'always'}
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+        onCreated={({ invalidate }) => invalidate()}
       >
+        <KickFrame covering={introCovering} />
         {children}
       </Canvas>
     </div>

@@ -4,7 +4,16 @@ import type { PostWithAuthor } from '@/utils/content'
 import { ArrowLeft, ArrowRight, LayoutGrid, List } from 'lucide-react'
 import { Link, usePathname } from '@portfolio/i18n/navigation'
 import React, { useState } from 'react'
-import { Reveal, Container, SearchArticles, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms'
+import {
+  Reveal,
+  Container,
+  SearchArticles,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  BlogStatsListProvider,
+} from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
 import { useTranslations } from 'next-intl'
 import { AppContextInterface, useApp } from '@/providers/app'
@@ -124,14 +133,14 @@ export function BlogTemplate({ posts, initialDisplayPosts = [], pagination }: Li
             />
           </Reveal>
         ) : (
-          <>
+          <BlogStatsListProvider slugs={displayPosts.map((post) => post.slug)}>
             <TabsContent value='GRID'>
               <GridView posts={displayPosts} />
             </TabsContent>
             <TabsContent value='LIST'>
               <ListView posts={displayPosts} />
             </TabsContent>
-          </>
+          </BlogStatsListProvider>
         )}
       </Tabs>
       {pagination && pagination.totalPages > 1 && !searchValue && (

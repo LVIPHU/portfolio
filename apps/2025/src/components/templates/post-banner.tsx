@@ -1,19 +1,21 @@
 import type { ReactNode } from 'react'
 import type { BlogContent } from '@/utils/content'
 import type { StatsType } from '@portfolio/service'
-import type { CoreContent } from '@/types/data'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { Container, DiscussOnX, EditOnGithub } from '@/components/atoms'
-import { Banner, BlogMeta, Comments, PostTitle, ScrollButtons, TagsList } from '@/components/molecules'
+import { Banner, BlogMeta, Comments, PostTitle, RelatedPosts, ScrollButtons, TagsList } from '@/components/molecules'
 
 interface LayoutProps {
   content: BlogContent
   children: ReactNode
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
+  relatedPosts?: { path: string; title: string }[]
+  /** Page luôn truyền — banner layout không dùng. */
+  authorDetails?: unknown
 }
 
-export function PostBannerTemplate({ content, children }: LayoutProps) {
+export function PostBannerTemplate({ content, children, relatedPosts = [] }: LayoutProps) {
   const { slug, title, images, date, lastmod, readingTime, tags, filePath } = content
   const postUrl = `${SITE_METADATA.siteUrl}/blog/${slug}`
 
@@ -48,41 +50,11 @@ export function PostBannerTemplate({ content, children }: LayoutProps) {
               <span className='text-gray-500'>/</span>
               <EditOnGithub filePath={filePath} />
             </div>
-            {/* <SocialShare postUrl={postUrl} title={title} /> */}
           </div>
+          <RelatedPosts posts={relatedPosts} />
           <Comments />
         </div>
       </article>
     </Container>
   )
 }
-
-// function Credit({ image, className }: { image: string; className?: string }) {
-//   const [, author, id] = image.split('__')
-//   if (author && id) {
-//     return (
-//       <div className={cn('text-right text-sm italic', className)}>
-//         Photo by{' '}
-//         <a
-//           className='text-primary-500 dark:text-primary-400 underline-offset-4 hover:underline'
-//           href={`https://unsplash.com/@${author}`}
-//           target='_blank'
-//           rel='noreferrer'
-//         >
-//           <span data-umami-event='banner-author'>@{author}</span>
-//         </a>{' '}
-//         on{' '}
-//         <a
-//           className='text-primary-500 dark:text-primary-400 underline-offset-4 hover:underline'
-//           href={`https://unsplash.com/photos/${id}`}
-//           target='_blank'
-//           rel='noreferrer'
-//           data-umami-event='unsplash-link'
-//         >
-//           <span data-umami-event='banner-unsplash'>Unsplash</span>
-//         </a>
-//       </div>
-//     )
-//   }
-//   return null
-// }

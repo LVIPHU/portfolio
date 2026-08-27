@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Reveal,
   Avatar,
@@ -14,9 +16,12 @@ import {
   TooltipTrigger,
 } from '@/components/atoms'
 import { Github, Linkedin } from '@/utils'
-import { Experience, GithubCal, Header, Technologies } from '@/components/organisms'
+import { Experience, Header, Technologies } from '@/components/organisms'
 import { useTranslations } from 'next-intl'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
+import dynamic from 'next/dynamic'
+
+const GithubCal = dynamic(() => import('@/components/organisms/github-cal').then((m) => m.GithubCal), { ssr: false })
 
 export const AboutTemplate = () => {
   const t = useTranslations()

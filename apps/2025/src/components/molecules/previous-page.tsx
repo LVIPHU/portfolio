@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@portfolio/i18n/navigation'
 import { useTranslations } from 'next-intl'
 import { Button, Separator } from '@/components/atoms'
 import { MoveLeft } from 'lucide-react'

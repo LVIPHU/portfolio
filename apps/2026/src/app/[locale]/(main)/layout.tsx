@@ -1,5 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
 import { SiteFooter } from '@/components/chrome/site-footer'
+import { HomeEarth } from '@/components/three/home-earth'
 import { StarsBackground } from '@/components/three/stars-background'
 
 // Chrome portfolio (nav + khung + footer) cho tất cả trang thường.
@@ -22,10 +23,13 @@ export default async function MainLayout({
   return (
     <>
       <StarsBackground />
+      <HomeEarth />
       {/* SiteNav mount ở [locale]/layout.tsx — hai nút nổi chạy trên MỌI route, kể cả (showcase).
           Ở đây chỉ cần chừa chỗ: nút là lớp fixed nên không đẩy nội dung, thiếu padding-top thì
           dòng đầu của trang chui xuống dưới nút. */}
       <main
+        id='main'
+        tabIndex={-1}
         className='w-full flex-1 pb-10'
         style={
           {

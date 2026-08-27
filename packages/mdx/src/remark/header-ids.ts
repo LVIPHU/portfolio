@@ -24,7 +24,8 @@ export function remarkHeaderIds() {
       // {/*id*/} trong MDX parse thành mdxTextExpression với value "/*id*/"
       if (last.type !== 'mdxTextExpression' || typeof last.value !== 'string') return
       const match = last.value.match(CUSTOM_ID)
-      if (!match) return
+      const customId = match?.[1]
+      if (!customId) return
 
       node.children.pop()
       // gỡ khoảng trắng thừa cuối text đứng trước comment
@@ -32,7 +33,7 @@ export function remarkHeaderIds() {
       if (prev?.type === 'text' && typeof prev.value === 'string') prev.value = prev.value.trimEnd()
 
       node.data = node.data ?? {}
-      node.data.hProperties = { ...node.data.hProperties, id: match[1] }
+      node.data.hProperties = { ...node.data.hProperties, id: customId }
     })
   }
 }

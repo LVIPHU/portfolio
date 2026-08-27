@@ -12,7 +12,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/atoms'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@portfolio/i18n/navigation'
 import { useMediaQuery } from '@portfolio/hooks'
 
 export function Modal({

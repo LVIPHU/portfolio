@@ -5,10 +5,11 @@ import { Link } from '@portfolio/i18n/navigation'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { PostRow } from '@/components/post-row'
 import { formatDate } from '@/utils/format'
+import { pageMetadata } from '@/utils/seo'
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
   const tMeta = await getTranslations({ locale, namespace: 'blog' })
-  return { title: tMeta('title') }
+  return pageMetadata(locale, '/blog', tMeta('title'), tMeta('description'))
 }
 
 export default async function BlogPage({ params }: { params: Promise<{ locale: Locale }> }) {

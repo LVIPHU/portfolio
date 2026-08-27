@@ -1,16 +1,19 @@
 import { PhotosTemplate } from '@/components/templates'
 import { PageLangParam } from '@/i18n'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-export async function generateMetadata() {
-  const t = await getTranslations()
+export async function generateMetadata(props: PageLangParam) {
+  const { locale } = await props.params
+  const t = await getTranslations({ locale })
 
   return {
     title: t('Common.photos'),
+    description: t('Common.photos'),
   }
 }
 
 export default async function PhotosPage(props: PageLangParam) {
-  const lang = (await props.params).locale
+  const { locale } = await props.params
+  setRequestLocale(locale)
   return <PhotosTemplate />
 }

@@ -5,10 +5,11 @@ import { profile, type Locale } from '@portfolio/content'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { ListItem } from '@/components/effects/list-item'
 
+import { pageMetadata } from '@/utils/seo'
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
   const tMeta = await getTranslations({ locale, namespace: 'contact' })
-  return { title: tMeta('title') }
+  return pageMetadata(locale, '/contact', tMeta('title'), tMeta('description'))
 }
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -22,10 +23,12 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         <AppearTitle>{t('title')}</AppearTitle>
       </h1>
       <p className='p text-muted-foreground mt-6 max-w-xl'>{t('description')}</p>
+      <p className='p-s text-muted-foreground mt-3'>{t('sla')}</p>
 
       <a
         href={`mailto:${profile.email}`}
         className='p-s bg-primary text-primary-foreground mt-10 inline-flex w-fit items-center gap-2 px-6 py-3.5 transition-opacity hover:opacity-80'
+        data-umami-event='cta-contact-email'
       >
         <Mail className='h-4 w-4' /> {t('emailMe')}
       </a>

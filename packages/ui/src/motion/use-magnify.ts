@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { prefersReducedMotion } from './reduced-motion'
 
 gsap.registerPlugin(useGSAP)
 
@@ -62,6 +63,7 @@ export function useMagnify({
   // Đo lại tâm nghỉ khi trỏ vào dock — chắc chắn dock đã hiện + layout ổn (dock
   // ẩn dưới md lúc mount cho rect = 0; robust hơn boundsRef-1-lần của framer).
   const onMouseEnter = () => {
+    if (prefersReducedMotion()) return
     for (const entry of entries.current) {
       const rect = entry.el.getBoundingClientRect()
       entry.centerX = rect.left + rect.width / 2
@@ -74,6 +76,7 @@ export function useMagnify({
   }
 
   const onMouseMove = (e: React.MouseEvent) => {
+    if (prefersReducedMotion()) return
     for (const entry of entries.current) {
       const { size, icon } = sizeFor(e.clientX - entry.centerX)
       entry.wTo(size)

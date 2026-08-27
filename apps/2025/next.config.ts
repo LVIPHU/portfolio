@@ -1,16 +1,19 @@
+import path from 'node:path'
 import createNextIntlPlugin from 'next-intl/plugin'
 import { version, author } from './package.json'
 import type { NextConfig } from 'next'
+
+const repoRoot = path.join(__dirname, '..', '..')
 
 const withNextIntl = createNextIntlPlugin()
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app cloud.umami.is analytics.umami.is va.vercel-scripts.com;
   style-src 'self' 'unsafe-inline' fonts.googleapis.com;
-  img-src * blob: data:;
-  media-src 'self' http://localhost:3000 blob: data:;
-  connect-src *;
+  img-src 'self' blob: data: https://api.microlink.io https://drive.google.com https://*.googleusercontent.com https://avatars.githubusercontent.com https://*.githubusercontent.com;
+  media-src 'self' blob: data:;
+  connect-src 'self' giscus.app https://api.github.com cloud.umami.is analytics.umami.is va.vercel-scripts.com vitals.vercel-insights.com;
   font-src 'self' fonts.gstatic.com;
   frame-src giscus.app *.codesandbox.io *.csb.app;
 `
@@ -62,6 +65,11 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // C10 (D-01): React Compiler stable trong Next 16 — memo tự động (babel pass).
   reactCompiler: true,
+  // Monorepo: chỉ rõ workspace root để Turbopack/Vercel không phải đoán.
+  outputFileTracingRoot: repoRoot,
+  turbopack: {
+    root: repoRoot,
+  },
   transpilePackages: [
     '@portfolio/content',
     '@portfolio/mdx',
@@ -79,6 +87,7 @@ const nextConfig: NextConfig = {
     email: author.email,
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
     qualities: [75, 100],
     remotePatterns: [
       {

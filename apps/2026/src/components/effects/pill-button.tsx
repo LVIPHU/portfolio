@@ -40,9 +40,15 @@ function rootClass(label: string | undefined, className: string | undefined) {
   return clsx(s.btn, s.btnFilled, !label && s.btnIconOnly, className)
 }
 
-export function PillButtonLink({ href, icon, label, className }: Common & { href: string }) {
+export function PillButtonLink({
+  href,
+  icon,
+  label,
+  className,
+  ...rest
+}: Common & { href: string } & Omit<ComponentProps<'a'>, 'href' | 'className' | 'children'>) {
   return (
-    <Link href={href} className={rootClass(label, className)}>
+    <Link href={href} className={rootClass(label, className)} {...rest}>
       <Inner icon={icon} label={label} />
     </Link>
   )

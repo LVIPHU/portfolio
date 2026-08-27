@@ -74,7 +74,7 @@ All shared packages export **raw TypeScript source** (`exports: "./src/index.ts"
 
 - `[locale]/layout.tsx` is the site-wide shell: fonts, `ThemeProvider`, and the **whole-site scroll/cursor chrome** — `SmoothScroll` (lenis) wrapping `Scrollbar` (reads progress via `useLenis`, so it must stay inside) and `Cursor`. `globals.css` is imported here, followed by the separate `native-scrollbar.css` (Tailwind's Lightning CSS strips `scrollbar-*` from any file that `@import 'tailwindcss'`).
 - `(main)` — the ordinary portfolio pages (home, blog, projects, resume, gallery, tags, contact) with nav + footer + `StarsBackground`.
-- `(showcase)` — full-bleed pages (`/about`) with no site chrome: its own scoped theme via `.showcase-root[data-theme]` + `showcase/theme.css`, plus `GsapSync` and `Intro` mounted at the layout level.
+- `(showcase)` — full-bleed pages (`/about`) with no site chrome: its own scoped theme via `.showcase-root[data-theme]` + `showcase/theme.css`. `Intro` mounts at the locale layout.
 - `src/components/` is grouped by concern, not by page: `brand/` (FELIX mark, intro), `chrome/` (nav, full-screen menu, footer, cursor, theme + locale toggles), `effects/` (card, marquee, list-item, appear-title, horizontal-slides — each with a CSS module), `scroll/` (lenis + GSAP wiring, scrollbar), `showcase/`, `three/` (r3f canvases: earth, stars).
 
 #### Design system (2026)

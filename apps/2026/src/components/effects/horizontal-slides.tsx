@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { useLenis } from 'lenis/react'
 import { gsap } from 'gsap'
 import { clsx } from 'clsx'
+import { rafThrottle } from '@portfolio/hooks'
 import s from './horizontal-slides.module.css'
 
 // Port components/horizontal-slides: cuộn dọc → row trượt ngang. Wrapper cao = chiều rộng track
@@ -20,8 +21,12 @@ export function HorizontalSlides({ children }: { children: ReactNode }) {
       if (row.current) setTrackWidth(row.current.scrollWidth)
     }
     measure()
-    window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
+    const onResize = rafThrottle(measure)
+    window.addEventListener('resize', onResize)
+    return () => {
+      onResize.cancel()
+      window.removeEventListener('resize', onResize)
+    }
   }, [children])
 
   useLenis(({ scroll }: { scroll: number }) => {

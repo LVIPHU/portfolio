@@ -9,6 +9,7 @@ export const ContactTemplate = () => {
       <div className='max-w-2xl'>
         <h1 className='text-3xl font-bold tracking-tight sm:text-4xl'>{t('Contact.contactMe')}</h1>
         <p className='text-muted-foreground mt-3 text-base'>{t('Contact.subtitle')}</p>
+        <p className='text-muted-foreground mt-1 text-sm'>{t('Contact.sla')}</p>
       </div>
 
       <div className='mt-10 grid gap-10 lg:grid-cols-2'>

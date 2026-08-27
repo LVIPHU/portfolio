@@ -47,7 +47,11 @@ export async function fetchRepoData({
   const parts = owner.split('/')
   owner = parts.pop() ?? 'LVIPHU'
   if (repo.includes('/')) {
-    ;[owner, repo] = repo.split('/')
+    const [maybeOwner, maybeRepo] = repo.split('/')
+    if (maybeOwner && maybeRepo) {
+      owner = maybeOwner
+      repo = maybeRepo
+    }
   }
   try {
     const { repository }: GraphQlQueryResponseData = await graphql(

@@ -3,11 +3,12 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getAllTags, type Locale } from '@portfolio/content'
 import { Link } from '@portfolio/i18n/navigation'
 import { AppearTitle } from '@/components/effects/appear-title'
+import { pageMetadata } from '@/utils/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
   const tMeta = await getTranslations({ locale, namespace: 'tags' })
-  return { title: tMeta('title') }
+  return pageMetadata(locale, '/tags', tMeta('title'), tMeta('description'))
 }
 
 export default async function TagsPage({ params }: { params: Promise<{ locale: Locale }> }) {

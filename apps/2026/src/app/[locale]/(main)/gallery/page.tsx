@@ -3,10 +3,12 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { gallery, type Locale } from '@portfolio/content'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { t } from '@/utils/format'
+import Image from 'next/image'
+import { pageMetadata } from '@/utils/seo'
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
   const tMeta = await getTranslations({ locale, namespace: 'gallery' })
-  return { title: tMeta('title') }
+  return pageMetadata(locale, '/gallery', tMeta('title'), tMeta('description'))
 }
 
 export default async function GalleryPage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -26,7 +28,15 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
       <div className='mt-6 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>figure]:mb-4'>
         {gallery.map((item) => (
           <figure key={item.src} className='bg-card break-inside-avoid overflow-hidden border'>
-            <img src={item.src} alt={item.alt} loading='lazy' className='w-full object-cover' />
+            <Image
+              src={item.src}
+              alt={item.alt}
+              width={item.width}
+              height={item.height}
+              sizes='(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw'
+              className='h-auto w-full object-cover'
+              unoptimized={item.src.endsWith('.svg')}
+            />
             <figcaption className='flex items-baseline justify-between gap-2 p-3'>
               <span className='p'>{t(item.caption, locale)}</span>
               <span className='p-xs text-muted-foreground shrink-0'>{item.date}</span>

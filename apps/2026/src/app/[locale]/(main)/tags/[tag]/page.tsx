@@ -5,6 +5,7 @@ import { getAllTags, getPostsByTag, type Locale } from '@portfolio/content'
 import { Link } from '@portfolio/i18n/navigation'
 import { PostRow } from '@/components/post-row'
 import { formatDate } from '@/utils/format'
+import { pageMetadata } from '@/utils/seo'
 export function generateStaticParams() {
   // Union tag của cả 2 locale
   const tags = new Set([...getAllTags('vi').map(({ tag }) => tag), ...getAllTags('en').map(({ tag }) => tag)])
@@ -16,8 +17,10 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: Locale; tag: string }>
 }): Promise<Metadata> {
-  const { tag } = await params
-  return { title: `#${decodeURIComponent(tag)}` }
+  const { locale, tag } = await params
+  const decoded = decodeURIComponent(tag)
+  const tMeta = await getTranslations({ locale, namespace: 'blog' })
+  return pageMetadata(locale, `/tags/${decoded}`, `#${decoded}`, `${tMeta('postsTaggedWith')} #${decoded}`)
 }
 
 export default async function TagPage({ params }: { params: Promise<{ locale: Locale; tag: string }> }) {

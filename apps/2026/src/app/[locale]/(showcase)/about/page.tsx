@@ -3,11 +3,12 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { profile, resume, featuredProjects, type Locale } from '@portfolio/content'
 import { t } from '@/utils/format'
 import { ShowcaseAbout, type AboutContent } from '@/components/showcase/showcase-about'
+import { pageMetadata } from '@/utils/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params
   const tAbout = await getTranslations({ locale, namespace: 'about' })
-  return { title: tAbout('title') }
+  return pageMetadata(locale, '/about', tAbout('title'), t(profile.tagline, locale))
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -30,14 +31,14 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       enter: ts('statement.enter'),
       second: ts('statement.second'),
     },
-    featuringIntro: t(profile.bio[0], locale),
+    featuringIntro: t(profile.bio[0] ?? profile.tagline, locale),
     featuringTitle: ts.raw('featuringTitle') as [string, string],
     featuringItems: ts.raw('featuringItems') as string[],
     projectsHeading: ts('projectsHeading'),
     projects: featuredProjects.map((p) => ({
       title: p.name,
       source: p.tech.join(' · '),
-      href: p.links.demo ?? p.links.source ?? '#',
+      href: `/projects/${p.slug}`,
     })),
     footerHeading: ts('footerHeading'),
     ctaFooter: ts('ctaFooter'),

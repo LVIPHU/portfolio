@@ -12,9 +12,13 @@ export function AppearTitle({ children, className }: { children: ReactNode; clas
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setVisible(true)
+      return
+    }
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry?.isIntersecting) {
           setVisible(true)
           io.disconnect()
         }

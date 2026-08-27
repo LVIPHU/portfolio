@@ -25,7 +25,9 @@ import s from './intro.module.css'
 
 // Nhịp: phủ + vạch chờ chạy → (≥1000ms VÀ trang đích sẵn sàng) → chữ trượt vào 1500ms → E/I ghép
 // ở +1900 → tấm trượt đi (CSS trễ đúng --intro-dur rồi chạy 1500ms) → nhả ở +3600.
-// MỌI route đều chạy bản đầy đủ này, kể cả điều hướng trong site — user chốt như vậy.
+// MỌI route và MỌI lần tải lại đều chạy bản đầy đủ — user chốt (2026-08-27): intro kiêm cổng
+// chờ tải model 3D Earth, phải load xong mới cho cuộn/xem nội dung, nên KHÔNG skip theo
+// session (bản skip sessionStorage của P6 đã thử và bị gỡ theo quyết định này).
 const TIMING = { hold: 1000, join: 1900, release: 3600 }
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))
@@ -126,7 +128,6 @@ export function Intro() {
     const timers = [setTimeout(() => setIntroOut(true), TIMING.join), setTimeout(release, TIMING.release)]
     return () => timers.forEach(clearTimeout)
     // release/setIntroOut ổn định theo run; phụ thuộc thêm chỉ tổ khởi động lại timer giữa chừng
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded, done])
 
   useEffect(() => {

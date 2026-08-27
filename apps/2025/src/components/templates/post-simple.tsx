@@ -1,21 +1,21 @@
 import type { ReactNode } from 'react'
 import type { BlogContent } from '@/utils/content'
-import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
-import type { CoreContent } from '@/types/data'
 import type { StatsType } from '@portfolio/service'
 import { Container, Separator } from '@/components/atoms'
-import { BlogMeta, Comments, PostTitle, ScrollButtons, TagsList } from '@/components/molecules'
+import { BlogMeta, Comments, PostTitle, RelatedPosts, ScrollButtons, TagsList } from '@/components/molecules'
 
 interface PostSimpleProps {
   content: BlogContent
   children: ReactNode
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
+  relatedPosts?: { path: string; title: string }[]
+  /** Page luôn truyền — simple layout không dùng. */
+  authorDetails?: unknown
 }
 
-export function PostSimpleTemplate({ content, children }: PostSimpleProps) {
+export function PostSimpleTemplate({ content, children, relatedPosts = [] }: PostSimpleProps) {
   const { slug, date, lastmod, title, tags, readingTime } = content
-  // const postUrl = `${SITE_METADATA.siteUrl}/${type.toLowerCase()}/${slug}`
 
   return (
     <Container className='pt-4 lg:pt-12'>
@@ -41,14 +41,7 @@ export function PostSimpleTemplate({ content, children }: PostSimpleProps) {
         <div className='prose prose-lg dark:prose-invert max-w-none'>{children}</div>
         <Separator className='mb-2 mt-1' />
         <div className='space-y-8'>
-          {/* <div className="flex justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <DiscussOnX postUrl={postUrl} />
-              <span className="text-gray-500">/</span>
-              <EditOnGithub filePath={filePath} />
-            </div>
-            <SocialShare postUrl={postUrl} filePath={filePath} title={title} />
-          </div> */}
+          <RelatedPosts posts={relatedPosts} />
           <Comments />
         </div>
       </article>

@@ -3,13 +3,31 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useControls } from 'leva'
-import { Color, MathUtils, Vector2, type ShaderMaterial } from 'three'
+import { Color, Vector2, type ShaderMaterial } from 'three'
 
 // Starfield nền (port cơ chế particles của lenis-website):
 // - simplex noise theo uTime * speed → hạt trôi lơ lửng
 // - parallax theo scroll: y += uScroll * depth (hạt gần trôi nhanh hơn)
 // - wrap dọc mod(y, viewport.h) → cuộn vô hạn không hết sao
 // - fragment: chấm glow mềm 0.05/dist - 0.1
+
+/** PRNG xác định — tránh Math.random trong render (react-hooks/purity). */
+function mulberry32(seed: number) {
+  let s = seed | 0
+  return () => {
+    s = (s + 0x6d2b79f5) | 0
+    let t = Math.imul(s ^ (s >>> 15), 1 | s)
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+function fillScaled(length: number, scale: number, seed: number) {
+  const rand = mulberry32(seed)
+  const out = new Float32Array(length)
+  for (let i = 0; i < length; i++) out[i] = rand() * scale
+  return out
+}
 
 const vertexShader = /* glsl */ `
 // Simplex 2D noise (Ashima Arts / Ian McEwan — snippet public domain)
@@ -115,31 +133,23 @@ export function Stars({ depth = 500 }: { depth?: number }) {
   // Sinh vị trí trong khung CỐ ĐỊNH đủ lớn (không phụ thuộc viewport lúc mount —
   // canvas fixed đo trễ). Trục y được shader wrap theo uResolution nên luôn phủ màn.
   const positions = useMemo(() => {
-    const array = new Array(count * 3)
+    const rand = mulberry32(count * 17 + Math.round(depth))
+    const array = new Float32Array(count * 3)
     for (let i = 0; i < array.length; i += 3) {
-      array[i] = MathUtils.randFloatSpread(2200)
-      array[i + 1] = MathUtils.randFloatSpread(1400)
-      array[i + 2] = MathUtils.randFloatSpread(depth)
+      array[i] = (rand() - 0.5) * 2200
+      array[i + 1] = (rand() - 0.5) * 1400
+      array[i + 2] = (rand() - 0.5) * depth
     }
-    return Float32Array.from(array)
+    return array
   }, [count, depth])
 
-  const noise = useMemo(() => Float32Array.from(Array.from({ length: count * 3 }, () => Math.random() * 100)), [count])
+  const noise = useMemo(() => fillScaled(count * 3, 100, count * 31), [count])
 
-  const sizes = useMemo(
-    () => Float32Array.from(Array.from({ length: count }, () => Math.random() * size)),
-    [count, size]
-  )
+  const sizes = useMemo(() => fillScaled(count, size, count * 47 + Math.round(size)), [count, size])
 
-  const speeds = useMemo(
-    () => Float32Array.from(Array.from({ length: count }, () => Math.random() * drift)),
-    [count, drift]
-  )
+  const speeds = useMemo(() => fillScaled(count, drift, count * 59 + Math.round(drift * 1000)), [count, drift])
 
-  const scales = useMemo(
-    () => Float32Array.from(Array.from({ length: count }, () => Math.random() * scale)),
-    [count, scale]
-  )
+  const scales = useMemo(() => fillScaled(count, scale, count * 71 + Math.round(scale)), [count, scale])
 
   // Giá trị khởi tạo cho lúc dựng material — chỉ là khung; giá trị thật do useFrame
   // ghi mỗi frame (three CLONE object này khi tạo material nên đừng mutate nó).
@@ -192,11 +202,11 @@ export function Stars({ depth = 500 }: { depth?: number }) {
     w.__starsDbg = () => {
       const u = material.current?.uniforms
       return {
-        uScroll: u?.uScroll.value,
+        uScroll: u?.uScroll?.value,
         scrollY: window.scrollY,
-        uParallax: u?.uParallax.value,
-        uResolution: u ? [u.uResolution.value.x, u.uResolution.value.y] : null,
-        uTime: u?.uTime.value,
+        uParallax: u?.uParallax?.value,
+        uResolution: u?.uResolution ? [u.uResolution.value.x, u.uResolution.value.y] : null,
+        uTime: u?.uTime?.value,
       }
     }
     w.__starsProbe = (scrollValue: number) => {
@@ -214,7 +224,7 @@ export function Stars({ depth = 500 }: { depth?: number }) {
       let weighted = 0
       let lit = 0
       for (let i = 0; i < W * H; i++) {
-        const a = buf[i * 4 + 3]
+        const a = buf[i * 4 + 3] ?? 0
         if (a > 12) {
           sum += a
           weighted += a * Math.floor(i / W)
@@ -236,12 +246,18 @@ export function Stars({ depth = 500 }: { depth?: number }) {
   useFrame(({ clock, viewport }) => {
     const u = material.current?.uniforms
     if (!u) return
-    u.uTime.value = clock.elapsedTime
-    u.uScroll.value = scrollRef.current
-    u.uParallax.value = parallax
-    u.uColor.value.copy(colorObj)
+    const time = u.uTime
+    const scroll = u.uScroll
+    const para = u.uParallax
+    const col = u.uColor
+    const res = u.uResolution
+    if (!time || !scroll || !para || !col || !res) return
+    time.value = clock.elapsedTime
+    scroll.value = scrollRef.current
+    para.value = parallax
+    col.value.copy(colorObj)
     // cập nhật mỗi frame — chống kẹt giá trị khởi tạo khi canvas fixed đo trễ lúc mount
-    u.uResolution.value.set(viewport.width, viewport.height)
+    res.value.set(viewport.width, viewport.height)
   })
 
   return (

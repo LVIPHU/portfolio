@@ -1,0 +1,19 @@
+---
+title: 'Portfolio Monorepo'
+summary: 'This very website — multiple portfolio versions, shared content, bilingual vi/en.'
+date: '2026-01-01'
+---
+
+This is a **sample case study** — a template you can replace with the real write-up later.
+
+## Problem
+
+A portfolio that should last years: redesigning must not mean re-entering bio, posts, or photos. Two (then more) versions need to ship in parallel from one source of truth.
+
+## Approach
+
+A pnpm + Turborepo monorepo. Each year is an app under `apps/`; data, MDX, UI, i18n, and API live in `packages/`. The 2026 and 2025 apps share the Next 16 + React 19 lock.
+
+## Outcome
+
+One change in `packages/content` lands on both sites. Blog MDX falls back across locales. View stats share `@portfolio/service`.

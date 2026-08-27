@@ -15,6 +15,12 @@
   animation-name: marquee-inverted;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    animation: none;
+  }
+}
+
 @keyframes marquee {
   0% {
     transform: translate3d(calc(var(--offset, 0%) * -1), 0, 0);

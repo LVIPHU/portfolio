@@ -8,11 +8,18 @@
     "blog": "Blog",
     "contact": "Contact",
     "menu": "Menu",
-    "close": "Close menu"
+    "close": "Close menu",
+    "skipToContent": "Skip to content"
+  },
+  "a11y": {
+    "themeLight": "Switch to light theme",
+    "themeDark": "Switch to dark theme",
+    "locale": "Language"
   },
   "footer": {
     "builtWith": "Built with Next.js · Version 2026",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "privacy": "Privacy"
   },
   "home": {
     "greeting": "Hi, I'm",
@@ -58,7 +65,9 @@
     "title": "Projects",
     "description": "Things I've built and am building.",
     "demo": "Demo",
-    "source": "Source"
+    "source": "Source",
+    "breadcrumb": "Breadcrumb",
+    "caseStudy": "Case study"
   },
   "resume": {
     "title": "Resume",
@@ -79,7 +88,9 @@
     "allTags": "All tags",
     "backToBlog": "Back to Blog",
     "postsTaggedWith": "Posts tagged",
-    "views": "{count, plural, =1 {1 view} other {# views}}"
+    "views": "{count, plural, =1 {1 view} other {# views}}",
+    "relatedPosts": "Related posts",
+    "breadcrumb": "Breadcrumb"
   },
   "tags": {
     "title": "Tags",
@@ -90,7 +101,15 @@
     "title": "Contact",
     "description": "Want to collaborate, chat, or just say hi? Drop me a line.",
     "emailMe": "Email me",
-    "findMeOn": "Find me on"
+    "findMeOn": "Find me on",
+    "sla": "Usually replies within 24–48 hours"
+  },
+  "privacy": {
+    "title": "Privacy",
+    "intro": "This site collects as little as possible. No account, no marketing cookies.",
+    "umami": "Umami Cloud records pageviews without cookies and without personal identifiers. It only runs when a website id is configured.",
+    "speed": "Vercel Speed Insights measures Core Web Vitals from the first-party script. It does not build an advertising profile.",
+    "mailto": "The contact form is a mailto: link. Messages go to email and are not stored on this site."
   },
   "notFound": {
     "title": "Page not found",
@@ -99,5 +118,9 @@
   },
   "localeSwitcher": {
     "label": "Language"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
   }
 }

@@ -16,7 +16,7 @@ export function Authors({ authors, className }: AuthorsProps) {
         <ul className='flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8'>
           {authors.map(({ name, avatar, twitter: x }) => (
             <li key={name} className='flex items-center space-x-2'>
-              {avatar && <Image src={avatar} width={38} height={38} alt='avatar' className='h-10 w-10 rounded-full' />}
+              {avatar && <Image src={avatar} width={38} height={38} alt={name} className='h-10 w-10 rounded-full' />}
               <dl className='whitespace-nowrap text-sm font-medium leading-5'>
                 <dt className='sr-only'>Name</dt>
                 <dd className='text-gray-900 dark:text-gray-100'>{name}</dd>

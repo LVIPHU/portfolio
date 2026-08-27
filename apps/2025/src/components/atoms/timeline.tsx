@@ -5,11 +5,8 @@ import { cn } from '@portfolio/utils'
 import dayjs from 'dayjs'
 import { useLocale, useTranslations } from 'next-intl'
 import { dayjsLocaleMap, dayjsLocales } from '@/libs/dayjs'
-import { Reveal } from '@portfolio/ui/motion'
-import gsap from 'gsap'
+import { Reveal, useScrollProgress, prefersReducedMotion } from '@portfolio/ui/motion'
 import { useGSAP } from '@gsap/react'
-
-gsap.registerPlugin(useGSAP)
 
 interface TimelineEntry {
   title: string
@@ -21,44 +18,43 @@ export const Timeline = ({ data, className }: { data: TimelineEntry[]; className
   const beamRef = useRef<HTMLDivElement>(null)
   const dotRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  // Beam + dot ĐỒNG BỘ theo "đường đọc" (giữa màn hình): progress = vị trí đường đọc trong
-  // timeline (0 đỉnh → 1 đáy). Beam scaleY = progress (mép dưới beam luôn nằm ở đường đọc);
-  // dot nào tâm đã qua đường đọc → data-active=true → chuyển màu cam. Đo live mỗi scroll
-  // (miễn nhiễm hydrate/layout-shift; xem verify-scroll-animation-gotcha).
+  // Beam: reuse useScrollProgress (cùng công thức read-line 50% với start=end=0.5).
+  useScrollProgress(containerRef, beamRef, { startViewport: 0.5, endViewport: 0.5 })
+
   useGSAP(
     () => {
-      const container = containerRef.current
-      const beam = beamRef.current
-      if (!container || !beam) return
+      if (prefersReducedMotion()) {
+        for (const dot of dotRefs.current) {
+          if (dot) dot.dataset.active = 'true'
+        }
+        return
+      }
 
-      const setScaleY = gsap.quickSetter(beam, 'scaleY') as (v: number) => void
-      gsap.set(beam, { transformOrigin: 'top', scaleY: 0, opacity: 0 })
-
-      let lastOpaque = false
+      let frame: number | null = null
       const update = () => {
-        const rect = container.getBoundingClientRect()
         const vh = window.innerHeight || document.documentElement.clientHeight
         const readLine = vh * 0.5
-        const progress = Math.min(1, Math.max(0, (readLine - rect.top) / (rect.height || 1)))
-        setScaleY(progress)
-        const opaque = progress > 0
-        if (opaque !== lastOpaque) {
-          gsap.set(beam, { opacity: opaque ? 1 : 0 })
-          lastOpaque = opaque
-        }
         for (const dot of dotRefs.current) {
           if (!dot) continue
           const dr = dot.getBoundingClientRect()
           dot.dataset.active = dr.top + dr.height / 2 <= readLine ? 'true' : 'false'
         }
       }
+      const onScroll = () => {
+        if (frame !== null) return
+        frame = requestAnimationFrame(() => {
+          frame = null
+          update()
+        })
+      }
 
       update()
-      window.addEventListener('scroll', update, { passive: true })
-      window.addEventListener('resize', update)
+      window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('resize', onScroll)
       return () => {
-        window.removeEventListener('scroll', update)
-        window.removeEventListener('resize', update)
+        if (frame !== null) cancelAnimationFrame(frame)
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', onScroll)
       }
     },
     { scope: containerRef }

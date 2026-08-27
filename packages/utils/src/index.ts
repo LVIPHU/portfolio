@@ -1,5 +1,5 @@
 export { cn } from './cn'
 export { capitalize, escape, escapeHtml, kebabCaseToPlainText } from './string'
-export { omit, pick } from './object'
-export { dateSortDesc, formatDate, getTimeAgo, sortByDateDesc, sortPosts } from './date'
+export { omit } from './object'
+export { formatDate, getTimeAgo, sortByDateDesc, sortPosts } from './date'
 export { fetcher } from './fetch'

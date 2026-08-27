@@ -37,6 +37,8 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
       className={cn(className)}
       nativeButton={false}
       render={
+        // Base UI nhét children của Button vào <a> lúc runtime; eslint chỉ thấy thẻ rỗng.
+        // eslint-disable-next-line jsx-a11y/anchor-has-content -- children clone qua render prop
         <a aria-current={isActive ? 'page' : undefined} data-slot='pagination-link' data-active={isActive} {...props} />
       }
     />

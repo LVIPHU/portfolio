@@ -28,6 +28,12 @@ const SwirlingEffectSpinner = () => {
             animation: spin2 1.5s ease-in-out infinite,
               spin 2s linear infinite;
             animation-direction: alternate;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .spin2 {
+              animation: none;
+            }
           }`}
       </style>
       <svg viewBox='0 0 800 800' className='h-32 w-32' xmlns='http://www.w3.org/2000/svg'>
