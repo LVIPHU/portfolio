@@ -15,7 +15,6 @@ import s from './sections.module.css'
 export type AboutContent = {
   name: string
   role: string
-  tagline: string
   bio: string[]
   aboutHeading: string
   scrollLabel: [string, string]

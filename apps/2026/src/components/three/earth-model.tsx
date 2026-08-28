@@ -24,7 +24,7 @@
 // Đèn nằm ở earth-canvas.tsx (leva 'earth'): ambient 0.40 / key 0.90 / fill 0.38 — key 1.1
 // làm cháy vùng sáng của vàng kim.
 
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { useTexture } from '@react-three/drei'
 import { useControls } from 'leva'
 import { useFrame, useThree, type ThreeElements } from '@react-three/fiber'
@@ -32,6 +32,7 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 import {
   CanvasTexture,
   Color,
+  DataTexture,
   LinearFilter,
   MeshStandardMaterial,
   PMREMGenerator,
@@ -56,6 +57,11 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 // Albedo tách từ GLB cũ thành webp tĩnh (xem comment trong EarthModel); mask bờ biển Natural Earth.
 const EARTH_ALBEDO_SRC = '/earth-albedo.webp'
 const EARTH_MASK_SRC = '/land-mask.png'
+
+// 1×1 đen, dùng chung — không dispose theo instance. Gắn map/bump từ lúc tạo material để
+// Three bật USE_MAP/USE_BUMPMAP trước invalidate đầu (thiếu vMapUv → shader không compile).
+const EARTH_PLACEHOLDER = new DataTexture(new Uint8Array([0, 0, 0, 255]), 1, 1)
+EARTH_PLACEHOLDER.needsUpdate = true
 
 // Theme đích cho quả cầu (0 = dark, 1 = light). Hai nguồn, theo thứ tự ưu tiên:
 //  1. .showcase-root[data-theme] — trang /about, zoom-section đổi attribute này khi cuộn.
@@ -187,10 +193,10 @@ export function EarthModel(props: ThreeElements['group']) {
     uRimColor: { value: new Color('#D4AF37') },
     uNight: { value: 0.9 },
     uNightColor: { value: new Color('#ffd489') },
-    uNightMap: { value: null as Texture | null },
+    uNightMap: { value: EARTH_PLACEHOLDER as Texture },
     // trùng position đèn key trong earth-canvas: [300, 200, 400] đã normalize
     uLightDirWorld: { value: new Vector3(300, 200, 400).normalize() },
-    uGeoMap: { value: null as Texture | null },
+    uGeoMap: { value: EARTH_PLACEHOLDER as Texture },
     uGeoOnly: { value: 1.0 },
     uLandMetal: { value: 0.68 },
     uLandRough: { value: 0.32 },
@@ -199,11 +205,18 @@ export function EarthModel(props: ThreeElements['group']) {
   })
 
   const material = useMemo(() => {
-    const mat = new MeshStandardMaterial({ transparent: true, metalness: 0, roughness: 0.93 })
+    const mat = new MeshStandardMaterial({
+      name: 'EarthStandard',
+      transparent: true,
+      metalness: 0,
+      roughness: 0.93,
+      map: EARTH_PLACEHOLDER,
+      bumpMap: EARTH_PLACEHOLDER,
+    })
     mat.envMapIntensity = 0.85
     // three lấy onBeforeCompile.toString() làm khoá cache program → khoá riêng theo nội dung
     mat.customProgramCacheKey = () =>
-      `felix-earth-v9-${EARTH_UNIFORMS_GLSL.length}-${EARTH_MAP_GLSL.length}-${EARTH_EMISSIVE_GLSL.length}` +
+      `felix-earth-v10-${EARTH_UNIFORMS_GLSL.length}-${EARTH_MAP_GLSL.length}-${EARTH_EMISSIVE_GLSL.length}` +
       `-${EARTH_NORMAL_GLSL.length}-${EARTH_ROUGH_GLSL.length}-${EARTH_METAL_GLSL.length}-${EARTH_SPECULAR_GLSL.length}`
     mat.onBeforeCompile = (shader) => {
       Object.assign(shader.uniforms, uniformsRef.current)
@@ -219,8 +232,8 @@ export function EarthModel(props: ThreeElements['group']) {
     return mat
   }, [])
 
-  // bump + đèn thành phố: sinh khi đủ 2 ảnh.
-  useEffect(() => {
+  // bump + đèn thành phố: sinh khi đủ 2 ảnh. Layout — trước invalidate/render của Canvas.
+  useLayoutEffect(() => {
     let cancelled = false
     let bump: CanvasTexture | undefined
     let nightTex: CanvasTexture | undefined

@@ -44,8 +44,15 @@ export const EARTH_MAP_GLSL = /* glsl */ `
   float water = clamp((c.b - max(c.r, c.g)) * uWaterGain, 0.0, 1.0);
   float v = smoothstep(uLow, uHigh, lum * (1.0 - water * uOceanSink));
   v *= 1.0 - uCloudDim * max(0.0, 1.0 - sat * 3.0);
+  // vMapUv chỉ có khi USE_MAP — sample trong main (sau uv_pars). Hàm global trước include
+  // đó sẽ compile fail dù đã gắn placeholder.
+#ifdef USE_MAP
+  vec2 earthUv = vMapUv;
+#else
+  vec2 earthUv = vec2(0.0);
+#endif
   // threshold lại sau khi sample: mẫu mờ ở mip thấp (rìa nghiêng) không tạo dải nâu smear
-  float geo = smoothstep(0.42, 0.58, texture2D(uGeoMap, vMapUv).r);
+  float geo = smoothstep(0.42, 0.58, texture2D(uGeoMap, earthUv).r);
   float detail = max(v, smoothstep(0.10, 0.55, lum));
   // đất/biển do mask bờ biển quyết định; vân địa chất chỉ điều tiết TÔNG vàng đậm↔nhạt
   // → hai theme cho kết quả như nhau (nếu để vân là màu biển lọt qua thì light sẽ trắng nhoè)
@@ -67,7 +74,12 @@ export const EARTH_EMISSIVE_GLSL = /* glsl */ `
   float limb = pow(1.0 - clamp(dot(nrm, vDir), 0.0, 1.0), 3.0);
   vec3 lightDirView = normalize((viewMatrix * vec4(uLightDirWorld, 0.0)).xyz);
   float nightSide = smoothstep(0.12, -0.35, dot(nrm, lightDirView));
-  float city = texture2D(uNightMap, vMapUv).r;
+#ifdef USE_MAP
+  vec2 earthUv = vMapUv;
+#else
+  vec2 earthUv = vec2(0.0);
+#endif
+  float city = texture2D(uNightMap, earthUv).r;
   vec3 landGlow = mix(uLandDeep, uLand, vLandTone) * vDuotone * uGlow * mix(1.0, 0.3, limb);
   totalEmissiveRadiance = landGlow + uRimColor * rim + uNightColor * city * uNight * nightSide;
 }

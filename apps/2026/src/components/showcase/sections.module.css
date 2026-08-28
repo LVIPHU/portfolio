@@ -36,23 +36,6 @@
   flex-direction: column;
   gap: calc(((32 * 100) / var(--device-width)) * 1vw);
 }
-.heroDesc {
-  max-width: 40ch;
-  /* Chữ này nằm ĐÈ lên quả cầu Earth đang quay: nền dưới nó đổi liên tục giữa biển #101012
-     (17.9:1, đọc tốt) và lục địa gold #DFB454 (1.69:1, chìm nghỉm).
-     ĐÃ THỬ mix-blend-mode: difference — bỏ. Nó đạt 5.09:1 nhưng luôn trả về MÀU BÙ của nền,
-     mà bù của gold bắt buộc là navy rgb(16,59,155): lạc khỏi bảng màu, và không tham số nào
-     chỉnh được. Nó còn có vùng mù ở nền ≈ rgb(120) (nửa độ sáng chữ) — đúng dải mà vệt phản
-     quang của biển quét qua, chỗ đó chữ biến mất sạch.
-     Cách dùng ở đây: giữ chữ TRẮNG nguyên, chỉ dựng quầng tối sát viền glyph để tạo tương
-     phản CỤC BỘ. Trên nền đen quầng vô hình; trên gold nó kéo vùng sát chữ xuống ~rgb(22,18,8)
-     nên trắng-trên-quầng đạt ~16:1, không phụ thuộc nền dưới là gì. Ba lớp blur chồng nhau
-     cho chuyển mượt thay vì viền cứng — cùng kỹ thuật phụ đề video. */
-  text-shadow:
-    0 0 2px rgba(0, 0, 0, 0.95),
-    0 0 6px rgba(0, 0, 0, 0.85),
-    0 0 16px rgba(0, 0, 0, 0.6);
-}
 .heroCta {
   display: flex;
   gap: calc(((16 * 100) / var(--device-width)) * 1vw);
@@ -72,14 +55,6 @@
     align-items: end;
     /* KHÔNG padding-bottom ở đây: lề đáy đã do .hero lo (= --wordmark-top). Cộng thêm ở đây là
        lề dưới thành gấp đôi lề trên — lỗi đã sửa một lần, đừng thêm lại. */
-  }
-  /* Trải trọn khoảng TRỐNG giữa scroll-hint (cột 1-2) và nút CTA (cột 9-12) rồi canh giữa: mô tả
-     nằm đúng chính giữa hai khối đó (đo ở 1274px: hint kết thúc 214, nút bắt đầu 854, tâm mô tả
-     534). Quả cầu đậu quanh trục đó, lệch trái thêm một nhịp — xem STEPS[0] trong earth-canvas. */
-  .heroDesc {
-    grid-column: 3 / 9;
-    max-width: none;
-    text-align: center;
   }
   /* Còn MỘT nút, chiếm cột 7→12 nhưng chừa bên phải đúng chỗ của nút mở menu (ô icon 48 comp +
      gap) — nút menu là lớp fixed nên không tự đẩy được cái gì, phải chừa tay. */

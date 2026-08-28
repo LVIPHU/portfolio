@@ -9,7 +9,6 @@ import s from './sections.module.css'
 type AboutHeroContent = {
   name: string
   role: string
-  tagline: string
   scrollLabel: [string, string]
   ctaContact: string
 }
@@ -43,7 +42,6 @@ export function AboutHero({ content }: { content: AboutHeroContent }) {
             {content.scrollLabel[1]}
           </span>
         </div>
-        <p className={`p-s ${s.heroDesc}`}>{content.tagline}</p>
         <div className={s.heroCta}>
           <PillButtonLink href='/contact' icon={<Mail />} label={content.ctaContact} />
         </div>
