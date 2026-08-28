@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["DATABASE_URL", "GITHUB_API_TOKEN", "VERCEL_URL", "NEXT_PUBLIC_VERCEL_URL"],
+      "env": ["DATABASE_URL", "GITHUB_API_TOKEN", "VERCEL_URL", "NEXT_PUBLIC_VERCEL_URL", "NEXT_PUBLIC_APP_URL"],
       "passThroughEnv": ["NODE_ENV", "VERCEL"],
       "outputs": [
         ".next/**",

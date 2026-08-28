@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { Locale } from '@portfolio/i18n/locales'
 import { profile } from '@portfolio/content'
+import { absolutePageUrl, buildOgFields, buildSocialMeta, type OgArticle } from '@portfolio/utils'
 
 /** Canonical production host. Preview/Vercel ghi đè bằng NEXT_PUBLIC_SITE_URL / APP_URL. */
 export const SITE_URL =
@@ -8,16 +9,8 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_APP_URL ||
   (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : 'https://web-2026.vercel.app')
 
-export function localePath(locale: string, path: string): string {
-  const normalized = !path || path === '/' ? '' : path.startsWith('/') ? path : `/${path}`
-  if (locale === 'en') return `/en${normalized || ''}`
-  return normalized || '/'
-}
-
 export function absoluteUrl(locale: string, path: string): string {
-  const p = localePath(locale, path)
-  if (p === '/') return SITE_URL
-  return `${SITE_URL}${p}`
+  return absolutePageUrl(SITE_URL, locale, path)
 }
 
 export function buildAlternates(locale: string, path: string) {
@@ -29,29 +22,33 @@ export function buildAlternates(locale: string, path: string) {
   }
 }
 
-export function ogLocale(locale: string): string {
-  return locale === 'en' ? 'en_US' : 'vi_VN'
+export type PageMetadataOpts = {
+  article?: OgArticle
 }
 
-export function pageMetadata(locale: Locale, path: string, title: string, description: string): Metadata {
+export function pageMetadata(
+  locale: Locale,
+  path: string,
+  title: string,
+  description: string,
+  opts?: PageMetadataOpts
+): Metadata {
   const alternates = buildAlternates(locale, path)
+  const fields = buildOgFields({
+    title,
+    description,
+    canonicalUrl: alternates.canonical,
+    siteName: profile.name,
+    locale,
+    origin: SITE_URL,
+    type: opts?.article ? 'article' : 'website',
+    article: opts?.article,
+  })
   return {
     title,
     description,
     alternates,
-    openGraph: {
-      title,
-      description,
-      url: alternates.canonical,
-      locale: ogLocale(locale),
-      siteName: profile.name,
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-    },
+    ...buildSocialMeta(fields),
   }
 }
 

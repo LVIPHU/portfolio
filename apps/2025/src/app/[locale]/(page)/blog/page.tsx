@@ -3,15 +3,18 @@ import { POSTS_PER_PAGE } from '@/constants/post'
 import { BlogTemplate } from '@/components/templates'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
+import { withOg } from '@/utils/og-meta'
 
 export async function generateMetadata(props: PageBlogParam) {
   const { locale } = await props.params
   const t = await getTranslations({ locale })
 
-  return {
+  return withOg({
+    locale,
+    path: '/blog',
     title: t('Common.blog'),
     description: t('Blog.iLikeToWrite'),
-  }
+  })
 }
 
 type PageBlogParam = {
