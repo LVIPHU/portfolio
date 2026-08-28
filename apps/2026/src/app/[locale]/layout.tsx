@@ -16,7 +16,7 @@ import { UmamiAnalytics } from '@/components/chrome/umami-analytics'
 import { JsonLd } from '@/components/json-ld'
 import { anton, roboto, spaceGrotesk } from '@/utils/fonts'
 import { gallery } from '@portfolio/content'
-import { SITE_URL, buildAlternates, ogLocale, personJsonLd } from '@/utils/seo'
+import { SITE_URL, pageMetadata, personJsonLd } from '@/utils/seo'
 import '../globals.css'
 // Nạp SAU globals.css và tách riêng — Lightning CSS của Tailwind cắt scrollbar-* khỏi file
 // nào có @import 'tailwindcss'. Chi tiết trong chính file đó.
@@ -30,27 +30,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const loc = (hasLocale(routing.locales, locale) ? locale : routing.defaultLocale) as Locale
   const description = profile.tagline[loc]
-  const alternates = buildAlternates(loc, '/')
   return {
+    ...pageMetadata(loc, '/', profile.name, description),
     metadataBase: new URL(SITE_URL),
     title: {
       default: profile.name,
       template: `%s · ${profile.name}`,
-    },
-    description,
-    alternates,
-    openGraph: {
-      title: profile.name,
-      description,
-      url: alternates.canonical,
-      siteName: profile.name,
-      locale: ogLocale(loc),
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: profile.name,
-      description,
     },
   }
 }

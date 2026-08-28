@@ -15,7 +15,8 @@ import {
 } from '@/utils/content'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { MDX_COMPONENTS } from '@/mdx-components'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
+import { withOg } from '@/utils/og-meta'
 
 // Map tĩnh chọn template theo frontmatter layout (D-03 — hết meta-programming)
 const DEFAULT_TEMPLATE = 'PostLayout'
@@ -46,45 +47,24 @@ export async function generateMetadata(props: BlogPostParams): Promise<Metadata 
     return
   }
   const authorDetails = getAuthorDetails(post.authors.length ? post.authors : ['default'])
-
-  const t = await getTranslations({ locale: params.locale })
-  const siteName = t('App.lươngVĩPhúS')
-  const siteUrl = SITE_METADATA.siteUrl ?? ''
-  const localePrefix = params.locale === 'en' ? '/en' : ''
-
+  const authors = authorDetails.map((author) => author.name)
   const publishedAt = new Date(post.date).toISOString()
   const modifiedAt = new Date(post.lastmod || post.date).toISOString()
-  const authors = authorDetails.map((author) => author.name)
-  const imageList = post.images.length ? post.images : [SITE_METADATA.socialBanner]
-  const toAbsolute = (img: string) => (img.includes('http') ? img : `${siteUrl}${img}`)
-  const ogImages = imageList.map((img) => ({ url: toAbsolute(img) }))
-  const ogLocale = params.locale === 'en' ? 'en_US' : 'vi_VN'
 
-  return {
+  return withOg({
+    locale: params.locale,
+    path: `/blog/${slug}`,
     title: post.title,
     description: post.summary,
-    alternates: {
-      canonical: `${siteUrl}${localePrefix}/blog/${slug}`,
-    },
-    openGraph: {
-      title: post.title,
-      description: post.summary,
-      siteName: siteName,
-      locale: ogLocale,
-      type: 'article',
+    article: {
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
-      url: './',
-      images: ogImages,
       authors: authors.length > 0 ? authors : SITE_METADATA.author ? [SITE_METADATA.author] : [],
+      tags: post.tags,
+      section: 'Blog',
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.summary,
-      images: imageList.map(toAbsolute),
-    },
-  }
+    imageUrls: post.images.length ? post.images : undefined,
+  })
 }
 
 export const generateStaticParams = async () => {

@@ -3,19 +3,22 @@ import { POSTS_PER_PAGE } from '@/constants/post'
 import { BlogTemplate } from '@/components/templates'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
+import { withOg } from '@/utils/og-meta'
 
 type PageBlogParam = {
   params: Promise<{ locale: string; page: string }>
 }
 
 export async function generateMetadata(props: PageBlogParam) {
-  const { locale } = await props.params
+  const { locale, page } = await props.params
   const t = await getTranslations({ locale })
 
-  return {
+  return withOg({
+    locale,
+    path: `/blog/page/${page}`,
     title: t('Common.blog'),
     description: t('Blog.iLikeToWrite'),
-  }
+  })
 }
 
 // Sinh trang 2..totalPages cho mỗi locale (trang 1 là /blog). Segment tĩnh `page` cụ thể

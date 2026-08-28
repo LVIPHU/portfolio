@@ -16,6 +16,7 @@ import { setTimeout as sleep } from 'node:timers/promises'
 const CONCURRENCY = 6
 const FETCH_TIMEOUT_MS = 15000
 const SERVER_READY_TIMEOUT_MS = 90000
+const OG_PROBE_TIMEOUT_MS = 30000
 
 const APPS = [
   { name: 'web-2026', port: 3000 },
@@ -68,6 +69,29 @@ async function waitReady(origin) {
     await sleep(1000)
   }
   return false
+}
+
+/** GET /api/og phải trả PNG — lần generate đầu chậm nên timeout riêng. */
+async function probeOg(origin) {
+  const url = `${origin}/api/og?title=Test`
+  const ctrl = new AbortController()
+  const t = setTimeout(() => ctrl.abort(), OG_PROBE_TIMEOUT_MS)
+  try {
+    const res = await fetch(url, { signal: ctrl.signal, redirect: 'manual' })
+    const type = res.headers.get('content-type') ?? ''
+    if (res.status !== 200 || !type.includes('image/png')) {
+      console.error(`✗ OG ${url} → HTTP ${res.status} content-type=${type || '(empty)'}`)
+      return false
+    }
+    await res.arrayBuffer()
+    console.log(`  ✓ ${url} PNG`)
+    return true
+  } catch (e) {
+    console.error(`✗ OG ${url} → ${e?.message || e}`)
+    return false
+  } finally {
+    clearTimeout(t)
+  }
 }
 
 function startServer(app) {
@@ -233,6 +257,14 @@ async function main() {
         process.exit(2)
       }
       console.log(`  ✓ ${origin} sẵn sàng`)
+    }
+  }
+
+  for (const origin of origins) {
+    const ok = await probeOg(origin)
+    if (!ok) {
+      children.forEach(killTree)
+      process.exit(1)
     }
   }
 

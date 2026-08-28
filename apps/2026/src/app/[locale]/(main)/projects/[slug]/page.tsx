@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { MDXContent } from '@portfolio/mdx'
-import { getAllProjectSlugs, getProject, getProjectCase, type Locale } from '@portfolio/content'
+import { getAllProjectSlugs, getProject, getProjectCase, profile, type Locale } from '@portfolio/content'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { Breadcrumb } from '@/components/chrome/breadcrumb'
 import { JsonLd } from '@/components/json-ld'
@@ -24,7 +24,17 @@ export async function generateMetadata({
   const cse = getProjectCase(slug, locale)
   const title = cse?.title ?? project.name
   const description = cse?.summary || t(project.description, locale)
-  return pageMetadata(locale, `/projects/${slug}`, title, description)
+  const published =
+    cse?.date && !Number.isNaN(new Date(cse.date).getTime())
+      ? new Date(cse.date).toISOString()
+      : new Date(`${project.year}-01-01T00:00:00.000Z`).toISOString()
+  return pageMetadata(locale, `/projects/${slug}`, title, description, {
+    article: {
+      publishedTime: published,
+      authors: [profile.name],
+      section: 'Projects',
+    },
+  })
 }
 
 export default async function ProjectCasePage({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {

@@ -13,6 +13,7 @@ import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025
 import { KBarSearchProvider } from '@/components/organisms/search/kbar-provider'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { UmamiAnalytics } from '@/components/organisms/umami-analytics'
+import { siteOrigin, withOg } from '@/utils/og-meta'
 
 const FONT_PLAYPEN_SANS = Playpen_Sans({
   subsets: ['latin', 'vietnamese'],
@@ -50,54 +51,33 @@ export async function generateMetadata(props: Params & { children: ReactNode; mo
 
   const title = t('App.lươngVĩPhúS')
   const description = t('App.iAmLươngVĩ')
-  const siteUrl = SITE_METADATA.siteUrl ?? 'http://localhost:3001'
-  const ogLocale = locale === 'en' ? 'en_US' : 'vi_VN'
-  const viHome = siteUrl
-  const enHome = `${siteUrl}/en`
+  const origin = siteOrigin()
 
   return {
-    metadataBase: new URL(siteUrl),
-    title: {
-      default: title,
-      template: `%s | ${title}`,
-    },
-    description: description,
-    openGraph: {
-      title: title,
-      description: description,
-      url: './',
-      siteName: title,
-      images: [SITE_METADATA.socialBanner],
-      locale: ogLocale,
-      type: 'website',
-    },
-    alternates: {
-      canonical: './',
-      languages: {
-        vi: viHome,
-        en: enHome,
-        'x-default': viHome,
-      },
-      types: {
-        'application/rss+xml': `${siteUrl}/feed.xml`,
-      },
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large' as const,
-        'max-snippet': -1,
-      },
-    },
-    twitter: {
-      title: title,
-      card: 'summary_large_image' as const,
-      images: [SITE_METADATA.socialBanner],
-    },
+    metadataBase: new URL(origin),
+    ...withOg(
+      { locale, path: '/', title, description, siteName: title },
+      {
+        title: {
+          default: title,
+          template: `%s | ${title}`,
+        },
+        robots: {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large' as const,
+            'max-snippet': -1,
+          },
+        },
+        alternateTypes: {
+          'application/rss+xml': `${origin}/feed.xml`,
+        },
+      }
+    ),
   }
 }
 

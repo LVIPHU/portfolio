@@ -2,15 +2,18 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Reveal, Badge, Container, NavigationLink } from '@/components/atoms'
 import { slug } from 'github-slugger'
 import { getTagData, mapLocale } from '@/utils/content'
+import { withOg } from '@/utils/og-meta'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const t = await getTranslations({ locale })
 
-  return {
+  return withOg({
+    locale,
+    path: '/tags',
     title: t('Common.tags'),
     description: t('Tags.thingsIBlogAbout'),
-  }
+  })
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

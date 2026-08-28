@@ -1,15 +1,18 @@
 import { PhotosTemplate } from '@/components/templates'
 import { PageLangParam } from '@/i18n'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { withOg } from '@/utils/og-meta'
 
 export async function generateMetadata(props: PageLangParam) {
   const { locale } = await props.params
   const t = await getTranslations({ locale })
 
-  return {
+  return withOg({
+    locale,
+    path: '/photos',
     title: t('Common.photos'),
     description: t('Common.photos'),
-  }
+  })
 }
 
 export default async function PhotosPage(props: PageLangParam) {

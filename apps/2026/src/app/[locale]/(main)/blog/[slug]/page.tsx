@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { MDXContent } from '@portfolio/mdx'
-import { getAllSlugs, getPost, getRelatedPosts, type Locale } from '@portfolio/content'
+import { getAllSlugs, getPost, getRelatedPosts, profile, type Locale } from '@portfolio/content'
 import { Link } from '@portfolio/i18n/navigation'
 import { Badge } from '@portfolio/ui'
 import { formatDate } from '@/utils/format'
@@ -26,17 +26,15 @@ export async function generateMetadata({
   const { locale, slug } = await params
   const post = getPost(slug, locale)
   if (!post) return {}
-  const meta = pageMetadata(locale, `/blog/${slug}`, post.title, post.summary)
-  return {
-    ...meta,
-    openGraph: {
-      ...meta.openGraph,
-      type: 'article',
-      publishedTime: post.date,
-      modifiedTime: post.lastmod ?? post.date,
+  return pageMetadata(locale, `/blog/${slug}`, post.title, post.summary, {
+    article: {
+      publishedTime: new Date(post.date).toISOString(),
+      modifiedTime: new Date(post.lastmod ?? post.date).toISOString(),
+      authors: [profile.name],
       tags: post.tags,
+      section: 'Blog',
     },
-  }
+  })
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ locale: Locale; slug: string }> }) {

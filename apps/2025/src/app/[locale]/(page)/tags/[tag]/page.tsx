@@ -1,10 +1,10 @@
 import { slug } from 'github-slugger'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { getPostsWithAuthors, getTagData, mapLocale } from '@/utils/content'
 import { TagTemplate } from '@/components/templates'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { siteOrigin, withOg } from '@/utils/og-meta'
 
 type TagPageParams = {
   params: Promise<{ tag: string; locale: string }>
@@ -14,16 +14,19 @@ export async function generateMetadata(props: TagPageParams): Promise<Metadata> 
   const params = await props.params
   const tag = decodeURI(params.tag)
   const t = await getTranslations({ locale: params.locale })
-  return {
-    title: tag,
-    description: t('Tags.writtenAbout', { tag }),
-    alternates: {
-      canonical: './',
-      types: {
-        'application/rss+xml': `${SITE_METADATA.siteUrl}/tags/${tag}/feed.xml`,
-      },
+  return withOg(
+    {
+      locale: params.locale,
+      path: `/tags/${tag}`,
+      title: tag,
+      description: t('Tags.writtenAbout', { tag }),
     },
-  }
+    {
+      alternateTypes: {
+        'application/rss+xml': `${siteOrigin()}/tags/${tag}/feed.xml`,
+      },
+    }
+  )
 }
 
 // Nguồn tag LIVE (getTagData key đã slugify) — bỏ snapshot json/tag-data.json (tránh nguồn-đôi lệch)

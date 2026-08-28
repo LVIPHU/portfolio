@@ -19,7 +19,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const content: AboutContent = {
     name: profile.name,
     role: t(profile.title, locale),
-    tagline: t(profile.tagline, locale),
     bio: profile.bio.map((b) => t(b, locale)),
     aboutHeading: ts('aboutHeading'),
     scrollLabel: ts.raw('scrollLabel') as [string, string],
