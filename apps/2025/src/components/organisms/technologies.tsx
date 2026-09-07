@@ -66,13 +66,7 @@ export const Technologies = () => {
   return (
     <Container className={'py-5 md:py-10'}>
       <Reveal direction={'horizontal'} reverse={true}>
-        <h3
-          className={
-            'md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'
-          }
-        >
-          {t('Technologies.technologiesIVeWorked')}
-        </h3>
+        <h3 className='heading-section'>{t('Technologies.technologiesIVeWorked')}</h3>
       </Reveal>
       <TooltipProvider>
         <Tabs
@@ -101,16 +95,13 @@ export const Technologies = () => {
                     </Reveal>
                   </CardHeader>
                   <CardContent>
-                    <Reveal
-                      distance={20}
-                      className='grid grid-cols-5 gap-4 md:grid-cols-8 lg:grid-cols-8 xl:grid-cols-10'
-                    >
+                    <Reveal distance={20} className='grid grid-cols-5 gap-4 md:grid-cols-8 xl:grid-cols-10'>
                       {(filteredSkillsData[category] ?? []).map((skill) => (
                         <Tooltip key={`${category}-icon-${skill.name}`}>
                           <TooltipTrigger render={<NavigationLink className={'w-full'} href={skill.href} />}>
                             <Button
                               variant={'outline'}
-                              className={`h-14 w-full p-2 sm:p-2 ${skill.level === 'learning' ? 'border border-amber-500' : ''}`}
+                              className={`h-14 w-full p-2 ${skill.level === 'learning' ? 'border border-amber-500' : ''}`}
                             >
                               <SocialIcons className={'size-5 md:size-10'} kind={skill.id} iconType={'icon'} />
                             </Button>

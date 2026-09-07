@@ -310,7 +310,8 @@
    Shell phải NHẢ chiều cao ở đây: pane editor là flex item có `min-height: auto` nên không co
    xuống dưới chiều cao nội dung (đo được 300px cho demo 11 dòng) — giữ shell 420px thì preview
    lại bị cắt mất một nửa. Chiều cao phải nằm ở CSS, KHÔNG đặt inline trên
-   SandpackCodeEditor/SandpackPreview: style inline thắng mọi media query. */
+   SandpackCodeEditor/SandpackPreview: style inline thắng mọi media query.
+   Số 768px là của Sandpack, KHÔNG đổi theo theme Tailwind của app. */
 @media (max-width: 768px) {
   [data-sandpack] .sandpack-shell {
     height: auto;

@@ -9,7 +9,7 @@ export async function SiteFooter() {
   return (
     <footer className='border-t'>
       <div
-        className='text-muted-foreground flex w-full flex-col items-center justify-between gap-2 py-6 sm:flex-row'
+        className='text-muted-foreground flex w-full flex-col items-center justify-between gap-2 py-6 md:flex-row'
         style={{ paddingInline: 'var(--safe)' }}
       >
         <p className='p-xs'>

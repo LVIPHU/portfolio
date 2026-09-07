@@ -25,7 +25,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
         <p className='p text-muted-foreground mt-4 max-w-xl'>{tGallery('description')}</p>
       </header>
 
-      <div className='mt-6 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>figure]:mb-4'>
+      <div className='mt-6 columns-1 gap-4 md:columns-3 [&>figure]:mb-4'>
         {gallery.map((item) => (
           <figure key={item.src} className='bg-card break-inside-avoid overflow-hidden border'>
             <Image
@@ -33,7 +33,7 @@ export default async function GalleryPage({ params }: { params: Promise<{ locale
               alt={item.alt}
               width={item.width}
               height={item.height}
-              sizes='(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw'
+              sizes='(min-width: 48rem) 33vw, 100vw'
               className='h-auto w-full object-cover'
               unoptimized={item.src.endsWith('.svg')}
             />

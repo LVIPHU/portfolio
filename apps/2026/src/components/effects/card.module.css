@@ -1,3 +1,5 @@
+@reference '../../styles/breakpoints.css';
+
 .wrapper {
   display: flex;
   justify-content: space-between;
@@ -17,7 +19,7 @@
   background-color: var(--theme-secondary);
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .wrapper {
     /* columns(4) = 4 cột + 3 gap */
     width: calc((4 * var(--column-width)) + (3 * var(--gap)));
@@ -35,7 +37,7 @@
   font-size: calc(((56 * 100) / var(--device-width)) * 1vw);
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .number {
     font-size: calc(((96 * 100) / var(--device-width)) * 1vw);
   }
@@ -49,7 +51,7 @@
   font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .text {
     font-size: calc(((28 * 100) / var(--device-width)) * 1vw);
   }

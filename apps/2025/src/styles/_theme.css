@@ -1,5 +1,9 @@
 /* Tailwind v4 Theme Configuration */
 @theme {
+  /* xs + 3xl — sm…2xl GIỮ mặc định. Mọi breakpoint cùng đơn vị rem (luật Tailwind v4). */
+  --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 120rem;
+
   /* Grid Templates */
   --grid-template-columns-30: repeat(30, minmax(0, 1fr));
   --grid-template-rows-30: repeat(30, minmax(0, 1fr));

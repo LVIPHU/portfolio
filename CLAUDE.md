@@ -25,10 +25,11 @@ pnpm typecheck    # tsc --noEmit across all packages (both apps have it)
 pnpm lint         # eslint flat config (eslint.config.mjs) — react-hooks + React Compiler rules
 pnpm format       # prettier --check .   (format:write to fix)
 pnpm check-links  # dead-link crawler over both built apps (scripts/check-dead-links.mjs)
-pnpm ci-check     # prettier --check + typecheck + build + check-links (one gate for humans & CI)
+pnpm ci-check     # prettier --check . && eslint . && vitest run && turbo typecheck && turbo build && node scripts/check-dead-links.mjs
+pnpm shots        # Playwright đa viewport → .shots/ (không nằm trong ci-check)
 ```
 
-Scope to one package with turbo filters, e.g. `pnpm build --filter=web-2026` or `pnpm --filter web-2026 typecheck`. No unit tests; `pnpm ci-check` is the quality gate — GitHub Actions ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs exactly that one command with placeholder env values, so a green local `ci-check` means a green CI. A husky `pre-commit` hook runs `lint-staged` (prettier --write on staged files).
+Scope to one package with turbo filters, e.g. `pnpm build --filter=web-2026` or `pnpm --filter web-2026 typecheck`. Vitest covers 7 files (node/jsdom); `pnpm ci-check` is the quality gate — GitHub Actions ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs exactly that one command with placeholder env values, so a green local `ci-check` means a green CI. A husky `pre-commit` hook runs `lint-staged` (prettier --write on staged files).
 
 Dev servers are declared in [.claude/launch.json](.claude/launch.json) (`web-2026` → 3000, `web-2025` → 3001) — start them with the preview tool, not with Bash.
 
@@ -79,9 +80,10 @@ All shared packages export **raw TypeScript source** (`exports: "./src/index.ts"
 
 #### Design system (2026)
 
-[apps/2026/docs/design-system.md](apps/2026/docs/design-system.md) is the written spec; `src/app/globals.css` (global tokens) and `src/components/showcase/theme.css` (scoped showcase themes) are the source of truth. Read the doc before touching colors, spacing, or type — the rules are unusually strict and have already been re-litigated once:
+[apps/2026/docs/design-system.md](apps/2026/docs/design-system.md) is the written spec; `src/app/globals.css` (global tokens), `src/styles/breakpoints.css` (breakpoint `@theme`), and `src/components/showcase/theme.css` (scoped showcase themes) are the source of truth. Read the doc before touching colors, spacing, or type — the rules are unusually strict and have already been re-litigated once:
 
-- Sizes scale with the viewport: `calc(((<px on comp> * 100) / var(--device-width)) * 1vw)`, comp 375 mobile / 1440 desktop, **one** breakpoint at 800px.
+- Sizes scale with the viewport: `calc(((<px on comp> * 100) / var(--device-width)) * 1vw)`, comp 375 mobile / 1440 desktop, **one** breakpoint at `md` 768px (Tailwind `--breakpoint-md`); the number lives in the theme, CSS reads it via `theme()`, JS via `DESKTOP_MEDIA`.
+- Responsive: đọc mục Responsive trong `docs/design-system.md` của app tương ứng trước khi thêm prefix Tailwind; kiểm theo ma trận viewport; `pnpm shots` để chụp đa viewport.
 - Colors go through the three theme tokens `--theme-primary` / `--theme-secondary` / `--theme-contrast`; components don't reach for palette values directly.
 - There is exactly **one** brand gold (`#DFB454`) for both themes — no darker variant. It is legible by restricted usage, not by shade: allowed as a background (with hard black text on top), as 1–4px rules/borders/chrome, and for display type ≥56px comp; never for small text. The Earth material's `#D4AF37` is deliberately different — don't sync them.
 - Motion uses the easing tokens (`--ease-out-expo`, `--ease-in-out-quad`), not hand-written cubic-beziers.

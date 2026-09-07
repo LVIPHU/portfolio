@@ -1,3 +1,17 @@
+/* Heading trang / mục: hai bậc (base + md), bỏ bậc sm — chỉ prefix nơi bố cục đổi. */
+@utility heading-page {
+  @apply text-3xl font-extrabold leading-9 tracking-tight;
+  @variant md {
+    @apply leading-14 text-6xl;
+  }
+}
+@utility heading-section {
+  @apply text-2xl font-extrabold leading-9 tracking-tight;
+  @variant md {
+    @apply leading-14 text-4xl;
+  }
+}
+
 @layer utilities {
   .image-container {
     @apply mx-auto w-fit rounded-lg;

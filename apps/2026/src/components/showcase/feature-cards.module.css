@@ -1,3 +1,5 @@
+@reference '../../styles/breakpoints.css';
+
 .features {
   height: 1600vh;
 }
@@ -19,7 +21,7 @@
   padding-bottom: var(--layout-margin);
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .title {
     position: absolute;
     right: var(--layout-margin);
@@ -40,7 +42,7 @@
   opacity: 0;
 }
 
-@media (max-width: 799.98px) {
+@media (width < theme(--breakpoint-md)) {
   .card {
     --card-size: calc(((343 * 100) / var(--device-width)) * 1vw);
     top: calc((100vh - var(--card-size) - 2 * var(--layout-margin)) / 8 * var(--i, 0));
@@ -48,7 +50,7 @@
   }
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .card {
     --card-size: calc((4 * var(--column-width)) + (3 * var(--gap)));
     top: calc((100vh - var(--card-size) - 2 * var(--layout-margin)) / 8 * var(--i, 0));
