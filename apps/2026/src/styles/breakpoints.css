@@ -1,0 +1,12 @@
+/* Token breakpoint 2026. CSS module @reference FILE NÀY, không cả globals.css
+   (globals kéo @source + type/layout — parse thừa lúc build).
+   xs + 3xl thêm vào thang; sm…2xl GIỮ mặc định Tailwind. Prefix sm/md/lg của
+   @portfolio/ui biên dịch qua @source — xoá default là utility biến mất âm thầm.
+   Mọi breakpoint cùng đơn vị rem (luật v4). --breakpoint-md mặc định = 48rem;
+   JS đọc DESKTOP_MEDIA — đổi md ở đây thì đổi hằng đó. */
+@import 'tailwindcss';
+
+@theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 120rem;
+}

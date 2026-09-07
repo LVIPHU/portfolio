@@ -1,3 +1,5 @@
+@reference '../../styles/breakpoints.css';
+
 .item {
   position: relative;
   display: block;
@@ -67,7 +69,7 @@
   font-size: calc(((20 * 100) / var(--device-width)) * 1vw);
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .inner {
     flex-direction: row;
     align-items: center;

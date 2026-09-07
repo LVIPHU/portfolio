@@ -59,7 +59,7 @@ export function BackgroundCanvas({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <div className='pointer-events-none fixed inset-0 -z-10'>
+    <div className='pointer-events-none fixed inset-0 -z-10' aria-hidden='true'>
       <Canvas
         orthographic
         camera={{ near: 0.01, far: 10000, position: [0, 0, 1000] }}

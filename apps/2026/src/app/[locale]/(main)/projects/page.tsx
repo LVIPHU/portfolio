@@ -31,7 +31,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
       <div className='mt-6'>
         {sorted.map((project) => (
           <div key={project.slug} className='hover:border-primary group border-b py-8 transition-colors'>
-            <div className='flex flex-col justify-between gap-2 sm:flex-row sm:items-baseline'>
+            <div className='flex flex-col justify-between gap-2 md:flex-row md:items-baseline'>
               <h2 className='h3 dark:group-hover:text-primary transition-colors'>
                 <Link href={`/projects/${project.slug}`}>{project.name}</Link>
               </h2>

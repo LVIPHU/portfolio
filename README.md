@@ -42,6 +42,7 @@ pnpm typecheck    # tsc --noEmit toàn workspace
 pnpm lint         # eslint (react-hooks + React Compiler)
 pnpm format       # prettier --check (format:write để tự sửa)
 pnpm check-links  # crawler dò link chết trên bản build của cả 2 app
+pnpm shots        # Playwright đa viewport → .shots/ (cần dev server; không nằm trong ci-check)
 pnpm ci-check     # prettier + eslint + vitest + typecheck + build + check-links
 ```
 
@@ -76,7 +77,7 @@ Mọi text nội dung đều song ngữ dạng `{ vi: "...", en: "..." }`. URL t
 
 ## Thiết kế (version 2026)
 
-Hệ thiết kế của web-2026 nằm ở [apps/2026/docs/design-system.md](apps/2026/docs/design-system.md); nguồn sự thật là `apps/2026/src/app/globals.css` + `src/components/showcase/theme.css`. Đọc trước khi đụng vào màu, khoảng cách hay typography — luật khá chặt (kích thước scale theo viewport, một breakpoint 800px, bộ ba theme token, và **một** gold thương hiệu duy nhất kèm giới hạn chỗ được dùng).
+Hệ thiết kế của web-2026 nằm ở [apps/2026/docs/design-system.md](apps/2026/docs/design-system.md); nguồn sự thật là `apps/2026/src/app/globals.css` + `src/components/showcase/theme.css`. Đọc trước khi đụng vào màu, khoảng cách hay typography — luật khá chặt (kích thước scale theo viewport, một mốc `md` 768px, bộ ba theme token, và **một** gold thương hiệu duy nhất kèm giới hạn chỗ được dùng).
 
 Font: Anton (h1/h2) + Space Grotesk (h3/h4) + Roboto (thân bài), tất cả qua `next/font`. Font thay thế bắt buộc phải có subset `vietnamese` — Panchang bị loại vì thiếu glyph tiếng Việt và hỏng rất im lặng (chữ Latin đúng font, dấu rơi về font hệ thống).
 

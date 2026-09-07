@@ -28,3 +28,6 @@ ds-bundle-2026/
 
 # leftover Claude worktrees — generated/copied trees, không thuộc source of truth
 .claude/worktrees/
+
+# responsive screenshot dumps (pnpm shots)
+.shots/

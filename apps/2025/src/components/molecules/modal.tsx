@@ -14,6 +14,7 @@ import {
 } from '@/components/atoms'
 import { useRouter } from '@portfolio/i18n/navigation'
 import { useMediaQuery } from '@portfolio/hooks'
+import { MEDIA } from '@/constants/breakpoints'
 
 export function Modal({
   children,
@@ -27,7 +28,7 @@ export function Modal({
   className?: string
 }) {
   const router = useRouter()
-  const isDesktop = useMediaQuery('(min-width: 1024px)')
+  const isDesktop = useMediaQuery(MEDIA.lg, { initializeWithValue: false })
   function onDismiss(open: boolean) {
     if (!open) {
       router.back()

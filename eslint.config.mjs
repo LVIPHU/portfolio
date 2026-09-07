@@ -24,6 +24,7 @@ export default [
       'ds-bundle-2026/**',
       '**/.ds-css/**',
       '.claude/worktrees/**',
+      '.shots/**',
     ],
   },
   {

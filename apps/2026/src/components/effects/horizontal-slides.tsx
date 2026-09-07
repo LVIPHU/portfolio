@@ -4,7 +4,8 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { useLenis } from 'lenis/react'
 import { gsap } from 'gsap'
 import { clsx } from 'clsx'
-import { rafThrottle } from '@portfolio/hooks'
+import { rafThrottle, useMediaQuery } from '@portfolio/hooks'
+import { DESKTOP_MEDIA } from '@/utils/breakpoints'
 import s from './horizontal-slides.module.css'
 
 // Port components/horizontal-slides: cuộn dọc → row trượt ngang. Wrapper cao = chiều rộng track
@@ -13,11 +14,11 @@ export function HorizontalSlides({ children }: { children: ReactNode }) {
   const wrapper = useRef<HTMLDivElement>(null)
   const row = useRef<HTMLDivElement>(null)
   const [trackWidth, setTrackWidth] = useState(0)
-  const [isDesktop, setIsDesktop] = useState(false)
+  // initializeWithValue: false — SSR không đọc window, tránh lệch hydration.
+  const isDesktop = useMediaQuery(DESKTOP_MEDIA, { initializeWithValue: false })
 
   useEffect(() => {
     const measure = () => {
-      setIsDesktop(window.innerWidth >= 800)
       if (row.current) setTrackWidth(row.current.scrollWidth)
     }
     measure()
@@ -33,7 +34,7 @@ export function HorizontalSlides({ children }: { children: ReactNode }) {
     const w = wrapper.current
     const r = row.current
     // đọc trực tiếp thay vì state isDesktop — callback subscribe 1 lần, state cũ sẽ làm rail đứng im
-    if (!w || !r || window.innerWidth < 800) return
+    if (!w || !r || !window.matchMedia(DESKTOP_MEDIA).matches) return
     const wrapperTop = w.getBoundingClientRect().top + scroll
     const windowHeight = window.innerHeight
     const start = wrapperTop - windowHeight

@@ -39,6 +39,7 @@ export const AboutTemplate = () => {
   ]
   return (
     <Container as={'div'}>
+      {/* md:mb-0 bắt buộc: twMerge không để mb-0 thắng Header md:mb-10 */}
       <Header
         className={'mb-0 md:mb-0'}
         title={t('Common.about')}

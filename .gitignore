@@ -26,6 +26,9 @@ apps/2026/.design-sync.entry.tsx
 apps/2026/.ds-css/
 ds-bundle-2026/
 
+# responsive screenshot dumps (pnpm shots)
+.shots/
+
 # misc
 .DS_Store
 *.tsbuildinfo

@@ -75,10 +75,7 @@ function DrawerTitle({ className, ...props }: DialogPrimitive.Title.Props) {
   return (
     <DialogPrimitive.Title
       data-slot='drawer-title'
-      className={cn(
-        'md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl',
-        className
-      )}
+      className={cn('md:leading-14 text-2xl font-extrabold leading-9 tracking-tight md:text-4xl', className)}
       {...props}
     />
   )

@@ -82,9 +82,7 @@ export function Experience() {
   return (
     <Container className='w-full py-5 md:py-10'>
       <Reveal direction={'horizontal'} reverse={true}>
-        <h3 className='md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'>
-          {t('Experience.experience')}
-        </h3>
+        <h3 className='heading-section'>{t('Experience.experience')}</h3>
       </Reveal>
       <Reveal className='mt-5'>
         <Tabs
