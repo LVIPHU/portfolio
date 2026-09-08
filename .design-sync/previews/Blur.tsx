@@ -1,4 +1,4 @@
-import { Blur } from 'web-2025'
+import { Blur } from '@portfolio/ui'
 
 // Blur là overlay `fixed bottom-0` với backdrop-blur — trong app phủ mép dưới trang Photos.
 // Wrapper có transform:translateZ(0) để trở thành containing block cho position:fixed,

@@ -1,4 +1,4 @@
-import { DiscussOnX } from 'web-2025'
+import { DiscussOnX } from '@portfolio/ui'
 
 // Link footer bài viết — ở viewport capture 900px nhánh md:inline " (Twitter)" hiển thị.
 export const PostFooterLink = () => (

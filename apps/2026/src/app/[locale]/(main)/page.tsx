@@ -1,7 +1,7 @@
-import { ArrowRight, User } from 'lucide-react'
+import { ArrowRight, User } from '@portfolio/icons/lucide'
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { featuredProjects, getAllPosts, profile, resume, type Locale } from '@portfolio/content'
+import { featuredProjects, getAllPosts, profile, resume, skillNames, type Locale } from '@portfolio/content'
 import { Link } from '@portfolio/i18n/navigation'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { PillButtonLink } from '@/components/effects/pill-button'
@@ -56,7 +56,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             tắt luôn stretch của flex item — thiếu nó lưới co về fit-content (đo được 1520px thay
             vì 1814px) nên cột 1 không còn thẳng hàng với mép trái wordmark. */}
         <div className='layout-grid menu-button-reserve w-full'>
-          <div className='col-span-full flex flex-col min-[800px]:col-span-6'>
+          <div className='col-span-full flex flex-col md:col-span-6'>
             {/* Ngoại lệ có chủ đích: .h3 chỉ 20px comp ở mobile (1.69:1 trên nền sáng), nhưng
                 dòng này đi CẶP với wordmark ngay trên nó — tách màu là gãy cặp. Cùng loại
                 ngoại lệ với thanh cuộn 1.78:1 của lenis. */}
@@ -67,7 +67,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             {/* Hàng nút Ở NGUYÊN trong cột 1-6 cùng khối chữ: kéo nó trải hết bề ngang thì hai
                 nút dài gấp đôi và đè lên vùng quả cầu — kích thước/vị trí gốc là cặp nút gọn nằm
                 trong nửa trái. */}
-            <div className='mt-10 grid grid-cols-1 min-[800px]:grid-cols-2' style={{ gap: 'var(--gap)' }}>
+            <div className='mt-10 grid grid-cols-1 md:grid-cols-2' style={{ gap: 'var(--gap)' }}>
               <PillButtonLink
                 href='/projects'
                 icon={<ArrowRight />}
@@ -111,7 +111,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             <ListItem
               key={project.slug}
               title={project.name}
-              source={project.tech.join(' · ')}
+              source={skillNames(project.tech).join(' · ')}
               href={`/projects/${project.slug}`}
               index={i}
               visible

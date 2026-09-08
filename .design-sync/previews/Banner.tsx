@@ -1,4 +1,4 @@
-import { Banner } from 'web-2025'
+import { Banner } from '@portfolio/ui'
 
 // Chuỗi banner KHÔNG chứa '__' → nhánh Credit (Photo by @author on Unsplash)
 // không render — đúng hành vi khi banner không phải ảnh Unsplash có credit.

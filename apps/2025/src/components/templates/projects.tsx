@@ -6,8 +6,9 @@ import { PROJECTS_2025 as PROJECTS } from '@portfolio/content/data2025'
 
 export const ProjectsTemplate = () => {
   const t = useTranslations()
-  const workProjects = PROJECTS.filter(({ type }) => type === 'work')
-  const sideProjects = PROJECTS.filter(({ type }) => type === 'self')
+  const visible = PROJECTS.filter((p) => !p.hidden)
+  const workProjects = visible.filter(({ type }) => type === 'work')
+  const sideProjects = visible.filter(({ type }) => type === 'self')
 
   return (
     <Container>

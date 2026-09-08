@@ -1,4 +1,4 @@
-import { SearchArticles } from 'web-2025'
+import { SearchArticles } from '@portfolio/ui'
 
 // SearchArticles = ô tìm kiếm của trang Blog: input + icon kính lúp (lucide Search).
 // onChange là prop bắt buộc — preview truyền noop. Label vừa là placeholder vừa là aria-label.

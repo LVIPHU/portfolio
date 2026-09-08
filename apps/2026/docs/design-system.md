@@ -2,15 +2,15 @@
 
 Hệ thiết kế của web-2026, port từ kiến trúc token của lenis-website (darkroom.engineering)
 sang CSS thuần + Tailwind v4, thay palette pink của lenis bằng **gold thương hiệu**.
-Nguồn sự thật: `src/app/globals.css` (token toàn cục) + `src/components/showcase/theme.css`
-(theme bộ ba scoped cho showcase).
+Nguồn sự thật: `src/app/globals.css` (token toàn cục) + `src/styles/breakpoints.css`
+(thang breakpoint) + `src/components/showcase/theme.css` (theme bộ ba scoped cho showcase).
 
 ## Nguyên tắc cốt lõi
 
 1. **Mọi kích thước scale theo viewport** — không px tĩnh. Công thức chuẩn:
    `calc(((<px trên comp> * 100) / var(--device-width)) * 1vw)`.
-   Comp mobile = 375, comp desktop = 1440 (`--device-width` tự đổi tại breakpoint 800px).
-2. **Một breakpoint duy nhất: 800px.** Dưới = mobile (6 cột), trên = desktop (12 cột).
+   Comp mobile = 375, comp desktop = 1440 (`--device-width` tự đổi tại `--breakpoint-md` / 768px).
+2. **Một breakpoint duy nhất: `md` 768px.** Dưới = mobile (6 cột), trên = desktop (12 cột).
 3. **Màu qua bộ ba theme** `--theme-primary/secondary/contrast` — component không gọi
    thẳng màu palette, nhờ vậy section đổi theme (dark → light → contrast) không cần sửa
    component.
@@ -76,7 +76,7 @@ Light thì **đổi tín hiệu chứ không bỏ tín hiệu**: chữ về đen
 (nav dọc), `hover:border-primary` (hàng list/card).
 
 Ngưỡng tính theo **px trên comp**, không phải px render. Mọi class đều tụt cỡ quanh mốc
-800px do scale theo vw (`.h3` render 42.6px ở 799px nhưng chỉ 28.9px ở 800px) — lenis cũng
+`--breakpoint-md` do scale theo vw (`.h3` render 40.9px ở 767px nhưng chỉ 27.7px ở 768px) — lenis cũng
 vậy. **Đừng chặn gold bằng media query**: nó sẽ bôi gold vào đúng cỡ chữ nhỏ hơn.
 
 Ngoại lệ đã cân nhắc (chrome trang trí, chấp nhận 1.69:1 ở light — cùng loại với thanh cuộn
@@ -125,6 +125,46 @@ Khoảng cách giữa section dùng spacer, không số tay. Lề an toàn: `--s
 Class sẵn: `.layout-block`, `.layout-block-inner`, `.layout-grid`, `.layout-grid-inner`
 (grid đúng hệ cột + gap). Component mới dùng các class này, không tự kê
 `grid-template-columns`.
+
+## Responsive — thang breakpoint và luật prefix
+
+Thang Tailwind 7 bậc, đơn vị rem (luật v4: mọi breakpoint cùng đơn vị). Khai thêm `xs` và
+`3xl` trong `@theme` của `src/styles/breakpoints.css`; `sm…2xl` là mặc định — **không xoá**, vì class
+`sm` / `md` của `@portfolio/ui` biên dịch vào app này qua `@source`.
+
+| Prefix | Token                     | CSS px |
+| ------ | ------------------------- | ------ |
+| `xs`   | `--breakpoint-xs` 30rem   | 480    |
+| `sm`   | `--breakpoint-sm` 40rem   | 640    |
+| `md`   | `--breakpoint-md` 48rem   | 768    |
+| `lg`   | `--breakpoint-lg` 64rem   | 1024   |
+| `xl`   | `--breakpoint-xl` 80rem   | 1280   |
+| `2xl`  | `--breakpoint-2xl` 96rem  | 1536   |
+| `3xl`  | `--breakpoint-3xl` 120rem | 1920   |
+
+Showcase 2026 chỉ có **hai layout** (phone + desktop). Bố cục trang chỉ được dùng `md:` /
+`max-md:`. Type và spacing đã scale theo vw nên **cấm** ramp kiểu
+`text-2xl sm:text-3xl md:text-4xl`. Các bậc còn lại tồn tại để `@portfolio/ui` / `@portfolio/mdx`
+biên dịch qua `@source` và cho form / drawer — không cho bố cục trang.
+
+JS đọc một hằng `DESKTOP_MEDIA = '(min-width: 48rem)'` (`src/utils/breakpoints.ts`). Số 768
+sống ở ba nơi: token `--breakpoint-md` (mặc định Tailwind, khai thêm xs/3xl ở
+`src/styles/breakpoints.css`), `theme(--breakpoint-md)` trong CSS module (`@reference`
+file token đó, không cả `globals.css`), hằng JS. Component đặt ở chỗ bề rộng ≠ cửa sổ
+thì dùng `@container`.
+
+## Kiểm tra viewport (bắt buộc khi đụng UI)
+
+Ma trận bề rộng: `320` (sàn / Apple Watch), `375` (comp mobile), `480`, `640`, `767`, `768`,
+`1024`, `1280`, `1440` (comp desktop), `1536`, `1920`. `pnpm shots` chụp đa viewport (không
+nằm trong `ci-check`). Animation cuộn không kiểm được bằng scroll tổng hợp — phải cuộn chuột thật.
+
+1. Resize lần lượt các width trong ma trận (browser emulate touch khi `< 768`).
+2. Oracle tràn ngang ở mỗi width: `document.documentElement.scrollWidth > document.documentElement.clientWidth` phải là `false`.
+3. 2026, cặp 767 / 768: `getComputedStyle(document.querySelector('.h3')).fontSize` ≈ 40.9px → 27.7px; `getComputedStyle(document.documentElement).getPropertyValue('--columns')` 6 → 12; `.desktop-only` / `.mobile-only` lật; rail HorizontalSlides chỉ chạy ≥ 768 khi cuộn chuột thật.
+4. Cả hai theme (light / dark), cả hai locale (vi / en — locale rộng hơn quyết định).
+5. Một máy thật hoặc ít nhất emulate touch: nav / dock, CTA, không tràn ngang.
+6. Tối thiểu bắt buộc mỗi lần đụng UI: 375 / 767–768 / 1440 + cuộn thật; phần còn lại giao `pnpm shots`.
 
 ## Motion & easing
 

@@ -1,4 +1,4 @@
-import { GrowingUnderline, NavigationLink } from 'web-2025'
+import { GrowingUnderline, NavigationLink } from '@portfolio/ui'
 
 // NavigationLink = next/link wrapper: link nội bộ giữ _self + aria-current="page",
 // link ngoài (http/https) tự thêm target="_blank" + rel="noopener noreferrer".

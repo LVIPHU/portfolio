@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Mail } from 'lucide-react'
+import { Mail } from '@portfolio/icons/lucide'
 import { FelixHeroMark } from '@/components/brand/felix-mark'
 import { PillButtonLink } from '@/components/effects/pill-button'
 import s from './sections.module.css'

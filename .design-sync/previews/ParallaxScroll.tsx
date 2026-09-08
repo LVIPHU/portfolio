@@ -1,4 +1,4 @@
-import { ParallaxScroll } from 'web-2025'
+import { ParallaxScroll } from '@portfolio/ui'
 
 // Gallery cột ảnh parallax — render tĩnh (useScroll đứng yên) là đạt.
 // LƯU Ý cấu trúc: ImageContainer bên trong LUÔN bọc src qua imageDriveLoader

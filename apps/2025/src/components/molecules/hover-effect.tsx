@@ -2,7 +2,7 @@
 import { cn } from '@portfolio/utils'
 import { ProjectCard } from '@/components/molecules/project-card'
 import { type Project2025 as Project } from '@portfolio/content/data2025'
-import { Reveal } from '@/components/atoms'
+import { Reveal } from '@portfolio/ui/motion'
 import { HoverHighlight } from '@portfolio/ui/motion'
 
 // C9 (M-02 #6): highlight bám card bằng HoverHighlight (gsap.to đo rect), thay
@@ -17,7 +17,7 @@ export const HoverEffect = ({ items, className }: { items: Project[]; className?
       highlightClassName='rounded-2xl bg-neutral-200 dark:bg-slate-800/[0.8]'
     >
       {items.map((item, idx) => (
-        <div key={item.title} data-hover-item className='group/effect relative block h-full w-full p-1.5 md:p-2.5'>
+        <div key={item.slug} data-hover-item className='group/effect relative block h-full w-full p-1.5 md:p-2.5'>
           <Reveal className={'h-full'} direction={'horizontal'} reverse={true} delay={idx * 0.1}>
             <ProjectCard project={item} />
           </Reveal>

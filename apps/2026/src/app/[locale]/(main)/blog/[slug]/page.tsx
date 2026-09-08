@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from '@portfolio/icons/lucide'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { MDXContent } from '@portfolio/mdx'
 import { getAllSlugs, getPost, getRelatedPosts, profile, type Locale } from '@portfolio/content'

@@ -1,4 +1,4 @@
-import { Input, Label } from 'web-2025'
+import { Input, Label } from '@portfolio/ui'
 
 const col: React.CSSProperties = { display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 360 }
 

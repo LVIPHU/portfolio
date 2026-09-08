@@ -1,3 +1,5 @@
+@reference '../../styles/breakpoints.css';
+
 .inner {
   overflow: hidden;
   display: flex;
@@ -11,7 +13,7 @@
   flex-shrink: 0;
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .inner {
     position: sticky;
     --height: calc(((440 * 100) / var(--device-width)) * 1vw);
@@ -19,7 +21,7 @@
   }
 }
 
-@media (max-width: 799.98px) {
+@media (width < theme(--breakpoint-md)) {
   .inner {
     width: 100%;
   }

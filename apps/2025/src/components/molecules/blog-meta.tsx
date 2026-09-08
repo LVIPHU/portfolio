@@ -1,5 +1,5 @@
 import type readingTime from 'reading-time'
-import type { StatsType } from '@portfolio/service'
+import { StatsType } from '@portfolio/service'
 import { formatDate, getTimeAgo } from '@portfolio/utils'
 import { ViewsCounter } from '@/components/atoms'
 

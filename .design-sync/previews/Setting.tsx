@@ -1,4 +1,4 @@
-import { Setting } from 'web-2025'
+import { Setting } from '@portfolio/ui'
 
 // Panel cài đặt (thường nằm trong popover của FloatingDock) — render trạng thái
 // ĐÓNG của LocaleSwitch/ThemeSwitch bên trong. Khung viền mô phỏng popover chứa

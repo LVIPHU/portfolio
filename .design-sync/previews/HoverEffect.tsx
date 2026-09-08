@@ -1,4 +1,4 @@
-import { HoverEffect } from 'web-2025'
+import { HoverEffect } from '@portfolio/ui'
 
 // Lưới ProjectCard với nền hover trượt (layoutId). Grid gốc chỉ lên 2 cột từ
 // lg (1024px) — viewport capture 900px nên truyền className='md:grid-cols-2'

@@ -1,4 +1,5 @@
-import { Reveal, Container, GridBackground } from '@/components/atoms'
+import { Reveal } from '@portfolio/ui/motion'
+import { Container, GridBackground } from '@/components/atoms'
 import { Footer, Header } from '@/components/organisms'
 import Image from 'next/image'
 import { PreviousPage } from '@/components/molecules'

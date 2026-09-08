@@ -1,19 +1,17 @@
 /**
- * Site metadata của portfolio 2025 — hút từ apps/2025/data/site-metadata.ts (C2).
- * 3 chuỗi msg → Localized: title + description có bản dịch thật trong catalog vi-VN;
- * headerTitle là brand name nên vi = en (không phải thiếu dịch).
- * Field phụ thuộc env đọc process.env trực tiếp (giá trị resolve lúc app build/chạy
- * — package không import @env của app để tránh vòng phụ thuộc).
+ * Site metadata của portfolio 2025.
+ * Chrome (URL, giscus, kbar, theme) khai tại đây; danh tính derive từ `me.profile`
+ * để không trôi lệch với CV.
  */
 import type { Localized } from './types'
+import { profile } from './profile'
 
-// Preview deploy trên Vercel KHÔNG có NEXT_PUBLIC_APP_URL (biến chỉ khai ở scope Production), y hệt
-// lý do apps/2025/env.mjs phải tự suy ra. Thiếu nó thì siteUrl là undefined và `new URL(anh, base)`
-// trong getStructuredData ném ERR_INVALID_URL, giết cả bước prerender — build preview chết ở trang
-// blog đầu tiên có ảnh. Package không import @env của app (tránh vòng phụ thuộc) nên chép cùng một
-// luật ở đây.
 const vercelHost = process.env.NEXT_PUBLIC_VERCEL_URL || process.env.VERCEL_URL
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || (vercelHost ? `https://${vercelHost}` : undefined)
+
+const github = profile.socials.find((s) => s.id === 'github')?.url ?? ''
+const facebook = profile.socials.find((s) => s.id === 'facebook')?.url ?? ''
+const linkedIn = profile.socials.find((s) => s.id === 'linkedin')?.url ?? ''
 
 export interface SiteMetadata2025 {
   avatar: string
@@ -30,7 +28,7 @@ export interface SiteMetadata2025 {
   email: string
   phone: string
   phoneHref: string
-  location: string
+  location: Localized
   github: string
   facebook: string
   linkedIn: string
@@ -59,12 +57,12 @@ export interface SiteMetadata2025 {
 }
 
 export const SITE_METADATA_2025: SiteMetadata2025 = {
-  avatar: 'https://avatars.githubusercontent.com/u/84316006?s…00&u=2f5f6e6e02e5195fddbe9c1d73c387cc22151cc5&v=4',
+  avatar: profile.avatar,
   title: {
     vi: 'Blog kỹ thuật & portfolio của Lương Vĩ Phú',
     en: "Lương Vĩ Phú's dev blog - portfolio",
   },
-  author: process.env.owner,
+  author: profile.name,
   headerTitle: {
     vi: "Lương Vĩ Phú's dev blog",
     en: "Lương Vĩ Phú's dev blog",
@@ -79,14 +77,14 @@ export const SITE_METADATA_2025: SiteMetadata2025 = {
   siteRepo: 'https://github.com/LVIPHU/portfolio',
   siteLogo: `/static/images/logo.jpg`,
   socialBanner: `/static/images/twitter-card.jpg`,
-  email: process.env.email ?? 'luongviphu0403@gmail.com',
-  phone: '+84 528-307-775',
-  phoneHref: 'tel:+84528307775',
-  location: 'Vietnam',
-  github: 'https://github.com/LVIPHU',
-  facebook: 'https://www.facebook.com/phuphu.phang.54',
-  linkedIn: 'https://www.linkedin.com/in/luong-vi-phu',
-  resume: 'https://rxresu.me/kenlock.lvp/luong-vi-phu',
+  email: profile.email,
+  phone: profile.phone,
+  phoneHref: profile.phoneHref,
+  location: profile.location,
+  github,
+  facebook,
+  linkedIn,
+  resume: profile.resumeUrl,
   locale: 'vi-VN',
   comments: {
     giscusConfigs: {

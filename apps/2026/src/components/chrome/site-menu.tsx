@@ -167,7 +167,7 @@ export function SiteMenu({
       inert={!open ? true : undefined}
     >
       <div className={s.inner}>
-        {/* Cột ảnh: chỉ desktop (CSS ẩn dưới 800px) — menu mobile đang vừa đúng một màn hình,
+        {/* Cột ảnh: chỉ desktop (CSS ẩn dưới --breakpoint-md) — menu mobile đang vừa đúng một màn hình,
             thêm ảnh vào là phải cuộn. <img> thuần chứ không next/image, giống trang /gallery:
             ảnh đã nằm sẵn trong public/content nên không cần optimizer. KHÔNG loading='lazy':
             tấm đóng là `visibility: hidden` nên ảnh không bao giờ vào viewport, trình duyệt hoãn

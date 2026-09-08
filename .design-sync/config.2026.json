@@ -1,43 +1,43 @@
 {
   "projectId": "dc0c0939-0f5c-4409-87d4-2a38ca0d3b5e",
   "shape": "package",
-  "pkg": "web-2026",
+  "pkg": "@portfolio/ui",
   "globalName": "Web2026UI",
-  "entry": "apps/2026/.design-sync.entry.tsx",
+  "entry": "packages/ui/src/index.ts",
   "srcDir": "src/components",
   "tsconfig": "../../.design-sync/tsconfig.dsync.2026.json",
   "cssEntry": ".ds-css/css2026.css",
-  "buildCmd": "node .design-sync/gen-entry-2026.mjs && node .design-sync/refresh-css-2026.mjs",
+  "buildCmd": "node .design-sync/refresh-css-2026.mjs",
   "provider": {
     "component": "DsTheme2026"
   },
   "componentSrcMap": {
-    "Avatar": "../../packages/ui/src/components/avatar.tsx",
-    "Badge": "../../packages/ui/src/components/badge.tsx",
-    "Button": "../../packages/ui/src/components/button.tsx",
-    "Card": "../../packages/ui/src/components/card.tsx",
-    "Dialog": "../../packages/ui/src/components/dialog.tsx",
-    "Drawer": "../../packages/ui/src/components/drawer.tsx",
-    "DropdownMenu": "../../packages/ui/src/components/dropdown-menu.tsx",
-    "Form": "../../packages/ui/src/components/form.tsx",
-    "HoverCard": "../../packages/ui/src/components/hover-card.tsx",
-    "Input": "../../packages/ui/src/components/input.tsx",
-    "Label": "../../packages/ui/src/components/label.tsx",
-    "Pagination": "../../packages/ui/src/components/pagination.tsx",
-    "Popover": "../../packages/ui/src/components/popover.tsx",
-    "ScrollArea": "../../packages/ui/src/components/scroll-area.tsx",
-    "Select": "../../packages/ui/src/components/select.tsx",
-    "Separator": "../../packages/ui/src/components/separator.tsx",
-    "Tabs": "../../packages/ui/src/components/tabs.tsx",
-    "Textarea": "../../packages/ui/src/components/textarea.tsx",
-    "ToggleGroup": "../../packages/ui/src/components/toggle-group.tsx",
-    "Toggle": "../../packages/ui/src/components/toggle.tsx",
-    "Tooltip": "../../packages/ui/src/components/tooltip.tsx",
-    "FelixHeroMark": "src/components/brand/felix-mark.tsx",
-    "ListItem": "src/components/effects/list-item.tsx",
-    "Marquee": "src/components/effects/marquee.tsx",
-    "AppearTitle": "src/components/effects/appear-title.tsx",
-    "ShowcaseCard": "src/components/effects/card.tsx"
+    "Avatar": "src/components/avatar.tsx",
+    "Badge": "src/components/badge.tsx",
+    "Button": "src/components/button.tsx",
+    "Card": "src/components/card.tsx",
+    "Dialog": "src/components/dialog.tsx",
+    "Drawer": "src/components/drawer.tsx",
+    "DropdownMenu": "src/components/dropdown-menu.tsx",
+    "Form": "src/components/form.tsx",
+    "HoverCard": "src/components/hover-card.tsx",
+    "Input": "src/components/input.tsx",
+    "Label": "src/components/label.tsx",
+    "Pagination": "src/components/pagination.tsx",
+    "Popover": "src/components/popover.tsx",
+    "ScrollArea": "src/components/scroll-area.tsx",
+    "Select": "src/components/select.tsx",
+    "Separator": "src/components/separator.tsx",
+    "Tabs": "src/components/tabs.tsx",
+    "Textarea": "src/components/textarea.tsx",
+    "ToggleGroup": "src/components/toggle-group.tsx",
+    "Toggle": "src/components/toggle.tsx",
+    "Tooltip": "src/components/tooltip.tsx",
+    "FelixHeroMark": "../../apps/2026/src/components/brand/felix-mark.tsx",
+    "ListItem": "../../apps/2026/src/components/effects/list-item.tsx",
+    "Marquee": "../../apps/2026/src/components/effects/marquee.tsx",
+    "AppearTitle": "../../apps/2026/src/components/effects/appear-title.tsx",
+    "ShowcaseCard": "../../apps/2026/src/components/effects/card.tsx"
   },
   "overrides": {
     "Dialog": {
@@ -71,5 +71,8 @@
     "ShowcaseCard": {
       "cardMode": "column"
     }
-  }
+  },
+  "extraEntries": ["@portfolio/icons", "../../.design-sync/shims/app-2026.tsx"],
+  "readmeHeader": "../../.design-sync/conventions.md",
+  "guidelinesGlob": ["../../apps/2026/docs/*.md"]
 }

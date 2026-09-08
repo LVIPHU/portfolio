@@ -2,7 +2,8 @@
 import { GitHubCalendar } from 'react-github-calendar'
 import { useTheme } from 'next-themes'
 import { useTranslations } from 'next-intl'
-import { Reveal, Container } from '@/components/atoms'
+import { Reveal } from '@portfolio/ui/motion'
+import { Container } from '@/components/atoms'
 
 export function GithubCal() {
   const t = useTranslations()
@@ -13,9 +14,7 @@ export function GithubCal() {
   return (
     <Container className='w-full py-5 md:py-10'>
       <Reveal direction={'horizontal'} reverse={true}>
-        <h3 className='md:leading-14 text-2xl font-extrabold leading-9 tracking-tight sm:text-3xl sm:leading-10 md:text-4xl'>
-          {t('GithubCal.workCalendar')}
-        </h3>
+        <h3 className='heading-section'>{t('GithubCal.workCalendar')}</h3>
       </Reveal>
       <Reveal>
         <div className='mt-5 flex w-full items-center justify-center'>

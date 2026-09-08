@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "~2.20.0",
+    "@portfolio/icons": "workspace:*",
     "github-slugger": "^2.0.0",
     "hast-util-from-html-isomorphic": "^2.0.0",
     "katex": "^0.16.21",
-    "lucide-react": "^1.24.0",
     "mdast-util-to-string": "^4.0.0",
     "next-mdx-remote": "^6.0.0",
     "probe-image-size": "^7.2.3",

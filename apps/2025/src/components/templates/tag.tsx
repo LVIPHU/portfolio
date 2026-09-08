@@ -1,19 +1,12 @@
 'use client'
 
-import type { PostWithAuthor } from '@/utils/content'
-import {
-  Badge,
-  BlogStatsListProvider,
-  Container,
-  NavigationLink,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/atoms'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@portfolio/ui'
+import { PostWithAuthor } from '@/utils/content'
+import { Badge } from '@portfolio/ui'
+import { BlogStatsListProvider, Container, NavigationLink } from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
 import { AppContextInterface, useApp } from '@/providers/app'
-import { LayoutGrid, List } from 'lucide-react'
+import { LayoutGrid, List } from '@portfolio/icons/lucide'
 import { slug } from 'github-slugger'
 import { useTranslations } from 'next-intl'
 

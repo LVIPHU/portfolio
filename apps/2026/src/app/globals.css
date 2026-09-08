@@ -1,7 +1,8 @@
-@import 'tailwindcss';
+@import '../styles/breakpoints.css';
 @plugin '@tailwindcss/typography';
 @source '../../../../packages/ui/src';
 @source '../../../../packages/mdx/src';
+@source '../../../../packages/icons/src';
 @import '@portfolio/mdx/styles.css';
 
 @custom-variant dark (&:is(.dark *));
@@ -72,7 +73,7 @@
   --layout-columns-count: var(--columns);
 
   /* ---- spacers (_spacers.scss của lenis: lưới 8px × hệ số, scale theo vw).
-     mobile: xs 32 / sm 32 / md 48 / lg 64 / xl 80 — desktop đổi số ở block 800px */
+     mobile: xs 32 / sm 32 / md 48 / lg 64 / xl 80 — desktop đổi số ở mốc --breakpoint-md */
   --spacer-xs: calc(((32 * 100) / var(--device-width)) * 1vw);
   --spacer-sm: calc(((32 * 100) / var(--device-width)) * 1vw);
   --spacer-md: calc(((48 * 100) / var(--device-width)) * 1vw);
@@ -134,7 +135,7 @@
   --font-roboto: 'Roboto', sans-serif;
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   :root {
     /* desktop design comp = 1440 */
     --device-width: 1440;
@@ -329,7 +330,7 @@
   font-size: calc(((12 * 100) / var(--device-width)) * 1vw);
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .h1 {
     font-size: calc(((160 * 100) / var(--device-width)) * 1vw);
   }
@@ -370,7 +371,7 @@
 .h3.vh {
   font-size: calc(((20 * 100) / var(--device-height)) * 1vh);
 }
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .h1.vh {
     font-size: calc(((160 * 100) / var(--device-height)) * 1vh);
   }
@@ -443,7 +444,7 @@
 .menu-button-reserve {
   padding-bottom: calc(((48 * 100) / var(--device-width)) * 1vw + var(--gap));
 }
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .menu-button-reserve {
     padding-bottom: 0;
   }
@@ -451,12 +452,12 @@
 
 /* CHỈ ẩn ở breakpoint tương ứng — không set display ở trạng thái hiện
    (nếu không sẽ đè display:flex của component). */
-@media (max-width: 799.98px) {
+@media (width < theme(--breakpoint-md)) {
   .desktop-only {
     display: none !important;
   }
 }
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   .mobile-only {
     display: none !important;
   }

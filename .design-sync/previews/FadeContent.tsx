@@ -1,4 +1,4 @@
-import { FadeContent } from 'web-2025'
+import { FadeContent } from '@portfolio/ui'
 
 // FadeContent = fade/blur-in theo IntersectionObserver (CSS transition, không framer-motion).
 // Capture tĩnh: initialOpacity={1} (hiển thị cả khi IO chưa bắn) + duration={1} (transition

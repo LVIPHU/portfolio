@@ -7,7 +7,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from 'web-2025'
+} from '@portfolio/ui'
 
 // Trạng thái MỞ (export đầu = primaryStory). Tắt transition của vaul để
 // screenshot không bắt trúng giữa animation trượt lên.

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Mail } from 'lucide-react'
+import { Mail } from '@portfolio/icons/lucide'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { profile, type Locale } from '@portfolio/content'
 import { AppearTitle } from '@/components/effects/appear-title'

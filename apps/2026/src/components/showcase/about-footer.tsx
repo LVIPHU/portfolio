@@ -1,4 +1,4 @@
-import { Mail } from 'lucide-react'
+import { Mail } from '@portfolio/icons/lucide'
 import { PillButtonLink } from '@/components/effects/pill-button'
 import s from './sections.module.css'
 

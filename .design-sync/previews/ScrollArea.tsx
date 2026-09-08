@@ -1,4 +1,4 @@
-import { ScrollArea } from 'web-2025'
+import { ScrollArea } from '@portfolio/ui'
 
 // ScrollArea (Radix) — mặc định type="hover" nên scrollbar ẩn trong screenshot;
 // truyền type="always" + height cố định (inline style, spread qua Root) để thấy

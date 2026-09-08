@@ -1,4 +1,4 @@
-import { TableOfContents } from 'web-2025'
+import { TableOfContents } from '@portfolio/ui'
 
 // TocItem: { value, url, depth } — depth 2 là mức gốc, depth 3 thụt vào 16px.
 const toc = [

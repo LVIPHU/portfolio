@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import type { BlogContent } from '@/utils/content'
 import type { StatsType } from '@portfolio/service'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'

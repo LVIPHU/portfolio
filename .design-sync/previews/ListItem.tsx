@@ -1,4 +1,4 @@
-import { ListItem } from 'web-2025'
+import { ListItem } from '@portfolio/ui'
 
 // BẮT BUỘC truyền visible: mặc định là false (chờ scroll reveal) → không có nó card trắng.
 export const ProjectList = () => (

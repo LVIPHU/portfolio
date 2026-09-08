@@ -1,4 +1,4 @@
-import { AnimatedContent } from 'web-2025'
+import { AnimatedContent } from '@portfolio/ui'
 
 // AnimatedContent = wrapper framer-motion + IntersectionObserver (initial opacity 0, translate 50px).
 // Capture tĩnh: distance={0} + animateOpacity={false} => trạng thái đầu == trạng thái cuối,

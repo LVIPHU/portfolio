@@ -1,5 +1,6 @@
 'use client'
 
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Textarea } from '@portfolio/ui'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 // standardSchemaResolver thay zodResolver: @hookform/resolvers/zod import 'zod/v4/core'
@@ -9,17 +10,7 @@ import { useForm } from 'react-hook-form'
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema'
 import { z } from 'zod'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Input,
-  Textarea,
-} from '@/components/atoms'
+import { Button } from '@portfolio/ui'
 
 export const ContactForm = () => {
   const t = useTranslations()

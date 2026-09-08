@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Check, Copy } from 'lucide-react'
+import { Check, Copy } from '@portfolio/icons/lucide/static'
 
 /**
  * Island client DUY NHẤT của package (D-10). Tìm <pre> gần nhất trong

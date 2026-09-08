@@ -1,21 +1,12 @@
 'use client'
 
-import type { PostWithAuthor } from '@/utils/content'
+import { Avatar, AvatarFallback, AvatarImage, Badge, buttonVariants, Card, CardContent } from '@portfolio/ui'
+import { PostWithAuthor } from '@/utils/content'
 import { cn } from '@portfolio/utils'
 import { playRandomNote } from '@/utils'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Badge,
-  buttonVariants,
-  Card,
-  CardContent,
-  GrowingUnderline,
-  NavigationLink,
-} from '@/components/atoms'
+import { GrowingUnderline, NavigationLink } from '@/components/atoms'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
-import { Clock } from 'lucide-react'
+import { Clock } from '@portfolio/icons/lucide'
 import { slug as slugify } from 'github-slugger'
 import { useTranslations } from 'next-intl'
 import NextImage from 'next/image'

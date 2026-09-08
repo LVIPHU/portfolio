@@ -1,4 +1,4 @@
-import { EditOnGithub } from 'web-2025'
+import { EditOnGithub } from '@portfolio/ui'
 
 // Link footer bài viết trỏ về file MDX trong repo (SITE_METADATA.siteRepo + /blob/main/data/<filePath>).
 export const PostFooterLink = () => (

@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from 'web-2025'
+} from '@portfolio/ui'
 
 // packages/ui = Base UI (dùng chung 2025 + 2026): Label/CheckboxItem BẮT BUỘC nằm trong
 // <DropdownMenuGroup> — nếu không: "MenuGroupContext is missing" → card rỗng (khác Radix

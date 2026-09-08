@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '@/components/atoms'
-import { CloudSun, Moon, Sun } from 'lucide-react'
+import { Button } from '@portfolio/ui'
+import { CloudSun, Moon, Sun } from '@portfolio/icons/lucide'
 import { useTheme } from 'next-themes'
 import { useTranslations } from 'next-intl'
 

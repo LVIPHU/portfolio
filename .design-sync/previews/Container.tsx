@@ -1,4 +1,4 @@
-import { Container } from 'web-2025'
+import { Container } from '@portfolio/ui'
 
 // Container = section .container mx-auto px-4 md:px-6 xl:px-12 — khung giới hạn chiều rộng của mọi trang.
 // Nền muted bên ngoài để thấy rõ container tự căn giữa + padding ngang.

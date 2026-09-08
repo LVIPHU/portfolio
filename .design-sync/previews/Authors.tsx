@@ -1,4 +1,4 @@
-import { Authors } from 'web-2025'
+import { Authors } from '@portfolio/ui'
 
 // Component chỉ đọc name / avatar / twitter từ CoreContent<Author>.
 const avatarPhu = 'https://avatars.githubusercontent.com/u/84316006?v=4'

@@ -25,10 +25,11 @@ pnpm typecheck    # tsc --noEmit across all packages (both apps have it)
 pnpm lint         # eslint flat config (eslint.config.mjs) — react-hooks + React Compiler rules
 pnpm format       # prettier --check .   (format:write to fix)
 pnpm check-links  # dead-link crawler over both built apps (scripts/check-dead-links.mjs)
-pnpm ci-check     # prettier --check + typecheck + build + check-links (one gate for humans & CI)
+pnpm ci-check     # prettier --check . && eslint . && vitest run && turbo typecheck && turbo build && node scripts/check-dead-links.mjs
+pnpm shots        # Playwright đa viewport → .shots/ (không nằm trong ci-check)
 ```
 
-Scope to one package with turbo filters, e.g. `pnpm build --filter=web-2026` or `pnpm --filter web-2026 typecheck`. No unit tests; `pnpm ci-check` is the quality gate — GitHub Actions ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs exactly that one command with placeholder env values, so a green local `ci-check` means a green CI. A husky `pre-commit` hook runs `lint-staged` (prettier --write on staged files).
+Scope to one package with turbo filters, e.g. `pnpm build --filter=web-2026` or `pnpm --filter web-2026 typecheck`. Vitest covers 7 files (node/jsdom); `pnpm ci-check` is the quality gate — GitHub Actions ([.github/workflows/ci.yml](.github/workflows/ci.yml)) runs exactly that one command with placeholder env values, so a green local `ci-check` means a green CI. A husky `pre-commit` hook runs `lint-staged` (prettier --write on staged files).
 
 Dev servers are declared in [.claude/launch.json](.claude/launch.json) (`web-2026` → 3000, `web-2025` → 3001) — start them with the preview tool, not with Bash.
 
@@ -44,13 +45,14 @@ Dev servers are declared in [.claude/launch.json](.claude/launch.json) (`web-202
 
 ### Shared packages (raw-TS, no build step)
 
-All shared packages export **raw TypeScript source** (`exports: "./src/index.ts"`, plus subpaths) and are consumed via `transpilePackages` in each app's `next.config.ts` (content, ui, mdx, i18n, service, utils, hooks). Tailwind picks up UI/MDX classes via `@source` in the app CSS. Version anchor = `apps/2026`.
+All shared packages export **raw TypeScript source** (`exports: "./src/index.ts"`, plus subpaths) and are consumed via `transpilePackages` in each app's `next.config.ts` (content, ui, mdx, i18n, service, utils, hooks, icons). Tailwind picks up UI/MDX/icons classes via `@source` in the app CSS. Version anchor = `apps/2026`.
 
 - **`@portfolio/i18n`** — shared next-intl config: `@portfolio/i18n/locales` (`Locale`, `locales`, `defaultLocale` — **no** next-intl, safe for `@portfolio/content`); `.` re-exports locales + `routing`; `./navigation`, `./middleware`, `./request` are separate entries (client / Edge / server). Apps keep `messages/{vi,en}.json`, thin `src/i18n/request.ts` (+ 2025 `i18n/index.ts` for `PageLangParam`) and `src/proxy.ts`. Import `routing` / navigation helpers from `@portfolio/i18n` / `@portfolio/i18n/navigation` — no app `routing.ts` / `navigation.ts` shims. Content must **only** import `@portfolio/i18n/locales`, never navigation/middleware/request.
 - **`@portfolio/service`** — shared API/DB layer: Drizzle schema + lazy `createDb`, blog stats queries (soft-fail), Zod validators, `createStatsHandlers`, SWR hooks. Migrations under `packages/service/supabase/`. Apps inject `DATABASE_URL` and mount thin `app/api/stats/route.ts`. Add future APIs as new modules under the same package.
 - **`@portfolio/utils`** — react-free helpers: `cn()` (`clsx` + `tailwind-merge`), string (`capitalize`, `escapeHtml`, …), object (`omit`/`pick`), date (`formatDate`, `getTimeAgo`, `sortPosts`), `fetcher`. Import from `@portfolio/utils`. Do **not** put Localized/`t()` or app/env/Next-specific code here — those stay in each app's `src/utils/`.
 - **`@portfolio/hooks`** — generic client hooks (`useMediaQuery`, `useDragRotate`, `useDebounceCallback`, …). GSAP/scroll motion hooks stay in `@portfolio/ui/motion`.
 - **`@portfolio/ui`** — shadcn components on **Base UI** (`@base-ui/react`), added one-per-CLI-command (`pnpm dlx shadcn@latest add <name>` inside `packages/ui`); `cn()` from `@portfolio/utils` (after `shadcn add`, rewrite any emitted `@/lib/utils` / relative utils import to `@portfolio/utils` — see `packages/ui/components.json` aliases). GSAP motion primitives (Reveal, useScrollProgress, ParallaxColumns, HoverHighlight, useMagnify) at `@portfolio/ui/motion`. Intra-package component imports are **relative** (shadcn emits `@/…`, which resolves against the _app's_ tsconfig under transpilePackages — convert to relative after each `add`). App barrels re-export named symbols (never `export *` across a `'use client'` boundary — it crashes Turbopack).
+- **`@portfolio/icons`** — SVG brand/social/tech (`SkillIcon`, `SocialIcons`, `ICONS`) + lucide animated (GSAP) tại `@portfolio/icons/lucide`. UI/MDX import **static** từ `@portfolio/icons/lucide/static` (không GSAP). Raw-TS, named export (không `export *`). `lucide-react` chỉ là devDependency (codegen `gen-lucide.mjs`); app/ui/mdx không import nó.
 - **`@portfolio/mdx`** — one remark/rehype pipeline (`remarkPlugins`/`rehypePlugins`) + MDX components (`defaultMdxComponents`) + `<MDXContent>` RSC renderer, shared by both apps. Includes `<Sandpack>` live playground (fences → files via the `remarkSandpackFiles` plugin at MDAST level; heavy `@codesandbox/sandpack-react` is code-split behind `next/dynamic` and must be in the app's `transpilePackages`).
 - pnpm runs with `autoInstallPeers: false` and isolated node_modules: **every import must be a declared dependency of the package that imports it**. A missing declaration can still resolve locally through hoisting and then fail only on Vercel.
 
@@ -79,9 +81,10 @@ All shared packages export **raw TypeScript source** (`exports: "./src/index.ts"
 
 #### Design system (2026)
 
-[apps/2026/docs/design-system.md](apps/2026/docs/design-system.md) is the written spec; `src/app/globals.css` (global tokens) and `src/components/showcase/theme.css` (scoped showcase themes) are the source of truth. Read the doc before touching colors, spacing, or type — the rules are unusually strict and have already been re-litigated once:
+[apps/2026/docs/design-system.md](apps/2026/docs/design-system.md) is the written spec; `src/app/globals.css` (global tokens), `src/styles/breakpoints.css` (breakpoint `@theme`), and `src/components/showcase/theme.css` (scoped showcase themes) are the source of truth. Read the doc before touching colors, spacing, or type — the rules are unusually strict and have already been re-litigated once:
 
-- Sizes scale with the viewport: `calc(((<px on comp> * 100) / var(--device-width)) * 1vw)`, comp 375 mobile / 1440 desktop, **one** breakpoint at 800px.
+- Sizes scale with the viewport: `calc(((<px on comp> * 100) / var(--device-width)) * 1vw)`, comp 375 mobile / 1440 desktop, **one** breakpoint at `md` 768px (Tailwind `--breakpoint-md`); the number lives in the theme, CSS reads it via `theme()`, JS via `DESKTOP_MEDIA`.
+- Responsive: đọc mục Responsive trong `docs/design-system.md` của app tương ứng trước khi thêm prefix Tailwind; kiểm theo ma trận viewport; `pnpm shots` để chụp đa viewport.
 - Colors go through the three theme tokens `--theme-primary` / `--theme-secondary` / `--theme-contrast`; components don't reach for palette values directly.
 - There is exactly **one** brand gold (`#DFB454`) for both themes — no darker variant. It is legible by restricted usage, not by shade: allowed as a background (with hard black text on top), as 1–4px rules/borders/chrome, and for display type ≥56px comp; never for small text. The Earth material's `#D4AF37` is deliberately different — don't sync them.
 - Motion uses the easing tokens (`--ease-out-expo`, `--ease-in-out-quad`), not hand-written cubic-beziers.

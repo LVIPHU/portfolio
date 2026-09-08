@@ -1,4 +1,4 @@
-import { ThemeSwitch } from 'web-2025'
+import { ThemeSwitch } from '@portfolio/ui'
 
 // Không có ThemeProvider của next-themes trong preview: useTheme trả default
 // context (theme undefined) → component fallback về 'light', icon Sun hiển thị.

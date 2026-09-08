@@ -1,4 +1,4 @@
-// Gom CSS đã compile của app 2026 → apps/2026/.ds-css/css2026.css (+ font đi kèm).
+// Gom CSS đã compile của app 2026 → packages/ui/.ds-css/css2026.css (+ font đi kèm).
 //
 // KHÁC refresh-css.mjs (2025) ở 3 chỗ, cả ba đều là lý do bản 2025 hiện chạy là fail:
 //  1. THƯ MỤC: Next 16 + Turbopack không còn đặt CSS ở <dist>/static/css mà ở
@@ -44,7 +44,7 @@ const files = readdirSync(cssDir)
 
 let merged = files.map(({ f }) => `/* ── ${f} ── */\n${readFileSync(join(cssDir, f), 'utf8')}`).join('\n\n')
 
-const outDir = join(APP, '.ds-css')
+const outDir = join(ROOT, 'packages/ui/.ds-css')
 mkdirSync(outDir, { recursive: true })
 
 // mang font đi cùng + trỏ url về đúng chỗ

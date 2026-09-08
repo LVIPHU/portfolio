@@ -1,20 +1,19 @@
 'use client'
 
-import { Link, Share2, XIcon } from 'lucide-react'
-import { Facebook, Linkedin } from '@/utils'
-import { useState } from 'react'
-import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share'
 import {
-  Button,
-  DiscussOnX,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  EditOnGithub,
-} from '@/components/atoms'
+} from '@portfolio/ui'
+import { Link, Share2, XIcon } from '@portfolio/icons/lucide'
+import { Facebook, Linkedin } from '@portfolio/icons'
+import { useState } from 'react'
+import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share'
+import { Button } from '@portfolio/ui'
+import { DiscussOnX, EditOnGithub } from '@/components/atoms'
 import { cn } from '@portfolio/utils'
 
 type SocialButtonsProps = {

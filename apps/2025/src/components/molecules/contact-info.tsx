@@ -1,37 +1,42 @@
-import { MailIcon, PhoneIcon, MapPinIcon } from 'lucide-react'
-import { Facebook, Linkedin, Github } from '@/utils'
-import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
-import { useTranslations } from 'next-intl'
+'use client'
+
+import { MailIcon, PhoneIcon, MapPinIcon } from '@portfolio/icons/lucide'
+import { Facebook, Linkedin, Github } from '@portfolio/icons'
+import { me } from '@portfolio/content/data2025'
+import { useLocale, useTranslations } from 'next-intl'
+import type { Locale } from '@portfolio/content/data2025'
 
 export const ContactInfo = () => {
   const t = useTranslations()
+  const locale = useLocale() as Locale
+  const p = me.profile
 
   const contactItems = [
     {
       icon: MailIcon,
       label: t('Contact.emailLabel'),
-      value: SITE_METADATA.email,
-      href: `mailto:${SITE_METADATA.email}`,
+      value: p.email,
+      href: `mailto:${p.email}`,
     },
     {
       icon: PhoneIcon,
       label: t('Contact.phoneLabel'),
-      value: SITE_METADATA.phone,
-      href: SITE_METADATA.phoneHref,
+      value: p.phone,
+      href: p.phoneHref,
     },
     {
       icon: MapPinIcon,
       label: t('Contact.locationLabel'),
-      value: SITE_METADATA.location,
-      href: null,
+      value: p.location[locale],
+      href: null as string | null,
     },
   ]
 
-  const socials = [
-    { icon: Facebook, label: 'Facebook', href: SITE_METADATA.facebook },
-    { icon: Linkedin, label: 'LinkedIn', href: SITE_METADATA.linkedIn },
-    { icon: Github, label: 'GitHub', href: SITE_METADATA.github },
-  ]
+  const socials = p.socials.map((s) => ({
+    icon: s.id === 'facebook' ? Facebook : s.id === 'linkedin' ? Linkedin : Github,
+    label: s.label,
+    href: s.url,
+  }))
 
   return (
     <div>

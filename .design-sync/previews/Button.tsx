@@ -1,4 +1,4 @@
-import { Button } from 'web-2025'
+import { Button } from '@portfolio/ui'
 
 const row: React.CSSProperties = { display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }
 

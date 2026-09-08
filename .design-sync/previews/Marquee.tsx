@@ -1,4 +1,4 @@
-import { Marquee } from 'web-2025'
+import { Marquee } from '@portfolio/ui'
 
 // Dải chữ chạy ngang vô tận (hero trang chủ). Ảnh chụp bắt một khung của animation.
 const item: React.CSSProperties = { margin: '0 24px', whiteSpace: 'nowrap' }

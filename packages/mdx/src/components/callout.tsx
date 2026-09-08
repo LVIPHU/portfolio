@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Construction, Info, Layers, TriangleAlert } from 'lucide-react'
+import { Construction, Info, Layers, TriangleAlert } from '@portfolio/icons/lucide/static'
 
 export type CalloutVariant = 'note' | 'pitfall' | 'deep-dive' | 'wip'
 

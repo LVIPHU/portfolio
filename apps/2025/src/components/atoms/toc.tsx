@@ -1,4 +1,4 @@
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight } from '@portfolio/icons/lucide'
 import { NavigationLink } from '@/components/atoms/navigation-link'
 import { cn } from '@portfolio/utils'
 

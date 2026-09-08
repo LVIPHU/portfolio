@@ -1,4 +1,4 @@
-import { ProjectCard } from 'web-2025'
+import { ProjectCard } from '@portfolio/ui'
 
 // BLOCKED (config-level, xem learnings/wave1-C.md): ProjectCard gọi useLingui()
 // từ '@lingui/react' THẬT — path này KHÔNG được shim trong tsconfig.dsync.json

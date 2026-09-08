@@ -1,17 +1,10 @@
 'use client'
 
+import { Separator, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@portfolio/ui'
+import { SocialIcons } from '@portfolio/icons'
 import { cn } from '@portfolio/utils'
-import {
-  Container,
-  NavigationLink,
-  Separator,
-  SocialIcons,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/atoms'
-import { Dot } from 'lucide-react'
+import { Container, NavigationLink } from '@/components/atoms'
+import { GitFork, Dot } from '@portfolio/icons/lucide'
 import { type Skill2025 as Skill, SKILLS_2025 as SKILLS } from '@portfolio/content/data2025'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
 import { useTranslations } from 'next-intl'
@@ -21,7 +14,7 @@ const techs = ['typescript', 'nextjs', 'react', 'tailwindcss', 'shadcn']
 const TooltipLink = ({ item }: { item: Skill }) => (
   <TooltipProvider>
     <Tooltip>
-      <TooltipTrigger render={<SocialIcons kind={item.id} size={5} href={item.href} />} />
+      <TooltipTrigger render={<SocialIcons kind={item.id} size={20} href={item.href} />} />
       <TooltipContent>
         <p>{item.name}</p>
       </TooltipContent>
@@ -62,7 +55,15 @@ export const Footer = ({ className, description }: Props) => {
             <Dot size={14} />
           </li>
           <li>
-            <SocialIcons kind={'gitfork'} size={5} href={'https://github.com/LVIPHU/portfolio'} />
+            <a
+              href='https://github.com/LVIPHU/portfolio'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex items-center justify-center hover:text-sky-900 dark:hover:text-sky-900'
+            >
+              <span className='sr-only'>GitHub</span>
+              <GitFork size={20} />
+            </a>
           </li>
           <li>
             <Dot size={14} />

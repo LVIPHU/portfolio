@@ -1,4 +1,4 @@
-import { Tag, TagsList } from 'web-2025'
+import { Tag, TagsList } from '@portfolio/ui'
 
 export const PostTags = () => <TagsList tags={['react', 'nextjs', 'kinh-nghiem', 'web-development', 'typescript']} />
 

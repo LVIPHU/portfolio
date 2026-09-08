@@ -1,3 +1,5 @@
+@reference '../../styles/breakpoints.css';
+
 /* Menu toàn màn hình mở từ nút "=" nổi ở góc phải-dưới (bố cục landonorris.com, ngôn ngữ chuyển động
    của lenis: tấm trượt xuống bằng --ease-out-expo, từng dòng chữ trồi lên trong mặt nạ overflow
    như ListItem/AppearTitle).
@@ -213,7 +215,7 @@
   display: none;
 }
 
-@media (min-width: 800px) {
+@media (width >= theme(--breakpoint-md)) {
   /* Hai cột ảnh chiếm đúng nửa trái, tràn tới mép trên/dưới; cột phải tụt xuống một nhịp để
      thành thế lệch tầng như trang tham chiếu (overlay overflow:hidden cắt phần thừa ở đáy). */
   .photos {

@@ -1,5 +1,6 @@
+import { Card, CardContent } from '@portfolio/ui'
 import { ContactForm, ContactInfo } from '@/components/molecules'
-import { Card, CardContent, Container } from '@/components/atoms'
+import { Container } from '@/components/atoms'
 import { useTranslations } from 'next-intl'
 
 export const ContactTemplate = () => {

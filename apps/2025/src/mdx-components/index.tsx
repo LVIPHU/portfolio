@@ -1,4 +1,4 @@
-import type { MDXComponents } from 'mdx/types'
+import { MDXComponents } from 'mdx/types'
 import { Image, Zoom, type ImageProps, NavigationLink } from '@/components/atoms'
 
 /**

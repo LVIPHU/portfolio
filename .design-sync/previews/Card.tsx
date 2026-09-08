@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from 'web-2025'
+} from '@portfolio/ui'
 
 export const ProjectIntro = () => (
   <Card style={{ maxWidth: 420 }}>

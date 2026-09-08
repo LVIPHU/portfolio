@@ -1,4 +1,4 @@
-import { Timeline, TimelineItemDescription, TimelineItemSmallText } from 'web-2025'
+import { Timeline, TimelineItemDescription, TimelineItemSmallText } from '@portfolio/ui'
 
 // TimelineEntry: { title: string; content: ReactNode }. Dùng các sub-export
 // TimelineItemDescription / TimelineItemSmallText làm content (bỏ TimelineItemDateRange

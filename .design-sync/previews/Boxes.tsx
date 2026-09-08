@@ -1,4 +1,4 @@
-import { Boxes } from 'web-2025'
+import { Boxes } from '@portfolio/ui'
 
 // Boxes = nền lưới isometric tương tác của trang chủ (30x30 ô, kéo xoay, hover đổi màu).
 // .box-content là position:fixed => wrapper cần transform:translateZ(0) làm containing block,

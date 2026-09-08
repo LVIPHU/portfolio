@@ -1,4 +1,4 @@
-import { Separator } from 'web-2025'
+import { Separator } from '@portfolio/ui'
 
 export const Horizontal = () => (
   <div style={{ maxWidth: 380 }}>

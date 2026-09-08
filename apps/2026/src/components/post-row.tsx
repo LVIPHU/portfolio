@@ -16,10 +16,10 @@ export function PostRow({
   return (
     <Link
       href={`/blog/${slug}`}
-      className='hover:border-primary group flex flex-col justify-between gap-1 border-b py-5 transition-colors sm:flex-row sm:items-baseline'
+      className='hover:border-primary group flex flex-col justify-between gap-1 border-b py-5 transition-colors md:flex-row md:items-baseline'
     >
       <span className='flex flex-col gap-1'>
-        <span className='dark:group-hover:text-primary text-xl font-medium transition-colors sm:text-2xl'>{title}</span>
+        <span className='dark:group-hover:text-primary text-xl font-medium transition-colors md:text-2xl'>{title}</span>
         {summary && <span className='p text-muted-foreground'>{summary}</span>}
       </span>
       <span className='p-xs text-muted-foreground shrink-0'>{date}</span>
