@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from 'web-2025'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@portfolio/ui'
 
 export const ProfileTabs = () => (
   <Tabs defaultValue='overview' style={{ maxWidth: 480 }}>

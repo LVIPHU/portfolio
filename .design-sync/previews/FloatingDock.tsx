@@ -1,4 +1,4 @@
-import { FloatingDock } from 'web-2025'
+import { FloatingDock } from '@portfolio/ui'
 
 // Dock điều hướng chính của site. Viewport capture 900px ≥ md → bản desktop
 // (dải tròn bo full) hiển thị, bản mobile ẩn. Icon là ReactNode — lucide-react

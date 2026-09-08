@@ -51,6 +51,7 @@ const config: NextConfig = {
     '@portfolio/content',
     '@portfolio/ui',
     '@portfolio/mdx',
+    '@portfolio/icons',
     '@portfolio/i18n',
     '@portfolio/service',
     '@portfolio/utils',

@@ -1,4 +1,4 @@
-import { Label, Textarea } from 'web-2025'
+import { Label, Textarea } from '@portfolio/ui'
 
 const col: React.CSSProperties = { display: 'flex', flexDirection: 'column', gap: 8, maxWidth: 420 }
 

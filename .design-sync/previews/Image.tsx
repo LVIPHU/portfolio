@@ -1,4 +1,4 @@
-import { Image, Zoom } from 'web-2025'
+import { Image, Zoom } from '@portfolio/ui'
 
 // Image = shim next/image → <img> thuần trong bundle; wrapper .image-container bo góc +
 // căn giữa, có hiệu ứng pulse/blur khi chưa load. Zoom (react-medium-image-zoom) bọc ngoài

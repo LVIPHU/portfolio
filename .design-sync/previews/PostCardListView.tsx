@@ -1,4 +1,4 @@
-import { PostCardListView } from 'web-2025'
+import { PostCardListView } from '@portfolio/ui'
 
 const banner =
   'data:image/svg+xml;utf8,' +

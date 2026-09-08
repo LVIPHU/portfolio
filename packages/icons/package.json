@@ -1,0 +1,33 @@
+{
+  "name": "@portfolio/icons",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./lucide": "./src/lucide/index.ts",
+    "./lucide/static": "./src/lucide/static/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@portfolio/utils": "workspace:*",
+    "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "lucide-react": "^1.24.0",
+    "react": "^19",
+    "react-dom": "^19",
+    "typescript": "^5.6.0"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}

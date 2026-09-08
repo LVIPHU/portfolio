@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react'
+import { Separator } from '@portfolio/ui'
+import { ReactNode } from 'react'
 import type { BlogContent } from '@/utils/content'
 import type { StatsType } from '@portfolio/service'
-import { Container, Separator } from '@/components/atoms'
+import { Container } from '@/components/atoms'
 import { BlogMeta, Comments, PostTitle, RelatedPosts, ScrollButtons, TagsList } from '@/components/molecules'
 
 interface PostSimpleProps {

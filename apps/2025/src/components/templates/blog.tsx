@@ -1,19 +1,12 @@
 'use client'
 
-import type { PostWithAuthor } from '@/utils/content'
-import { ArrowLeft, ArrowRight, LayoutGrid, List } from 'lucide-react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@portfolio/ui'
+import { PostWithAuthor } from '@/utils/content'
+import { ArrowLeft, ArrowRight, LayoutGrid, List } from '@portfolio/icons/lucide'
 import { Link, usePathname } from '@portfolio/i18n/navigation'
 import React, { useState } from 'react'
-import {
-  Reveal,
-  Container,
-  SearchArticles,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-  BlogStatsListProvider,
-} from '@/components/atoms'
+import { Reveal } from '@portfolio/ui/motion'
+import { Container, SearchArticles, BlogStatsListProvider } from '@/components/atoms'
 import { GridView, Header, ListView } from '@/components/organisms'
 import { useTranslations } from 'next-intl'
 import { AppContextInterface, useApp } from '@/providers/app'

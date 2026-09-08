@@ -10,7 +10,7 @@ import {
   FormMessage,
   Input,
   Textarea,
-} from 'web-2025'
+} from '@portfolio/ui'
 
 // Form = FormProvider của react-hook-form, FormField = Controller → BẮT BUỘC có useForm
 // control, không có thì FormLabel/useFormField ném lỗi và card trắng.

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from '@portfolio/icons/lucide'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getAllTags, getPostsByTag, type Locale } from '@portfolio/content'
 import { Link } from '@portfolio/i18n/navigation'

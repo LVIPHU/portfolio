@@ -1,4 +1,4 @@
-import { AppearTitle } from 'web-2025'
+import { AppearTitle } from '@portfolio/ui'
 
 // AppearTitle giấu chữ bằng translateY(110%) trong overflow:hidden và chỉ bỏ giấu khi
 // IntersectionObserver bắn. Ảnh chụp tĩnh diễn ra trước khi IO + transition 1.2s kịp

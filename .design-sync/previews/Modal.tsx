@@ -1,4 +1,4 @@
-import { Button, Modal } from 'web-2025'
+import { Button, Modal } from '@portfolio/ui'
 
 // Overlay MỞ (cardMode single, viewport 640x480). Ở 640px < 1024px media query
 // isDesktop=false → Modal render nhánh Drawer (vaul) trượt từ đáy — đúng hành vi

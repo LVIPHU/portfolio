@@ -14,8 +14,8 @@ apps/2025/public/search.json
 apps/2025/public/tags/
 apps/2025/json/
 apps/2025/src/i18n/locales/
-apps/2025/.design-sync.entry.tsx
 apps/2025/.ds-css/
+packages/ui/.ds-css/
 next-env.d.ts
 pnpm-lock.yaml
 

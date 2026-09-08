@@ -1,4 +1,4 @@
-import { ToggleGroup, ToggleGroupItem } from 'web-2025'
+import { ToggleGroup, ToggleGroupItem } from '@portfolio/ui'
 
 const row: React.CSSProperties = {
   display: 'flex',

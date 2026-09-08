@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { profile, resume, featuredProjects, type Locale } from '@portfolio/content'
+import { profile, resume, featuredProjects, skillNames, type Locale } from '@portfolio/content'
 import { t } from '@/utils/format'
 import { ShowcaseAbout, type AboutContent } from '@/components/showcase/showcase-about'
 import { pageMetadata } from '@/utils/seo'
@@ -36,7 +36,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     projectsHeading: ts('projectsHeading'),
     projects: featuredProjects.map((p) => ({
       title: p.name,
-      source: p.tech.join(' · '),
+      source: skillNames(p.tech).join(' · '),
       href: `/projects/${p.slug}`,
     })),
     footerHeading: ts('footerHeading'),

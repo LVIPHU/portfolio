@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react'
+import { Search } from '@portfolio/icons/lucide'
 import type { ChangeEventHandler } from 'react'
 import { cn } from '@portfolio/utils'
 

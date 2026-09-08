@@ -1,4 +1,4 @@
-import { BlogMeta } from 'web-2025'
+import { BlogMeta } from '@portfolio/ui'
 
 // Dòng meta dưới tiêu đề bài viết: ngày đăng / phút đọc / lượt xem.
 // ViewsCounter bên trong fetch /api/stats của app gốc → fail-an-toàn về "0 views".

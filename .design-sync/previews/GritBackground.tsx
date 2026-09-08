@@ -1,4 +1,4 @@
-import { GritBackground } from 'web-2025'
+import { GritBackground } from '@portfolio/ui'
 
 // GritBackground phủ texture grit (png trong /static của app — KHÔNG có trong bundle nên
 // texture không render được ở preview). Compose đúng cách dùng thật (Banner): khung ảnh bìa

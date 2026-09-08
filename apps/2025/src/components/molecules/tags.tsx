@@ -1,5 +1,6 @@
 import { slug } from 'github-slugger'
-import { Badge, NavigationLink } from '@/components/atoms'
+import { Badge } from '@portfolio/ui'
+import { NavigationLink } from '@/components/atoms'
 
 export function TagsList({ tags }: { tags: string[] }) {
   if (!tags || tags.length === 0) {

@@ -1,4 +1,4 @@
-import { HoverCard, HoverCardContent, HoverCardTrigger } from 'web-2025'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@portfolio/ui'
 
 // Trạng thái MỞ (prop `open` của Radix Root) — hover card hồ sơ tác giả.
 // Container flex center + minHeight vừa đủ để content (side bottom) nằm trọn khung.

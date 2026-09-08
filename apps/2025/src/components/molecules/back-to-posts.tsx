@@ -1,4 +1,4 @@
-import { MoveLeft } from 'lucide-react'
+import { MoveLeft } from '@portfolio/icons/lucide'
 import { GrowingUnderline, NavigationLink } from '@/components/atoms'
 
 export function BackToPosts({ label, className }: { label: string; className?: string }) {

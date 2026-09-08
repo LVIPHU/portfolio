@@ -1,5 +1,5 @@
 import { useKBar } from 'kbar'
-import { Command } from 'lucide-react'
+import { Command } from '@portfolio/icons/lucide'
 
 export function KbarSearchTrigger() {
   const { query } = useKBar()

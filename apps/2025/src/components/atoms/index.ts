@@ -1,107 +1,5 @@
-// C8 (D-06): shim barrel — component shadcn-derived re-export từ @portfolio/ui
-// (nguồn UI chung duy nhất của repo), atoms đặc thù app (D-12) giữ file local.
-// Named exports bắt buộc: `export *` qua ranh giới 'use client' làm Turbopack vỡ
-// (bug ownKeys, xem C7-01). Organisms/templates vẫn import từ '@/components/atoms'.
-
-// ── shadcn-derived → @portfolio/ui ──
-export {
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-  Badge,
-  badgeVariants,
-  Button,
-  buttonVariants,
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogOverlay,
-  DialogPortal,
-  DialogTitle,
-  DialogTrigger,
-  Drawer,
-  DrawerPortal,
-  DrawerOverlay,
-  DrawerTrigger,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTitle,
-  DrawerDescription,
-  DropdownMenu,
-  DropdownMenuPortal,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuItem,
-  DropdownMenuCheckboxItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuSubContent,
-  useFormField,
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
-  FormField,
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-  Input,
-  Label,
-  Pagination,
-  PaginationContent,
-  PaginationLink,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationNext,
-  PaginationEllipsis,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectLabel,
-  SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
-  SelectScrollDownButton,
-  Separator,
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-  Textarea,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from '@portfolio/ui'
-
-// ── atoms đặc thù app (D-12) → file local ──
-// C9: atom scroll-in cũ → Reveal (GSAP) trong @portfolio/ui/motion (D-09/D-10)
-export { Reveal } from '@portfolio/ui/motion'
+// Atom đặc thù app 2025. UI lấy thẳng từ `@portfolio/ui` / `@portfolio/ui/motion`;
+// icon từ `@portfolio/icons`. Named export — không `export *` qua `'use client'`.
 export { Authors } from './authors'
 export { Blur } from './blur'
 export { Boxes } from './boxes'
@@ -118,8 +16,6 @@ export { LinkPreview } from './link-preview'
 export { Logo } from './logo'
 export { NavigationLink } from './navigation-link'
 export { SearchArticles } from './search-articles'
-export { SocialIcons } from './social-icons'
-export type { TypeOfIconsMap } from './social-icons'
 export {
   Timeline,
   TimelineItemTitle,

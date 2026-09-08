@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from 'web-2025'
+import { Avatar, AvatarFallback, AvatarImage } from '@portfolio/ui'
 
 const row: React.CSSProperties = { display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }
 

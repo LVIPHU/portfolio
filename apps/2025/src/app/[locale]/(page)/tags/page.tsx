@@ -1,5 +1,7 @@
+import { Badge } from '@portfolio/ui'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { Reveal, Badge, Container, NavigationLink } from '@/components/atoms'
+import { Reveal } from '@portfolio/ui/motion'
+import { Container, NavigationLink } from '@/components/atoms'
 import { slug } from 'github-slugger'
 import { getTagData, mapLocale } from '@/utils/content'
 import { withOg } from '@/utils/og-meta'

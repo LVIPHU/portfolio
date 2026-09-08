@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 import { ThemeSwitch } from './theme-switch'
 import { LocaleSwitch } from './locale-switch'
-import { Label } from '@/components/atoms'
+import { Label } from '@portfolio/ui'
 
 export const Setting = () => {
   const t = useTranslations()

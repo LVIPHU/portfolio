@@ -6,7 +6,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from 'web-2025'
+} from '@portfolio/ui'
 
 export const BlogPagination = () => (
   <Pagination>

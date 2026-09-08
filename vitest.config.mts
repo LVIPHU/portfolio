@@ -22,6 +22,19 @@ export default defineConfig({
         },
       },
       {
+        oxc: {
+          jsx: { runtime: 'automatic' },
+        },
+        test: {
+          name: 'icons',
+          include: ['packages/icons/src/**/*.test.tsx'],
+          environment: 'jsdom',
+          setupFiles: ['./packages/icons/src/test-setup.ts'],
+          testTimeout: 20_000,
+          fileParallelism: false,
+        },
+      },
+      {
         resolve: {
           alias: { '@': fileURLToPath(new URL('./apps/2025/src', import.meta.url)) },
         },

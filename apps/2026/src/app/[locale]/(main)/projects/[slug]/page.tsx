@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { MDXContent } from '@portfolio/mdx'
-import { getAllProjectSlugs, getProject, getProjectCase, profile, type Locale } from '@portfolio/content'
+import { getAllProjectSlugs, getProject, getProjectCase, profile, skillNames, type Locale } from '@portfolio/content'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { Breadcrumb } from '@/components/chrome/breadcrumb'
 import { JsonLd } from '@/components/json-ld'
@@ -80,7 +80,7 @@ export default async function ProjectCasePage({ params }: { params: Promise<{ lo
         </h1>
         <p className='p text-muted-foreground mt-4'>{description}</p>
         <p className='p-xs text-muted-foreground mt-4'>
-          {project.year} · {project.tech.join(' · ')}
+          {project.year} · {skillNames(project.tech).join(' · ')}
         </p>
         <div className='mt-6 flex gap-4'>
           {project.links.demo && (

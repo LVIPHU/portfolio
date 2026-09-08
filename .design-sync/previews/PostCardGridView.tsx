@@ -1,4 +1,4 @@
-import { PostCardGridView } from 'web-2025'
+import { PostCardGridView } from '@portfolio/ui'
 
 const bannerVi =
   'data:image/svg+xml;utf8,' +

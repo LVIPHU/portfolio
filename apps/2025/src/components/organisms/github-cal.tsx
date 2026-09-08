@@ -2,7 +2,8 @@
 import { GitHubCalendar } from 'react-github-calendar'
 import { useTheme } from 'next-themes'
 import { useTranslations } from 'next-intl'
-import { Reveal, Container } from '@/components/atoms'
+import { Reveal } from '@portfolio/ui/motion'
+import { Container } from '@/components/atoms'
 
 export function GithubCal() {
   const t = useTranslations()

@@ -1,9 +1,9 @@
 'use client'
 // client component: đổi locale qua router của next-intl (D-10)
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@portfolio/ui'
 import { useLocale, useTranslations } from 'next-intl'
 import { usePathname, useRouter } from '@portfolio/i18n/navigation'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/atoms'
 
 const languages = {
   vi: 'Tiếng Việt',

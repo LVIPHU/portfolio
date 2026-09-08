@@ -1,4 +1,4 @@
-import { ScrollButtons } from 'web-2025'
+import { ScrollButtons } from '@portfolio/ui'
 
 // Cặp nút nổi "scroll to comment / scroll to top". Root gốc là overlay
 // `fixed bottom-8 right-8 hidden` và chỉ hiện từ lg khi window.scrollY > 50 —

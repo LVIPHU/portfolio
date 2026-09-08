@@ -1,4 +1,4 @@
-import { Button, Popover, PopoverContent, PopoverTrigger } from 'web-2025'
+import { Button, Popover, PopoverContent, PopoverTrigger } from '@portfolio/ui'
 
 // Trạng thái MỞ (export đầu = primaryStory) — popover chia sẻ bài viết.
 // Bố cục nén để content nằm trọn trong khung card của DS pane;

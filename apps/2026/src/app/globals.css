@@ -2,6 +2,7 @@
 @plugin '@tailwindcss/typography';
 @source '../../../../packages/ui/src';
 @source '../../../../packages/mdx/src';
+@source '../../../../packages/icons/src';
 @import '@portfolio/mdx/styles.css';
 
 @custom-variant dark (&:is(.dark *));

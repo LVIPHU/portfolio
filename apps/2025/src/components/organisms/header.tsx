@@ -1,4 +1,4 @@
-import { Separator } from '@/components/atoms'
+import { Separator } from '@portfolio/ui'
 import { cn } from '@portfolio/utils'
 
 type Props = {

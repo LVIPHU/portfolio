@@ -1,4 +1,4 @@
-import { LocaleSwitch } from 'web-2025'
+import { LocaleSwitch } from '@portfolio/ui'
 
 // Trạng thái ĐÓNG (đúng khuyến nghị review — không ép mở dropdown).
 // usePathname shim = '/' → locale rút ra là chuỗi rỗng → trigger hiển thị

@@ -1,4 +1,4 @@
-import { ViewsCounter } from 'web-2025'
+import { ViewsCounter } from '@portfolio/ui'
 
 // Ngoài app gốc, fetch /api/stats fail → SWR trả data undefined → hook default
 // views = 0 → hiển thị "0 views" (fail-an-toàn, đúng conventions.md).

@@ -74,6 +74,7 @@ const nextConfig: NextConfig = {
     '@portfolio/content',
     '@portfolio/mdx',
     '@portfolio/ui',
+    '@portfolio/icons',
     '@portfolio/i18n',
     '@portfolio/service',
     '@portfolio/utils',
@@ -97,6 +98,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'drive.google.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
       },
     ],
   },

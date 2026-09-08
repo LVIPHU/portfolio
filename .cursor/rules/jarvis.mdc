@@ -5,18 +5,20 @@ alwaysApply: true
 
 # JARVIS (portfolio sessions)
 
-Cross-project knowledge lives at `D:\JARVIS\`. Full contract: skill `jarvis-bridge`
-(auto-discovered from `~/.agents/skills/`). Read via `D:\JARVIS\wiki\index.md`; `status:
+Cross-project knowledge lives at `D:/JARVIS/`. Full contract: skill `jarvis-bridge`
+(auto-discovered from `~/.agents/skills/`). Read via `D:/JARVIS/wiki/index.md`; `status:
 draft` on a page is curation, not quality — follow draft pages normally.
 
-<!-- JARVIS-DUTY:v1 -->
-When this session has actually RUN something worth keeping — a UAT pass, a suite that went
-green and was audited, a bug class that earned a name, a perf number measured, a decision
-that turned out wrong — write it BEFORE the session ends:
-`D:\JARVIS\raw\YYYY-MM-DD-retro-<slug>.md` — first person: what happened, what it cost,
+<!-- JARVIS-DUTY:v2 -->
+Any session can end with a retro, whatever the work was — code, planning, design, a deploy,
+a report, research, or just reading the web. What decides is not the ACTIVITY but whether
+this session produced something CHECKABLE worth keeping: a number you measured, a bug class
+that earned a name, a decision that turned out wrong, a fact you had to verify, a gate that
+lied. If it did, write it BEFORE the session ends:
+`D:/JARVIS/raw/YYYY-MM-DD-retro-<slug>.md` — first person: what happened, what it cost,
 what you would do differently. New file only. Write the note and LEAVE — committing,
-logging and distillation belong to the next JARVIS session. If nothing was really run,
-do not manufacture a retro.
+logging and distillation belong to the next JARVIS session. Nothing checkable happened,
+no retro: a manufactured note poisons the evidence tier the wiki stands on.
 <!-- /JARVIS-DUTY -->
 
 Portfolio-typical triggers: `pnpm ci-check`, typecheck/lint/build/check-links with a

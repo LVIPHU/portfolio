@@ -1,4 +1,4 @@
-import { FelixHeroMark } from 'web-2025'
+import { FelixHeroMark } from '@portfolio/ui'
 
 // Wordmark blackletter (Cloister Black → SVG path). Rộng full-bleed theo thiết kế hero,
 // nên bọc trong khung có bề ngang cố định để card không bị tràn.

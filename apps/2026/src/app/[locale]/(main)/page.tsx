@@ -1,7 +1,7 @@
-import { ArrowRight, User } from 'lucide-react'
+import { ArrowRight, User } from '@portfolio/icons/lucide'
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { featuredProjects, getAllPosts, profile, resume, type Locale } from '@portfolio/content'
+import { featuredProjects, getAllPosts, profile, resume, skillNames, type Locale } from '@portfolio/content'
 import { Link } from '@portfolio/i18n/navigation'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { PillButtonLink } from '@/components/effects/pill-button'
@@ -111,7 +111,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: L
             <ListItem
               key={project.slug}
               title={project.name}
-              source={project.tech.join(' · ')}
+              source={skillNames(project.tech).join(' · ')}
               href={`/projects/${project.slug}`}
               index={i}
               visible

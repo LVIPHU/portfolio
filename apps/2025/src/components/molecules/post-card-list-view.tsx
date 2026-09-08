@@ -1,20 +1,12 @@
 'use client'
 
-import type { PostWithAuthor } from '@/utils/content'
+import { Avatar, AvatarFallback, AvatarImage, buttonVariants, Card, CardContent } from '@portfolio/ui'
+import { PostWithAuthor } from '@/utils/content'
 import { cn } from '@portfolio/utils'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  buttonVariants,
-  Card,
-  CardContent,
-  GrowingUnderline,
-  NavigationLink,
-} from '@/components/atoms'
+import { GrowingUnderline, NavigationLink } from '@/components/atoms'
 import { PostViews } from '@/components/atoms/post-views'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
-import { Clock, Eye } from 'lucide-react'
+import { Clock, Eye } from '@portfolio/icons/lucide'
 import { useTranslations } from 'next-intl'
 import NextImage from 'next/image'
 

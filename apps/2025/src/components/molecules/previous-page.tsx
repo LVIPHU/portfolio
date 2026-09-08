@@ -1,9 +1,9 @@
 'use client'
 
+import { Button, Separator } from '@portfolio/ui'
 import { useRouter } from '@portfolio/i18n/navigation'
 import { useTranslations } from 'next-intl'
-import { Button, Separator } from '@/components/atoms'
-import { MoveLeft } from 'lucide-react'
+import { MoveLeft } from '@portfolio/icons/lucide'
 import { cn } from '@portfolio/utils'
 
 export const PreviousPage = ({ className }: { className?: string }) => {

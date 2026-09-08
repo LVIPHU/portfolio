@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { projects, type Locale } from '@portfolio/content'
+import { projects, skillNames, type Locale } from '@portfolio/content'
 import { AppearTitle } from '@/components/effects/appear-title'
 import { t } from '@/utils/format'
 import { Link } from '@portfolio/i18n/navigation'
@@ -15,7 +15,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
   const { locale } = await params
   setRequestLocale(locale)
   const tP = await getTranslations('projects')
-  const sorted = [...projects].sort((a, b) => b.year - a.year)
+  const sorted = [...projects].filter((p) => !p.hidden).sort((a, b) => b.year - a.year)
 
   return (
     <div>
@@ -38,7 +38,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ local
               <span className='p-xs text-muted-foreground'>{project.year}</span>
             </div>
             <p className='p text-muted-foreground mt-3 max-w-2xl'>{t(project.description, locale)}</p>
-            <p className='p-xs text-muted-foreground mt-4'>{project.tech.join(' · ')}</p>
+            <p className='p-xs text-muted-foreground mt-4'>{skillNames(project.tech).join(' · ')}</p>
           </div>
         ))}
       </div>

@@ -11,7 +11,7 @@ import {
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-} from '@/components/atoms'
+} from '@portfolio/ui'
 import { useRouter } from '@portfolio/i18n/navigation'
 import { useMediaQuery } from '@portfolio/hooks'
 import { MEDIA } from '@/constants/breakpoints'

@@ -1,4 +1,12 @@
-import { Button, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from 'web-2025'
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@portfolio/ui'
 
 // Trạng thái MỞ (export đầu = primaryStory) — dialog xác nhận xóa bài viết.
 export const DeletePostConfirm = () => (

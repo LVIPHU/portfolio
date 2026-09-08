@@ -2,6 +2,7 @@
 @import 'tw-animate-css';
 @source '../../../../packages/mdx/src';
 @source '../../../../packages/ui/src';
+@source '../../../../packages/icons/src';
 @import './_prose.css';
 @plugin "@tailwindcss/typography";
 @import './_theme.css';

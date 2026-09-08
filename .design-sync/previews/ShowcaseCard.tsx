@@ -1,4 +1,4 @@
-import { ShowcaseCard } from 'web-2025'
+import { ShowcaseCard } from '@portfolio/ui'
 
 // Thẻ vuông đánh số của rail kỹ năng ngang trên /about.
 const row: React.CSSProperties = { display: 'flex', gap: 16, flexWrap: 'wrap' }

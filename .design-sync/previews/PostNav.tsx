@@ -1,4 +1,4 @@
-import { PostNav } from 'web-2025'
+import { PostNav } from '@portfolio/ui'
 
 // Điều hướng cuối bài viết: bài trước bên trái, bài sau bên phải.
 // Component xếp cột dưới md: (iframe card trong pane hẹp hơn 768px) → glue CSS

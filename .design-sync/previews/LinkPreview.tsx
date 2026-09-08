@@ -1,5 +1,5 @@
 import React from 'react'
-import { LinkPreview } from 'web-2025'
+import { LinkPreview } from '@portfolio/ui'
 
 // isStatic + imageSrc (data-URI) → KHÔNG fetch api.microlink.io.
 // Ảnh preview giả lập screenshot trang: header bar + các khối text.

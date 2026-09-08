@@ -1,4 +1,4 @@
-import { SocialShare } from 'web-2025'
+import { SocialShare } from '@portfolio/ui'
 
 // Nút Share mở DropdownMenu (copy link / X / LinkedIn / Facebook / Discuss on X
 // / Edit on GitHub). Render trạng thái ĐÓNG theo khuyến nghị review; guard chống

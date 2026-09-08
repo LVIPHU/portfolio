@@ -1,21 +1,19 @@
 'use client'
 
 import {
-  Reveal,
   Avatar,
   AvatarFallback,
   AvatarImage,
   Button,
-  Container,
-  LinkPreview,
-  NavigationLink,
   Separator,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/atoms'
-import { Github, Linkedin } from '@/utils'
+} from '@portfolio/ui'
+import { Reveal } from '@portfolio/ui/motion'
+import { Container, LinkPreview, NavigationLink } from '@/components/atoms'
+import { Github, Linkedin } from '@portfolio/icons'
 import { Experience, Header, Technologies } from '@/components/organisms'
 import { useTranslations } from 'next-intl'
 import { SITE_METADATA_2025 as SITE_METADATA } from '@portfolio/content/data2025'
@@ -88,7 +86,7 @@ export const AboutTemplate = () => {
           <span>
             {t.rich('About.currentlyIAmWorking', {
               company: (chunks) => (
-                <LinkPreview url='https://pvssolution.com' className='font-semibold'>
+                <LinkPreview url='https://foundation.tb.ink' className='font-semibold'>
                   {chunks}
                 </LinkPreview>
               ),

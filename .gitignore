@@ -20,10 +20,9 @@ ds-bundle/
 .design-sync/.cache/
 .design-sync/learnings/
 .design-sync/node_modules
-apps/2025/.design-sync.entry.tsx
 apps/2025/.ds-css/
-apps/2026/.design-sync.entry.tsx
 apps/2026/.ds-css/
+packages/ui/.ds-css/
 ds-bundle-2026/
 
 # responsive screenshot dumps (pnpm shots)

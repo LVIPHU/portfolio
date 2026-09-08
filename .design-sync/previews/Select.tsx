@@ -7,7 +7,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from 'web-2025'
+} from '@portfolio/ui'
 
 // Trạng thái MỞ (export đầu = primaryStory): open + value controlled tĩnh.
 export const OpenLanguagePicker = () => (

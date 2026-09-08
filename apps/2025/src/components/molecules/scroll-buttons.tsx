@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronsUp, MessageSquareText } from 'lucide-react'
+import { ChevronsUp, MessageSquareText } from '@portfolio/icons/lucide'
 import { useEffect, useState } from 'react'
 import { cn } from '@portfolio/utils'
 
@@ -42,7 +42,7 @@ function ScrollButton({
 }: {
   onClick: () => void
   ariaLabel: string
-  icon: React.FC<React.SVGProps<SVGSVGElement>>
+  icon: React.ComponentType<{ className?: string }>
 }) {
   return (
     <button

@@ -1,4 +1,4 @@
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from 'web-2025'
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from '@portfolio/ui'
 
 // Trạng thái MỞ (export đầu = primaryStory) — tooltip trên nút lưu bài viết.
 // TooltipProvider đã là provider toàn cục của preview harness.

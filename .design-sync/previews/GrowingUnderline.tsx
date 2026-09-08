@@ -1,4 +1,4 @@
-import { GrowingUnderline, NavigationLink } from 'web-2025'
+import { GrowingUnderline, NavigationLink } from '@portfolio/ui'
 
 // GrowingUnderline = highlight gradient amber mọc từ dưới lên khi hover.
 // active => bg-[length:100%_50%]: hiện sẵn nửa dưới (chụp tĩnh được);
